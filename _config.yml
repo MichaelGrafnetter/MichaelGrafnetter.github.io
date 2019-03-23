@@ -1,2 +1,11 @@
 theme: jekyll-theme-modernist
 title: Directory Services Internals
+
+plugins:
+ - jekyll-redirect-from
+
+exclude:
+  - '.git/'
+  - '.vs/'
+  - '*.TMP'
+  - '*.sh'

@@ -1,33 +1,44 @@
-<!doctype html>
-<html lang="{{ site.lang | default: "en-US" }}">
-  <head>
+﻿<!doctype html>
+<html lang="{{ page.lang | default: "en-US" }}">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-{% seo %}
-
+    {% seo %}
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
+</head>
+<body>
     <div class="wrapper">
-      <header class="without-description">
-        <h1>{{ site.title }}</h1>
-      </header>
-      <section>
+        <header class="without-description">
+            <h1>{{ site.title }}</h1>
+        </header>
+        <ul>
+            {% assign menurefs = "blog, videos, downloads, about" | split: ", " %}
+            {% for menuref in menurefs %}
+            {% assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
+            <li>
+                <a href="{{ menuitem.url }}">{{ menuitem.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <section>
 
-      {{ content }}
+            {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' %}
+            {% for translation in translations %}
+            <a href="{{ translation.url }}" class="{{ translation.lang }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang }}" /></a>
+            {% endfor %}
 
-      </section>
+            {{ content }}
+        </section>
     </div>
     <footer>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+        <p>Copyright © Michael Grafnetter, 2015-2019 &mdash; Hosted on GitHub Pages</p>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-  </body>
+</body>
 </html>

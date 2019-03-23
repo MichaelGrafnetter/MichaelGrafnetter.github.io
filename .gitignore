@@ -1,0 +1,6 @@
+﻿# Visual Studio
+/.vs
+
+# Jekyll
+/_site
+/Gemfile.lock
