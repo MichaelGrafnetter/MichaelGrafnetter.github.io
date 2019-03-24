@@ -47,7 +47,7 @@ layout: null
             {%- endfor %}
             {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' -%}
             {%- for translation in translations -%}
-            <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang | upcase }}" title="{{ translation.title }}" /></a>
+            <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}"><i class="fas fa-globe"></i>{{ translation.lang | upcase }}</a>
             {%- endfor %}
         </nav>
         <main>
