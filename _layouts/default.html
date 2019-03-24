@@ -9,11 +9,11 @@
     <!-- Translations TODO -->
     {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
     {% for post in posts %}
-    <link rel="alternate" hreflang="{{ post.lang }}" href="{{ post.url }}" />
+    <link rel="alternate" hreflang="{{ post.lang }}" href="{{ site.url }}{{ post.url }}" />
     {% endfor %}
     {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
     {% for page in pages %}
-    <link rel="alternate" hreflang="{{ page.lang }}" href="{{ page.url }}" />
+    <link rel="alternate" hreflang="{{ page.lang }}" href="{{ site.url }}{{ page.url }}" />
     {% endfor %}
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
