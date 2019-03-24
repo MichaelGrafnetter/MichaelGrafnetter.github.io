@@ -3,84 +3,75 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {% seo %}
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    <link rel="shortcut icon" type="image/png" href="/favicon.png">
-    <!-- Translations TODO -->
-    {% assign posts=site.posts | where:"ref", page.ref | sort: 'lang' %}
-    {% for post in posts %}
-    <link rel="alternate" hreflang="{{ post.lang }}" href="{{ site.url }}{{ post.url }}" />
-    {% endfor %}
-    {% assign pages=site.pages | where:"ref", page.ref | sort: 'lang' %}
-    {% for page in pages %}
-    <link rel="alternate" hreflang="{{ page.lang }}" href="{{ site.url }}{{ page.url }}" />
-    {% endfor %}
-    <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    {%- assign translations = site.pages | concat: site.posts | where: "ref", page.ref | sort: 'lang' -%}
+    {% for translation in translations %}
+    <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}" />
+    {%- endfor %}
+    <link rel="alternate" type="application/atom+xml" href="{{ page.lang | append: "/feed/" | absolute_url }}" title="Directory Services Internals ({{ page.lang | upcase }})" />
+    <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    {% seo -%}
 </head>
 <body>
     <div class="wrapper">
         <header class="without-description">
             <h1>{{ site.title }}</h1>
-            
-            {% include date.html date=page.date %}
-
+            {%- include date.html date=page.date -%}
         </header>
-        <ul>
-            {% assign menurefs = "blog, videos, downloads, about" | split: ", " %}
-            {% for menuref in menurefs %}
-            {% assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
+        <nav>
+            {%- assign menurefs = "blog, videos, downloads, about" | split: ", " -%}
+            {%- for menuref in menurefs -%}
+            {%- assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
+            {% if menuitem.url == page.url -%}
+            <strong>
+                {%- endif -%}
+                <a href="{{ menuitem.url }}">{{ menuitem.title | upcase }}</a>
+                {%- if menuitem.url == page.url -%}
+            </strong>
+            {%- endif %}
+            {%- endfor %}
+            {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' -%}
+            {%- for translation in translations -%}
+            <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}" class="{{ translation.lang }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang | upcase }}" title="{{ translation.title }}" /></a>
+            {%- endfor %}
+        </nav>
+        <main>
+            <section>
+                {{ content }}
 
-            <li>
-                {% if menuitem.url == page.url %}
-                <strong>
-                    {% endif %}
-                    <a href="{{ menuitem.url }}">{{ menuitem.title }}</a>
-                    {% if menuitem.url == page.url %}
-                </strong>
+                <!-- Prev/Next TODO -->
+                {% for post in site.posts %}
+                {% if post.lang == page.lang %}
+                {% if prev %}
+                <a href="{{ post.url }}">Previous</a>
                 {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-        <section>
+                {% assign prev = false %}
+                {% if post.id == page.id %}
+                {% assign prev = true %}
+                {% endif %}
+                {% endif %}
+                {% endfor %}
 
-            {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' %}
-            {% for translation in translations %}
-            <a href="{{ translation.url }}" class="{{ translation.lang }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang }}" title="{{ translation.title }}" /></a>
-            {% endfor %}
+                {% for post in site.posts reversed %}
+                {% if post.lang == page.lang %}
+                {% if next %}
+                <a href="{{ post.url }}">Next</a>
+                {% break %}
+                {% endif %}
+                {% assign next = false %}
+                {% if post.id == page.id %}
+                {% assign next = true %}
+                {% endif %}
+                {% endif %}
+                {% endfor %}
 
-            {{ content }}
-
-            <!-- Prev/Next TODO -->
-            {% for post in site.posts %}
-            {% if post.lang == page.lang %}
-            {% if prev %}
-            <a href="{{ post.url }}">Previous</a>
-            {% endif %}
-            {% assign prev = false %}
-            {% if post.id == page.id %}
-            {% assign prev = true %}
-            {% endif %}
-            {% endif %}
-            {% endfor %}
-
-            {% for post in site.posts reversed %}
-            {% if post.lang == page.lang %}
-            {% if next %}
-            <a href="{{ post.url }}">Next</a>
-            {% break %}
-            {% endif %}
-            {% assign next = false %}
-            {% if post.id == page.id %}
-            {% assign next = true %}
-            {% endif %}
-            {% endif %}
-            {% endfor %}
-
-        </section>
+            </section>
+        </main>
     </div>
     <footer>
         <p>Copyright © Michael Grafnetter, 2015-2019 &mdash; Hosted on GitHub Pages</p>
