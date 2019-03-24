@@ -3,7 +3,7 @@ title: Directory Services Internals
 logo: /favicon.png
 
 author:
-  name: &author_name Michael Grafnetter
+  name: &author_name "Michael Grafnetter"
   twitter: &twitter_handle "MGrafnetter"
   github: MichaelGrafnetter
 
@@ -17,6 +17,8 @@ social:
     - https://twitter.com/MGrafnetter
     - https://www.linkedin.com/in/grafnetter
     - https://github.com/MichaelGrafnetter
+
+google_site_verification: DrNJpqz9Fl4sLlwL6coniSeHoQjmo9OuetqP7lry6zI
 
 plugins:
  - jekyll-redirect-from
