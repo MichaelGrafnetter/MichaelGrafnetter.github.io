@@ -21,8 +21,15 @@
             {% assign menurefs = "blog, videos, downloads, about" | split: ", " %}
             {% for menuref in menurefs %}
             {% assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
+
             <li>
-                <a href="{{ menuitem.url }}">{{ menuitem.title }}</a>
+                {% if menuitem.url == page.url %}
+                <strong>
+                    {% endif %}
+                    <a href="{{ menuitem.url }}">{{ menuitem.title }}</a>
+                    {% if menuitem.url == page.url %}
+                </strong>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
@@ -30,7 +37,7 @@
 
             {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' %}
             {% for translation in translations %}
-            <a href="{{ translation.url }}" class="{{ translation.lang }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang }}" /></a>
+            <a href="{{ translation.url }}" class="{{ translation.lang }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang }}" title="{{ translation.title }}" /></a>
             {% endfor %}
 
             {{ content }}
