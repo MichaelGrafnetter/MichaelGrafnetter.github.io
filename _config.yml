@@ -6,6 +6,7 @@ author:
   name: &author_name "Michael Grafnetter"
   twitter: &twitter_handle "MGrafnetter"
   github: MichaelGrafnetter
+  linkedin: grafnetter
 
 twitter:
   username: *twitter_handle

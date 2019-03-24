@@ -12,16 +12,20 @@ layout: null
     <link rel="icon" href="{{ site.logo | absolute_url }}" />
     <link rel="apple-touch-icon-precomposed" href="{{ site.logo | absolute_url }}" />
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     {%- assign translations = site.pages | concat: site.posts | where: "ref", page.ref | sort: 'lang' -%}
     {% for translation in translations %}
     <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}" />
     {%- endfor %}
-    <link rel="alternate" type="application/atom+xml" href="{{ page.lang | append: "/feed/" | absolute_url }}" title="{{ site.title }} ({{ page.lang | upcase }})" />
+    {%- assign feed_uri = page.lang | append: "/feed/" | absolute_url -%}
+    <link rel="alternate" type="application/atom+xml" href="{{ feed_uri }}" title="{{ site.title }} ({{ page.lang | upcase }})" />
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
     <!--
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description[page.lang] }}{% endif %}">
     -->
     {% seo -%}
+
+    s:
     <link rel="me" href="https://twitter.com/{{ site.author.twitter }}" />
 </head>
 <body>
@@ -36,7 +40,7 @@ layout: null
             {% if menuitem.url == page.url -%}
             <strong>
                 {%- endif -%}
-                <a href="{{ menuitem.url }}">{{ menuitem.title | upcase }}</a>
+                <a href="{{ menuitem.url }}"><i class="fas fa-home"></i><i class="fas fa-user"></i><i class="fas fa-video"></i><i class="fas fa-download"></i>{{ menuitem.title | upcase }}</a>
                 {%- if menuitem.url == page.url -%}
             </strong>
             {%- endif %}
@@ -82,21 +86,12 @@ layout: null
     </div>
     <footer>
         <p>Copyright © {{ site.author.name }}, 2015-2019 &mdash; Hosted on GitHub Pages</p>
-        <div class="footer-col footer-col-2">
-            <ul class="social-media-list">
-                {% if site.author.github %}
-                <li>
-                    <a href="https://github.com/{{ site.author.github }}"><span class="icon icon--github">{% include icon-github.svg %}</span><span class="username">{{ site.author.github }}</span></a>
-                </li>
-                {% endif %}
-
-                {% if site.author.twitter %}
-                <li>
-                    <a href="https://twitter.com/{{ site.author.twitter }}"><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><span class="username">{{ site.author.twitter }}</span></a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
+        <ul>
+            <li><a href="https://github.com/{{ site.author.github }}"><i class="fab fa-github"></i></a></li>
+            <li><a href="https://twitter.com/{{ site.author.twitter }}"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="https://linkedin.com/in/{{ site.author.linkedin }}"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="{{ feed_uri }}"><i class="fas fa-rss"></i></a></li>
+        </ul>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 </body>
