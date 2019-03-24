@@ -1,31 +1,29 @@
 theme: jekyll-theme-modernist
 title: Directory Services Internals
 author:
-  name: Michael Grafnetter
-  twitter: MGrafnetter
+  name: &author_name Michael Grafnetter
+  twitter: &twitter_handle "MGrafnetter"
+  github: MichaelGrafnetter
 
 logo: /favicon.png
 
 twitter:
-  username: MGrafnetter
+  username: *twitter_handle
   card: summary
 
 social:
-  name: Michael Grafnetter
+  name: *author_name
   links:
     - https://twitter.com/MGrafnetter
     - https://www.linkedin.com/in/grafnetter
     - https://github.com/MichaelGrafnetter
-
-feed:
-  en: /feed_en.xml
-  sk: /feed_sk.xml
 
 plugins:
  - jekyll-redirect-from
  - jekyll-seo-tag
 
 exclude:
+  - 'Gemfile'
   - '.git/'
   - '.vs/'
   - '*.TMP'

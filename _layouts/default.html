@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿---
+layout: null
+---
+<!doctype html>
 <html lang="{{ page.lang | default: "en-US" }}">
 <head>
     <meta charset="utf-8">
@@ -10,18 +13,17 @@
     {% for translation in translations %}
     <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}" />
     {%- endfor %}
-    <link rel="alternate" type="application/atom+xml" href="{{ page.lang | append: "/feed/" | absolute_url }}" title="Directory Services Internals ({{ page.lang | upcase }})" />
+    <link rel="alternate" type="application/atom+xml" href="{{ page.lang | append: "/feed/" | absolute_url }}" title="{{ site.title }} ({{ page.lang | upcase }})" />
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <!--
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description[page.lang] }}{% endif %}">
+    -->
     {% seo -%}
 </head>
 <body>
     <div class="wrapper">
         <header class="without-description">
-            <h1>{{ site.title }}</h1>
-            {%- include date.html date=page.date -%}
+            <a href="{{ page.lang | absolute_url }}"><h1>{{ site.title }}</h1></a>
         </header>
         <nav>
             {%- assign menurefs = "blog, videos, downloads, about" | split: ", " -%}
@@ -42,6 +44,7 @@
         </nav>
         <main>
             <section>
+                {%- include date.html date=page.date -%}
                 {{ content }}
 
                 <!-- Prev/Next TODO -->
@@ -75,6 +78,21 @@
     </div>
     <footer>
         <p>Copyright © Michael Grafnetter, 2015-2019 &mdash; Hosted on GitHub Pages</p>
+        <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+                {% if site.author.github %}
+                <li>
+                    <a href="https://github.com/{{ site.author.github }}"><span class="icon icon--github">{% include icon-github.svg %}</span><span class="username">{{ site.author.github }}</span></a>
+                </li>
+                {% endif %}
+
+                {% if site.author.twitter %}
+                <li>
+                    <a href="https://twitter.com/{{ site.author.twitter }}"><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><span class="username">{{ site.author.twitter }}</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 </body>
