@@ -1,5 +1,11 @@
 theme: jekyll-theme-modernist
 title: Directory Services Internals
+twitter_username: MGrafnetter
+github_username: MichaelGrafnetter
+
+feed:
+  en: /feed_en.xml
+  sk: /feed_sk.xml
 
 plugins:
  - jekyll-redirect-from
