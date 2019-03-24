@@ -4,11 +4,14 @@ layout: null
 <!doctype html>
 <html lang="{{ page.lang | default: "en-US" }}">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="shortcut icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="msapplication-TileImage" content="{{ site.logo | absolute_url }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ site.logo | absolute_url }}" />
+    <link rel="icon" href="{{ site.logo | absolute_url }}" />
+    <link rel="apple-touch-icon-precomposed" href="{{ site.logo | absolute_url }}" />
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" />
     {%- assign translations = site.pages | concat: site.posts | where: "ref", page.ref | sort: 'lang' -%}
     {% for translation in translations %}
     <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}" />
@@ -19,6 +22,7 @@ layout: null
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description[page.lang] }}{% endif %}">
     -->
     {% seo -%}
+    <link rel="me" href="https://twitter.com/{{ site.author.twitter }}" />
 </head>
 <body>
     <div class="wrapper">
@@ -39,7 +43,7 @@ layout: null
             {%- endfor %}
             {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' -%}
             {%- for translation in translations -%}
-            <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}" class="{{ translation.lang }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang | upcase }}" title="{{ translation.title }}" /></a>
+            <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}"><img src="/assets/images/{{ translation.lang }}.png" alt="{{ translation.lang | upcase }}" title="{{ translation.title }}" /></a>
             {%- endfor %}
         </nav>
         <main>
@@ -77,7 +81,7 @@ layout: null
         </main>
     </div>
     <footer>
-        <p>Copyright © Michael Grafnetter, 2015-2019 &mdash; Hosted on GitHub Pages</p>
+        <p>Copyright © {{ site.author.name }}, 2015-2019 &mdash; Hosted on GitHub Pages</p>
         <div class="footer-col footer-col-2">
             <ul class="social-media-list">
                 {% if site.author.github %}

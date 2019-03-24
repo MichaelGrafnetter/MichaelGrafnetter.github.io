@@ -1,11 +1,11 @@
 theme: jekyll-theme-modernist
 title: Directory Services Internals
+logo: /favicon.png
+
 author:
   name: &author_name Michael Grafnetter
   twitter: &twitter_handle "MGrafnetter"
   github: MichaelGrafnetter
-
-logo: /favicon.png
 
 twitter:
   username: *twitter_handle
