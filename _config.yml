@@ -1,6 +1,7 @@
 theme: jekyll-theme-modernist
 title: Directory Services Internals
 logo: /favicon.png
+excerpt_separator: <!--more-->
 
 author:
   name: &author_name "Michael Grafnetter"
