@@ -10,7 +10,7 @@ layout: default
         {{ content }}
     </div>
 </article>
-<!-- Prev/Next TODO -->
+{%- comment -%}Prev/Next TODO{%- endcomment -%}
 {% for post in site.posts %}
     {% if post.lang == page.lang %}
         {% if prev %}

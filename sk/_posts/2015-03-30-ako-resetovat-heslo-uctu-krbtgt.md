@@ -1,5 +1,5 @@
 ---
-id: 2291
+ref: 2291
 title: Ako resetovať heslo účtu krbtgt
 date: 2015-03-30T15:51:33+00:00
 layout: post

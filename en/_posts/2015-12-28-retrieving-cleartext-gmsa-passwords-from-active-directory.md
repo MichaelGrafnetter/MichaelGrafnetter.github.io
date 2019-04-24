@@ -1,5 +1,5 @@
 ---
-id: 6741
+ref: retrieving-cleartext-gmsa-passwords
 title: 'Retrieving Cleartext GMSA Passwords from&nbsp;Active Directory'
 date: 2015-12-28T14:09:53+00:00
 layout: post

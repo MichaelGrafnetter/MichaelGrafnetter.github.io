@@ -1,5 +1,5 @@
 ---
-id: 6321
+ref: dpapi-backup-keys
 title: 'Získanie záložných kľúčov DPAPI z&nbsp;Active Directory'
 date: 2015-10-26T23:07:58+00:00
 layout: post

@@ -1,5 +1,5 @@
 ---
-id: 5201
+ref: how-azure-active-directory-connect-syncs-passwords
 title: How Azure Active Directory Connect Syncs Passwords
 date: 2015-10-18T12:28:41+00:00
 layout: post

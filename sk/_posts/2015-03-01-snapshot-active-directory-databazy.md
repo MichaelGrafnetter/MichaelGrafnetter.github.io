@@ -1,5 +1,5 @@
 ---
-id: 1071
+ref: 1071
 title: 'Ako na&nbsp;snapshoty Active Directory databázy'
 date: 2015-03-01T23:22:03+00:00
 layout: post

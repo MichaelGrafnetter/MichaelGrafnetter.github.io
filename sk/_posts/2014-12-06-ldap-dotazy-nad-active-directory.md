@@ -1,5 +1,5 @@
 ---
-id: 311
+ref: 311
 title: 'Video: LDAP dotazy nad Active Directory'
 date: 2014-12-06T17:50:54+00:00
 layout: post

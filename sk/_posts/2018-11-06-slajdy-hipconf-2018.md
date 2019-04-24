@@ -1,5 +1,5 @@
 ---
-id: 9627
+ref: hipconf-2018-slides
 title: Slajdy HipConf 2018
 date: 2018-11-06T12:54:14+00:00
 layout: post

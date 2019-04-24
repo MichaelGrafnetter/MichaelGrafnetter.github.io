@@ -1,5 +1,5 @@
 ---
-id: 4441
+ref: dumping-ntds-dit-files
 title: 'Vykrádanie hesiel zo zálohy Active&nbsp;Directory'
 date: 2015-08-15T21:29:37+00:00
 layout: post

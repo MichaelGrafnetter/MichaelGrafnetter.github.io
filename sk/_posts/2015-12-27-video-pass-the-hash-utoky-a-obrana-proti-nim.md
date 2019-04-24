@@ -1,5 +1,5 @@
 ---
-id: 6621
+ref: 6621
 title: 'Video: Pass the&nbsp;Hash útoky a&nbsp;obrana proti nim'
 date: 2015-12-27T23:24:21+00:00
 layout: post

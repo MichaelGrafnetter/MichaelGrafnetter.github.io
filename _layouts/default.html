@@ -17,48 +17,50 @@ layout: null
     {% for translation in translations %}
     <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}" />
     {%- endfor %}
-    {%- assign feed_uri = page.lang | append: "/feed/" | absolute_url -%}
+    {%- assign feed_uri = page.lang | append: "/feed/" | absolute_url %}
     <link rel="alternate" type="application/atom+xml" href="{{ feed_uri }}" title="{{ site.title }} ({{ page.lang | upcase }})" />
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
-    <!--
-    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description[page.lang] }}{% endif %}">
-    -->
-    {% seo -%}
     <link rel="me" href="https://twitter.com/{{ site.author.twitter }}" />
+    {%- comment %}
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description[page.lang] }}{% endif %}">
+    {%- endcomment %}
+    {% seo -%}
 </head>
 <body>
-    <div class="wrapper">
-        <header class="without-description">
-            <a href="{{ page.lang | absolute_url }}"><h1>{{ site.title }}</h1></a>
-            <i class="fas fa-minus"></i>
-            <i class="far fa-square"></i>
+    <header class="root">
+        <p>
+            DSInternals
             <i class="fas fa-times"></i>
-        </header>
-        <nav>
-            <!-- Menu Items -->
-            {%- assign menurefs = "blog, videos, downloads, about" | split: ", " -%}
-            {%- for menuref in menurefs -%}
-            {%- assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
-            {% if menuitem.url == page.url -%}
-            <strong>
-                {%- endif -%}
-                <a href="{{ menuitem.url }}"><i class="{{ menuitem.fa_class }}"></i> {{ menuitem.title | upcase }}</a>
-                {%- if menuitem.url == page.url -%}
-            </strong>
-            {%- endif %}
-            {%- endfor %}
-            <!-- Lamguage Link -->
-            {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' -%}
-            {%- for translation in translations -%}
-            <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}"><i class="fas fa-globe"></i>{{ translation.lang | upcase }}</a>
-            {%- endfor %}
-        </nav>
-        <main>
-            <section>
-                {{ content }}
-            </section>
-        </main>
-    </div>
+            <i class="far fa-square"></i>
+            <i class="fas fa-minus"></i>
+        </p>
+        <h1><a href="{{ page.lang | absolute_url }}">{{ site.title }}</a></h1>
+        
+    </header>
+    <nav>
+        <!-- Menu Items -->
+        {%- assign menurefs = "blog, videos, downloads, about" | split: ", " -%}
+        {%- for menuref in menurefs -%}
+        {%- assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
+        {%- if menuitem.url == page.url -%}
+        <strong>
+            {%- endif -%}
+            <a href="{{ menuitem.url }}"><i class="{{ menuitem.fa_class }}"></i> {{ menuitem.title | upcase }}</a>
+            {%- if menuitem.url == page.url -%}
+        </strong>
+        {%- endif %}
+        {%- endfor %}
+        <!-- Language Link -->
+        {% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang != page.lang" | sort: 'lang' -%}
+        {%- for translation in translations -%}
+        <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}"><i class="fas fa-globe"></i>{{ translation.lang | upcase }}</a>
+        {%- endfor %}
+    </nav>
+    <main>
+        <section>
+            {{ content }}
+        </section>
+    </main>
     <footer>
         <p>Copyright © {{ site.author.name }}, 2015-2019 &mdash; Hosted on GitHub Pages</p>
         <ul>

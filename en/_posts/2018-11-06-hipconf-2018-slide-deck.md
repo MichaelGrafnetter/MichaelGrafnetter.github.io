@@ -1,4 +1,5 @@
 ---
+ref: hipconf-2018-slides
 title: HipConf 2018 Slide Deck
 date: 2018-11-06T12:49:16+00:00
 layout: post

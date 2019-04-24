@@ -1,5 +1,5 @@
 ---
-id: 641
+ref: how-azure-active-directory-connect-syncs-passwords
 title: 'Ako funguje synchronizácia hesiel z&nbsp;on-premise AD do&nbsp;Azure AD'
 date: 2015-01-20T12:01:37+00:00
 layout: post

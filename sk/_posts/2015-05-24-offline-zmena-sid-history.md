@@ -1,5 +1,5 @@
 ---
-id: 2481
+ref: 2481
 title: Offline zmena SID History
 date: 2015-05-24T12:53:15+00:00
 layout: post

@@ -1,5 +1,5 @@
 ---
-id: 1471
+ref: 1471
 title: 'Video: Ako narába Active Directory s&nbsp;Vaším heslom'
 date: 2015-02-28T12:05:44+00:00
 layout: post

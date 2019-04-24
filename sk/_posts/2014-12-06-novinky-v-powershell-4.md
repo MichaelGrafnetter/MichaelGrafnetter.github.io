@@ -1,5 +1,5 @@
 ---
-id: 331
+ref: 331
 title: 'Video: Novinky v&nbsp;PowerShell 4'
 date: 2014-12-06T17:27:41+00:00
 layout: post

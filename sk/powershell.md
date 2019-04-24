@@ -1,10 +1,9 @@
 ---
-id: 9063
+ref: powershell-security
 title: PowerShell Security
 date: 2017-09-17T11:06:03+00:00
-author: Michael Grafnetter
 layout: page
-guid: https://www.dsinternals.com/?page_id=9063
+permalink: /sk/powershell/
 ---
 &nbsp;
 

@@ -1,4 +1,5 @@
 ---
+ref: auditing-active-directory-password-quality
 title: Auditing Active Directory Password Quality
 date: 2016-08-07T13:15:43+00:00
 layout: post

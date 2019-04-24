@@ -1,5 +1,5 @@
 ---
-id: 8511
+ref: finding-weak-active-directory-passwords
 title: 'Auditovanie slabých hesiel v&nbsp;Active Directory'
 date: 2017-01-11T22:21:00+00:00
 layout: post

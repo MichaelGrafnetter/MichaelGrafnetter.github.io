@@ -1,5 +1,5 @@
 ---
-id: 4161
+ref: retrieving-active-directory-passwords-remotely
 title: 'Vykrádanie hesiel z&nbsp;Active Directory na&nbsp;diaľku'
 date: 2015-08-03T20:35:52+00:00
 layout: post

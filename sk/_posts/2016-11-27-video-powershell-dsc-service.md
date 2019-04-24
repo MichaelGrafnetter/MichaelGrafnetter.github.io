@@ -1,5 +1,5 @@
 ---
-id: 8281
+ref: 8281
 title: 'Video: Konfigurujeme PowerShell Desired State Configuration server'
 date: 2016-11-27T10:45:02+00:00
 layout: post

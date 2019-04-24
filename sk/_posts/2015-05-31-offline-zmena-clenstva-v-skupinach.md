@@ -1,5 +1,5 @@
 ---
-id: 2821
+ref: 2821
 title: 'Offline zmena členstva v&nbsp;skupinách'
 date: 2015-05-31T13:55:51+00:00
 layout: post
