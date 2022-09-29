@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 9694
 title: 'Slajdy: Bezheslová autentifikácia v&nbsp;Azure Active Directory'
 date: '2020-04-04T20:37:40+00:00'

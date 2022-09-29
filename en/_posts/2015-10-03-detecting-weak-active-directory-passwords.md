@@ -11,4 +11,4 @@ tags:
     - Security
 ---
 
-There is a new tool available for auditing Active Directory passwords, the [Get-bADPasswords cmdlet](http://flemmingriis.com/get-badpasswords/). It has been created by [Jakob Heidelberg](https://twitter.com/JakobHeidelberg/) and it is built upon the features of the [DSInternals module](https://www.dsinternals.com/en/downloads/).
+There is a new tool available for&nbsp;auditing Active Directory passwords, the&nbsp;[Get-bADPasswords cmdlet](http://flemmingriis.com/get-badpasswords/). It&nbsp;has been created by&nbsp;[Jakob Heidelberg](https://twitter.com/JakobHeidelberg/) and&nbsp;it&nbsp;is&nbsp;built upon the features of&nbsp;&nbsp;[DSInternals module](https://www.dsinternals.com/en/downloads/).

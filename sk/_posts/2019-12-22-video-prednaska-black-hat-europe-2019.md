@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 9675
 title: 'Video: Moja prednáška na&nbsp;Black Hat Europe 2019'
 date: '2019-12-22T11:36:26+00:00'

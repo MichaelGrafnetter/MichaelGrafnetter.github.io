@@ -6,6 +6,7 @@ layout: post
 lang: en
 permalink: /en/hipconf-2018-slide-deck/
 ---
-My [HipConf 2018](https://www.hipconf.com) slide deck about _Offline Attacks on Active Directory_ is&nbsp;[available for&nbsp;download](https://www.dsinternals.com/wp-content/uploads/HIP_AD_Offline_Attacks.pdf).
 
-The&nbsp;_Restore From&nbsp;Media_ stuff will be published in&nbsp;the&nbsp;upcoming [DSInternals](https://github.com/MichaelGrafnetter/DSInternals/releases) 3.1 release.
+My [HipConf 2018](https://www.hipconf.com) slide deck about *Offline Attacks on Active Directory* is [available for download](/wp-content/uploads/HIP_AD_Offline_Attacks.pdf).
+
+The *Restore From Media* stuff will be published in the upcoming [DSInternals](https://github.com/MichaelGrafnetter/DSInternals/releases) 3.1 release.

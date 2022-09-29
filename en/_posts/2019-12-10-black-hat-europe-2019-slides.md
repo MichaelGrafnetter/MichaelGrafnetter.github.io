@@ -11,7 +11,7 @@ tags:
     - Security
 ---
 
-[![Michael at Black Hat](https://www.dsinternals.com/wp-content/uploads/Briefieng-Michael_-4-300x200.jpg)](https://www.dsinternals.com/wp-content/uploads/Briefieng-Michael_-4.jpg)
+![Michael at Black Hat](/wp-content/uploads/Briefieng-Michael_-4.jpg)
 
-- [Briefings: Exploiting Windows Hello for Business](https://www.dsinternals.com/wp-content/uploads/eu-19-Grafnetter-Exploiting-Windows-Hello-for-Business.pdf)
-- [Arsenal: DSInternals PowerShell Module](https://www.dsinternals.com/wp-content/uploads/eu-19-Grafnetter-DSInternals-PowerShell-Module.pdf)
+- [Briefings: Exploiting Windows Hello for Business](/wp-content/uploads/eu-19-Grafnetter-Exploiting-Windows-Hello-for-Business.pdf)
+- [Arsenal: DSInternals PowerShell Module](/wp-content/uploads/eu-19-Grafnetter-DSInternals-PowerShell-Module.pdf)

