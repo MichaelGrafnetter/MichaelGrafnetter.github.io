@@ -1,5 +1,6 @@
-# theme: jekyll-theme-modernist
-title: Directory Services Internals
+remote_theme: pages-themes/leap-day@v0.2.0
+title: DSInternals
+description: Directory Services Internals
 logo: /favicon.png
 excerpt_separator: <!--more-->
 
@@ -25,6 +26,7 @@ google_site_verification: DrNJpqz9Fl4sLlwL6coniSeHoQjmo9OuetqP7lry6zI
 plugins:
  - jekyll-redirect-from
  - jekyll-seo-tag
+ - jekyll-remote-theme
 
 exclude:
   - 'Gemfile'
