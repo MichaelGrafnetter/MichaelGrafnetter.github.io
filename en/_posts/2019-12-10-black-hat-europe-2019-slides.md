@@ -1,13 +1,10 @@
 ---
-id: 9661
+ref: 9661
 title: 'Black Hat Europe 2019 Slides'
 date: '2019-12-10T17:34:38+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9661'
+lang: en
 permalink: /en/black-hat-europe-2019-slides/
-categories:
-    - Uncategorized
 tags:
     - 'Active Directory'
     - PowerShell

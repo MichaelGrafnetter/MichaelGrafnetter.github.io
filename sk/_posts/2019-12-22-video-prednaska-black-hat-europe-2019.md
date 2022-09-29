@@ -1,13 +1,10 @@
----
-id: 9675
+﻿---
+ref: 9675
 title: 'Video: Moja prednáška na&nbsp;Black Hat Europe 2019'
 date: '2019-12-22T11:36:26+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9675'
+lang: sk
 permalink: /sk/video-prednaska-black-hat-europe-2019/
-categories:
-    - Nezaradené
 tags:
     - 'Active Directory'
     - PowerShell

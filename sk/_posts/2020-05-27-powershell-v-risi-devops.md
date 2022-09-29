@@ -1,13 +1,10 @@
----
-id: 9705
+﻿---
+ref: 9705
 title: 'PowerShell v&nbsp;ríši DevOps'
 date: '2020-05-27T12:53:11+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9705'
 permalink: /sk/powershell-v-risi-devops/
-categories:
-    - Nezaradené
+lang: sk
 ---
 
 Ak máte vo štvrtok čas a záujem o PowerShell, môžete sa ku mne pridať počas raňajok v Gopase. Rozprávať sa budeme o využití PowerShellu vo svete DevOps:  

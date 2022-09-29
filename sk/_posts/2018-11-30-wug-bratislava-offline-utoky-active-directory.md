@@ -1,13 +1,10 @@
----
-id: 9632
+﻿---
+ref: 9632
 title: 'Prednáška v&nbsp;Bratislave: Offline útoky na&nbsp;Active Directory'
 date: '2018-11-30T14:50:11+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9632'
 permalink: /sk/wug-bratislava-offline-utoky-active-directory/
-categories:
-    - Nezaradené
+lang: sk
 tags:
     - 'Active Directory'
     - PowerShell

@@ -1,13 +1,10 @@
----
-id: 9708
+﻿---
+ref: 9708
 title: 'Webinar: PowerShell in&nbsp;the&nbsp;Land of&nbsp;DevOps'
 date: '2020-05-29T13:02:42+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9708'
+lang: en
 permalink: /en/powershell-in-the-land-of-devops/
-categories:
-    - Uncategorized
 tags:
     - DevOps
     - GitHub

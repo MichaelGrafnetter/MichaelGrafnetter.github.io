@@ -1,13 +1,10 @@
----
-id: 9688
+﻿---
+ref: 9688
 title: 'Cross-Forest Duplicate Password Discovery'
 date: '2020-03-24T22:51:17+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9688'
+lang: en
 permalink: /en/cross-forest-duplicate-password-discovery/
-categories:
-    - Uncategorized
 ---
 
 The [Test-PasswordQuality cmdlet](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality) now supports cross-domain and cross-forest duplicate password discovery and offline password hash comparison against HaveIBeenPwned:

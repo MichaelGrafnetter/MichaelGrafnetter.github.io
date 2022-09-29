@@ -1,13 +1,10 @@
----
-id: 9637
+﻿---
+ref: 9637
 title: 'Video: Microsoft Advanced Threat Analytics'
 date: '2018-11-10T23:36:21+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9637'
+lang: sk
 permalink: /sk/video-microsoft-advanced-threat-analytics/
-categories:
-    - Nezaradené
 tags:
     - 'Active Directory'
     - ATA

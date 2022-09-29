@@ -1,13 +1,10 @@
 ---
-id: 9653
+ref: 9653
 title: 'Video: Offline Attacks on Active Directory'
 date: '2019-09-19T17:48:52+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9653'
 permalink: /en/video-offline-attacks-on-active-directory/
-categories:
-    - Uncategorized
+lang: en
 tags:
     - 'Active Directory'
     - PowerShell

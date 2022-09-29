@@ -1,13 +1,10 @@
 ---
-id: 9673
+ref: 9673
 title: 'Video: My Black Hat Europe 2019 Talk'
 date: '2019-12-22T11:28:11+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9673'
 permalink: /en/video-black-hat-europe-2019-talk/
-categories:
-    - Uncategorized
+lang: en
 tags:
     - 'Active Directory'
     - PowerShell

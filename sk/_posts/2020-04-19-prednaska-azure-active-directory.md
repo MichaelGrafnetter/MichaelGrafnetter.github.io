@@ -1,13 +1,10 @@
----
+﻿---
 id: 9700
 title: 'Online prednáška: Azure Active Directory pre&nbsp;správcov Active Directory'
 date: '2020-04-19T11:48:13+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9700'
 permalink: /sk/prednaska-azure-active-directory/
-categories:
-    - Nezaradené
+lang: sk
 tags:
     - 'Active Directory'
     - 'Microsoft Azure'

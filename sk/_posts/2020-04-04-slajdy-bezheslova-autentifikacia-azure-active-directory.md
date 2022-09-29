@@ -1,13 +1,10 @@
----
-id: 9694
+﻿---
+ref: 9694
 title: 'Slajdy: Bezheslová autentifikácia v&nbsp;Azure Active Directory'
 date: '2020-04-04T20:37:40+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9694'
 permalink: /sk/slajdy-bezheslova-autentifikacia-azure-active-directory/
-categories:
-    - Nezaradené
+lang: sk
 tags:
     - 'Active Directory'
     - FIDO2

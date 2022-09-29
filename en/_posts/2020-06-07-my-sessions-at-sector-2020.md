@@ -1,13 +1,10 @@
----
-id: 9714
+﻿---
+ref: 9714
 title: 'My Sessions at SecTor 2020'
 date: '2020-06-07T12:26:00+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9714'
 permalink: /en/my-sessions-at-sector-2020/
-categories:
-    - Uncategorized
+lang: en
 ---
 
 ![SecTor Logo](https://www.dsinternals.com/wp-content/uploads/sector.png)I will be delivering 2 tech talks at this year’s [SecTor](https://sector.ca/) conference in Canada:

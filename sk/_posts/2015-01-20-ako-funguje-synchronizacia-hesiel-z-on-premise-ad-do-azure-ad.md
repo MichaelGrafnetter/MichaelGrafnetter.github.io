@@ -5,6 +5,12 @@ date: 2015-01-20T12:01:37+00:00
 layout: post
 lang: sk
 permalink: /sk/ako-funguje-synchronizacia-hesiel-z-on-premise-ad-do-azure-ad/
+tags:
+    - 'Active Directory'
+    - 'Microsoft Azure'
+    - 'Office 365'
+    - PowerShell
+    - Security
 ---
 <p align="justify">
   Článkov o tom, ako nakonfigurovať synchronizáciu hesiel z vnútrofiremného Active Directory do Azure AD / Office 365, či už pomocou pôvodného nástroja DirSync, alebo jeho novšej verzie s názvom Azure AD Connect, nájdete na internete hromadu a nie je&nbsp;to žiadna veda. Čo sa&nbsp;však nikde nedočítate, je to, ako presne táto synchronizácia funguje. A&nbsp;to&nbsp;je otázka, ktorú si&nbsp;určite položí každý správca, ktorému bezpečnosť nie je&nbsp;cudzia. Rozhodol som sa&nbsp;teda, že to preskúmam a podelím sa&nbsp;s Vami o výsledky svojho bádania.

@@ -1,13 +1,10 @@
----
-id: 9644
+﻿---
+ref: 9644
 title: 'Video: Offline útoky na&nbsp;Active Directory'
 date: '2019-09-19T08:55:27+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9644'
 permalink: /sk/video-offline-utoky-na-active-directory/
-categories:
-    - Nezaradené
+lang: sk
 tags:
     - 'Active Directory'
     - Mimikatz

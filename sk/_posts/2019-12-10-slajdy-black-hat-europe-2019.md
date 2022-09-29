@@ -1,13 +1,10 @@
----
-id: 9663
+﻿---
+ref: 9663
 title: 'Slajdy z&nbsp;konferencie Black Hat Europe 2019'
 date: '2019-12-10T17:34:25+00:00'
-author: 'Michael Grafnetter'
 layout: post
-guid: 'https://www.dsinternals.com/?p=9663'
 permalink: /sk/slajdy-black-hat-europe-2019/
-categories:
-    - Nezaradené
+lang: sk
 tags:
     - 'Active Directory'
     - PowerShell
