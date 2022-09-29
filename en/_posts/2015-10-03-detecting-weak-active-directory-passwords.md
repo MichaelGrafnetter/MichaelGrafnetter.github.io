@@ -1,0 +1,14 @@
+---
+ref: 5162
+title: 'Detecting Weak Active Directory Passwords'
+date: '2015-10-03T14:44:15+00:00'
+layout: post
+lang: en
+permalink: /en/detecting-weak-active-directory-passwords/
+tags:
+    - 'Active Directory'
+    - PowerShell
+    - Security
+---
+
+There is a new tool available for auditing Active Directory passwords, the [Get-bADPasswords cmdlet](http://flemmingriis.com/get-badpasswords/). It has been created by [Jakob Heidelberg](https://twitter.com/JakobHeidelberg/) and it is built upon the features of the [DSInternals module](https://www.dsinternals.com/en/downloads/).

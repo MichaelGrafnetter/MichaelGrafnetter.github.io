@@ -1,32 +1,30 @@
 ---
-id: 3151
+ref: 3101
 title: 'Moje slajdy z&nbsp;TechEd 2015'
-date: 2015-05-31T17:29:04+00:00
-author: Michael Grafnetter
-layout: revision
-guid: https://www.dsinternals.com/3101-revision-v1/
-permalink: /3101-revision-v1/
+date: '2015-05-31T17:27:07+00:00'
+lang: sk
+layout: post
+permalink: /sk/moje-slajdy-z-teched-2015/
+tags:
+    - 'Active Directory'
+    - PowerShell
+    - Prednášky
+    - Security
 ---
-<p style="text-align: justify;">
-  Ešte raz ďakujem všetkým účastníkom mojich prednášok na&nbsp;konferencii <a title="TechEd" href="http://www.teched.cz/">TechEd 2015</a>, plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
-</p>
 
-  * [Obrana proti pass-the-hash útokom](https://www.dsinternals.com/wp-content/uploads/teched2015_pth.pdf)
-  * [Ako funguje Active Directory databáza](https://www.dsinternals.com/wp-content/uploads/teched2015_addb.pdf)
-  * [Novinky v&nbsp;PowerShell 5 Preview](https://www.dsinternals.com/wp-content/uploads/teched2015_ps5.pdf)
+Ešte raz ďakujem všetkým účastníkom mojich prednášok na konferencii [TechEd 2015](http://www.teched.cz/ "TechEd"), plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
 
-<p style="text-align: justify;">
-  A&nbsp;tu sú príklady, na&nbsp;ktorých som ukazoval novinky v&nbsp;PowerShell 5:
-</p>
+- [Obrana proti pass-the-hash útokom](https://www.dsinternals.com/wp-content/uploads/teched2015_pth.pdf)
+- [Ako funguje Active Directory databáza](https://www.dsinternals.com/wp-content/uploads/teched2015_addb.pdf)
+- [Novinky v PowerShell 5 Preview](https://www.dsinternals.com/wp-content/uploads/teched2015_ps5.pdf)
 
-<p style="text-align: justify;">
-  <!--more-->
-</p>
+A tu sú príklady, na ktorých som ukazoval novinky v PowerShell 5:
 
-<pre title="PowerShell 5 Demos" class="lang:ps decode:true">#region Init
+```
+<pre class="lang:ps decode:true" title="PowerShell 5 Demos">#region Init
 function prompt()
 {
-    'PS 5 &gt; '
+    'PS 5 > '
 }
 cls
 #endregion Init
@@ -72,11 +70,11 @@ Remove-Item .\test.zip
 #region Machine Learning
 
 "Lee Holmes", "Steve Lee", "Jeffrey Snover" |
-    Convert-String -Example @{Before = 'Bill Gates'; After&nbsp;= 'Gates, B.'}
+    Convert-String -Example @{Before = 'Bill Gates'; After = 'Gates, B.'}
 
 "123456789", "987654321" | Convert-String -Example `
-        @{Before = '608352094'; After&nbsp;= '+420 608 352 094'},
-        @{Before = '786457324'; After&nbsp;= '+420 786 457 324'}
+        @{Before = '608352094'; After = '+420 608 352 094'},
+        @{Before = '786457324'; After = '+420 786 457 324'}
 
 
 notepad .\Parsing\data.txt
@@ -139,10 +137,10 @@ enum Color
     Blue
 }
 
-# Test the&nbsp;enum
+# Test the enum
 [Color]::Blue
 
-# Define a&nbsp;function that&nbsp;uses it
+# Define a function that uses it
 function Get-ColorCode([Color] $Color)
 {
     switch($Color)
@@ -153,14 +151,14 @@ function Get-ColorCode([Color] $Color)
     }
 }
 
-# Call the&nbsp;function
+# Call the function
 Get-ColorCode -Color Blue
 
 #endregion Enums
 
 #region Classes
 
-# Define a&nbsp;class
+# Define a class
 class Pet
 {
     Pet([string] $Name)
@@ -174,9 +172,9 @@ class Pet
     }
 }
 
-class Dog&nbsp;: Pet
+class Dog : Pet
 {
-    Dog([string] $Name)&nbsp;: base($Name)
+    Dog([string] $Name) : base($Name)
     {
     }
     
@@ -186,11 +184,10 @@ class Dog&nbsp;: Pet
     }
 }
 
-# Use the&nbsp;class
+# Use the class
 [Pet] $pet = [Dog]::new('Rex')
 $pet.Name
 $pet.Greet()
 
-#endregion Classes</pre>
-
-&nbsp;
+#endregion Classes
+```
