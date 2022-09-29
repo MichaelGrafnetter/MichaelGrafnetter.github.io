@@ -25,7 +25,7 @@ google_site_verification: DrNJpqz9Fl4sLlwL6coniSeHoQjmo9OuetqP7lry6zI
 
 remote_theme: jekyll/minima
 minima:
-  skin: dark
+  skin: solarized-dark
   social_links:
     twitter: *twitter_handle
     linkedin: *linkedin_handle
