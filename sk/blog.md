@@ -1,6 +1,6 @@
 ---
 title: Blog
-layout: blog
+layout: home
 lang: sk
 ref: blog
 permalink: /sk/

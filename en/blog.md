@@ -1,6 +1,6 @@
 ---
 title: Blog
-layout: blog
+layout: home
 lang: en
 ref: blog
 permalink: /en/

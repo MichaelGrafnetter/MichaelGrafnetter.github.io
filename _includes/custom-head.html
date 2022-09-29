@@ -6,13 +6,16 @@
 
 <!-- Links -->
 <link rel="me" href="https://twitter.com/{{ site.author.twitter }}" />
-{%- assign feed_uri = page.lang | append: "/feed/" | absolute_url %}
+{%- assign feed_uri = page.lang | append: "/feed.xml" | absolute_url %}
 <link rel="alternate" type="application/atom+xml" href="{{ feed_uri }}" title="{{ site.title }} ({{ page.lang | upcase }})" />
 
 {%- assign translations = site.pages | concat: site.posts | where: "ref", page.ref | sort: 'lang' -%}
 {% for translation in translations %}
 <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}" />
 {%- endfor %}
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
 
 {%- comment %}
 <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description[page.lang] }}{% endif %}">

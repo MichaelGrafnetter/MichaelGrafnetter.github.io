@@ -1,4 +1,3 @@
-remote_theme: pages-themes/leap-day@v0.2.0
 title: DSInternals
 description: Directory Services Internals
 logo: /favicon.png
@@ -7,8 +6,9 @@ excerpt_separator: <!--more-->
 author:
   name: &author_name "Michael Grafnetter"
   twitter: &twitter_handle "MGrafnetter"
-  github: MichaelGrafnetter
-  linkedin: grafnetter
+  github: &github_handle MichaelGrafnetter
+  linkedin: &linkedin_handle grafnetter
+  keybase: &keybase_handle grafnetter
 
 twitter:
   username: *twitter_handle
@@ -23,6 +23,15 @@ social:
 
 google_site_verification: DrNJpqz9Fl4sLlwL6coniSeHoQjmo9OuetqP7lry6zI
 
+remote_theme: jekyll/minima
+minima:
+  skin: dark
+  social_links:
+    twitter: *twitter_handle
+    linkedin: *linkedin_handle
+    keybase: *keybase_handle
+    github: *github_handle
+
 plugins:
  - jekyll-redirect-from
  - jekyll-seo-tag
@@ -30,6 +39,8 @@ plugins:
 
 exclude:
   - 'Gemfile'
+  - 'Gemfile.lock'
+  - 'CNAME'
   - '.git/'
   - '.vs/'
   - '*.TMP'

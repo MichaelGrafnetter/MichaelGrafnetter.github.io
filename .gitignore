@@ -4,3 +4,6 @@
 # Jekyll
 /_site
 /Gemfile.lock
+
+# Backups
+*.bak
