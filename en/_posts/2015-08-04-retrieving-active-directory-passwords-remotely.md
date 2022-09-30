@@ -11,7 +11,7 @@ tags:
     - Security
 ---
 
-I have finally finished work on the **Get-ADReplAccount** cmdlet, the newest addition to my [DSInternals PowerShell Module](/en/downloads/), that can retrieve [reversibly encrypted plaintext passwords](https://technet.microsoft.com/en-us/library/hh994559.aspx), password hashes and Kerberos keys of all user accounts from remote domain controllers. This is achieved by simulating the behavior of the **dcromo** tool and creating a replica of Active Directory database through the [MS-DRSR](https://msdn.microsoft.com/en-us/library/cc228086.aspx) protocol. Furthermore, it has these properties:
+I have finally finished work on the **Get-ADReplAccount** cmdlet, the newest addition to my [DSInternals PowerShell Module](/en/downloads/), that can retrieve [reversibly encrypted plaintext passwords](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh994559(v=ws.11)), password hashes and Kerberos keys of all user accounts from remote domain controllers. This is achieved by simulating the behavior of the **dcromo** tool and creating a replica of Active Directory database through the [MS-DRSR](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47) protocol. Furthermore, it has these properties:
 
 - It does not even need the Domain Admins group membership. The **Replicating Directory Changes All** permission is more than enough for this cmdlet to do its job.
 - It opens door to other attacks, e.g. pass-the-hash, pass-the-ticket or PAC spoofing, that can be used to seize control of the entire Active Directory forest. Long live [mimikatz](https://github.com/gentilkiwi/mimikatz)!

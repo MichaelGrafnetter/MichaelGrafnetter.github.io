@@ -14,8 +14,8 @@ tags:
 
 Jedným z možných útokov na&nbsp;bezpečnosť Active Directory je&nbsp;podvrhnutie [SID History](https://blog.thesysadmins.co.uk/admt-series-3-sid-history.html "SID History"). V Microsofte sú si toho plne vedomí a&nbsp;preto sú v&nbsp;Active Directory implementované 2 mechanizmy, ktoré zabraňujú efektívnemu zneužitiu SID History:
 
-- Hodnoty atribútu sIDHistory prichádzajúce z&nbsp;externých trustov sú vo východzom stave ignorované vďaka funkcii [SID Filtering](https://technet.microsoft.com/en-us/library/cc772633%28v=ws.10%29.aspx "Configuring SID Filtering Settings").
-- Atribút sIDHistory sa nedá len tak zmeniť na&nbsp;ľubovoľnú hodnotu ani&nbsp;pomocou konzoly Active Directory Users and&nbsp;Computers, ani cez&nbsp;PowerShell či&nbsp;nejaké API. Jediný podporovaný spôsob je&nbsp;použitie nástroja [ADMT](https://technet.microsoft.com/en-us/library/cc974332%28v=ws.10%29.aspx "Active Directory Migration Tool"), ktorý vie prekopírovať existujúci SID z dôverovanej domény do&nbsp;SID History v&nbsp;dôverujúcej doméne.
+- Hodnoty atribútu sIDHistory prichádzajúce z&nbsp;externých trustov sú vo východzom stave ignorované vďaka funkcii [SID Filtering](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc772633(v=ws.10) "Configuring SID Filtering Settings").
+- Atribút sIDHistory sa nedá len tak zmeniť na&nbsp;ľubovoľnú hodnotu ani&nbsp;pomocou konzoly Active Directory Users and&nbsp;Computers, ani cez&nbsp;PowerShell či&nbsp;nejaké API. Jediný podporovaný spôsob je&nbsp;použitie nástroja [ADMT](https://learn.microsoft.com/en-us/troubleshoot/windows-server/identity/support-for-admt-and-pes "Active Directory Migration Tool"), ktorý vie prekopírovať existujúci SID z dôverovanej domény do&nbsp;SID History v&nbsp;dôverujúcej doméne.
 
 Ako však zapísať do&nbsp;SID History akúkoľvek hodnotu a&nbsp;obísť tak druhý z&nbsp;uvedených mechanizmov?
 
@@ -56,7 +56,7 @@ Možností je&nbsp;niekoľko a&nbsp;žiadna z&nbsp;nich nie je&nbsp;ideálna:
     - Nevýhody: 
         - Neumožňuje zapísať do SID History ľubovoľnú hodnotu, ale len SID existujúceho účtu vo foreste.
         - Vyžaduje lokálnu operáciu na spustenom DC.
-        - Jeho funkcionalita je postavená na binárnom opatchovaní pamäte procesu lsass tak, aby funkcia [DsAddSidHistory](https://msdn.microsoft.com/en-us/library/ms675918(v=vs.85).aspx) nevyžadovala prístupové údaje do domény, z ktorej sa kopíruje SID. To pravdepodobne prestane fungovať s najbližšou aktualizáciou, ktorá sa bude týkať Active Directory. Nehovoriac o tom, že takýto zásah zásah môže v lepšom prípade zhodiť DC, v tom horšom ho poškodiť.
+        - Jeho funkcionalita je postavená na binárnom opatchovaní pamäte procesu lsass tak, aby funkcia [DsAddSidHistory](https://learn.microsoft.com/en-us/windows/win32/api/ntdsapi/nf-ntdsapi-dsaddsidhistoryw) nevyžadovala prístupové údaje do domény, z ktorej sa kopíruje SID. To pravdepodobne prestane fungovať s najbližšou aktualizáciou, ktorá sa bude týkať Active Directory. Nehovoriac o tom, že takýto zásah zásah môže v lepšom prípade zhodiť DC, v tom horšom ho poškodiť.
 
 ## Moje riešenie
 
@@ -95,5 +95,5 @@ Mám rozpracované aj&nbsp;ďalšie príkazy na&nbsp;offline manipuláciu s&nbsp
 - Autoritatívny restore objektov na&nbsp;úrovni jednotlivých atribútov.
 - Audit prítomnosti LM hashov, Kerberos DES/AES kľúčov a reverzibilne šifrovaných hesiel.
 - Výpis vlastností databázy, napríklad názov DC, doména, site, Invocation ID, DSA Epoch, highest commited USN,...
-- Výpis mapovania indexov na&nbsp;atribúty, napríklad INDEX_0015003 -&gt; mail. To&nbsp;sa potom bude dať plne zužitkovať príkaz [ntdsutil space usage](https://technet.microsoft.com/en-us/library/cc753900.aspx "ntdsutil files").
+- Výpis mapovania indexov na&nbsp;atribúty, napríklad INDEX_0015003 -&gt; mail. To&nbsp;sa potom bude dať plne zužitkovať príkaz [ntdsutil space usage](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc753900(v=ws.11) "ntdsutil files").
 - Odstránenie niektorých závislostí, aby bolo možné príkazy spúšťať pod&nbsp;Windows PE 5.

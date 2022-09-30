@@ -17,7 +17,7 @@ Although there exist several tools for dumping password hashes from the Active D
 - Most of the tools are either Linux-only or running them on Windows is not simple enough.
 - Almost none of these tools can modify the database. And if they do, they do not support transaction logs and are quite cumbersome.
 
-Therefore, I have decided to create [my own set of PowerShell cmdlets](/en/list-of-cmdlets-in-the-dsinternals-module/) that wouldn’t have these shortcomings. In the process, I have unintentionally created my own framework that is built on top of Microsoft’s [ManagedEsent](https://managedesent.codeplex.com/) library and hides the complexity of the underlying database. I am planning to release it at GitHub later this year.
+Therefore, I have decided to create [my own set of PowerShell cmdlets](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md) that wouldn’t have these shortcomings. In the process, I have unintentionally created my own framework that is built on top of Microsoft’s [ManagedEsent](https://github.com/microsoft/ManagedEsent) library and hides the complexity of the underlying database. I am planning to release it at GitHub later this year.
 
 One of the cmdlets I have created is **Get-ADDBAccount**, which can be used to extract password hashes, Kerberos keys and even reversibly encrypted passwords from ntds.dit files. Here is an example of its usage:
 

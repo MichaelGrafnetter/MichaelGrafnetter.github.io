@@ -11,13 +11,13 @@ tags:
     - PowerShell
 ---
 
-Ako jeden z&nbsp;mechanizmov zálohovania Active Directory sa&nbsp;mi&nbsp;osvedčili každodenné snapshoty databázy. Nedajú sa&nbsp;síce použiť priamo k&nbsp;obnoveniu DC, ale&nbsp;v&nbsp;kombinácii s&nbsp;nástrojom [dsamain](https://technet.microsoft.com/en-us/library/cc772168.aspx "Dsamain") umožňujú veľmi rýchlo nahliadnuť do&nbsp;historického stavu domény.
+Ako jeden z&nbsp;mechanizmov zálohovania Active Directory sa&nbsp;mi&nbsp;osvedčili každodenné snapshoty databázy. Nedajú sa&nbsp;síce použiť priamo k&nbsp;obnoveniu DC, ale&nbsp;v&nbsp;kombinácii s&nbsp;nástrojom [dsamain](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc772168(v=ws.11) "Dsamain") umožňujú veľmi rýchlo nahliadnuť do&nbsp;historického stavu domény.
 
 <!--more-->
 
 ## Snapshot Active Directory databázy
 
-Štandardný postup získania snapshotu pomocou nástroja [ntdsutil](https://technet.microsoft.com/en-us/library/cc731620.aspx "ntdsutil snapshot") je&nbsp;nasledovný:
+Štandardný postup získania snapshotu pomocou nástroja [ntdsutil](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc731620(v=ws.11) "ntdsutil snapshot") je&nbsp;nasledovný:
 
 1. Pripojiť sa k&nbsp;AD (príkaz activate instance ntds)
 2. Vytvoriť snapshot (príkaz create)

@@ -175,7 +175,7 @@ Add-Persistence -ScriptBlock $RickRoll -ElevatedPersistenceOption $ElevatedOptio
 
 ## WMI Perzistencia (Manuálny spôsob)
 
-[WMI Explorer](https://wmie.codeplex.com/downloads/get/924042)
+[WMI Explorer](https://github.com/vinaypamnani/wmie2)
 ```powershell
 $payload = {
     Get-Date &gt;&gt; C:\test.txt

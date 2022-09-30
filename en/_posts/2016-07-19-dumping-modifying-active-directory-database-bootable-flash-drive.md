@@ -12,7 +12,7 @@ tags:
     - Security
 ---
 
-Since version 2.15, the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) fully supports [Windows PE](https://msdn.microsoft.com/en-us/windows/hardware/commercialize/manufacture/desktop/winpe-intro), the free minimalistic edition of Windows. This means that all the nasty Active Directory database stuff can now be performed from a bootable flash drive or an ISO image, including:
+Since version 2.15, the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) fully supports [Windows PE](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-intro?view=windows-11), the free minimalistic edition of Windows. This means that all the nasty Active Directory database stuff can now be performed from a bootable flash drive or an ISO image, including:
 
 - [Dumping NT hashes, kerberos keys and cleartext passwords](/en/dumping-ntds-dit-files-using-powershell/) from ntds.dit files.
 - Modifying the SID History of user accounts and groups.
@@ -46,7 +46,7 @@ copype amd64 C:\WinPE_amd64
 ```bat
 Dism /Mount-Image /ImageFile:"C:\WinPE_amd64\media\sources\boot.wim" /index:1 /MountDir:"C:\WinPE_amd64\mount"
 ```
-5. Add PowerShell support to Windows PE by adding a few [optional components](https://msdn.microsoft.com/en-us/windows/hardware/commercialize/manufacture/desktop/winpe-add-packages--optional-components-reference), together with their associated language packs:
+5. Add PowerShell support to Windows PE by adding a few [optional components](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-add-packages--optional-components-reference?view=windows-11), together with their associated language packs:
 ```bat
 Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-WMI.cab"
 Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-WMI_en-us.cab"
@@ -61,7 +61,7 @@ Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\W
 Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-PowerShell_en-us.cab"
 ```
 6. Add the [DSInternals PowerShell module](https://github.com/MichaelGrafnetter/DSInternals/releases) to the Windows PE image by copying it into the *C:\\WinPE\_amd64\\mount\\Windows\\system32\\ WindowsPowerShell\\v1.0\\Modules* folder.
-7. [Add device drivers](https://msdn.microsoft.com/en-us/windows/hardware/commercialize/manufacture/desktop/winpe-add-drivers) to the Windows PE image:
+7. [Add device drivers](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/add-and-remove-drivers-to-an-offline-windows-image?view=windows-11) to the Windows PE image:
 ```bat
 Dism /Add-Driver /Image:"C:\WinPE_amd64\mount" /Driver:"C:\DriversToEmbed" /Recurse
 ```
@@ -71,7 +71,7 @@ Dism /Add-Driver /Image:"C:\WinPE_amd64\mount" /Driver:"C:\DriversToEmbed" /Recu
 wpeinit.exe
 powershell.exe, -NoExit -NoLogo -ExecutionPolicy Bypass
 ```
-9. [Create an ISO file](https://msdn.microsoft.com/en-us/windows/hardware/commercialize/manufacture/desktop/makewinpemedia-command-line-options?f=255&MSPPError=-2147217396) containing the Windows PE files:
+9. [Create an ISO file](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/makewinpemedia-command-line-options?view=windows-11) containing the Windows PE files:
 ```bat
 MakeWinPEMedia /ISO C:\WinPE_amd64 C:\WinPE_amd64\WinPE_amd64.iso
 ```

@@ -79,7 +79,7 @@ Note that&nbsp;until now, we have only used regular, built-in cmdlets from&nbsp;
 
 Let's have a&nbsp;look at the&nbsp;msDS-ManagedPassword attribute, that&nbsp;has been returned by&nbsp;the command above. It is&nbsp;a constructed attribute, which&nbsp;means that&nbsp;its value is&nbsp;calculated by&nbsp;DC from&nbsp;the&nbsp;KDS root key and&nbsp;the&nbsp;msDS-ManagedPasswordId attribute every time someone asks for&nbsp;it. Although&nbsp;documented, the&nbsp;cryptographic algorithm used is&nbsp;quite complicated. Furthermore, the&nbsp;value of&nbsp;the msDS-ManagedPasswordId gets re-generated every (msDS-ManagedPasswordInterval)-days (30 by&nbsp;default).
 
-We see that the msDS-ManagedPassword attribute of our GMSA contains a sequence of bytes. It is a binary representation of the [MSDS-MANAGEDPASSWORD_BLOB](https://msdn.microsoft.com/en-us/library/hh881234.aspx) data structure, which contains some metadata in addition to the actual password. As there had been no publicly available tool to decode this structure, I have created one myself:
+We see that the msDS-ManagedPassword attribute of our GMSA contains a sequence of bytes. It is a binary representation of the [MSDS-MANAGEDPASSWORD_BLOB](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/a9019740-3d73-46ef-a9ae-3ea8eb86ac2e) data structure, which contains some metadata in addition to the actual password. As there had been no publicly available tool to decode this structure, I have created one myself:
 
 ```powershell
 # Save the blob to a variable
