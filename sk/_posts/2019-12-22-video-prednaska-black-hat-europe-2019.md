@@ -1,6 +1,6 @@
 ---
 ref: video-black-hat-europe-2019-talk
-title: 'Video: Exploitácia Windows Hello for Business (Black Hat)'
+title: 'Video: Exploitácia Windows Hello for Business'
 date: '2019-12-22T11:36:26+00:00'
 layout: post
 lang: sk

@@ -1,6 +1,6 @@
 ---
 ref: video-offline-attacks-on-active-directory
-title: 'Video: Offline útoky na&nbsp;Active Directory (WUG)'
+title: 'Video: Offline útoky na&nbsp;Active Directory'
 date: '2019-09-19T08:55:27+00:00'
 layout: post
 permalink: /sk/video-offline-utoky-na-active-directory/
@@ -17,3 +17,5 @@ tags:
 ---
 
 [![Offline útoky na Active Directory (a obrana proti nim)](https://wug.cz/ContentPages/GetFile.ashx?PhotoID=2937&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/520-Offline-utoky-na-Active-Directory-a-obrana-proti-nim)
+
+[Slajdy z prednášky](../../assets/documents/HIP_AD_Offline_Attacks.pdf)

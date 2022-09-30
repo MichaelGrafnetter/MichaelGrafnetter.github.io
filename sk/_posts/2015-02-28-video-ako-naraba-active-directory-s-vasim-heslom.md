@@ -1,6 +1,6 @@
 ---
 ref: 1471
-title: 'Video: Ako Active Directory narába s&nbsp;Vaším heslom (WUG)'
+title: 'Video: Ako Active Directory narába s&nbsp;Vaším heslom'
 date: 2015-02-28T12:05:44+00:00
 layout: post
 lang: sk

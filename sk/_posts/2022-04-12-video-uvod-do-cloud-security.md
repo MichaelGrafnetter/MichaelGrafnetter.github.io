@@ -1,6 +1,6 @@
 ---
 ref: video-uvod-do-cloud-security
-title: 'Video: Úvod do Cloud Security (WUG)'
+title: 'Video: Úvod do Cloud Security'
 date: '2022-04-12T00:00:00+00:00'
 layout: post
 permalink: /sk/video-uvod-do-cloud-security/

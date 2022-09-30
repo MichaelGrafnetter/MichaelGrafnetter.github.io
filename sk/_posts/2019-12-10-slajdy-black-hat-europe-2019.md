@@ -1,5 +1,5 @@
 ---
-ref: 9663
+ref: black-hat-europe-2019-slides
 title: 'Slajdy z&nbsp;konferencie Black Hat Europe 2019'
 date: '2019-12-10T17:34:25+00:00'
 layout: post

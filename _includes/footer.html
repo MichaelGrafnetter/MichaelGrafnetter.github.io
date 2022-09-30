@@ -1,19 +1,5 @@
 <footer class="site-footer h-card">
     <div class="wrapper">
-        <div class="footer-col-wrapper">
-            <div class="footer-col">
-                <p class="feed-subscribe">
-                    <a href="{{ feed_uri | relative_url }}">
-                        <svg class="svg-icon orange">
-                            <use xlink:href="{{ 'assets/minima-social-icons.svg#rss' | relative_url }}"></use>
-                        </svg><span>RSS</span>
-                    </a>
-                </p>
-            </div>
-            <div class="footer-col">
-                <p>Copyright © {{ site.author.name }}, 2015-{{ site.time | date: '%Y' }}</p>
-            </div>
-        </div>
         <div class="social-links">
             {%- include social.html -%}
         </div>

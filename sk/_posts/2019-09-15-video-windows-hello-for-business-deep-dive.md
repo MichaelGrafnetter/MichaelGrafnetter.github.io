@@ -1,6 +1,6 @@
 ---
 ref: video-windows-hello-for-business-deep-dive
-title: 'Video: Windows Hello for Business Deep-Dive (WUG)'
+title: 'Video: Windows Hello for Business Deep-Dive'
 date: '2019-09-15T00:00:00+00:00'
 layout: post
 permalink: /sk/video-windows-hello-for-business-deep-dive/
@@ -13,5 +13,7 @@ tags:
     - Video
     - WUG
 ---
+
+<!--more-->
 
 [![Windows Hello for Business Deep-Dive](https://wug.cz/brno/akce/GetFile.ashx?PhotoID=3063&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/574-WUG-Days-2019-Windows-Hello-for-Business-Deep-Dive)

@@ -1,6 +1,6 @@
 ---
 ref: video-sql-server-windows-authentication-internals
-title: 'Video: SQL Server Windows Authentication Internals (WUG)'
+title: 'Video: SQL Server Windows Authentication Internals'
 date: '2021-11-09T00:00:00+00:00'
 layout: post
 permalink: /sk/video-sql-server-windows-authentication-internals/

@@ -1,6 +1,6 @@
 ---
 ref: video-black-hat-europe-2019-talk
-title: 'Video: Exploiting Windows Hello for Business (Black Hat)'
+title: 'Video: Exploiting Windows Hello for Business'
 date: '2019-12-22T11:28:11+00:00'
 layout: post
 permalink: /en/video-black-hat-europe-2019-talk/
