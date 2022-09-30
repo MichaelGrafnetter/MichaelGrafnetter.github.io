@@ -5,9 +5,12 @@ date: 2015-03-28T14:18:20+00:00
 layout: post
 lang: sk
 permalink: /sk/sprava-hesiel-lokalnych-administratorov/
+tags:
+    - 'Active Directory'
+    - PowerShell
+    - Security
 ---
-<p style="text-align: justify;">
-  Chceli by&nbsp;ste mať na každom doménovom PC lokálny účet Administrator s unikátnym, náhodným a pravidelne meneným heslom, bez nutnosti to riešiť manuálne? Potom Vám môžem doporučiť veľmi zaujímavý open-source nástroj <a title="Local admin password management solution" href="https://code.msdn.microsoft.com/Solution-for-management-of-ae44e789">Local admin password management solution</a>, ktorého autorom je Jiří Formáček z Microsoftu.
-</p>
 
-<img class=" wp-image-2231 size-medium aligncenter" src="https://www.dsinternals.com/wp-content/uploads/admpwd-300x234.png" alt="AdmPwd GUI" width="300" height="234" srcset="https://www.dsinternals.com/wp-content/uploads/admpwd-300x234.png 300w, https://www.dsinternals.com/wp-content/uploads/admpwd.png 388w" sizes="(max-width: 300px) 100vw, 300px" />
+Chceli by&nbsp;ste mať na&nbsp;každom doménovom PC lokálny účet Administrator s&nbsp;unikátnym, náhodným a&nbsp;pravidelne meneným heslom, bez&nbsp;nutnosti to&nbsp;riešiť manuálne? Potom Vám môžem doporučiť veľmi zaujímavý open-source nástroj [Local admin password management solution](https://www.microsoft.com/en-us/download/details.aspx?id=46899 "Local admin password management solution"), ktorého autorom je&nbsp;Jiří Formáček.
+
+![AdmPwd GUI](/wp-content/uploads/admpwd.png)

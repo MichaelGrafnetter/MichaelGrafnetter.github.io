@@ -12,16 +12,16 @@ tags:
     - Security
 ---
 
-Ešte raz ďakujem všetkým účastníkom mojich prednášok na konferencii [TechEd 2015](http://www.teched.cz/ "TechEd"), plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
+Ešte raz ďakujem všetkým účastníkom mojich prednášok na konferencii **TechEd 2015**, plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
 
-- [Obrana proti pass-the-hash útokom](https://www.dsinternals.com/wp-content/uploads/teched2015_pth.pdf)
-- [Ako funguje Active Directory databáza](https://www.dsinternals.com/wp-content/uploads/teched2015_addb.pdf)
-- [Novinky v PowerShell 5 Preview](https://www.dsinternals.com/wp-content/uploads/teched2015_ps5.pdf)
+- [Obrana proti pass-the-hash útokom](/wp-content/uploads/teched2015_pth.pdf)
+- [Ako funguje Active Directory databáza](/wp-content/uploads/teched2015_addb.pdf)
+- [Novinky v PowerShell 5 Preview](/wp-content/uploads/teched2015_ps5.pdf)
 
 A tu sú príklady, na ktorých som ukazoval novinky v PowerShell 5:
 
-```
-<pre class="lang:ps decode:true" title="PowerShell 5 Demos">#region Init
+```powershell
+#region Init
 function prompt()
 {
     'PS 5 > '
@@ -88,7 +88,7 @@ Get-Content .\Parsing\data.txt |
 
 
 #region OData
-$uri = "http://services.odata.org/V3/(S(readwrite))/OData/OData.svc/"
+$uri = "https://services.odata.org/V3/(S(readwrite))/OData/OData.svc/"
 
 Export-ODataEndpointProxy -Uri $uri -OutputModule .\Service -Force -AllowUnSecureConnection -AllowClobber
 

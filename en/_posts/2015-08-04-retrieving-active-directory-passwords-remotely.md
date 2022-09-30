@@ -15,7 +15,7 @@ I have finally finished work on the **Get-ADReplAccount** cmdlet, the newest add
 
 - It does not even need the Domain Admins group membership. The **Replicating Directory Changes All** permission is more than enough for this cmdlet to do its job.
 - It opens door to other attacks, e.g. pass-the-hash, pass-the-ticket or PAC spoofing, that can be used to seize control of the entire Active Directory forest. Long live [mimikatz](https://github.com/gentilkiwi/mimikatz)!
-- It cannot be effectively blocked by firewalls, because the directory replication service (the [DRSGetNCChanges](http://IDL_DRSGetNCChanges) call to be more precise) shares the same port with other critical services, like user name resolution (exposed by the [DsCrackNames](https://msdn.microsoft.com/en-us/library/ms675970(v=vs.85).aspx) call).
+- It cannot be effectively blocked by firewalls, because the directory replication service (DRSGetNCChanges call to be more precise) shares the same port with other critical services, like user name resolution (exposed by the DsCrackNames call).
 - It only uses documented features of Active Directory and is not a hack per se.
 - It leaves only minimal footprint on Domain Conrollers and can be easily overlooked by security audits.
 

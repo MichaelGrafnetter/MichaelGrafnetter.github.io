@@ -11,5 +11,6 @@ tags:
     - Video
 ---
 
-Záznam mojej prednášky z&nbsp;MS Festu 2013 na&nbsp;tému “Novinky v PowerShell 4”:
+Záznam mojej prednášky z&nbsp;MS Festu 2013 na&nbsp;tému **Novinky v PowerShell 4**:
+
 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" height="304" src="https://www.youtube.com/embed/5LwDxYZgIQI?feature=oembed" title="MS Fest 2013 Praha: Novinky v PowerShell 4 (Michael Grafnetter)" width="540"></iframe>
