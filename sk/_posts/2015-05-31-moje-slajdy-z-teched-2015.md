@@ -28,7 +28,11 @@ function prompt()
 }
 cls
 #endregion Init
+```
 
+<!--more-->
+
+```powershell
 #region Links
 
 # Create file symbolic link

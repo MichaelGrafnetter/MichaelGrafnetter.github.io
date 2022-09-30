@@ -6,7 +6,7 @@ permalink: /en/about/
 fa_class: fas fa-user
 ---
 
-<img alt="Michael Grafnetter Profile Picture" src="../assets/images/profile_picture.jpg" style="float: left; margin-right: 10px">
+<img alt="Michael Grafnetter Profile Picture" src="/assets/images/profile_picture.jpg" style="float: left; margin-right: 10px">
 My name is Michael Grafnetter and&nbsp;I&nbsp;am an InfoSec professional (Active Directory security audits, penetration tests and&nbsp;trainings).
 I&nbsp;mainly work with [CQURE](https://cqure.pl/), [Gopas](https://www.gopas.cz/) and&nbsp;[Mainstream Technologies](https://www.mainstream.cz/).
 

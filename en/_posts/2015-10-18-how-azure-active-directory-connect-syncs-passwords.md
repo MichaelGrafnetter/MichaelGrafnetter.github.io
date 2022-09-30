@@ -13,11 +13,11 @@ tags:
     - Security
 ---
 
-## Introduction 
-
 Many people have asked me about the&nbsp;security implications of&nbsp;synchronizing passwords from&nbsp;Active Directory to Azure Active Directory using the [Azure AD Connect](https://www.microsoft.com/en-us/download/details.aspx?id=47594) tool. Although there is an article on Technet that [claims](https://technet.microsoft.com/en-us/library/dn246918.aspx) that the&nbsp;passwords are synced in&nbsp;a very secure hashed form&nbsp;that cannot be misused for authentication against the on-premise Active Directory, it lacks any detail about the exact information being sent to Microsoft’s servers.
 
 A [post](https://blogs.technet.com/b/ad/archive/2014/06/28/aad-password-sync-encryption-and-and-fips-compliance.aspx) at the Active Directory Team Blog hints that the Password Sync agent retrieves pre-existing password hashes from AD and secures them by re-hashing them using SHA256 hash per [RFC 2898](https://www.ietf.org/rfc/rfc2898.txt) (aka PBKDF2) before uploading them to the cloud. This sheds some light on the functionality, but some important implementation details are still missing, including the number of SHA256 iterations, salt length and the type of hash that is extracted from AD. Some [research](https://www.cogmotive.com/blog/office-365-tips/how-secure-is-dirsync-with-password-synchronisation) on this topic has been done by Alan Byrne, but it is inconclusive. Therefore, I have decided to do my own research and to share my results.
+
+<!--more-->
 
 ## How Azure AD Connect retrieves passwords from AD
 

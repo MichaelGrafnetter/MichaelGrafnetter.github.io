@@ -14,6 +14,8 @@ tags:
 
 One of the new features in Windows Server 2016 will be the Active Directory Expiring Links feature, which enables time-bound group membership, expressed by a time-to-live (TTL) value. Here is how it works:
 
+<!--more-->
+
 ## Enabling the Expiring Links Feature
 
 The Expiring Links feature had been a standalone feature in early Windows Server 2016 builds, but as of TP4, it is a part of the broader [Privileged Access Management (PAM)](https://technet.microsoft.com/en-us/library/dn903243.aspx) feature. It is disabled by default, because it requires **Windows Server 2016 forest functional level**. One of the ways to enable the PAM feature is running this PowerShell cmdlet:

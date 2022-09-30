@@ -22,10 +22,13 @@ The `Test-PasswordQuality` cmdlet accepts output of the [Get-ADDBAccount](/en/du
 ```powershell
 Get-ADReplAccount -All -Server LON-DC1 -NamingContext "dc=adatum,dc=com" |
    Test-PasswordQuality -WeakPasswordHashesFile .\pwned-passwords-ntlm-ordered-by-count.txt -IncludeDisabledAccounts
+```
 
-<#
+<!--more-->
+
 Sample output:
 
+```
 Active Directory Password Quality Report
 ----------------------------------------
 
@@ -86,7 +89,6 @@ These accounts are not required to have a password:
   Magnus
   Maria
 
-#>
 ```
 
 Although the cmdlet output is formatted in a human readable fashion, it is still an object, whose properties can be accessed separately (e.g. `$result.WeakPassword`) to produce a desired output.

@@ -26,6 +26,16 @@ layout: default
         <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
+          {% if post.content.size > post.excerpt.size %}
+            <a href="{{ post.url | relative_url }}">
+              {%- if page.lang == 'en' -%}
+                (more...)
+              {%- endif %}
+              {% if page.lang == 'sk' -%}
+                (pokračovanie...)
+              {%- endif -%}
+            </a>
+          {% endif %}
         {%- endif -%}
       </li>
       {%- endfor -%}

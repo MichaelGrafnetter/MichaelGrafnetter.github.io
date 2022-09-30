@@ -24,6 +24,8 @@ Get-ADDBAccount -All -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key
 Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
 ```
 
+<!--more-->
+
 Výstup vyzerá úplne rovnako ako v prípade príkazu [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/):
 
 ```

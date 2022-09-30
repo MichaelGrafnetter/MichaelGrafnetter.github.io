@@ -29,6 +29,8 @@ New-ADServiceAccount `
 
 ```
 
+<!--more-->
+
 We can check the result in the *Active Directory Users and Computers* console:
 
 ![Group Managed Service Account](../../assets/images/gmsa.png)Unfortunately, the built-in GUI will not help us much when working with GMSAs. Although there is a [nice 3rd party tool](https://www.cjwdev.com/Software/MSAGUI/Info.html), we will stick to PowerShell.

@@ -30,6 +30,8 @@ Get-ADReplAccount -SamAccountName April -Domain Adatum -Server LON-DC1 `
 -Credential $cred -Protocol TCP
 ```
 
+<!--more-->
+
 Ukážkový výstup:
 
 ```

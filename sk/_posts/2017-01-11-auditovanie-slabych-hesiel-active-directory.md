@@ -10,6 +10,9 @@ permalink: /sk/auditovanie-slabych-hesiel-active-directory/
 Nedávno som spolupracoval so spoločnosťou [Thycotic](https://thycotic.com/) na vývoji programu [Weak Password Finder for Active Directory](https://thycotic.com/solutions/free-it-tools/weak-password-finder/weak-password-finder-nvlss/). Cieľom bolo vytvoriť nástroj, ktorý by bol síce jednoduchý na používanie, ale pritom by dával viac než uspokojivé výsledky. To sa myslím podarilo a táto kombinácia ho robí unikátnym na trhu.
 
 ![Screenshot 1](../../assets/images/scanner_screen01.png)
+
+<!--more-->
+
 ![Screenshot 2](../../assets/images/scanner_screen03.png)
 ![Screenshot 3](../../assets/images/scanner_screen04.png)
 

@@ -12,9 +12,9 @@ tags:
     - Security
 ---
 
-## Introduction
-
 The Data Protection API (DPAPI) is used by several components of Windows to securely store passwords, encryption keys and other sensitive data. When DPAPI is used in an Active Directory domain environment, a copy of user’s master key is encrypted with a so-called DPAPI Domain Backup Key that is known to all domain controllers. Windows Server 2000 DCs use a symmetric key and newer systems use a public/private key pair. If the user password is reset and the original master key is rendered inaccessible to the user, the user’s access to the master key is automatically restored using the backup key.
+
+<!--more-->
 
 ## The Mimikatz Method
 

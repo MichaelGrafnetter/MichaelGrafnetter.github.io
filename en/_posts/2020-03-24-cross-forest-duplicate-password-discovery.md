@@ -16,6 +16,8 @@ $adatumAccounts = Get-ADReplAccount -All -Server 'nyc-dc1.adatum.com' -Credentia
 $contosoAccounts + $adatumAccounts | Test-PasswordQuality -WeakPasswordHashesSortedFile 'pwned-passwords-ntlm-ordered-by-hash-v5.txt'
 ```
 
+<!--more-->
+
 The output of the previous script might look like this (with some parts omitted):
 
 ```

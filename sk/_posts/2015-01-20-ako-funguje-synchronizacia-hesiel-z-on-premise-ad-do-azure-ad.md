@@ -13,7 +13,6 @@ tags:
     - Security
 ---
 
-## Úvod
 Článkov o&nbsp;tom, ako nakonfigurovať synchronizáciu hesiel z&nbsp;vnútrofiremného Active Directory do&nbsp;Azure&nbsp;AD / Office 365, či&nbsp;už&nbsp;pomocou pôvodného nástroja DirSync, alebo&nbsp;jeho novšej verzie s&nbsp;názvom Azure AD Connect, nájdete na&nbsp;internete hromadu a&nbsp;nie je&nbsp;to&nbsp;žiadna veda. Čo sa&nbsp;však nikde nedočítate, je&nbsp;to, ako presne táto synchronizácia funguje. A&nbsp;to&nbsp;je otázka, ktorú si&nbsp;určite položí každý správca, ktorému bezpečnosť nie je&nbsp;cudzia. Rozhodol som sa&nbsp;teda, že to&nbsp;preskúmam a&nbsp;podelím sa&nbsp;s&nbsp;Vami o&nbsp;výsledky svojho bádania.
 
 <!--more-->

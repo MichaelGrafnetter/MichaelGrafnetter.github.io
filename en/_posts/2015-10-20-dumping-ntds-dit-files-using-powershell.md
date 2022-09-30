@@ -35,6 +35,8 @@ Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' `
         -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
 ```
 
+<!--more-->
+
 The output is identical to what the [Get-ADReplAccount](/en/retrieving-active-directory-passwords-remotely/) cmdlet would return:
 
 ```

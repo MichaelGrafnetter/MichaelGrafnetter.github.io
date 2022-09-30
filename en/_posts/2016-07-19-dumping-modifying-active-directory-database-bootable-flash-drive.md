@@ -21,6 +21,7 @@ Since version 2.15, the [DSInternals PowerShell Module](https://github.com/Micha
 
 ![Windows PE DSInternals](../../assets/images/winpe.png)
 
+<!--more-->
 ## Required access
 
 These actions would of course require an attacker to have one of the following:
