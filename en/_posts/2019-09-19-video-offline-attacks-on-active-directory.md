@@ -1,6 +1,6 @@
 ---
-id: 9653
-title: 'Video: Offline Attacks on Active Directory'
+id: video-offline-attacks-on-active-directory
+title: 'Video: Offline Attacks on Active Directory (HipConf)'
 date: '2019-09-19T17:48:52+00:00'
 layout: post
 permalink: /en/video-offline-attacks-on-active-directory/
@@ -13,4 +13,4 @@ tags:
     - Video
 ---
 
-[![Offline Attacks on Active Directory](https://www.brighttalk.com/communication/362264/preview2.png)](https://www.brighttalk.com/service/player/en-US/theme/default/channel/17685/webcast/362264/play?showChannelList=false)
+<iframe width="2560" height="1138" src="https://www.youtube.com/embed/soSRV8KFr2c" title="Offline Attacks on Active Directory - Michael Grafnetter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

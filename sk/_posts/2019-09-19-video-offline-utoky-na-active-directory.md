@@ -1,6 +1,6 @@
 ---
-ref: 9644
-title: 'Video: Offline útoky na&nbsp;Active Directory'
+ref: video-offline-attacks-on-active-directory
+title: 'Video: Offline útoky na&nbsp;Active Directory (WUG)'
 date: '2019-09-19T08:55:27+00:00'
 layout: post
 permalink: /sk/video-offline-utoky-na-active-directory/
