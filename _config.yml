@@ -1,6 +1,9 @@
 title: DSInternals
 description: Directory Services Internals
 logo: /favicon.png
+
+# paginate: 5
+show_excerpts: true
 excerpt_separator: <!--more-->
 
 author:
@@ -35,6 +38,7 @@ minima:
 plugins:
  - jekyll-redirect-from
  - jekyll-seo-tag
+ - jekyll-paginate
  - jekyll-remote-theme
 
 exclude:

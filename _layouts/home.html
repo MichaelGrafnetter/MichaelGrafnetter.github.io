@@ -17,9 +17,6 @@ layout: default
 
 
   {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
     <ul class="post-list">
       {%- for post in posts -%}
       <li>
@@ -28,7 +25,7 @@ layout: default
             {%- include date.html date=post.date -%}
           </time>
         </span>
-        <h3><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
         {%- endif -%}
