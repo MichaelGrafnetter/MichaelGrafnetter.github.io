@@ -5,79 +5,70 @@ date: 2015-03-01T23:22:03+00:00
 layout: post
 lang: sk
 permalink: /sk/snapshot-active-directory-databazy/
+tags:
+    - 'Active Directory'
+    - LDAP
+    - PowerShell
 ---
-<p align="justify">
-  Ako jeden z mechanizmov zálohovania Active Directory sa mi osvedčili každodenné snapshoty databázy. Nedajú sa síce použiť priamo k obnoveniu DC, ale v kombinácii s nástrojom <a title="Dsamain" href="https://technet.microsoft.com/en-us/library/cc772168.aspx">dsamain</a> umožňujú veľmi rýchlo nahliadnuť do historického stavu domény.
-</p>
+
+Ako jeden z&nbsp;mechanizmov zálohovania Active Directory sa&nbsp;mi&nbsp;osvedčili každodenné snapshoty databázy. Nedajú sa&nbsp;síce použiť priamo k&nbsp;obnoveniu DC, ale&nbsp;v&nbsp;kombinácii s&nbsp;nástrojom [dsamain](https://technet.microsoft.com/en-us/library/cc772168.aspx "Dsamain") umožňujú veľmi rýchlo nahliadnuť do&nbsp;historického stavu domény.
 
 <!--more-->
 
 ## Snapshot Active Directory databázy
 
-Štandardný postup získania snapshotu pomocou nástroja [ntdsutil](https://technet.microsoft.com/en-us/library/cc731620.aspx "ntdsutil snapshot") je nasledovný:
+Štandardný postup získania snapshotu pomocou nástroja [ntdsutil](https://technet.microsoft.com/en-us/library/cc731620.aspx "ntdsutil snapshot") je&nbsp;nasledovný:
 
-  1. Pripojiť sa&nbsp;k&nbsp;AD (príkaz activate instance ntds)
-  2. Vytvoriť snapshot (príkaz create)
-  3. Zobraziť zoznam snapshotov a&nbsp;poznačiť si&nbsp;číslo toho najnovšieho (príkaz list all)
-  4. Pripojiť vytvorený snapshot ako podadresár C:\ (príkaz mount)
-  5. Vykopírovať zo snapshotu súbor ntds.dit pomocou prieskumníka
-  6. Odmountovať snapshot (príkaz unmount)
-  7. Zmazať snapshot (príkaz delete)
+1. Pripojiť sa k&nbsp;AD (príkaz activate instance ntds)
+2. Vytvoriť snapshot (príkaz create)
+3. Zobraziť zoznam snapshotov a&nbsp;poznačiť si&nbsp;číslo toho najnovšieho (príkaz list all)
+4. Pripojiť vytvorený snapshot ako podadresár C:\\ (príkaz mount)
+5. Vykopírovať zo snapshotu súbor ntds.dit pomocou prieskumníka
+6. Odmountovať snapshot (príkaz unmount)
+7. Zmazať snapshot (príkaz delete)
 
-Celý postup je&nbsp;vidno na nasledovnom screenshote:
+Celý postup je&nbsp;vidno na&nbsp;nasledovnom screenshote:
 
-<img class="aligncenter wp-image-1891 size-full" src="https://www.dsinternals.com/wp-content/uploads/ad_snapshot.png" alt="Active Directory Snapshot" width="677" height="343" srcset="https://www.dsinternals.com/wp-content/uploads/ad_snapshot.png 677w, https://www.dsinternals.com/wp-content/uploads/ad_snapshot-300x152.png 300w" sizes="(max-width: 677px) 100vw, 677px" /> 
+![Active Directory Snapshot](/wp-content/uploads/ad_snapshot.png)
 
 ## IFM záloha
 
-<p align="justify">
-  Predošlý postup je trochu ťažkopádny, hlavne ak ho chceme zautomatizovať. Preto radšej využívam Install From&nbsp;Media (IFM) zálohy, ktoré na jeden príkaz urobia kroky 2-7 z predošlého postupu:
-</p>
+Predošlý postup je&nbsp;trochu ťažkopádny, hlavne ak&nbsp;ho&nbsp;chceme zautomatizovať. Preto radšej využívam Install From&nbsp;Media (IFM) zálohy, ktoré na&nbsp;jeden príkaz urobia kroky 2-7 z&nbsp;predošlého postupu:
 
-<img class="aligncenter wp-image-1901 size-full" src="https://www.dsinternals.com/wp-content/uploads/ad_ifm.png" alt="Install From&nbsp;Media Backup" width="677" height="391" srcset="https://www.dsinternals.com/wp-content/uploads/ad_ifm.png 677w, https://www.dsinternals.com/wp-content/uploads/ad_ifm-300x173.png 300w" sizes="(max-width: 677px) 100vw, 677px" /> 
+![Install From Media Backup](/wp-content/uploads/ad_ifm.png)
 
-Navyše prebehne aj&nbsp;defragmentácia databázy a odzálohovanie registrov. Výsledkom je táto adresárová štruktúra:
+Navyše prebehne aj&nbsp;defragmentácia databázy a&nbsp;odzálohovanie registrov. Výsledkom je&nbsp;táto adresárová štruktúra:
 
-  * Adresár Active Directory 
-      * Súbor ntds.dit &#8211; Defragmentovaná databáza
-  * Adresár Registry 
-      * Súbor SECURITY &#8211; Registry hive obsahujúci vetvu HKLM\Security
-      * Súbor SYSTEM &#8211; Registry hive obsahujúci vetvu HKLM\System.
+- Adresár Active Directory 
+    - Súbor ntds.dit – Defragmentovaná databáza
+- Adresár Registry 
+    - Súbor SECURITY – Registry hive obsahujúci vetvu HKLM\\Security
+    - Súbor SYSTEM – Registry hive obsahujúci vetvu HKLM\\System.
 
-<p align="justify">
-  Registre sú súčasťou IFM zálohy preto, lebo hashe používateľských hesiel sú v databáze zasifrované pomocou tzv. SYSKEY/BOOTKEY, ktorý sa nachádza práve v registroch.
-</p>
+Registre sú súčasťou IFM zálohy preto,&nbsp;lebo hashe používateľských hesiel sú&nbsp;v&nbsp;databáze zasifrované pomocou tzv.&nbsp;SYSKEY/BOOTKEY, ktorý sa&nbsp;nachádza práve v&nbsp;registroch.
 
 ## Použitie IFM zálohy
 
-<p align="justify">
-  Primárnym účelom tejto zálohy je jej použitie pri inštalácii nového doménového kontroléru na pobočke s pomalou konektivitou:
-</p>
+Primárnym účelom tejto zálohy je&nbsp;jej&nbsp;použitie pri&nbsp;inštalácii nového doménového kontroléru na&nbsp;pobočke s&nbsp;pomalou konektivitou:
 
-[<img class="aligncenter" src="https://i-technet.sec.s-msft.com/dynimg/IC586842.gif" alt="Install From&nbsp;Media Options" width="773" height="566" />](https://i-technet.sec.s-msft.com/dynimg/IC586842.gif)
+![Install From Media Options](https://i-technet.sec.s-msft.com/dynimg/IC586842.gif)
 
-<p align="justify">
-  Nikto nám však nebráni si&nbsp;ntds.dit súbor z IFM zálohy primountovať pomocou nástroja dsamain, rovnako ako bežný snapshot. Nasledovná sekvencia príkazov sprístupní odzálohovanú databázu databázu cez protokol LDAP na porte 10389 a nasmeruje na ňu konzolu Active Directory Users and Computers:
-</p>
+Nikto nám však nebráni si&nbsp;ntds.dit súbor z&nbsp;IFM zálohy primountovať pomocou nástroja dsamain, rovnako ako&nbsp;bežný snapshot. Nasledovná sekvencia príkazov sprístupní odzálohovanú databázu databázu cez&nbsp;protokol LDAP na&nbsp;porte 10389 a&nbsp;nasmeruje na&nbsp;ňu&nbsp;konzolu Active Directory Users and&nbsp;Computers:
 
-<img class="aligncenter wp-image-1951 size-full" src="https://www.dsinternals.com/wp-content/uploads/dsamain1.png" alt="" width="677" height="163" srcset="https://www.dsinternals.com/wp-content/uploads/dsamain1.png 677w, https://www.dsinternals.com/wp-content/uploads/dsamain1-300x72.png 300w" sizes="(max-width: 677px) 100vw, 677px" /> 
+![dsamain](/wp-content/uploads/dsamain1.png)
 
 ## Automatizácia
 
-<p align="justify">
-  Ostáva nám ešte zautomatizovať tvorbu IFM záloh. Môžeme k tomu použiť nasledujúci PowerShell skript, ktorý každú zálohu uloží do samostatného adresára, ktorý vo svojom názve obsahuje aktuálny čas a dátum:
-</p>
+Ostáva nám ešte zautomatizovať tvorbu IFM záloh. Môžeme k&nbsp;tomu použiť nasledujúci PowerShell skript, ktorý&nbsp;každú zálohu uloží do&nbsp;samostatného adresára, ktorý vo&nbsp;svojom názve obsahuje aktuálny čas a&nbsp;dátum:
 
-<pre class="lang:ps decode:true">$date = Get-Date -Format 'yyyy-MM-dd HH-mm'
+```powershell
+$date = Get-Date -Format 'yyyy-MM-dd HH-mm'
 $folder = Join-Path 'C:\IFM' $date
-ntdsutil 'activate instance ntds' ifm "create sysvol full `"$folder`"" quit quit</pre>
+ntdsutil 'activate instance ntds' ifm "create sysvol full `"$folder`"" quit quit
+```
 
-<p align="justify">
-  Tento skript potom stačí pravidelne spúšťať v rámci periodickej plánovanej úlohy. Nesmieme samozrejme zabudnúť na premazávanie starých záloh, aby nám nezaplnili disk.
-</p>
+Tento skript potom stačí pravidelne spúšťať v&nbsp;rámci periodickej plánovanej úlohy. Nesmieme samozrejme zabudnúť na&nbsp;premazávanie starých záloh, aby&nbsp;nám&nbsp;nezaplnili disk.
 
 ## Záver
 
-<p align="justify">
-  IFM zálohy nám v žiadnom prípade nenahradia System State zálohy, vytvárané pomocou Windows Server Backup alebo nástrojov tretích strán. Môžu ale poslúžiť ako ich doplnok, pretože k dátam v nich obsiahnutých sa typicky vieme dostať oveľa rýchlejšie, než k System State zálohám.
-</p>
+IFM zálohy nám v&nbsp;žiadnom prípade nenahradia System State zálohy, vytvárané pomocou Windows Server Backup alebo&nbsp;nástrojov tretích strán. Môžu ale&nbsp;poslúžiť ako ich doplnok, pretože k&nbsp;dátam v&nbsp;nich&nbsp;obsiahnutých sa&nbsp;typicky vieme dostať oveľa rýchlejšie, než k&nbsp;System State zálohám.

