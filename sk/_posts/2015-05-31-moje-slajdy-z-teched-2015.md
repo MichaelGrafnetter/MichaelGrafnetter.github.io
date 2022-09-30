@@ -14,9 +14,9 @@ tags:
 
 Ešte raz ďakujem všetkým účastníkom mojich prednášok na konferencii **TechEd 2015**, plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
 
-- [Obrana proti pass-the-hash útokom](/wp-content/uploads/teched2015_pth.pdf)
-- [Ako funguje Active Directory databáza](/wp-content/uploads/teched2015_addb.pdf)
-- [Novinky v PowerShell 5 Preview](/wp-content/uploads/teched2015_ps5.pdf)
+- [Obrana proti pass-the-hash útokom](../../assets/documents/teched2015_pth.pdf)
+- [Ako funguje Active Directory databáza](../../assets/documents/teched2015_addb.pdf)
+- [Novinky v PowerShell 5 Preview](../../assets/documents/teched2015_ps5.pdf)
 
 A tu sú príklady, na ktorých som ukazoval novinky v PowerShell 5:
 

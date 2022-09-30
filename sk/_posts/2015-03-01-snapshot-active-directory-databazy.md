@@ -29,13 +29,13 @@ Ako jeden z&nbsp;mechanizmov zálohovania Active Directory sa&nbsp;mi&nbsp;osved
 
 Celý postup je&nbsp;vidno na&nbsp;nasledovnom screenshote:
 
-![Active Directory Snapshot](/wp-content/uploads/ad_snapshot.png)
+![Active Directory Snapshot](../../assets/images/ad_snapshot.png)
 
 ## IFM záloha
 
 Predošlý postup je&nbsp;trochu ťažkopádny, hlavne ak&nbsp;ho&nbsp;chceme zautomatizovať. Preto radšej využívam Install From&nbsp;Media (IFM) zálohy, ktoré na&nbsp;jeden príkaz urobia kroky 2-7 z&nbsp;predošlého postupu:
 
-![Install From Media Backup](/wp-content/uploads/ad_ifm.png)
+![Install From Media Backup](../../assets/images/ad_ifm.png)
 
 Navyše prebehne aj&nbsp;defragmentácia databázy a&nbsp;odzálohovanie registrov. Výsledkom je&nbsp;táto adresárová štruktúra:
 
@@ -55,7 +55,7 @@ Primárnym účelom tejto zálohy je&nbsp;jej&nbsp;použitie pri&nbsp;inštalác
 
 Nikto nám však nebráni si&nbsp;ntds.dit súbor z&nbsp;IFM zálohy primountovať pomocou nástroja dsamain, rovnako ako&nbsp;bežný snapshot. Nasledovná sekvencia príkazov sprístupní odzálohovanú databázu databázu cez&nbsp;protokol LDAP na&nbsp;porte 10389 a&nbsp;nasmeruje na&nbsp;ňu&nbsp;konzolu Active Directory Users and&nbsp;Computers:
 
-![dsamain](/wp-content/uploads/dsamain1.png)
+![dsamain](../../assets/images/dsamain1.png)
 
 ## Automatizácia
 

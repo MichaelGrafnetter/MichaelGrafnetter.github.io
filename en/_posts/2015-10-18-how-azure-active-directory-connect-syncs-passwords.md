@@ -21,11 +21,11 @@ A [post](https://blogs.technet.com/b/ad/archive/2014/06/28/aad-password-sync-enc
 
 # How Azure AD Connect retrieves passwords from AD
 
-AD password synchronization is often implemented using [password filters](https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882(v=vs.85).aspx), but this is not the case. Instead, the [MS-DRSR](https://msdn.microsoft.com/en-us/library/cc228086.aspx "MS-DRSR") protocol is used to remotely retrieve password hashes from DCs. In other words, it basically does the same as the [Get-ADReplAccount](https://www.dsinternals.com/en/retrieving-active-directory-passwords-remotely/) cmdlet I have recently created. The only sensitive information that the AD Connect pulls from AD is the [unicodePwd](https://msdn.microsoft.com/en-us/library/cc220961.aspx) attribute, which contains MD4 hash (aka NT hash) of the password.
+AD password synchronization is often implemented using [password filters](https://msdn.microsoft.com/en-us/library/windows/desktop/ms721882(v=vs.85).aspx), but this is not the case. Instead, the [MS-DRSR](https://msdn.microsoft.com/en-us/library/cc228086.aspx "MS-DRSR") protocol is used to remotely retrieve password hashes from DCs. In other words, it basically does the same as the [Get-ADReplAccount](/en/retrieving-active-directory-passwords-remotely/) cmdlet I have recently created. The only sensitive information that the AD Connect pulls from AD is the [unicodePwd](https://msdn.microsoft.com/en-us/library/cc220961.aspx) attribute, which contains MD4 hash (aka NT hash) of the password.
 
 You should also know that the password synchronization service connects to AD using a [special account](https://azure.microsoft.com/en-us/documentation/articles/active-directory-aadconnect-accounts-permissions/#custom-settings-installation) whose default name starts with **MSOL\_**. This account is automatically created during the installation process and is delegated the **Replicating Directory Changes All** right. It would be a bad idea to replicate its password to a RODC. Furthermore, its cleartext password is also stored in the SQL Server database that the sync agent uses. It is therefore crucial to ensure that only Domain Admins have access to this DB.
 
-![MSOL Account](/wp-content/uploads/msol_account.png)
+![MSOL Account](../../assets/images/msol_account.png)
 
 # How Azure AD Connect sends passwords to the Cloud
 
@@ -101,6 +101,6 @@ And for those who are still in doubt, Microsoft offers an alternative, the so-ca
 
 # Sample implementation
 
-For demonstration purposes, I have created my own implementation of the OrgId hash function that returns the same results as the original one. It can be played with using the **ConvertTo-OrgIdHash** cmdlet from the [DSInternals](https://www.dsinternals.com/en/downloads/) PowerShell module. Here is an example of its usage:
+For demonstration purposes, I have created my own implementation of the OrgId hash function that returns the same results as the original one. It can be played with using the **ConvertTo-OrgIdHash** cmdlet from the [DSInternals](/en/downloads/) PowerShell module. Here is an example of its usage:
 
-![PowerShell OrgId Hash Calculation](/wp-content/uploads/2015/01/ps_orgidhash.png)
+![PowerShell OrgId Hash Calculation](../../assets/images/ps_orgidhash.png)

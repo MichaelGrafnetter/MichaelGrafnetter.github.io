@@ -14,4 +14,4 @@ tags:
     - WUG
 ---
 
-Na Mikuláša, teda 6. 12. 2018, som mal v bratislavskom Microsofte prednášku **Offline útoky na Active Directory**. Tu sú [slajdy z prednášky](/wp-content/uploads/HIP_AD_Offline_Attacks.pdf).
+Na Mikuláša, teda 6. 12. 2018, som mal v bratislavskom Microsofte prednášku **Offline útoky na Active Directory**. Tu sú [slajdy z prednášky](../../assets/documents/HIP_AD_Offline_Attacks.pdf).

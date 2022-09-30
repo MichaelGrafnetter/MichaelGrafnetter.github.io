@@ -68,6 +68,6 @@ Funkcia PBKDF2 je&nbsp;dnes pri použití rozumného hesla považovaná za&nbsp;
 
 ## Ukážková implementácia
 
-Pre&nbsp;demonštračné účely som si&nbsp;naprogramoval moju vlastnú implementáciu OrgId hashu. Je&nbsp;sprístupnená cez&nbsp;PowerShell cmdlet **ConvertTo-OrgIdHash** v [module DSInternals](https://www.dsinternals.com/sk/na-stiahnutie/ "Na stiahnutie"). Tu je&nbsp;ukážka jeho použitia:
+Pre&nbsp;demonštračné účely som si&nbsp;naprogramoval moju vlastnú implementáciu OrgId hashu. Je&nbsp;sprístupnená cez&nbsp;PowerShell cmdlet **ConvertTo-OrgIdHash** v [module DSInternals](/sk/na-stiahnutie/ "Na stiahnutie"). Tu je&nbsp;ukážka jeho použitia:
 
-![PowerShell OrgId Hash Calculation](/wp-content/uploads/2015/01/ps_orgidhash.png)
+![PowerShell OrgId Hash Calculation](../../assets/images/ps_orgidhash.png)

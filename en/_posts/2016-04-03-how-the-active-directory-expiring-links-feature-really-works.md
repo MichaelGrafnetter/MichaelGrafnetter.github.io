@@ -52,7 +52,7 @@ PowerShell is great, but what if we needed to stick with pure LDAP? Well, if you
 
 To view the group membership with TTLs, the corresponding LDAP search operation has to contain the [LDAP\_SERVER\_LINK\_TTL](https://msdn.microsoft.com/en-us/library/mt220506.aspx) extended control (OID = 1.2.840.113556.1.4.2309). Here is a screenshot from the **ldp.exe** tool with this control enabled:
 
-![Link TTL](/wp-content/uploads/link_ttl.png)
+![Link TTL](../../assets/images/link_ttl.png)
 
 ## Implementation Details (Very Advanced Stuff)
 

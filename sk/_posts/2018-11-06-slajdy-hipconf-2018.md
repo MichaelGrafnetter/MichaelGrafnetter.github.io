@@ -7,6 +7,6 @@ lang: sk
 permalink: /sk/slajdy-hipconf-2018/
 ---
 
-Slajdy z&nbsp;mojej prednášky o&nbsp;offline útokoch na&nbsp;Active Directory z&nbsp;konferencie [HipConf 2018](https://www.hipconf.com) v&nbsp;New Yorku sú [dostupné na&nbsp;stiahnutie](/wp-content/uploads/HIP_AD_Offline_Attacks.pdf).
+Slajdy z&nbsp;mojej prednášky o&nbsp;offline útokoch na&nbsp;Active Directory z&nbsp;konferencie [HipConf 2018](https://www.hipconf.com) v&nbsp;New Yorku sú [dostupné na&nbsp;stiahnutie](../../assets/documents/HIP_AD_Offline_Attacks.pdf).
 
 Funkcionalita *Restore From&nbsp;Media* bude pridaná v&nbsp;plánovanom vydaní [DSInternals](https://github.com/MichaelGrafnetter/DSInternals/releases) 3.1.

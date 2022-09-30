@@ -14,12 +14,12 @@ tags:
 
 Since version 2.15, the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) fully supports [Windows PE](https://msdn.microsoft.com/en-us/windows/hardware/commercialize/manufacture/desktop/winpe-intro), the free minimalistic edition of Windows. This means that all the nasty Active Directory database stuff can now be performed from a bootable flash drive or an ISO image, including:
 
-- [Dumping NT hashes, kerberos keys and cleartext passwords](https://www.dsinternals.com/en/dumping-ntds-dit-files-using-powershell/) from ntds.dit files.
+- [Dumping NT hashes, kerberos keys and cleartext passwords](/en/dumping-ntds-dit-files-using-powershell/) from ntds.dit files.
 - Modifying the SID History of user accounts and groups.
 - Modifying the Primary Group ID of user accounts.
-- [Extracting the DPAPI domain backup keys](https://www.dsinternals.com/en/retrieving-dpapi-backup-keys-from-active-directory/).
+- [Extracting the DPAPI domain backup keys](/en/retrieving-dpapi-backup-keys-from-active-directory/).
 
-![Windows PE DSInternals](/wp-content/uploads/winpe.png)]
+![Windows PE DSInternals](../../assets/images/winpe.png)]
 
 ## Required access
 

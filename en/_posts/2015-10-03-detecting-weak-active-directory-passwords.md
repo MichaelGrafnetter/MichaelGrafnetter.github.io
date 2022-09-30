@@ -11,4 +11,4 @@ tags:
     - Security
 ---
 
-There is a new tool available for&nbsp;auditing Active Directory passwords, the&nbsp;[Get-bADPasswords cmdlet](https://github.com/improsec/Get-bADpasswords). It&nbsp;has been created by&nbsp;[Jakob Heidelberg](https://twitter.com/JakobHeidelberg/) and&nbsp;it&nbsp;is&nbsp;built upon the features of&nbsp;&nbsp;[DSInternals module](https://www.dsinternals.com/en/downloads/).
+There is a new tool available for&nbsp;auditing Active Directory passwords, the&nbsp;[Get-bADPasswords cmdlet](https://github.com/improsec/Get-bADpasswords). It&nbsp;has been created by&nbsp;[Jakob Heidelberg](https://twitter.com/JakobHeidelberg/) and&nbsp;it&nbsp;is&nbsp;built upon the features of&nbsp;&nbsp;[DSInternals module](/en/downloads/).

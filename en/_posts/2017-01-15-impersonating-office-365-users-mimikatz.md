@@ -52,8 +52,8 @@ mimikatz.exe "kerberos::golden /user:elrond /sid:S-1-5-21-2121516926-2695913149-
 3. Go to <about:config> and set the [network.negotiate-auth.trusted-uris](https://developer.mozilla.org/en-US/docs/Mozilla/Integrated_authentication) preference to [value](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#ensuring-clients-sign-in-automatically) “https://aadg.windows.net.nsatc.net,https://autologon.microsoftazuread-sso.com”.
 4. Navigate to any web application that is integrated with our AAD domain. We will use [Office 365](https://portal.office.com), which is the most commonly used one.
 5. Once at the logon screen, fill in the user name, while leaving the password field empty. Then press TAB or ENTER.  
-    ![](/wp-content/uploads/aad_sso1.png)
-6. That’s it, we’re in!![](/wp-content/uploads/aad_sso2.png)
+    ![](../../assets/images/aad_sso1.png)
+6. That’s it, we’re in!![](../../assets/images/aad_sso2.png)
 7. To log in as another user, run the command below and repeat steps 1-6.
 ```bat
 klist purge
@@ -61,7 +61,7 @@ klist purge
 
 It is also worth noting that the password of the *AZUREADSSOACC* account never changes, so the stolen hash/key will work forever. It could therefore be misused by highly privileged employees to retain access to the IT environment after leaving the company. Dealing with such situations is a much broader problem, which is aptly depicted by the following old Narnian saying:
 
-![Once a Domain Admin, always a Domain Admin](/wp-content/uploads/narnia.png)
+![Once a Domain Admin, always a Domain Admin](../../assets/images/narnia.png)
 
 ## Countermeasures
 
@@ -74,7 +74,7 @@ First of&nbsp;all, I&nbsp;have to&nbsp;point out that&nbsp;this technique would 
 As&nbsp;you can see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;just to&nbsp;be safe, I&nbsp;would recommend these generic security measures:
 
 - Only delegate administrative access to trusted individuals and keep the number of members of the *Domain Admins* group (and other privileged groups) as low as possible.
-- Protect backups of Domain Controllers, so no-one could [extract sensitive information](https://www.dsinternals.com/en/dumping-ntds-dit-files-using-powershell/) from them.
+- Protect backups of Domain Controllers, so no-one could [extract sensitive information](/en/dumping-ntds-dit-files-using-powershell/) from them.
 - Enable and enforce [Azure MFA](https://docs.microsoft.com/en-us/azure/multi-factor-authentication/multi-factor-authentication) for users authenticating from external IP addresses. It is very straightforward and effective against many kinds of attacks.
 - Consider implementing [Azure AD conditional access](https://docs.microsoft.com/cs-cz/azure/active-directory/active-directory-conditional-access).
 - Deploy [Microsoft Advanced Threat Analytics](https://www.microsoft.com/en-us/cloud-platform/advanced-threat-analytics) to detect malicious replication and other threats to your AD infrastructure.  

@@ -31,7 +31,7 @@ New-ADServiceAccount `
 
 We can check the result in the *Active Directory Users and Computers* console:
 
-![Group Managed Service Account](/wp-content/uploads/gmsa.png)Unfortunately, the built-in GUI will not help us much when working with GMSAs. Although there is a [nice 3rd party tool](https://www.cjwdev.com/Software/MSAGUI/Info.html), we will stick to PowerShell.
+![Group Managed Service Account](../../assets/images/gmsa.png)Unfortunately, the built-in GUI will not help us much when working with GMSAs. Although there is a [nice 3rd party tool](https://www.cjwdev.com/Software/MSAGUI/Info.html), we will stick to PowerShell.
 
 ## Setting the Managed Password ACL
 
@@ -101,10 +101,10 @@ UnchangedPasswordInterval : 29.17:10:36.3736817
 #>
 ```
 
-TADA!!! The CurrentPassword property contains the actual cleartext password of the GMSA in question. Why does it look like gibberish? Because it is just 256 bytes of pseudorandom data, interpreted as 128 UTF-16 characters. Good luck writing that on your keyboard. But if we [calculate its NT hash](https://www.dsinternals.com/en/dsinternals-powershell-module-released/), it will match the [hash stored in AD](https://www.dsinternals.com/en/dumping-ntds-dit-files-using-powershell/).
+TADA!!! The CurrentPassword property contains the actual cleartext password of the GMSA in question. Why does it look like gibberish? Because it is just 256 bytes of pseudorandom data, interpreted as 128 UTF-16 characters. Good luck writing that on your keyboard. But if we [calculate its NT hash](/en/dsinternals-powershell-module-released/), it will match the [hash stored in AD](/en/dumping-ntds-dit-files-using-powershell/).
 
 ## Conclusion
 
 We have seen that retrieving the value of GMSA passwords is quite easy. But don’t be afraid, there is no security hole in Active Directory. The cleartext password is always passed through an encrypted channel, it is automatically changed on a regular basis and even members of the Domain Admins group are not allowed to retrieve it by default. So do not hesitate and start using the (Group) Managed Service Accounts. They are much safer than using regular accounts for running services.
 
-If you want to play more with this stuff, just [grab the DSInternals module](https://www.dsinternals.com/en/downloads/). And for developers, the C# code I use to decode the structure can be found on [GitHub](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Src/DSInternals.Common/Data/Principals/ManagedPassword.cs).
+If you want to play more with this stuff, just [grab the DSInternals module](/en/downloads/). And for developers, the C# code I use to decode the structure can be found on [GitHub](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Src/DSInternals.Common/Data/Principals/ManagedPassword.cs).

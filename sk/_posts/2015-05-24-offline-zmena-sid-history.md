@@ -81,9 +81,9 @@ Start-Service ntds
 
 Výsledok je&nbsp;potom nasledovný:
 
-![Sid History](/wp-content/uploads/sid_history.png)
+![Sid History](../../assets/images/sid_history.png)
 
-Príkaz je&nbsp;súčasťou PowerShell modulu DSInternals, ktorý nájdete v&nbsp;sekcii [Na stiahnutie](https://www.dsinternals.com/sk/na-stiahnutie/ "Na stiahnutie"). Budem rád za&nbsp;akúkoľvek spätnú väzbu.
+Príkaz je&nbsp;súčasťou PowerShell modulu DSInternals, ktorý nájdete v&nbsp;sekcii [Na stiahnutie](/sk/na-stiahnutie/ "Na stiahnutie"). Budem rád za&nbsp;akúkoľvek spätnú väzbu.
 
 POZOR: Pred akýmkoľvek zásahom do&nbsp;AD databázy ju vždy najprv odzálohujte!
 

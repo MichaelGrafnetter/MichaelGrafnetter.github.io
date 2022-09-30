@@ -5,16 +5,16 @@ date: 2015-05-31T13:55:51+00:00
 layout: post
 lang: sk
 permalink: /sk/offline-zmena-clenstva-v-skupinach/
-image: /wp-content/uploads/primary_group.png
+image: /images/primary_group.png
 tags:
     - 'Active Directory'
     - PowerShell
     - Security
 ---
 
-Spôsobov, ako sa&nbsp;dá **hacknúť doménový kontrolér**, ak útočník získa fyzický prístup k&nbsp;jeho systémovému disku, existuje veľa. Za&nbsp;zmienku stojí napríklad podvrhnutie [SID History](https://www.dsinternals.com/sk/offline-zmena-sid-history/), o&nbsp;ktorom som nedávno písal, alebo [notoricky známe](https://www.sevecek.com/Lists/Posts/Post.aspx?ID=213) nahradenie nástroja **Klávesnica na obrazovke** príkazovým riadkom.
+Spôsobov, ako sa&nbsp;dá **hacknúť doménový kontrolér**, ak útočník získa fyzický prístup k&nbsp;jeho systémovému disku, existuje veľa. Za&nbsp;zmienku stojí napríklad podvrhnutie [SID History](/sk/offline-zmena-sid-history/), o&nbsp;ktorom som nedávno písal, alebo [notoricky známe](https://www.sevecek.com/Lists/Posts/Post.aspx?ID=213) nahradenie nástroja **Klávesnica na obrazovke** príkazovým riadkom.
 <!--more-->
-Zo všetkých druhov útokov sa mi najviac páči **offline úprava Active Directory databázy**. Možnosť takéhoto zásahu do DC je známa už dávno, veď aj kvôli tomu vznikla funkcia [Read-Only Domain Controller](https://technet.microsoft.com/en-us/library/cc732801(v=ws.10).aspx). Na druhú stranu, keďže je štruktúra Active Directory databázy veľmi komplikovaná a takmer nulovo zdokumentovaná, neexistujú skoro žiadne verejne dostupné nástroje pomocou ktorých by sa dal takýto útok realizovať. Tie, ktoré [poznám](https://www.dsinternals.com/sk/offline-zmena-sid-history/), sa výhradne sústredia na už spomínanú úpravu SID History. Preto som sa rozhodol vytvoriť powershellovský príkaz **Set-ADDBPrimaryGroup**, ktorý slúži na offline zmenu členstva v skupinách.
+Zo všetkých druhov útokov sa mi najviac páči **offline úprava Active Directory databázy**. Možnosť takéhoto zásahu do DC je známa už dávno, veď aj kvôli tomu vznikla funkcia [Read-Only Domain Controller](https://technet.microsoft.com/en-us/library/cc732801(v=ws.10).aspx). Na druhú stranu, keďže je štruktúra Active Directory databázy veľmi komplikovaná a takmer nulovo zdokumentovaná, neexistujú skoro žiadne verejne dostupné nástroje pomocou ktorých by sa dal takýto útok realizovať. Tie, ktoré [poznám](/sk/offline-zmena-sid-history/), sa výhradne sústredia na už spomínanú úpravu SID History. Preto som sa rozhodol vytvoriť powershellovský príkaz **Set-ADDBPrimaryGroup**, ktorý slúži na offline zmenu členstva v skupinách.
 
 ### Realizácia útoku
 
@@ -34,7 +34,7 @@ Start-Service ntds
 
 Výsledok môžeme overiť pohľadom do&nbsp;konzole Active Directory Users and&nbsp;Computers:
 
-![primary_group](/wp-content/uploads/primary_group.png)
+![primary_group](../../assets/images/primary_group.png)
 
 Pri offline prístupe na&nbsp;disk (boot z&nbsp;flashky či&nbsp;pripojenie HDD/VHD do&nbsp;iného PC) samozrejme nie sú nutné príkazy na&nbsp;zastavenie a&nbsp;spustenie služby Active Directory Domain Services (ntds).
 

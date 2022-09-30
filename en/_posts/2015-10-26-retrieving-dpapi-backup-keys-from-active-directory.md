@@ -20,19 +20,19 @@ The Data Protection API (DPAPI) is used by several components of Windows to secu
 
 Benjamin Delpy has already found a way to extract these backup keys from the LSASS of domain controllers and it even works remotely:
 
-![Mimikatz DPAPI Backup Keys](/wp-content/uploads/mimikatz_backupkeys.png)
+![Mimikatz DPAPI Backup Keys](../../assets/images/mimikatz_backupkeys.png)
 
 ## Key Storage
 
 I have taken Benjamin’s research one step further and I can now extract these keys directly from the Active Directory database, where they are physically stored:
 
-![Backup Key Storage](/wp-content/uploads/backupkeys_storage.png)
+![Backup Key Storage](../../assets/images/backupkeys_storage.png)
 
 The keys are stored in the **currentValue** attribute of objects whose names begin with **BCKUPKEY** and are of class **secret**. The **BCKUPKEY_PREFERRED Secret** and **BCKUPKEY_P Secret** objects actually only contain GUIDs of objects that hold the current modern and legacy keys, respectively. Furthermore, the currentValue attribute is encrypted using BootKey (aka SysKey) and is never sent through LDAP.
 
 ## The Database Dump Method
 
-The **Get-BootKey**, **Get-ADDBBackupKey** and **Save-DPAPIBlob** cmdlets from my [DSInternals PowerShell Module](https://www.dsinternals.com/en/downloads/) can be used to retrieve the DPAPI Domain Backup Keys from ntds.dit files:
+The **Get-BootKey**, **Get-ADDBBackupKey** and **Save-DPAPIBlob** cmdlets from my [DSInternals PowerShell Module](/en/downloads/) can be used to retrieve the DPAPI Domain Backup Keys from ntds.dit files:
 
 ```powershell
 # We need to get the BootKey from the SYSTEM registry hive first:

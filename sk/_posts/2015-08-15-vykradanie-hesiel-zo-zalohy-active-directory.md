@@ -11,7 +11,7 @@ tags:
     - Security
 ---
 
-Nedávno som písal o príkaze [Get-ADReplAccount](https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/), pomocou ktorého je možné vzdialene vytiahnuť heslá a iné citlivé informácie z doménového kontroléru. Tieto dáta sú na každom doménovom kontroléri uložené v súbore **ndts.dit** a odtiaľ sa dajú získať aj napriamo. Dokáže to napríklad nástroj [NTDSXtact](https://github.com/csababarta/ntdsxtract), ale ten je určený pre Linux, nemá moc jednoduché ovládanie a na väčších databázach je dosť pomalý. Preto som do svojho [PowerShell modulu DSInternals](https://www.dsinternals.com/sk/na-stiahnutie/) pridal príkaz **Get-ADDBAccount**, ktorého použitie je hračka:
+Nedávno som písal o príkaze [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/), pomocou ktorého je možné vzdialene vytiahnuť heslá a iné citlivé informácie z doménového kontroléru. Tieto dáta sú na každom doménovom kontroléri uložené v súbore **ndts.dit** a odtiaľ sa dajú získať aj napriamo. Dokáže to napríklad nástroj [NTDSXtact](https://github.com/csababarta/ntdsxtract), ale ten je určený pre Linux, nemá moc jednoduché ovládanie a na väčších databázach je dosť pomalý. Preto som do svojho [PowerShell modulu DSInternals](/sk/na-stiahnutie/) pridal príkaz **Get-ADDBAccount**, ktorého použitie je hračka:
 
 ```powershell
 # Z registrov najprv získame tzv. Boot Key, ktorým sú heslá zašifrované:
@@ -24,7 +24,7 @@ Get-ADDBAccount -All -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key
 Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
 ```
 
-Výstup vyzerá úplne rovnako ako v prípade príkazu [Get-ADReplAccount](https://www.dsinternals.com/sk/vykradanie-hesiel-z-active-directory-na-dialku/):
+Výstup vyzerá úplne rovnako ako v prípade príkazu [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/):
 
 ```
 DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com

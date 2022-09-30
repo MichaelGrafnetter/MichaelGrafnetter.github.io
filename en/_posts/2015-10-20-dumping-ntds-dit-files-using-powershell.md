@@ -17,7 +17,7 @@ Although there exist several tools for dumping password hashes from the Active D
 - Most of the tools are either Linux-only or running them on Windows is not simple enough.
 - Almost none of these tools can modify the database. And if they do, they do not support transaction logs and are quite cumbersome.
 
-Therefore, I have decided to create [my own set of PowerShell cmdlets](https://www.dsinternals.com/en/list-of-cmdlets-in-the-dsinternals-module/) that wouldn’t have these shortcomings. In the process, I have unintentionally created my own framework that is built on top of Microsoft’s [ManagedEsent](https://managedesent.codeplex.com/) library and hides the complexity of the underlying database. I am planning to release it at GitHub later this year.
+Therefore, I have decided to create [my own set of PowerShell cmdlets](/en/list-of-cmdlets-in-the-dsinternals-module/) that wouldn’t have these shortcomings. In the process, I have unintentionally created my own framework that is built on top of Microsoft’s [ManagedEsent](https://managedesent.codeplex.com/) library and hides the complexity of the underlying database. I am planning to release it at GitHub later this year.
 
 One of the cmdlets I have created is **Get-ADDBAccount**, which can be used to extract password hashes, Kerberos keys and even reversibly encrypted passwords from ntds.dit files. Here is an example of its usage:
 
@@ -35,7 +35,7 @@ Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' `
         -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
 ```
 
-The output is identical to what the [Get-ADReplAccount](https://www.dsinternals.com/en/retrieving-active-directory-passwords-remotely/) cmdlet would return:
+The output is identical to what the [Get-ADReplAccount](/en/retrieving-active-directory-passwords-remotely/) cmdlet would return:
 
 ```
 DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com
