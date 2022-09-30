@@ -14,9 +14,21 @@
   </a>
 {%- endfor %}
 <!-- Language Link -->
-{% assign translations = site.pages | concat: site.posts | where:"ref", page.ref | where_exp:"item", "item.lang !=
-page.lang" | sort: 'lang' -%}
-{%- for translation in translations -%}
+{%
+  assign translations = site.pages
+    | concat: site.posts
+    | where:"ref", page.ref
+    | where_exp:"item", "item.lang != page.lang"
+    | sort: 'lang'
+%}
+{% if translations.size == 0 %}
+  {% assign translations = site.pages
+    | where:"ref", "blog"
+    | where_exp:"item", "item.lang != page.lang"
+    | sort: 'lang'
+  %}
+{% endif %}
+{% for translation in translations -%}
 <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}" class="page-link">
   <i class="fas fa-globe"></i>&nbsp;{{ translation.lang | upcase }}
 </a>
