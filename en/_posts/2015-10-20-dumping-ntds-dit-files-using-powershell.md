@@ -5,47 +5,40 @@ date: 2015-10-20T18:20:18+00:00
 layout: post
 lang: en
 permalink: /en/dumping-ntds-dit-files-using-powershell/
+tags:
+    - 'Active Directory'
+    - PowerShell
+    - Security
 ---
-<p style="text-align: justify;">
-  Although&nbsp;there exist several tools for&nbsp;dumping password hashes from&nbsp;the&nbsp;Active Directory database files, including the&nbsp;open-source <a href="http://www.ntdsxtract.com/">NTDSXtract</a> from&nbsp;Csaba Bárta whose great research started it all, they have these limitations:
-</p>
 
-<li style="text-align: justify;">
-  They do&nbsp;not support the&nbsp;built-in indices, so&nbsp;searching for&nbsp;a&nbsp;single object is&nbsp;slow when&nbsp;dealing with large databases.
-</li>
-<li style="text-align: justify;">
-  Most of&nbsp;the tools are either Linux-only or&nbsp;running them on Windows is&nbsp;not simple enough.
-</li>
-<li style="text-align: justify;">
-  Almost none of&nbsp;these tools can modify the&nbsp;database. And if they do, they do&nbsp;not support transaction logs and&nbsp;are quite cumbersome.
-</li>
+Although there exist several tools for dumping password hashes from the Active Directory database files, including the open-source [NTDSXtract](https://github.com/csababarta/ntdsxtract) from Csaba Bárta whose great research started it all, they have these limitations:
 
-<p style="text-align: justify;">
-  Therefore, I&nbsp;have decided to&nbsp;create <a href="https://www.dsinternals.com/en/list-of-cmdlets-in-the-dsinternals-module/">my own set of&nbsp;PowerShell cmdlets</a> that&nbsp;wouldn&#8217;t have these shortcomings. In&nbsp;the&nbsp;process, I&nbsp;have unintentionally created my own framework that&nbsp;is&nbsp;built on top of&nbsp;Microsoft&#8217;s <a href="https://managedesent.codeplex.com/">ManagedEsent</a> library and&nbsp;hides the&nbsp;complexity of&nbsp;the underlying database. I&nbsp;am planning to&nbsp;release it at GitHub later this year.
-</p>
+- They do not support the built-in indices, so searching for a single object is slow when dealing with large databases.
+- Most of the tools are either Linux-only or running them on Windows is not simple enough.
+- Almost none of these tools can modify the database. And if they do, they do not support transaction logs and are quite cumbersome.
 
-<p style="text-align: justify;">
-  One of&nbsp;the cmdlets I&nbsp;have created is&nbsp;<strong>Get-ADDBAccount</strong>, which&nbsp;can be used to&nbsp;extract password hashes, Kerberos keys and&nbsp;even&nbsp;reversibly encrypted passwords from&nbsp;ntds.dit files. Here is&nbsp;an example of&nbsp;its usage:
-</p>
+Therefore, I have decided to create [my own set of PowerShell cmdlets](https://www.dsinternals.com/en/list-of-cmdlets-in-the-dsinternals-module/) that wouldn’t have these shortcomings. In the process, I have unintentionally created my own framework that is built on top of Microsoft’s [ManagedEsent](https://managedesent.codeplex.com/) library and hides the complexity of the underlying database. I am planning to release it at GitHub later this year.
 
-<pre class="lang:ps decode:true"># First, we fetch the&nbsp;so-called Boot Key (aka SysKey)
-# that&nbsp;is&nbsp;used to&nbsp;encrypt sensitive data in&nbsp;AD:
+One of the cmdlets I have created is **Get-ADDBAccount**, which can be used to extract password hashes, Kerberos keys and even reversibly encrypted passwords from ntds.dit files. Here is an example of its usage:
+
+```powershell
+# First, we fetch the so-called Boot Key (aka SysKey)
+# that is used to encrypt sensitive data in AD:
 $key = Get-BootKey -SystemHivePath 'C:\IFM\registry\SYSTEM'
 
-# We then load the&nbsp;DB and&nbsp;decrypt password hashes of&nbsp;all accounts:
+# We then load the DB and decrypt password hashes of all accounts:
 Get-ADDBAccount -All -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
 
-# We can also get a&nbsp;single account by&nbsp;specifying its distinguishedName,
-# objectGuid, objectSid or&nbsp;sAMAccountName atribute:
+# We can also get a single account by specifying its distinguishedName,
+# objectGuid, objectSid or sAMAccountName atribute:
 Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' `
         -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key 
-</pre>
+```
 
-<p style="text-align: justify;">
-  The&nbsp;output is&nbsp;identical to&nbsp;what the <a href="https://www.dsinternals.com/en/retrieving-active-directory-passwords-remotely/">Get-ADReplAccount</a> cmdlet would return:
-</p>
+The output is identical to what the [Get-ADReplAccount](https://www.dsinternals.com/en/retrieving-active-directory-passwords-remotely/) cmdlet would return:
 
-<pre class="nums:false lang:default highlight:0 decode:true">DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com
+```
+DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com
 Sid: S-1-5-21-3180365339-800773672-3767752645-502
 Guid: f58947a0-094b-4ae0-9c6a-a435c7d8eddb
 SamAccountName: krbtgt
@@ -134,23 +127,19 @@ SupplementalCredentials:
     Hash 26: 021c07151ece2de494402cf11f62a036
     Hash 27: d657b31bfcacb37443630759cc3a19bf
     Hash 28: 5d49708350e04b16ddc980a0c33c409b
-    Hash 29: efe601100b7b4007fe3fa778499d5dda</pre>
+    Hash 29: efe601100b7b4007fe3fa778499d5dda
+```
 
-<p style="text-align: justify;">
-  I&nbsp;have also created several Views that&nbsp;generate output for&nbsp;the&nbsp;most popular password crackers, including <a href="http://hashcat.net/oclhashcat/">Hashcat</a>, <a href="http://www.openwall.com/john/">John the&nbsp;Ripper</a> and&nbsp;<a href="http://ophcrack.sourceforge.net/">Ophcrack</a>:
-</p>
+I have also created several Views that generate output for the most popular password crackers, including [Hashcat](https://hashcat.net/oclhashcat/), [John the Ripper](https://www.openwall.com/john/) and [Ophcrack](https://ophcrack.sourceforge.net/):
 
-<pre class="lang:ps decode:true "># Dump NT hashes in&nbsp;the&nbsp;format understood by&nbsp;Hashcat:
+```powershell
+# Dump NT hashes in the format understood by Hashcat:
 Get-ADDBAccount -All -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key |
    Format-Custom -View HashcatNT |
    Out-File hashes.txt -Encoding ASCII
-# Other supported views are HashcatLM, JohnNT, JohnLM and&nbsp;Ophcrack.
-</pre>
+# Other supported views are HashcatLM, JohnNT, JohnLM and Ophcrack.
+```
 
-<p style="text-align: justify;">
-  But&nbsp;with the&nbsp;<strong>Golden Ticket</strong> or&nbsp;<strong>Pass-the-Hash</strong> functionality of&nbsp;<a href="http://blog.gentilkiwi.com/mimikatz">mimikatz</a>, an attacker could seize control of&nbsp;the entire Active Directory forest even&nbsp;without cracking those password hashes.
-</p>
+But with the **Golden Ticket** or **Pass-the-Hash** functionality of [mimikatz](https://blog.gentilkiwi.com/mimikatz), an attacker could seize control of the entire Active Directory forest even without cracking those password hashes.
 
-<p style="text-align: justify;">
-  As&nbsp;a&nbsp;countermeasure, it is&nbsp;crucial for&nbsp;companies to <strong>secure physical access</strong> to&nbsp;domain controllers, their backups and&nbsp;their VHD/VHDX/VMDK images in&nbsp;case of&nbsp;virtualized DCs. Turning on BitLocker is&nbsp;not a&nbsp;bad idea either. I&nbsp;really look forward to&nbsp;the new security features planned for&nbsp;Windows Server 2016, including <strong>Shielded VMs</strong> and&nbsp;<strong>Virtual TPMs</strong>.
-</p>
+As a countermeasure, it is crucial for companies to **secure physical access** to domain controllers, their backups and their VHD/VHDX/VMDK images in case of virtualized DCs. Turning on BitLocker is not a bad idea either. I really look forward to the new security features planned for Windows Server 2016, including **Shielded VMs** and **Virtual TPMs**.
