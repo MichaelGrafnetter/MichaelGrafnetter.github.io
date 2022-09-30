@@ -18,7 +18,7 @@ $contosoAccounts + $adatumAccounts | Test-PasswordQuality -WeakPasswordHashesSor
 
 The output of the previous script might look like this (with some parts omitted):
 
-```powershell
+```
 Active Directory Password Quality Report
 ----------------------------------------
 ...

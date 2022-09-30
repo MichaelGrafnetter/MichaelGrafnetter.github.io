@@ -13,7 +13,7 @@ tags:
 
 ## Overview
 
-The latest version of the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) contains a new cmdlet called `**`Test-PasswordQuality`, which is a powerful yet easy to use tool for Active Directory password auditing. It can detect **weak, duplicate, default, non-expiring or empty passwords** and find accounts that are violating **security best practices**. All domain administrators can now audit Active Directory passwords on a regular basis, without any special knowledge.
+The latest version of the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) contains a new cmdlet called `Test-PasswordQuality`, which is a powerful yet easy to use tool for Active Directory password auditing. It can detect **weak, duplicate, default, non-expiring or empty passwords** and find accounts that are violating **security best practices**. All domain administrators can now audit Active Directory passwords on a regular basis, without any special knowledge.
 
 ## Usage
 

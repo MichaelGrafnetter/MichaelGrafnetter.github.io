@@ -30,14 +30,15 @@ To&nbsp;test this technique, we need to&nbsp;retrieve some information from&nbsp
 mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
 ```
     
-    My own [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) could do&nbsp;the same job:
+My own [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) could do&nbsp;the same job:
     
 ```powershell
 Get-ADReplAccount -SamAccountName 'AZUREADSSOACC$' -Domain contoso `
 -Server lon-dc1.contoso.local
 ```
     
-    Both of these commands need *Domain Admins* permissions.
+Both of these commands need *Domain Admins* permissions.
+
 2. Name of the AD domain, e.g. *contoso.local*.
 3. AAD logon name of the user we want to impersonate, e.g. elrond@contoso.com. This is typically either his *userPrincipalName* or *mail* attribute from the on-prem AD.
 4. SID of the user we want to impersonate, e.g. *S-1-5-21-2121516926-2695913149-3163778339-1234*.
@@ -77,8 +78,7 @@ As&nbsp;you can see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;just t
 - Protect backups of Domain Controllers, so no-one could [extract sensitive information](/en/dumping-ntds-dit-files-using-powershell/) from them.
 - Enable and enforce [Azure MFA](https://docs.microsoft.com/en-us/azure/multi-factor-authentication/multi-factor-authentication) for users authenticating from external IP addresses. It is very straightforward and effective against many kinds of attacks.
 - Consider implementing [Azure AD conditional access](https://docs.microsoft.com/cs-cz/azure/active-directory/active-directory-conditional-access).
-- Deploy [Microsoft Advanced Threat Analytics](https://www.microsoft.com/en-us/cloud-platform/advanced-threat-analytics) to detect malicious replication and other threats to your AD infrastructure.  
-    [![ATA](https://msdnshared.blob.core.windows.net/media/2016/11/Malicious-2.png)](https://msdnshared.blob.core.windows.net/media/2016/11/Malicious-2.png)
+- Deploy [Microsoft Defender for Identity](https://www.microsoft.com/en-us/cloud-platform/advanced-threat-analytics) to detect malicious replication and other threats to your AD infrastructure.  
 - Force a password change on the *AZUREADSSOACC* account by <del>re-deploying Azure AD Connect SSO</del> [running the Update-AzureSSOForest cmdlet](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso-faq#how-can-i-roll-over-the-kerberos-decryption-key-of-the-azureadssoacc-computer-account) after a highly privileged employee leaves the company and/or on a regular basis. This should be done together with resetting the password of *krbtgt* and other sensitive accounts.
 
 ## Conclusion

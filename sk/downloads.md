@@ -22,4 +22,4 @@ Install-Module -Name DSInternals -Force
 
 ## NuGet balíčky
 
-[Zoznam mojich NuGet balíčkov](https://www.nuget.org/profiles/MichaelGrafnetter)
+[Zoznam mojich NuGet balíčkov](https://www.nuget.org/profiles/DSInternals)

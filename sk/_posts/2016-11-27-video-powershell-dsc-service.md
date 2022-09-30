@@ -1,6 +1,6 @@
 ---
 ref: 8281
-title: 'Video: Konfigurujeme PowerShell Desired State Configuration server'
+title: 'Video: Konfigurujeme PowerShell DSC server (WUG)'
 date: 2016-11-27T10:45:02+00:00
 layout: post
 lang: sk

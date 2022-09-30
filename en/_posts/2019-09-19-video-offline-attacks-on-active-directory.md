@@ -1,5 +1,5 @@
 ---
-id: video-offline-attacks-on-active-directory
+ref: video-offline-attacks-on-active-directory
 title: 'Video: Offline Attacks on Active Directory (HipConf)'
 date: '2019-09-19T17:48:52+00:00'
 layout: post
@@ -13,4 +13,4 @@ tags:
     - Video
 ---
 
-<iframe width="2560" height="1138" src="https://www.youtube.com/embed/soSRV8KFr2c" title="Offline Attacks on Active Directory - Michael Grafnetter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="480px" src="https://www.youtube.com/embed/soSRV8KFr2c" title="Offline Attacks on Active Directory - Michael Grafnetter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

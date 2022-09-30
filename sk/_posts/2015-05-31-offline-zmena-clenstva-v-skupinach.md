@@ -16,7 +16,7 @@ Spôsobov, ako sa&nbsp;dá **hacknúť doménový kontrolér**, ak útočník z�
 <!--more-->
 Zo všetkých druhov útokov sa mi najviac páči **offline úprava Active Directory databázy**. Možnosť takéhoto zásahu do DC je známa už dávno, veď aj kvôli tomu vznikla funkcia [Read-Only Domain Controller](https://technet.microsoft.com/en-us/library/cc732801(v=ws.10).aspx). Na druhú stranu, keďže je štruktúra Active Directory databázy veľmi komplikovaná a takmer nulovo zdokumentovaná, neexistujú skoro žiadne verejne dostupné nástroje pomocou ktorých by sa dal takýto útok realizovať. Tie, ktoré [poznám](/sk/offline-zmena-sid-history/), sa výhradne sústredia na už spomínanú úpravu SID History. Preto som sa rozhodol vytvoriť powershellovský príkaz **Set-ADDBPrimaryGroup**, ktorý slúži na offline zmenu členstva v skupinách.
 
-### Realizácia útoku
+## Realizácia útoku
 
 Predpokladajme, že&nbsp;v AD už&nbsp;máme neprivilegovaný účet, napríklad April, ktorý je&nbsp;členom skupiny **Domain Users** a&nbsp;my by&nbsp;sme ho&nbsp;radi zaradili do&nbsp;skupiny **Domain Admins**. To&nbsp;môžeme spraviť dvomi cestami, buď modifikáciou atribútu **member** na skupine alebo atribútu **primaryGroupId** na&nbsp;používateľskom účte. Ja som si&nbsp;zvolil tú druhú možnosť, pretože je&nbsp;jednoduchšia.
 
@@ -40,7 +40,7 @@ Pri offline prístupe na&nbsp;disk (boot z&nbsp;flashky či&nbsp;pripojenie HDD/
 
 Po nábehu&nbsp;služby ntds sa&nbsp;zmena členstva v&nbsp;skupinách automaticky zreplikuje na&nbsp;ostatné doménové kontroléry. Pokiaľ to&nbsp;nie je&nbsp;žiadúce chovanie, stačí spustiť príkaz Set-ADDBPrimaryGroup s&nbsp;prepínačom **-SkipMetaUpdate** a&nbsp;zmena ostane len&nbsp;na napadnutom DC. Zníži sa&nbsp;tým šanca na&nbsp;odhalenie útoku.
 
-### Poznámky
+## Poznámky
 
 - Príkaz Set-ADDBPrimaryGroup vie vyhľadať účty používateľov a&nbsp;počítačov na&nbsp;základe **login**u, **SID**u, **GUID**u a&nbsp;LDAP **distinguished name** (DN).
 - Existencia RIDu skupiny zatiaľ nie je&nbsp;kontrolovaná. Je&nbsp;tak možné zadať akékoľvek číslo **od&nbsp;1 do&nbsp;2<sup>30</sup>**. Nepodporuje tak novú funkciu Windows Server 2012, ktorá umožňuje [odomknúť 31. bit](https://blogs.technet.com/b/askds/archive/2012/08/10/managing-rid-issuance-in-windows-server-2012.aspx), ale to snáď nikto nebude potrebovať.
@@ -48,6 +48,6 @@ Po nábehu&nbsp;služby ntds sa&nbsp;zmena členstva v&nbsp;skupinách automatic
 - Úprava súboru ntds.dit je&nbsp;možná len **z tej istej verzie Windows** (napríklad 6.1), z&nbsp;ktorej pochádza tento súbor. Je&nbsp;to&nbsp;spôsobené tým, že&nbsp;každá nová verzia Windows mierne upravuje formát ESE databázy. Riešením by&nbsp;bolo distribuovať s&nbsp;mojiím PowerShell modulom aj&nbsp;rôzne verzie systémovej knižnice **esent.dll**, ale&nbsp;to&nbsp;by bolo hrubé porušenie licenčnýh podmienok.
 - Použitie tohto nástroja je&nbsp;možné výhradne na **výskumné a testovacie účely**. Neručím za&nbsp;žiadne škody, ktoré by&nbsp;mohli vzniknúť jeho využitím.
 
-### Získanie programu
+## Získanie programu
 
 Príkaz Set-ADDBPrimaryGroup je&nbsp;súčasťou poslednej verzie môjho PowerShell modulu DSInternals, ktorý si&nbsp;môžete [bezplatne stiahnuť](/sk/na-stiahnutie/).

@@ -49,11 +49,7 @@ Registre sú súčasťou IFM zálohy preto,&nbsp;lebo hashe používateľských 
 
 ## Použitie IFM zálohy
 
-Primárnym účelom tejto zálohy je&nbsp;jej&nbsp;použitie pri&nbsp;inštalácii nového doménového kontroléru na&nbsp;pobočke s&nbsp;pomalou konektivitou:
-
-![Install From Media Options](https://i-technet.sec.s-msft.com/dynimg/IC586842.gif)
-
-Nikto nám však nebráni si&nbsp;ntds.dit súbor z&nbsp;IFM zálohy primountovať pomocou nástroja dsamain, rovnako ako&nbsp;bežný snapshot. Nasledovná sekvencia príkazov sprístupní odzálohovanú databázu databázu cez&nbsp;protokol LDAP na&nbsp;porte 10389 a&nbsp;nasmeruje na&nbsp;ňu&nbsp;konzolu Active Directory Users and&nbsp;Computers:
+Primárnym účelom tejto zálohy je&nbsp;jej&nbsp;použitie pri&nbsp;inštalácii nového doménového kontroléru na&nbsp;pobočke s&nbsp;pomalou konektivitou. Nikto nám však nebráni si&nbsp;ntds.dit súbor z&nbsp;IFM zálohy primountovať pomocou nástroja dsamain, rovnako ako&nbsp;bežný snapshot. Nasledovná sekvencia príkazov sprístupní odzálohovanú databázu databázu cez&nbsp;protokol LDAP na&nbsp;porte 10389 a&nbsp;nasmeruje na&nbsp;ňu&nbsp;konzolu Active Directory Users and&nbsp;Computers:
 
 ![dsamain](../../assets/images/dsamain1.png)
 

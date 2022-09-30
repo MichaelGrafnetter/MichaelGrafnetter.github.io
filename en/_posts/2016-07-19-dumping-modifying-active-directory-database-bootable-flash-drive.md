@@ -19,7 +19,7 @@ Since version 2.15, the [DSInternals PowerShell Module](https://github.com/Micha
 - Modifying the Primary Group ID of user accounts.
 - [Extracting the DPAPI domain backup keys](/en/retrieving-dpapi-backup-keys-from-active-directory/).
 
-![Windows PE DSInternals](../../assets/images/winpe.png)]
+![Windows PE DSInternals](../../assets/images/winpe.png)
 
 ## Required access
 
@@ -75,7 +75,7 @@ powershell.exe, -NoExit -NoLogo -ExecutionPolicy Bypass
 MakeWinPEMedia /ISO C:\WinPE_amd64 C:\WinPE_amd64\WinPE_amd64.iso
 ```
     
-    The&nbsp;same command can be used to&nbsp;create a&nbsp;bootable flash drive or&nbsp;VHD.
+The&nbsp;same command can be used to&nbsp;create a&nbsp;bootable flash drive or&nbsp;VHD.
 
 ## Final thoughts
 
