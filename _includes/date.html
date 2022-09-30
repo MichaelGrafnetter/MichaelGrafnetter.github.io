@@ -1,6 +1,6 @@
-{% if page.lang == 'en' %}
+{%- if page.lang == 'en' -%}
 {{ include.date | date: "%b %-d, %Y" }}
-{% endif %}
-{% if page.lang == 'sk' %}
+{%- endif -%}
+{%- if page.lang == 'sk' -%}
 {{ include.date | date: "%-d. %-m. %Y" }}
-{% endif %}
+{%- endif -%}
