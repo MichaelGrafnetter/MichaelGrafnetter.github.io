@@ -1,0 +1,34 @@
+---
+layout: default
+---
+
+{%
+  assign posts = site.posts
+  | where_exp: "post", "post.tags contains 'Video'"
+  | where_exp: "post", "post.lang == page.lang"
+%}
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+  
+  {%- if posts.size > 0 -%}
+    <ul class="post-list">
+      {%- for post in posts -%}
+      <li>
+        <span class="post-meta">
+          <time class="dt-published" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+            {%- include date.html date=post.date -%}
+          </time>
+        </span>
+        <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | replace_first: "Video: ", "" }}</a></h2>
+          {{ post.content }}
+      </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+</div>
