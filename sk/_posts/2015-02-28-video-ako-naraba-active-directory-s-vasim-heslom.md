@@ -9,10 +9,12 @@ tags:
     - 'Active Directory'
     - LDAP
     - 'Microsoft Azure'
+    - Windows
+    - 'Azure Active Directory'
     - PowerShell
     - Prednášky
     - Video
+    - WUG
 ---
 
-Na [webe WUGu](https://www.wug.cz/zaznamy/255-Jak-Active-Directory-naklada-s-Vasim-heslem) je&nbsp;k dispozícii záznam mojej prednášky o&nbsp;ukladaní hesiel v&nbsp;(Azure) Active Directory:
-[  ](https://www.wug.cz/zaznamy/255-Jak-Active-Directory-naklada-s-Vasim-heslem)[![WUG 2015 - AD Passwords](../../assets/images/wug2015_passwords.png)](https://www.wug.cz/zaznamy/255-Jak-Active-Directory-naklada-s-Vasim-heslem)
+[![Jak Active Directory nakládá s Vaším heslem](https://www.wug.cz/brno/akce/GetFile.ashx?PhotoID=1310&ThumbnailSizeName=detail)](https://www.wug.cz/zaznamy/255-Jak-Active-Directory-naklada-s-Vasim-heslem)
