@@ -1,6 +1,7 @@
 title: DSInternals
 description: Directory Services Internals
 logo: /favicon.png
+logo_large: /assets/images/logo_white.png
 
 # paginate: 5
 show_excerpts: true

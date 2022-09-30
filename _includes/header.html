@@ -1,6 +1,6 @@
 <header class="site-header">
   <div class="wrapper">
-    <a class="site-title" rel="author" href="{{ page.lang | absolute_url }}"><img src="/assets/images/logo_white.png" width="50px"> {{ site.title | escape }}</a>
+    <a class="site-title" rel="author" href="{{ page.lang | absolute_url }}"><img src="{{ site.logo_large | relative_url }}" width="50px"> {{ site.title | escape }}</a>
     <nav class="site-nav">
       <div class="trigger">
         {%- include navbar.html -%}
