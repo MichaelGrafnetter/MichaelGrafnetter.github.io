@@ -6,22 +6,22 @@ permalink: /sitemap.xml
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {%- for post in site.posts %}
     <url>
-      <loc>{{site.base}}{{ post.url }}</loc>
+      <loc>{{ post.url | absolute_url }}</loc>
       {%- assign versions=site.posts | where:"ref", post.ref -%}
       {%- for version in versions %}
-      <xhtml:link rel="alternate" hreflang="{{ version.lang }}" href="{{site.base}}{{ version.url }}" />
+      <xhtml:link rel="alternate" hreflang="{{ version.lang }}" href="{{ version.url | absolute_url }}" />
       {%- endfor %}
       <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
       <changefreq>monthly</changefreq>
     </url>
   {%- endfor -%}
   {% for page in site.pages -%}
-  {%- unless page.name contains "404" or page.name contains ".json" or page.name contains ".xml" or page.url contains "/assets/" or page.url == "/" %}
+  {%- unless page.sitemap == false or page.name contains ".json" or page.name contains ".xml" or page.url contains "/assets/" %}
     <url>
-        <loc>{{site.base}}{{ page.url }}</loc>
+        <loc>{{ page.url | absolute_url }}</loc>
         {%- assign versions=site.pages | where:"ref", page.ref %}
         {%- for version in versions %}
-        <xhtml:link rel="alternate" hreflang="{{ version.lang }}" href="{{site.base}}{{ version.url }}" />
+        <xhtml:link rel="alternate" hreflang="{{ version.lang }}" href="{{ version.url | absolute_url }}" />
         {%- endfor %}
         <changefreq>monthly</changefreq>
     </url>
