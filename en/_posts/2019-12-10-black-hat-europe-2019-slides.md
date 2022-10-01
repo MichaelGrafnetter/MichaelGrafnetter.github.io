@@ -11,7 +11,7 @@ tags:
     - Security
 ---
 
-![Michael at Black Hat](../../assets/images/Briefieng-Michael_-4.jpg)
+![Michael at Black Hat](../../assets/images/blackhat_2019_michael.jpg)
 
 - [Briefings: Exploiting Windows Hello for Business](../../assets/documents/eu-19-Grafnetter-Exploiting-Windows-Hello-for-Business.pdf)
 - [Arsenal: DSInternals PowerShell Module](../../assets/documents/eu-19-Grafnetter-DSInternals-PowerShell-Module.pdf)
