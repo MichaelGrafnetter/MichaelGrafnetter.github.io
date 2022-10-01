@@ -1,5 +1,5 @@
 ---
-ref: video-moderni-autentizace-na-webu
+ref: video-webauthn
 title: 'Video: Moderná autentifikácia na&nbsp;webe'
 date: '2020-07-27T00:00:00+00:00'
 layout: post

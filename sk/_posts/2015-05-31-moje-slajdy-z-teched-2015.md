@@ -12,6 +12,8 @@ tags:
     - Security
 ---
 
+![TechEd 2015 Slajd](../../assets/images/teched_2015.jpg)
+
 Ešte raz ďakujem všetkým účastníkom mojich prednášok na konferencii **TechEd 2015**, plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
 
 - [Obrana proti pass-the-hash útokom](../../assets/documents/teched2015_pth.pdf)

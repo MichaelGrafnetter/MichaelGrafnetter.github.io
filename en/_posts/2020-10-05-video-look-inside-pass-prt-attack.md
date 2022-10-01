@@ -1,6 +1,6 @@
 ---
 ref: video-pass-the-prt-attack
-title: 'Video: A Look Inside a Pass-the-PRT Attack (CQ Hacks)'
+title: 'Video: A Look Inside a Pass-the-PRT Attack'
 date: '2020-10-05T00:00:00+00:00'
 layout: post
 permalink: /en/video-pass-the-prt-attack/
