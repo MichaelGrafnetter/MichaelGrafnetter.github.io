@@ -1,10 +1,15 @@
 ---
+ref: all
 layout: default
+title: "All Articles"
+permalink: /all/
+lang: en
+sitemap: false
 ---
 
 <div class="home">
   <h1 class="page-heading">Directory Services Internals {{ page.title }}</h1>
-  {% assign posts = site.posts | where:"lang", page.lang %}
+  {% assign posts = site.posts %}
   {%- if posts.size > 0 -%}
     <ul class="post-list">
       {%- for post in posts %}
@@ -15,19 +20,7 @@ layout: default
           </time>
         </span>
         <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        {% if site.show_excerpts -%}
-          {{ post.excerpt }}
-          {% if post.content.size > post.excerpt.size -%}
-            <a href="{{ post.url | relative_url }}">
-              {%- if page.lang == 'en' -%}
-              <i class="fas fa-book-reader"></i>&nbsp;Read more...
-              {%- endif -%}
-              {%- if page.lang == 'sk' -%}
-              <i class="fas fa-book-reader"></i>&nbsp;Pokračovanie...
-              {%- endif -%}
-            </a>
-          {%- endif -%}
-        {%- endif %}
+        {{ post.content }}
       </li>
       {%- endfor %}
     </ul>

