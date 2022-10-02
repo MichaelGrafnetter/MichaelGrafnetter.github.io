@@ -5,6 +5,7 @@ date: 2016-11-27T10:45:02+00:00
 layout: post
 lang: sk
 permalink: /sk/video-powershell-dsc-service/
+image: https://www.wug.cz/brno/akce/GetFile.ashx?PhotoID=1812&ThumbnailSizeName=detail
 tags:
     - DSC
     - PowerShell

@@ -4,6 +4,7 @@ title: 'Ako funguje synchronizácia hesiel z&nbsp;on-premise AD do&nbsp;Azure AD
 date: 2015-01-20T12:01:37+00:00
 layout: post
 lang: sk
+image: /assets/images/ps_orgidhash.png
 permalink: /sk/ako-funguje-synchronizacia-hesiel-z-on-premise-ad-do-azure-ad/
 tags:
     - 'Active Directory'
@@ -55,7 +56,7 @@ DirSync generuje OrgId hashe pomocou knižnice *Microsoft.Online.PasswordSynchro
 
 ## Súlad s&nbsp;FIPS
 
-Pokiaľ by&nbsp;ste na&nbsp;serveri, kde beží DirSync, vypli podporu algoritmov, ktoré nie sú v&nbsp;súlade so&nbsp;štandardom [FIPS 140-2](https://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf "FIPS 140-2 - Annex A"), nebude Vám DirSync bez&nbsp;nastavenia [patričnej výnimky](https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/aad-password-sync-encryption-and-fips-compliance/ba-p/243709 "AAD Password Sync, Encryption and FIPS compliance") fungovať. Príčinou je&nbsp;samotný protokol MS-DRSR, ktorý prenáša MD4 hashe zašifrované kombináciou algoritmov RC4, MD5 a&nbsp;DES. Aby mohol DirSync tieto hashe dešifrovať, musí zákonite uvedené algoritmy použiť.
+Pokiaľ by&nbsp;ste na&nbsp;serveri, kde beží DirSync, vypli podporu algoritmov, ktoré nie sú v&nbsp;súlade so&nbsp;štandardom [<i class="fas fa-file-pdf"></i> FIPS 140-2](https://csrc.nist.gov/publications/fips/fips140-2/fips1402annexa.pdf "FIPS 140-2 - Annex A"), nebude Vám DirSync bez&nbsp;nastavenia [patričnej výnimky](https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/aad-password-sync-encryption-and-fips-compliance/ba-p/243709 "AAD Password Sync, Encryption and FIPS compliance") fungovať. Príčinou je&nbsp;samotný protokol MS-DRSR, ktorý prenáša MD4 hashe zašifrované kombináciou algoritmov RC4, MD5 a&nbsp;DES. Aby mohol DirSync tieto hashe dešifrovať, musí zákonite uvedené algoritmy použiť.
 
 ## Bezpečnostná analýza
 

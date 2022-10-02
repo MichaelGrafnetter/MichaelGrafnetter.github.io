@@ -3,6 +3,7 @@ title: Kontakt
 lang: sk
 ref: about
 permalink: /sk/kontakt/
+image: /assets/images/profile_picture.jpg
 fa_class: fas fa-user
 ---
 

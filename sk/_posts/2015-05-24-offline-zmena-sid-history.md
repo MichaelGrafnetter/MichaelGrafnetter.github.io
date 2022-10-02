@@ -4,6 +4,7 @@ title: Offline zmena SID History
 date: 2015-05-24T12:53:15+00:00
 layout: post
 lang: sk
+image: /assets/images/sid_history.png
 permalink: /sk/offline-zmena-sid-history/
 tags:
     - 'Active Directory'

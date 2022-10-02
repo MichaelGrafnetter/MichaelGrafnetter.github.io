@@ -4,6 +4,7 @@ title: 'Video: Privileged Access Management v&nbsp;(Azure) Active Directory'
 date: '2020-10-21T00:00:00+00:00'
 layout: post
 permalink: /sk/video-privileged-access-management-azure-active-directory/
+image: https://wug.cz/online/akce/GetFile.ashx?PhotoID=3242&ThumbnailSizeName=detail
 lang: sk
 tags:
     - 'Active Directory'

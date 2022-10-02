@@ -4,6 +4,7 @@ title: 'Cross-Forest Duplicate Password Discovery'
 date: '2020-03-24T22:51:17+00:00'
 layout: post
 lang: en
+image: /assets/images/HIBP.png
 permalink: /en/cross-forest-duplicate-password-discovery/
 ---
 

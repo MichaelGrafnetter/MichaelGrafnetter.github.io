@@ -1,7 +1,14 @@
 title: DSInternals
+tagline: Directory Services Internals
 description: Directory Services Internals
 logo: /favicon.png
 logo_large: /assets/images/logo_white.png
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/dsinternals_transparent_black_large.png
 
 show_excerpts: true
 excerpt_separator: <!--more-->
@@ -16,13 +23,6 @@ author:
 twitter:
   username: *twitter_handle
   card: summary
-
-social:
-  name: *author_name
-  links:
-    - https://twitter.com/MGrafnetter
-    - https://www.linkedin.com/in/grafnetter
-    - https://github.com/MichaelGrafnetter
 
 google_site_verification: DrNJpqz9Fl4sLlwL6coniSeHoQjmo9OuetqP7lry6zI
 

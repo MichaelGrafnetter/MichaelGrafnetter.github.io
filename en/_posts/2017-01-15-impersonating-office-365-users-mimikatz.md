@@ -4,6 +4,7 @@ title: Impersonating Office 365 Users With Mimikatz
 date: 2017-01-15T19:35:43+00:00
 layout: post
 lang: en
+image: /assets/images/aad_sso2.png
 permalink: /en/impersonating-office-365-users-mimikatz/
 tags:
     - 'Active Directory'
@@ -15,7 +16,7 @@ tags:
 
 Last month, Microsoft has introduced a&nbsp;new feature of&nbsp;Azure AD Connect called [Single Sign On](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso). It allows companies to&nbsp;configure SSO between AD and&nbsp;AAD without the&nbsp;need to&nbsp;deploy [ADFS](https://learn.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), which&nbsp;makes it an ideal solution for&nbsp;SMEs. Here is&nbsp;a high-level diagram of&nbsp;this functionality:
 
-![](https://docs.microsoft.com/en-us/azure/active-directory/connect/media/active-directory-aadconnect-sso/sso2.png)
+![Azure AD Connect SSO Diagram](https://docs.microsoft.com/en-us/azure/active-directory/connect/media/active-directory-aadconnect-sso/sso2.png)
 
 As we can see from&nbsp;the&nbsp;diagram above, Azure AD exposes a [publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever you have Kerberos-based authentication, it can be attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
 
@@ -33,6 +34,8 @@ To&nbsp;test this technique, we need to&nbsp;retrieve some information from&nbsp
     mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
     ```
     
+    ![Mimikatz Silver Ticket Screenshot](../../assets/images/aad_sso3.png)
+
     My own [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) could do&nbsp;the same job:
     
     ```powershell

@@ -5,7 +5,7 @@ date: 2015-05-31T13:55:51+00:00
 layout: post
 lang: sk
 permalink: /sk/offline-zmena-clenstva-v-skupinach/
-image: /images/primary_group.png
+image: /assets/images/primary_group.png
 tags:
     - 'Active Directory'
     - PowerShell

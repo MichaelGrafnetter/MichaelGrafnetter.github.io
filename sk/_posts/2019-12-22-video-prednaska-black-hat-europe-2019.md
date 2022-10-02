@@ -5,6 +5,7 @@ date: '2019-12-22T11:36:26+00:00'
 layout: post
 lang: sk
 permalink: /sk/video-prednaska-black-hat-europe-2019/
+image: /assets/images/blackhat_2019_michael.jpg
 tags:
     - 'Active Directory'
     - PowerShell

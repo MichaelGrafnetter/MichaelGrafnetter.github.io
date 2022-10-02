@@ -4,6 +4,7 @@ title: Finding Weak Active Directory Passwords
 date: 2017-01-11T21:43:55+00:00
 layout: post
 lang: en
+image: /assets/images/thycotic_report1.png
 permalink: /en/finding-weak-active-directory-passwords/
 ---
 
@@ -19,7 +20,9 @@ I recently worked with [Thycotic](https://thycotic.com/) to create a program cal
 
 It generates reports which are suitable for the management:
 
-![Report](https://thycotic.com/wp-content/uploads/2016/12/Weak-Password-Finder-Report-page-2.jpg)
+![Report 1](../../assets/images/thycotic_report1.png)
+
+![Report 2](../../assets/images/thycotic_report2.png)
 
 Of course, you can also drill down through the detailed data:
 

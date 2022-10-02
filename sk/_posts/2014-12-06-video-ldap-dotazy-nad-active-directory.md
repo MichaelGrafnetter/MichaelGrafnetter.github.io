@@ -4,6 +4,7 @@ title: 'Video: LDAP dotazy nad&nbsp;Active Directory'
 date: 2014-12-06T17:50:54+00:00
 layout: post
 lang: sk
+image: /assets/images/msfest2012_ldap_dotazy.jpg
 permalink: /sk/ldap-dotazy-nad-active-directory/
 tags:
     - 'Active Directory'

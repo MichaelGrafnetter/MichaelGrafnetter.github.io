@@ -4,6 +4,7 @@ title: 'Pohľad do&nbsp;Active Directory databázy'
 date: 2015-06-02T11:45:41+00:00
 layout: post
 lang: sk
+image: /assets/images/workbench.png
 permalink: /sk/pohlad-do-active-directory-databazy/
 tags:
     - 'Active Directory'

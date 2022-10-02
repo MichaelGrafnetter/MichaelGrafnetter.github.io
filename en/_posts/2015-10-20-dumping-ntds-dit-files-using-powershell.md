@@ -4,6 +4,7 @@ title: 'Dumping the&nbsp;contents of&nbsp;ntds.dit files using PowerShell'
 date: 2015-10-20T18:20:18+00:00
 layout: post
 lang: en
+image: /assets/images/dbaccount.png
 permalink: /en/dumping-ntds-dit-files-using-powershell/
 tags:
     - 'Active Directory'
@@ -141,6 +142,8 @@ Get-ADDBAccount -All -DBPath 'C:\IFM\Active Directory\ntds.dit' -BootKey $key |
    Out-File hashes.txt -Encoding ASCII
 # Other supported views are HashcatLM, JohnNT, JohnLM and Ophcrack.
 ```
+
+![Hashcat Export Screenshot](../../assets/images/dbhashcat.png)
 
 But with the **Golden Ticket** or **Pass-the-Hash** functionality of [mimikatz](https://blog.gentilkiwi.com/mimikatz), an attacker could seize control of the entire Active Directory forest even without cracking those password hashes.
 

@@ -4,10 +4,11 @@ title: OU Filtering With DSInternals Cmdlets
 date: '2022-10-01T00:00:00+00:00'
 layout: post
 lang: en
+image: /assets/images/HIBP.png
 permalink: /en/dsinternals-ou-filtering/
 ---
 
-One of the most frequent questions I am asked about the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) cmdlets that fetch password hashes from Active Directory ([Get-ADReplAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADReplAccount.md) and [Get-ADDBAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADDBAccount.md)) is whether they could only return accounts from a specified organizational unit (OU). While OU-based filtering is not yet implemented in DSInternals directly, two PowerShell built-in features could be used to achieve this goal.
+One of the most frequent questions I am asked about the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) cmdlets that fetch password hashes from Active Directory ([Get-ADReplAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADReplAccount.md#get-adreplaccount) and [Get-ADDBAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADDBAccount.md#get-addbaccount)) is whether they could only return accounts from a specified organizational unit (OU). While OU-based filtering is not yet implemented in DSInternals directly, two PowerShell built-in features could be used to achieve this goal.
 
 ## A. Where-Object
 
@@ -15,8 +16,7 @@ The [Where-Object cmdlet](https://learn.microsoft.com/en-us/powershell/module/mi
 
 ```powershell
 <#
-Replicates all AD accounts (DCSync),
-filters them by the Admins OU,
+Replicates all AD accounts (DCSync), filters them by the Admins OU,
 and tests their passwords against Have I Been Pwned (HIBP) list.
 #>
 Get-ADReplAccount -All -Server 'dc01.contoso.com' |

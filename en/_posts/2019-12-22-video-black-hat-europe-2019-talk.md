@@ -4,6 +4,7 @@ title: 'Video: Exploiting Windows Hello for Business'
 date: '2019-12-22T11:28:11+00:00'
 layout: post
 permalink: /en/video-black-hat-europe-2019-talk/
+image: /assets/images/blackhat_2019_michael.jpg
 lang: en
 tags:
     - 'Active Directory'

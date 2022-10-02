@@ -4,6 +4,7 @@ title: 'Slajdy z&nbsp;konferencie Black Hat Europe 2019'
 date: '2019-12-10T17:34:25+00:00'
 layout: post
 permalink: /sk/slajdy-black-hat-europe-2019/
+image: /assets/images/blackhat_2019_michael.jpg
 lang: sk
 tags:
     - 'Active Directory'
@@ -12,7 +13,7 @@ tags:
     - Security
 ---
 
-![Michael at Black Hat](../../assets/images/Briefieng-Michael_-4.jpg)
+![Michael at Black Hat](../../assets/images/blackhat_2019_michael.jpg)
 
-- [Briefings: Exploiting Windows Hello for Business](../../assets/documents/eu-19-Grafnetter-Exploiting-Windows-Hello-for-Business.pdf)
-- [Arsenal: DSInternals PowerShell Module](../../assets/documents/eu-19-Grafnetter-DSInternals-PowerShell-Module.pdf)
+- [<i class="fas fa-file-pdf"></i>  Briefings: Exploiting Windows Hello for Business](../../assets/documents/eu-19-Grafnetter-Exploiting-Windows-Hello-for-Business.pdf)
+- [<i class="fas fa-file-pdf"></i>  Arsenal: DSInternals PowerShell Module](../../assets/documents/eu-19-Grafnetter-DSInternals-PowerShell-Module.pdf)

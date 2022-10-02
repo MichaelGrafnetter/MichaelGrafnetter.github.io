@@ -4,6 +4,7 @@ title: 'Retrieving DPAPI Backup Keys from&nbsp;Active Directory'
 date: 2015-10-26T22:51:00+00:00
 layout: post
 lang: en
+image: /assets/images/backupkeys_storage.png
 permalink: /en/retrieving-dpapi-backup-keys-from-active-directory/
 tags:
     - 'Active Directory'

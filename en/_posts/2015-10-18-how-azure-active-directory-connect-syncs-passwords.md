@@ -4,6 +4,7 @@ title: How Azure Active Directory Connect Syncs Passwords
 date: 2015-10-18T12:28:41+00:00
 layout: post
 lang: en
+image: /assets/images/ps_orgidhash.png
 permalink: /en/how-azure-active-directory-connect-syncs-passwords/
 tags:
     - 'Active Directory'
@@ -98,6 +99,7 @@ The official documentation from Microsoft now [properly describes](https://learn
 I would say that the Password Sync feature is **very** **secure <del>enough</del>**<del>, despite the relatively low iteration count</del>. Even if someone hacked Microsoft and leaked these hashes, only weak passwords like “November2016” would be crackable using specialized software. But if you really want to play it safe, you should follow these recommendations:
 
 1. Implement a reasonable **password policy** to prevent dictionary attacks being successful.
+  ![Password Policy](../../assets/images/password_policy.png)
 2. Secure remote access to your network by using **multi-factor authentication**, so that the knowledge of someone’s password is not enough to get access to corporate resources.
 3. Never, ever, under no circumstances, sync passwords of **administrative accounts** (Domain Admins, Schema Admins, etc.) to ANY cloud service.
 

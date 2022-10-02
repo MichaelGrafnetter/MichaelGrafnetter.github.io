@@ -4,6 +4,7 @@ title: 'Dumping and&nbsp;Modifying Active Directory Database Using a&nbsp;Bootab
 date: 2016-07-19T15:18:36+00:00
 layout: post
 lang: en
+image: /assets/images/winpe.png
 permalink: /en/dumping-modifying-active-directory-database-bootable-flash-drive/
 tags:
     - 'Active Directory'

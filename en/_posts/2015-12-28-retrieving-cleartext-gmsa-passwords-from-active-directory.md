@@ -4,6 +4,7 @@ title: 'Retrieving Cleartext GMSA Passwords from&nbsp;Active Directory'
 date: 2015-12-28T14:09:53+00:00
 layout: post
 lang: en
+image: /assets/images/gmsa.png
 permalink: /en/retrieving-cleartext-gmsa-passwords-from-active-directory/
 tags:
     - 'Active Directory'

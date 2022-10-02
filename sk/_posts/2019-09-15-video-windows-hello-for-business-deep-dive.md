@@ -4,6 +4,7 @@ title: 'Video: Windows Hello for Business Deep-Dive'
 date: '2019-09-15T00:00:00+00:00'
 layout: post
 permalink: /sk/video-windows-hello-for-business-deep-dive/
+image: https://wug.cz/brno/akce/GetFile.ashx?PhotoID=3063&ThumbnailSizeName=detail
 lang: sk
 tags:
     - 'Active Directory'

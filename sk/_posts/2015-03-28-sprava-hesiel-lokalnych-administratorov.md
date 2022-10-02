@@ -4,6 +4,7 @@ title: Správa hesiel lokálnych administrátorov
 date: 2015-03-28T14:18:20+00:00
 layout: post
 lang: sk
+image: /assets/images/admpwd.png
 permalink: /sk/sprava-hesiel-lokalnych-administratorov/
 tags:
     - 'Active Directory'

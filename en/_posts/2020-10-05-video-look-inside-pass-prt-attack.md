@@ -4,6 +4,7 @@ title: 'Video: A Look Inside a Pass-the-PRT Attack'
 date: '2020-10-05T00:00:00+00:00'
 layout: post
 permalink: /en/video-pass-the-prt-attack/
+image: https://4f2bcn3u2m2u2z7ghc17a5jm-wpengine.netdna-ssl.com/wp-content/uploads/2020/10/thumbnail-hacks-39-780x370.jpg
 lang: en
 tags:
     - 'Azure Active Directory'

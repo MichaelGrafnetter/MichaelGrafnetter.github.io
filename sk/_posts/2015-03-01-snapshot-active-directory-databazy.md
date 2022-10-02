@@ -4,6 +4,7 @@ title: 'Ako na&nbsp;snapshoty Active Directory databázy'
 date: 2015-03-01T23:22:03+00:00
 layout: post
 lang: sk
+image: /assets/images/dsamain1.png
 permalink: /sk/snapshot-active-directory-databazy/
 tags:
     - 'Active Directory'

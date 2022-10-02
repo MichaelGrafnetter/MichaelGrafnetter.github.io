@@ -12,4 +12,4 @@ tags:
     - Security
 ---
 
-Nedávno som mal webcast organizovaný spoločnosťou [Mainstream Technologies](https://en.mainstream.cz/) na tému Bezheslová autentifikácia v (Azure) Active Directory. Slajdy z prezentáie sú k dispozícii [na stiahnutie](../../assets/documents/Mainstream_Passwordless.pdf).
+Nedávno som mal webcast organizovaný spoločnosťou [Mainstream Technologies](https://en.mainstream.cz/) na tému Bezheslová autentifikácia v (Azure) Active Directory. Slajdy z prezentáie sú k dispozícii [<i class="fas fa-file-pdf"></i> na stiahnutie](../../assets/documents/Mainstream_Passwordless.pdf).

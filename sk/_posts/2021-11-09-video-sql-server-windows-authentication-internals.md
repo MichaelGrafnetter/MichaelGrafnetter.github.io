@@ -5,6 +5,7 @@ date: '2021-11-09T00:00:00+00:00'
 layout: post
 permalink: /sk/video-sql-server-windows-authentication-internals/
 lang: sk
+image: https://wug.cz/online/akce/GetFile.ashx?PhotoID=3308&ThumbnailSizeName=detail
 tags:
     - 'Active Directory'
     - 'SQL Server'

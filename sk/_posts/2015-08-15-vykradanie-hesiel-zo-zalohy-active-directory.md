@@ -5,6 +5,7 @@ date: 2015-08-15T21:29:37+00:00
 layout: post
 lang: sk
 permalink: /sk/vykradanie-hesiel-zo-zalohy-active-directory/
+image: /assets/images/dbaccount.png
 tags:
     - 'Active Directory'
     - PowerShell

@@ -5,6 +5,7 @@ date: 2015-09-28T21:32:07+00:00
 layout: post
 lang: en
 permalink: /en/peeking-into-the-active-directory-database/
+image: /assets/images/workbench.png
 tags:
     - 'Active Directory'
 ---
