@@ -19,12 +19,12 @@ layout: default
     <ul class="post-list">
       {%- for post in posts -%}
       <li>
-        <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | replace_first: "Video: ", "" }}</a></h2>
         <span class="post-meta">
           <time class="dt-published" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
             <i class="fas fa-calendar"></i>&nbsp;{%- include date.html date=post.date -%}
           </time>
         </span>
+        <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | replace_first: "Video: ", "" }}</a></h2>
         {{ post.content }}
       </li>
       {%- endfor -%}
