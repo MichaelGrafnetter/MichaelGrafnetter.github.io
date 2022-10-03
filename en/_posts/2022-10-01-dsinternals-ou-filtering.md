@@ -1,6 +1,6 @@
 ---
 ref: dsinternals-ou-filtering
-title: OU Filtering With DSInternals Cmdlets
+title: OU Filtering With DSInternals PowerShell Cmdlets
 date: '2022-10-01T00:00:00+00:00'
 layout: post
 lang: en

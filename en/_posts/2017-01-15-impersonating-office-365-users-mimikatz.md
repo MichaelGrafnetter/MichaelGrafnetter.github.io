@@ -58,7 +58,7 @@ Having this information we can now create and use the Silver Ticket on any Windo
     ![Mimikatz Silver Ticket Screenshot](../../assets/images/aad_sso3.png)
 
 2. Launch *Mozilla Firefox*.
-3. Go to `about:config` and set the [network.negotiate-auth.trusted-uris](https://developer.mozilla.org/en-US/docs/Mozilla/Integrated_authentication) preference to [value](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#ensuring-clients-sign-in-automatically) “https://aadg.windows.net.nsatc.net,https://autologon.microsoftazuread-sso.com”.
+3. Go to `about:config` and set the [network.negotiate-auth.trusted-uris](https://github.com/mozilla/policy-templates/blob/master/README.md#authentication) preference to [value](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#ensuring-clients-sign-in-automatically) “https://aadg.windows.net.nsatc.net,https://autologon.microsoftazuread-sso.com”.
 4. Navigate to any web application that is integrated with our AAD domain. We will use [Office 365](https://portal.office.com), which is the most commonly used one.
 5. Once at the logon screen, fill in the user name, while leaving the password field empty. Then press TAB or ENTER.
 

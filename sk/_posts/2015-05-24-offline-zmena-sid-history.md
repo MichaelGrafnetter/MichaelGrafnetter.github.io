@@ -38,7 +38,7 @@ Možností je&nbsp;niekoľko a&nbsp;žiadna z&nbsp;nich nie je&nbsp;ideálna:
 2. Offline úprava Active Directory databázy 
     - Postup: 
         1. Zastaviť službu Active Directory Domain Services.
-        2. Zapísať hodnotu sIDHistory priamo do databázy (tzn. súboru ntds.dit) pomocou nástroja [SHEdit](https://www.tbiro.com/projects/SHEdit/ "SHEdit") alebo [ESEAddSidHistory](https://gexeg.blogspot.cz/2009/12/active-directory.html "Безопасность в Active Directory ").
+        2. Zapísať hodnotu sIDHistory priamo do databázy (tzn. súboru ntds.dit) pomocou nástroja [SHEdit](http://www.tbiro.com/projects/shedit/ "SHEdit") alebo [ESEAddSidHistory](https://gexeg.blogspot.cz/2009/12/active-directory.html "Безопасность в Active Directory ").
         3. Urobiť autoritatívne obnovenie dotknutých objektov.
         4. Znovu spustiť službu Active Directory Domain Services.
     - Nevýhody: 

@@ -96,4 +96,4 @@ Although the cmdlet output is formatted in a human readable fashion, it is still
 
 ## Credits
 
-I&nbsp;would like to&nbsp;thank [Jakob Heidelberg](https://twitter.com/jakobheidelberg) for [his idea](https://flemmingriis.com/get-badpasswords/) to&nbsp;use the&nbsp;DSInternals module for&nbsp;password auditing. A&nbsp;big thank you also goes to&nbsp;[Ondrej Sevecek](https://www.sevecek.com/EnglishPages/default.aspx) for&nbsp;sharing his comprehensive auditing tool called SAPHA, from&nbsp;which I&nbsp;borrowed ideas for&nbsp;a&nbsp;few tests.
+I&nbsp;would like to&nbsp;thank [Jakob Heidelberg](https://twitter.com/jakobheidelberg) for [his idea](https://github.com/improsec/Get-bADpasswords) to&nbsp;use the&nbsp;DSInternals module for&nbsp;password auditing. A&nbsp;big thank you also goes to&nbsp;[Ondrej Sevecek](https://www.sevecek.com/EnglishPages/default.aspx) for&nbsp;sharing his comprehensive auditing tool called SAPHA, from&nbsp;which I&nbsp;borrowed ideas for&nbsp;a&nbsp;few tests.
