@@ -54,3 +54,43 @@ $payload = "powershell.exe -ExecutionPolicy Bypass -noprofile -noexit -c Get-Pro
 # Generate a Word document
 $path = Join-Path (Resolve-Path .) 'Invoice.doc'
 Out-Word -Payload $payload -OutputFile $path -RemainSafe
+```
+
+### WMI Persistence
+
+### Auditing PowerShell
+
+#### Script Execution
+
+#### Remoting Sessions
+
+#### Microsoft Defender for Endpoint
+
+## Active Directory Security Assessment
+
+### Operating System Versions
+
+### Kerberoasting
+
+### DSInternals
+
+### Event Logs
+
+
+## Desired State Configuration
+
+### Domain Controller Security Baselines
+
+
+### CIS Checklists
+## Pester
+
+## Unattended Scripts
+
+### Scheduled Tasks
+
+### Managed Service Accounts
+
+### Script Credentials
+
+### Azure AD Credentials
