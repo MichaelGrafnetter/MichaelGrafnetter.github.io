@@ -895,7 +895,29 @@ Get-MgUser
 
 ### Event Logs
 
+```powershell
+Get-EventLog -ComputerName localhost -After ([DateTime]::Today) -LogName System -Source 'Service Control Manager' |
+    Where-Object EventID -eq 7036 |
+    Select-Object -Property @{ n='ComputerName'; e={$PSItem.MachineName} },
+                            @{ n='Time'; e={$PSItem.TimeGenerated}},
+                            @{ n='ServiceName'; e = {$PSItem.ReplacementStrings[0]} },
+                            @{ n='State'; e = {$PSItem.ReplacementStrings[1]}}
 
+Get-WinEvent -ComputerName localhost -FilterHashtable @{
+    LogName = 'System'
+    ProviderName = 'Service Control Manager'
+    Id = 7036
+} |
+    Select-Object -Property @{n='ComputerName';e={$PSItem.MachineName}},
+                            @{n='Date';e={$PSItem.TimeCreated.Date}},
+                            @{n='ServiceName';e={$PSItem.Properties.Value[0]}},
+                            @{n='State';e={$PSItem.Properties.Value[1]}} |
+    Group-Object -Property ServiceName,Date |
+    Select-Object -Property @{ n = 'ServiceName'; e = { $PSItem.Group[0].ServiceName } },
+                            @{ n = 'Date'; e = { $PSItem.Group[0].Date } },
+                            Count |
+    Out-GridView
+```
 
 ### Desired State Configuration (DSC)
 
@@ -905,18 +927,59 @@ Get-MgUser
 - [LAPS](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
 
 ```powershell
-Service Spooler
+Configuration WindowsServerSecurityBaseline
 {
-        Name = "Spooler"
-        State = "Stopped"
-}
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
 
-Package LAPS
-{
+    Node localhost
+    {
+        LocalConfigurationManager
+        {
+            ConfigurationModeFrequencyMins = 120
+            RebootNodeIfNeeded = $false
+            ConfigurationMode = 'MonitorOnly'
+            ActionAfterReboot = 'ContinueConfiguration'
+        }
+
+        Service Spooler
+        {
+            Name = 'Spooler'
+            State = 'Stopped'
+            StartupType = 'Disabled'
+        }
+
+        Registry RDPRestrictedAdmin
+        {
+            Key = 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa'
+            ValueName = 'DisableRestrictedAdmin'
+            ValueData = 0
+            ValueType = 'Dword'
+            Ensure = 'Present'
+            Force = $true
+        }
+
+        WindowsFeature DisablePowerShell2
+        {
+            Name = 'PowerShell-V2'
+            Ensure = 'Absent'
+        }
+
+        Package LAPS
+        {
             Name  = 'Local Administrator Password Solution'
             Path = 'https://download.microsoft.com/download/C/7/A/C7AAD914-A8A6-4904-88A1-29E657445D03/LAPS.x64.msi'
             ProductId = 'EA8CB806-C109-4700-96B4-F1F268E5036C'
+        }
+    }
 }
+
+DomainControllerSecurityBaseline -OutputPath .
+
+Test-DscConfiguration -Path .\WindowsServerSecurityBaseline -Verbose
+
+Set-DscLocalConfigurationManager -Path .\WindowsServerSecurityBaseline -Force
+
+Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbose
 ```
 
 #### Security Baseline Tooling
