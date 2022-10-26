@@ -72,7 +72,7 @@ function Get-PrivateProfileString
     return $builder.ToString() 
 }
 
-# call the function
+# Call the function
 Get-Content 'C:\Windows\System32\GroupPolicy\gpt.ini'
 Get-PrivateProfileString -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
                          -Category General `
@@ -740,16 +740,113 @@ Get-ChildItem -Path .\ScriptsToSign -File -Include @('*.ps1','*.psd1','*.psm1') 
 Get-AuthenticodeSignature -FilePath script.ps1
 ```
 
+### Run as Administrator
+
+```cmd
+@ECHO OFF
+REM Runs the PowerShell script that has the same name as this batch file.
+powershell.exe -ExecutionPolicy Bypass -NoProfile -NoLogo -File "%~dpn0.ps1"
+```
+
 ### Unattended Scripts
 
 #### Scheduled Tasks
 
+##### Task Action
+
+```powershell
+<#
+.SYNOPSIS
+Creates a backup of all GPOs in the C:\GPOBackup directory.
+
+.DESCRIPTION
+Author: Michael Grafnetter
+Version: 1.0
+
+#>
+
+#requires -Version 5 -Modules GroupPolicy -RunAsAdministrator
+
+# Create the target directory if it does not exist
+[string] $backupPath = Join-Path -Path $env:SystemDrive -ChildPath GPOBackup
+New-Item -ItemType Directory -Path $backupPath -Force | Out-Null
+
+# Perform the backup
+Backup-GPO -Path $backupPath -All | Out-Null
+```
+
+```cmd
+%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File C:\Scripts\Invoke-GPOBackup.ps1
+```
+
+> Permissions for script and output dirs!
+
+##### Register Task
+
+```powershell
+<#
+.SYNOPSIS
+Creates a task that creates daily GPO backups.
+
+#>
+
+#requires -Version 5 -Modules ScheduledTasks -RunAsAdministrator
+
+[datetime] $midnight = Get-Date -Hour 0 -Minute 0 -Second 0 -Millisecond 0
+[ciminstance] $trigger = New-ScheduledTaskTrigger -Daily -At $midnight
+[ciminstance] $system = New-ScheduledTaskPrincipal -UserId 'System' -RunLevel Highest
+[string] $psPath = Get-Command -Name 'powershell.exe' -CommandType Application | Select-Object -ExpandProperty Source
+[string] $scriptPath = Join-Path -Path $PSScriptRoot -ChildPath 'Invoke-GPOBackup.ps1'
+[string] $psParams = '-ExecutionPolicy Bypass -NonInteractive -NoProfile -NoLogo -File "{0}"' -f $scriptPath
+[ciminstance] $action = New-ScheduledTaskAction -Execute $psPath -Argument $psParams
+Register-ScheduledTask -TaskName 'Backup All GPOs' `
+                       -Trigger $trigger `
+                       -Action $action `
+                       -Principal $system `
+                       -Force
+```
+
+##### Unregister Task
+
+```powershell
+<#
+.SYNOPSIS
+Removes the task that creates daily GPO backups.
+
+#>
+
+#requires -Version 5 -Modules ScheduledTasks -RunAsAdministrator
+
+Unregister-ScheduledTask -TaskName 'Backup All GPOs' -Confirm:$false -Verbose
+```
 #### Managed Service Accounts
+
+```cmd
+PsExec.exe -i -u svc_ad_audit$ -p ~ powershell.exe
+```
 
 #### Script Credentials
 
+```powershell
+Get-Credential | Export-CliXml -Path cred.xml
+```
+
+```powershell
+Import-CliXml -Path cred.xml
+```
+
 #### Azure AD Credentials
 
+```powershell
+# Interactive
+Connect-MgGraph -Scopes "User.Read.All","Group.Read.All"
+Get-MgUser
+
+# Non-interactive
+ Connect-MgGraph -ClientID c3f7da84-2712-43e5-b5dd-70f3cd0e4bbd -TenantId 6c6e13e5-6627-445a-bcd6-db1e297f30c4 -CertificateName AADScriptCert
+```
+
+[Use app-only authentication with the Microsoft Graph PowerShell SDK](https://learn.microsoft.com/en-us/powershell/microsoftgraph/app-only?view=graph-powershell-1.0&tabs=azure-portal)
 
 ## 3. Active Directory Security Assessment
 
@@ -757,8 +854,8 @@ Get-AuthenticodeSignature -FilePath script.ps1
 
 #### Purple Knight
 
-[Purple Knight Web](https://www.purple-knight.com/)
-[Security Indicators](https://www.purple-knight.com/security-indicators/)
+- [Purple Knight Web](https://www.purple-knight.com/)
+- [Security Indicators](https://www.purple-knight.com/security-indicators/)
 
 ![](https://www.purple-knight.com/wp-content/uploads/images_screenshots/image-pk-home-step01find-768x614.png)
 
@@ -778,15 +875,26 @@ Get-AuthenticodeSignature -FilePath script.ps1
 
 ### Operating System Versions
 
+> TBD
+
 ### Kerberoasting
+
+> TBD
 
 ### SID History
 
+> TBD
+
 ### Shadow Credentials
+
+> TBD
 
 ### Password Quality
 
+> TBD
+
 ### Event Logs
+
 
 
 ### Desired State Configuration (DSC)
@@ -831,3 +939,137 @@ Package LAPS
 
 ### Pester
 
+#### Tests #1
+
+```powershell
+<#
+.SYNOPSIS
+Invokes DC tests using Pester.
+
+#>
+
+#Requires -Version 5 -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.0' }
+
+Describe 'Domain Controllers' {
+    Context 'Print Spooler Service' {
+        BeforeAll {
+            Add-Type -AssemblyName System.ServiceProcess
+        }
+        It 'Print Spooler should be disabled' {
+            Get-Service -Name Spooler -ComputerName dc -ErrorAction Stop |
+                Select-Object -ExpandProperty StartType |
+                Should -Be ([System.ServiceProcess.ServiceStartMode]::Disabled)
+        }
+
+        It 'Print Spooler should be stopped' {
+            Get-Service -Name Spooler -ComputerName dc -ErrorAction Stop |
+                Select-Object -ExpandProperty Status |
+                Should -Be ([System.ServiceProcess.ServiceControllerStatus]::Stopped)
+        }
+    }
+
+    Context 'Availability' {
+        BeforeDiscovery {
+            [hashtable[]] $ports = @{ Port = 389; Service = 'LDAP' },
+                                   @{ Port = 636; Service = 'LDAPS' },
+                                   @{ Port = 445; Service = 'SMB' }
+        }
+
+        It 'Server DC should be pingable' {
+            Test-Connection -ComputerName dc -Quiet -Count 1 | Should -BeTrue
+        }
+
+        It '<Service> (TCP port <Port>) should be reachable on DC' -TestCases $ports {
+            param([int] $Port, [string] $Service)
+
+            Test-NetConnection -Port $Port -ComputerName DC |
+                Select-Object -ExpandProperty TcpTestSucceeded |
+                Should -BeTrue
+        }
+    }
+}
+```
+
+#### Tests #2
+
+```powershell
+<#
+.SYNOPSIS
+Invokes Group Membership tests using Pester.
+
+#>
+
+#Requires -Version 5 -Modules ActiveDirectory,@{ ModuleName = 'Pester'; ModuleVersion = '5.0' }
+
+Describe 'Group Membership' {
+    Context 'Empty Groups' {
+        BeforeDiscovery {
+            [string[]] $groupNames = 'Schema Admins',
+                                     'Print Operators',
+                                     'Remote Desktop Users',
+                                     'Account Operators'
+            [hashtable[]] $groups = $groupNames | ForEach-Object { @{ Group = $PSItem } }
+        }
+
+        It 'The "<Group>" group should be empty' -TestCases $groups {
+            param([string] $Group)
+
+            Get-ADGroupMember -Identity $Group -ErrorAction Stop | 
+                Should -HaveCount 0
+        }
+    }
+}
+```
+
+#### Test Runner
+
+```powershell
+<#
+.SYNOPSIS
+Invokes all Pester tests and generates a HTML report.
+
+#>
+
+#Requires -Version 5 -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.0' }
+
+$htmlHead = @'
+<style type="text/css">
+    table, th, td {
+          border: 1px solid;
+          border-spacing: 0px;
+    }
+</style>
+<script
+    src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+	crossorigin="anonymous">
+</script>
+<script>
+// Colorize table rows based on Success/Failure using jQuery (does not work in MSIE).
+$(document).ready(function() {
+    $("td").each(function(){
+        if($(this).text() == "Passed"){
+            $(this).parent().css("background-color", "#77dd77");
+        } else if($(this).text() == "Failed"){
+            $(this).parent().css("background-color", "#ff6961");
+        } else if($(this).text() == "Inconclusive" || $(this).text() == "Skipped"){
+            $(this).parent().css("background-color", "#fdfd96");
+        }
+    })
+});
+</script>
+<title>Services</title>
+'@
+
+$resultsFile = Join-Path -Path $PSScriptRoot -ChildPath 'results.html'
+
+Invoke-Pester -Path $PSScriptRoot -PassThru |
+    Select-Object -ExpandProperty Tests | 
+    Select-Object -Property @{ n = 'Category'; e = { $PSItem.Path[0] }},
+                            @{ n = 'Context';  e = { $PSItem.Path[1] }},
+                            ExpandedName,
+                            Result,
+                            @{ n = 'Error'; e = { $PSItem.ErrorRecord.DisplayErrorMessage } } |
+    ConvertTo-Html -PreContent '<h1>Test Results</h1>' -Head $htmlHead |
+    Out-File -FilePath $resultsFile -Encoding utf8 -Force
+```
