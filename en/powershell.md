@@ -62,6 +62,7 @@ Add-Type -MemberDefinition $signature `
 # Wrap as PowerShell function
 function Get-PrivateProfileString
 {
+    [OutputType([string])]
     param(
         [string] $File,
         [string] $Category,
@@ -185,7 +186,7 @@ Invoke-Command -ComputerName dc -ScriptBlock { calc.exe }
 [Create method of the Win32_Process class](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/create-method-in-class-win32-process)
 
 ```powershell
-Invoke-WmiMethod -Class Win32_Process -Name Create -ArgumentList calc.exe
+Invoke-WmiMethod -ComputerName dc -Class Win32_Process -Name Create -ArgumentList calc.exe
 ```
 
 [Defender ASR: Block process creations originating from PSExec and WMI commands](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference?view=o365-worldwide#block-process-creations-originating-from-psexec-and-wmi-commands)
@@ -873,26 +874,13 @@ Get-MgUser
 - [PowerView GitHub](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
 - [PowerView Intro](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-enumeration-with-powerview)
 
-### Operating System Versions
-
-> TBD
-
-### Kerberoasting
-
-> TBD
-
-### SID History
-
-> TBD
-
-### Shadow Credentials
-
-> TBD
-
 ### Password Quality
 
-> TBD
-
+```powershell
+Install-Module -Name DSInternals -Force
+Get-ADReplAccount -All -Server dc.contoso.com |
+    Test-PasswordQuality -WeakPasswords 'Pa$$w0rd','Cqure2022','October2022'
+```
 ### Event Logs
 
 ```powershell
@@ -912,6 +900,7 @@ Get-WinEvent -ComputerName localhost -FilterHashtable @{
                             @{n='Date';e={$PSItem.TimeCreated.Date}},
                             @{n='ServiceName';e={$PSItem.Properties.Value[0]}},
                             @{n='State';e={$PSItem.Properties.Value[1]}} |
+    Sort-Object -Property ServiceName,Date |
     Group-Object -Property ServiceName,Date |
     Select-Object -Property @{ n = 'ServiceName'; e = { $PSItem.Group[0].ServiceName } },
                             @{ n = 'Date'; e = { $PSItem.Group[0].Date } },
@@ -925,11 +914,15 @@ Get-WinEvent -ComputerName localhost -FilterHashtable @{
 
 - [NetworkingDsc](https://www.powershellgallery.com/packages/NetworkingDsc)
 - [LAPS](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
+- [SecurityPolicyDsc](https://www.powershellgallery.com/packages/SecurityPolicyDsc/)
+- [AuditPolicyDsc](https://www.powershellgallery.com/packages/AuditPolicyDsc)
 
 ```powershell
 Configuration WindowsServerSecurityBaseline
 {
     Import-DscResource –ModuleName PSDesiredStateConfiguration
+    Import-DscResource –ModuleName NetworkingDsc
+    Import-DscResource –ModuleName SecurityPolicyDsc
 
     Node localhost
     {
@@ -937,11 +930,11 @@ Configuration WindowsServerSecurityBaseline
         {
             ConfigurationModeFrequencyMins = 120
             RebootNodeIfNeeded = $false
-            ConfigurationMode = 'MonitorOnly'
+            ConfigurationMode = 'ApplyAndAutoCorrect'
             ActionAfterReboot = 'ContinueConfiguration'
         }
 
-        Service Spooler
+        Service DisableSpooler
         {
             Name = 'Spooler'
             State = 'Stopped'
@@ -970,10 +963,45 @@ Configuration WindowsServerSecurityBaseline
             Path = 'https://download.microsoft.com/download/C/7/A/C7AAD914-A8A6-4904-88A1-29E657445D03/LAPS.x64.msi'
             ProductId = 'EA8CB806-C109-4700-96B4-F1F268E5036C'
         }
+
+        FirewallProfile ServerDomainProfile
+        {
+            Name = 'Domain'
+            AllowLocalFirewallRules = 'False'
+            DefaultInboundAction = 'Block'
+        }
+
+        FirewallProfile ServerPrivateProfile
+        {
+            Name = 'Private'
+            AllowLocalFirewallRules = 'False'
+            DefaultInboundAction = 'Block'
+        }
+
+        FirewallProfile ServerPublicProfile
+        {
+            Name = 'Public'
+            AllowLocalFirewallRules = 'False'
+            DefaultInboundAction = 'Block'
+        }
+
+        UserRightsAssignment RDPPermissions_DomainUsers
+        {
+            Policy = 'Allow_log_on_through_Remote_Desktop_Services'
+            Identity = 'Domain Users'
+            Ensure = 'Absent'
+        }
+
+        UserRightsAssignment RDPPermissions_AuthUsers
+        {
+            Policy = 'Allow_log_on_through_Remote_Desktop_Services'
+            Identity = 'Authenticated Users'
+            Ensure = 'Absent'
+        }
     }
 }
 
-DomainControllerSecurityBaseline -OutputPath .
+WindowsServerSecurityBaseline -OutputPath .
 
 Test-DscConfiguration -Path .\WindowsServerSecurityBaseline -Verbose
 
@@ -983,8 +1011,6 @@ Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbo
 ```
 
 #### Security Baseline Tooling
-- [SecurityPolicyDsc](https://www.powershellgallery.com/packages/SecurityPolicyDsc/)
-- [AuditPolicyDsc](https://www.powershellgallery.com/packages/AuditPolicyDsc)
 - [BaselineManagement](https://www.powershellgallery.com/packages/BaselineManagement)
 - [Microsoft Security Compliance Manager 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=53353)
 - [Microsoft Security Compliance Toolkit 1.0 ](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
@@ -1085,6 +1111,10 @@ Describe 'Group Membership' {
 ```
 
 #### Test Runner
+
+```powershell
+Invoke-Pester -Path .\Tests\ -Output Detailed
+```
 
 ```powershell
 <#
