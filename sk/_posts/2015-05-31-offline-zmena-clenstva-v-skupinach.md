@@ -52,4 +52,4 @@ Po nábehu&nbsp;služby ntds sa&nbsp;zmena členstva v&nbsp;skupinách automatic
 
 ## Získanie programu
 
-Príkaz Set-ADDBPrimaryGroup je&nbsp;súčasťou poslednej verzie môjho PowerShell modulu DSInternals, ktorý si&nbsp;môžete [bezplatne stiahnuť](/sk/na-stiahnutie/).
+Príkaz Set-ADDBPrimaryGroup je&nbsp;súčasťou poslednej verzie môjho PowerShell modulu DSInternals, ktorý si&nbsp;môžete [bezplatne stiahnuť](/sk/projekty/).

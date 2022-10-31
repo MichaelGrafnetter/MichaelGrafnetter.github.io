@@ -12,7 +12,7 @@ tags:
     - Security
 ---
 
-Nedávno som písal o&nbsp;príkaze [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/), pomocou ktorého je&nbsp;možné vzdialene vytiahnuť heslá a&nbsp;iné citlivé informácie z&nbsp;doménového kontroléru. Tieto dáta sú na&nbsp;každom doménovom kontroléri uložené v&nbsp;súbore **ndts.dit** a&nbsp;odtiaľ sa&nbsp;dajú získať aj&nbsp;napriamo. Dokáže to&nbsp;napríklad nástroj [NTDSXtact](https://github.com/csababarta/ntdsxtract), ale&nbsp;ten je&nbsp;určený pre&nbsp;Linux, nemá moc jednoduché ovládanie a&nbsp;na&nbsp;väčších databázach je&nbsp;dosť pomalý. Preto som do&nbsp;svojho [PowerShell modulu DSInternals](/sk/na-stiahnutie/) pridal príkaz **Get-ADDBAccount**, ktorého použitie je&nbsp;hračka:
+Nedávno som písal o&nbsp;príkaze [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/), pomocou ktorého je&nbsp;možné vzdialene vytiahnuť heslá a&nbsp;iné citlivé informácie z&nbsp;doménového kontroléru. Tieto dáta sú na&nbsp;každom doménovom kontroléri uložené v&nbsp;súbore **ndts.dit** a&nbsp;odtiaľ sa&nbsp;dajú získať aj&nbsp;napriamo. Dokáže to&nbsp;napríklad nástroj [NTDSXtact](https://github.com/csababarta/ntdsxtract), ale&nbsp;ten je&nbsp;určený pre&nbsp;Linux, nemá moc jednoduché ovládanie a&nbsp;na&nbsp;väčších databázach je&nbsp;dosť pomalý. Preto som do&nbsp;svojho [PowerShell modulu DSInternals](/sk/projekty/) pridal príkaz **Get-ADDBAccount**, ktorého použitie je&nbsp;hračka:
 
 ```powershell
 # Z registrov najprv získame tzv. Boot Key, ktorým sú heslá zašifrované:

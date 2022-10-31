@@ -86,7 +86,7 @@ Výsledok je&nbsp;potom nasledovný:
 
 ![Sid History](../../assets/images/sid_history.png)
 
-Príkaz je&nbsp;súčasťou PowerShell modulu DSInternals, ktorý nájdete v&nbsp;sekcii [Na stiahnutie](/sk/na-stiahnutie/ "Na stiahnutie"). Budem rád za&nbsp;akúkoľvek spätnú väzbu.
+Príkaz je&nbsp;súčasťou PowerShell modulu DSInternals, ktorý nájdete v&nbsp;sekcii [Projekty](/sk/projekty/ "Projekty"). Budem rád za&nbsp;akúkoľvek spätnú väzbu.
 
 POZOR: Pred akýmkoľvek zásahom do&nbsp;AD databázy ju vždy najprv odzálohujte!
 
