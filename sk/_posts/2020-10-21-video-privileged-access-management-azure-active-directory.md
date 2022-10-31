@@ -4,7 +4,7 @@ title: 'Video: Privileged Access Management v&nbsp;(Azure) Active Directory'
 date: '2020-10-21T00:00:00+00:00'
 layout: post
 permalink: /sk/video-privileged-access-management-azure-active-directory/
-image: https://wug.cz/online/akce/GetFile.ashx?PhotoID=3242&ThumbnailSizeName=detail
+image: /assets/images/cover/wug-pam.jpg
 lang: sk
 tags:
     - 'Active Directory'
@@ -15,4 +15,4 @@ tags:
     - WUG
 ---
 
-[![Privileged Access Management in&nbsp;(Azure) Active Directory](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3242&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/651-WUG-Days-2020-Privileged-Access-Management-in-Azure-Active-Directory)
+[![Privileged Access Management in&nbsp;(Azure) Active Directory](/assets/images/cover/wug-pam.jpg)](https://wug.cz/zaznamy/651-WUG-Days-2020-Privileged-Access-Management-in-Azure-Active-Directory)

@@ -4,7 +4,7 @@ title: 'Moje slajdy z&nbsp;TechEd 2015'
 date: '2015-05-31T17:27:07+00:00'
 lang: sk
 layout: post
-image: /assets/images/teched_2015.jpg
+image: /assets/images/cover/teched_2015.jpg
 permalink: /sk/moje-slajdy-z-teched-2015/
 tags:
     - 'Active Directory'
@@ -13,7 +13,7 @@ tags:
     - Security
 ---
 
-![TechEd 2015 Slajd](../../assets/images/teched_2015.jpg)
+![TechEd 2015 Slajd](../../assets/images/cover/teched_2015.jpg)
 
 Ešte raz ďakujem všetkým účastníkom mojich prednášok na&nbsp;konferencii **TechEd 2015**, plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
 

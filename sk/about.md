@@ -9,7 +9,7 @@ fa_class: fas fa-user
 
 <img alt="Michael Grafnetter Profile Picture" src="/assets/images/profile_picture.jpg" style="float: left; margin-right: 10px">
 Volám sa Michael Grafnetter a&nbsp;špecializujem sa&nbsp;na&nbsp;oblasť informačnej bezpečnosti - bezpečnostné audity Active Directory, penetračné testy a&nbsp;školenia.
-Externe spolupracujem najmä s&nbsp;firmami [CQURE](https://cqure.pl/), [Gopas](https://www.gopas.cz/) a&nbsp;[Mainstream Technologies](https://www.mainstream.cz/).
+Externe spolupracujem najmä s&nbsp;firmami [CQURE](https://cqure.pl/), [Gopas](https://www.gopas.cz/), [Mainstream Technologies](https://www.mainstream.cz/) a&nbsp;[SoftwareOne](https://www.softwareone.com/cs-cz/).
 
 Názory prezentované na&nbsp;tomto blogu sú moje vlastné a&nbsp;nie sú oficiálnym stanoviskom žiadnej zo spoločností, s&nbsp;ktorými spolupracujem.
 

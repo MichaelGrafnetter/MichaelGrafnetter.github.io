@@ -5,7 +5,7 @@ date: '2020-10-22T00:00:00+00:00'
 layout: post
 permalink: /sk/video-svet-bez-hesiel/
 lang: sk
-image: https://wug.cz/online/akce/GetFile.ashx?PhotoID=3254&ThumbnailSizeName=detail
+image: /assets/images/cover/wug-passwordless.jpg
 tags:
     - 'Active Directory'
     - 'Azure Active Directory'
@@ -20,4 +20,4 @@ tags:
 
 <!--more-->
 
-[![Svět bez hesel: Už tam budem?](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3254&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/677-WUG-Days-2020-Svet-bez-hesel-Uz-tam-budem)
+[![Svět bez hesel: Už tam budem?](/assets/images/cover/wug-passwordless.jpg)](https://wug.cz/zaznamy/677-WUG-Days-2020-Svet-bez-hesel-Uz-tam-budem)

@@ -5,7 +5,7 @@ date: '2022-04-12T00:00:00+00:00'
 layout: post
 permalink: /sk/video-uvod-do-cloud-security/
 lang: sk
-image: https://wug.cz/online/akce/GetFile.ashx?PhotoID=3335&ThumbnailSizeName=detail
+image: /assets/images/cover/wug-cloud-security.jpg
 tags:
     - 'Active Directory'
     - 'Azure Active Directory'
@@ -16,4 +16,4 @@ tags:
     - WUG
 ---
 
-[![Úvod do&nbsp;Cloud Security](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3335&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/748-Uvod-do-Cloud-Security)
+[![Úvod do&nbsp;Cloud Security](/assets/images/cover/wug-cloud-security.jpg)](https://wug.cz/zaznamy/748-Uvod-do-Cloud-Security)

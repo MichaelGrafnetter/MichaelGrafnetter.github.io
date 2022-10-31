@@ -44,11 +44,11 @@ As part of&nbsp;a&nbsp;cooperation with&nbsp;[Thycotic](https://thycotic.com/), 
 
 ## Administrative Template (ADMX) for&nbsp;YubiKey Smart Card Minidriver
 
-I have created [this ADMX administrative template](https://github.com/MichaelGrafnetter/yubikey-minidriver-admx) that&nbsp;allows administrators to&nbsp;easily deploy configuration of&nbsp;the&nbsp;[YubiKey Smart Card Minidriver](https://www.yubico.com/products/services-software/download/smart-card-drivers-tools/) through Active Directory Group Policy. It&nbsp;can also be&nbsp;used on standalone computers to&nbsp;unlock some&nbsp;features of&nbsp;the&nbsp;YubiKey Minidriver that&nbsp;are disabled by&nbsp;default, like controlling the&nbsp;touch policy or&nbsp;blocking the&nbsp;generation of&nbsp;unsafe keys (ROCA).
+I have created [this ADMX administrative template](https://github.com/MichaelGrafnetter/yubikey-minidriver-admx) that&nbsp;allows administrators to&nbsp;easily deploy the&nbsp;configuration of&nbsp;the&nbsp;[YubiKey Smart Card Minidriver](https://www.yubico.com/products/services-software/download/smart-card-drivers-tools/) through&nbsp;the&nbsp;Active Directory Group Policy. It&nbsp;can also be&nbsp;used on standalone computers to&nbsp;unlock some&nbsp;features of&nbsp;the&nbsp;YubiKey Minidriver that&nbsp;are disabled by&nbsp;default, like controlling the&nbsp;touch policy or&nbsp;blocking the&nbsp;generation of&nbsp;unsafe keys (ROCA).
 
 ![Group Policy Editor Screenshot](/assets/images/yubikey-admx.png)
 
-## (Azure) Active Directory Securiy Research
+## (Azure) Active Directory Security Research
 
 ### AD Privilege Escalation through Windows Hello
 
@@ -64,7 +64,7 @@ As part of&nbsp;my research of&nbsp;Windows Hello for&nbsp;Business internals, I
 
 ![Auditing Shadow Credentials using DSInternals](/assets/images/ngc_audit.png)
 
-If an&nbsp;attacker can modify this&nbsp;attribute of&nbsp;an&nbsp;account, they are able to&nbsp;impersonate it&nbsp;through kerberos PKINIT. This&nbsp;can lead to&nbsp;either privilege escalation or&nbsp;persistence. As&nbsp;a&nbsp;side-effect, UnPAC-the-Hash attack can also be&nbsp;performed against the&nbsp;target account, leading to&nbsp;the&nbsp;exposure of&nbsp;its NT hash. Some&nbsp;thus call it&nbsp;targeted DCSync attack.
+If an&nbsp;attacker can modify this&nbsp;attribute of&nbsp;an&nbsp;account, they can&nbsp;impersonate it&nbsp;through Kerberos PKINIT. This&nbsp;can lead to&nbsp;either privilege escalation or&nbsp;persistence. As&nbsp;a&nbsp;side-effect, UnPAC-the-Hash attack can also be&nbsp;performed against the&nbsp;target account, leading to&nbsp;the&nbsp;exposure of&nbsp;its NT hash. Some&nbsp;thus call it&nbsp;a&nbsp;targeted DCSync attack.
 
 My original code is&nbsp;currently part of&nbsp;these hacktools:
 - [KrbRelayUp](https://github.com/Dec0ne/KrbRelayUp)
@@ -88,7 +88,7 @@ As a&nbsp;response to&nbsp;these security concerns, Microsoft has implemented th
 
 ### Azure AD Password Hash Synchronization Reverse Engineering
 
-Long before&nbsp;Microsoft had a&nbsp;[proper documentation](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#detailed-description-of-how-password-hash-synchronization-works) on the&nbsp;Azure Active Directory password hash synchronization feature, I&nbsp;was able to&nbsp;reverse engineer the&nbsp;Azure AD Connect tool and&nbsp;[discover the&nbsp;exact hash function used by&nbsp;Azure Active Directory](/en/_posts/2015-10-18-how-azure-active-directory-connect-syncs-passwords.md).
+Long before&nbsp;Microsoft had [proper documentation](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#detailed-description-of-how-password-hash-synchronization-works) on the&nbsp;Azure Active Directory password hash synchronization feature, I&nbsp;was able to&nbsp;reverse engineer the&nbsp;Azure AD Connect tool and&nbsp;[discover the&nbsp;exact hash function used by&nbsp;Azure Active Directory](/en/_posts/2015-10-18-how-azure-active-directory-connect-syncs-passwords.md).
 
 ![OrgIdHash](/assets/images/ps_orgidhash.png)
 

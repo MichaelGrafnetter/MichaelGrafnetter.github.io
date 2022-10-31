@@ -5,7 +5,7 @@ date: '2021-03-04T00:00:00+00:00'
 layout: post
 permalink: /sk/video-vyuzite-eobcanku-na-maximum/
 lang: sk
-image: https://wug.cz/online/akce/GetFile.ashx?PhotoID=3284&ThumbnailSizeName=detail
+image: /assets/images/cover/wug-eobcanka.jpg
 tags:
     - Windows
     - Prednášky
@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-[![Využijte eObčanku na&nbsp;maximum](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3284&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/707-Vyuzijte-eObcanku-na-maximum)
+[![Využijte eObčanku na&nbsp;maximum](/assets/images/cover/wug-eobcanka.jpg)](https://wug.cz/zaznamy/707-Vyuzijte-eObcanku-na-maximum)

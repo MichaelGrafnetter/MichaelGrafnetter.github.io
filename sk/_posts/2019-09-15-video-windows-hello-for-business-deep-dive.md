@@ -4,7 +4,7 @@ title: 'Video: Windows Hello for&nbsp;Business Deep-Dive'
 date: '2019-09-15T00:00:00+00:00'
 layout: post
 permalink: /sk/video-windows-hello-for-business-deep-dive/
-image: https://wug.cz/brno/akce/GetFile.ashx?PhotoID=3063&ThumbnailSizeName=detail
+image: /assets/images/cover/wug-hello.jpg
 lang: sk
 tags:
     - 'Active Directory'
@@ -17,4 +17,4 @@ tags:
 
 <!--more-->
 
-[![Windows Hello for&nbsp;Business Deep-Dive](https://wug.cz/brno/akce/GetFile.ashx?PhotoID=3063&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/574-WUG-Days-2019-Windows-Hello-for-Business-Deep-Dive)
+[![Windows Hello for&nbsp;Business Deep-Dive](/assets/images/cover/wug-hello.jpg)](https://wug.cz/zaznamy/574-WUG-Days-2019-Windows-Hello-for-Business-Deep-Dive)

@@ -4,7 +4,7 @@ title: 'Video: Moderná autentifikácia na&nbsp;webe'
 date: '2020-07-27T00:00:00+00:00'
 layout: post
 permalink: /sk/video-moderni-autentizace-na-webu/
-image: https://wug.cz/online/akce/GetFile.ashx?PhotoID=3188&ThumbnailSizeName=detail
+image: /assets/images/cover/wug-moderni-autentizace.jpg
 lang: sk
 tags:
     - 'Active Directory'
@@ -19,4 +19,4 @@ tags:
 
 <!--more-->
 
-[![Moderní autentizace na&nbsp;webu](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3188&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/617-Moderni-autentizace-na-webu)
+[![Moderní autentizace na&nbsp;webu](/assets/images/cover/wug-moderni-autentizace.jpg)
