@@ -13,4 +13,4 @@ tags:
 
 <!--more-->
 
-<iframe width="100%" height="480px" src="https://www.youtube.com/embed/5LwDxYZgIQI" title="MS Fest 2013 Praha: Novinky v PowerShell 4 (Michael Grafnetter)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{%- include youtube.html id="5LwDxYZgIQI" title="MS Fest 2013 Praha: Novinky v PowerShell 4 (Michael Grafnetter)" -%}

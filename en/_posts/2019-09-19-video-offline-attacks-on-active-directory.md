@@ -14,6 +14,6 @@ tags:
     - Video
 ---
 
-<iframe width="100%" height="480px" src="https://www.youtube.com/embed/soSRV8KFr2c" title="Offline Attacks on Active Directory - Michael Grafnetter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{%- include youtube.html id="soSRV8KFr2c" title="Offline Attacks on Active Directory - Michael Grafnetter" -%}
 
 [<i class="fas fa-file-pdf"></i> HipConf 2018 slide deck](../../assets/documents/HIP_AD_Offline_Attacks.pdf)

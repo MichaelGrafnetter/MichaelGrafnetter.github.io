@@ -15,4 +15,4 @@ tags:
 
 Here is&nbsp;the&nbsp;recording of&nbsp;my Black Hat Europe 2019 Briefings session about [Exploiting Windows Hello for&nbsp;Business](https://www.blackhat.com/eu-19/briefings/schedule/#exploiting-windows-hello-for-business-17260):
 
-<iframe width="100%" height="480px" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/u22XC01ewn0?feature=oembed"></iframe>
+{%- include youtube.html id="u22XC01ewn0" title="Exploiting Windows Hello for Business" -%}
