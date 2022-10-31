@@ -7,9 +7,14 @@ permalink: /en/about/
 fa_class: fas fa-user
 ---
 
-<img alt="Michael Grafnetter Profile Picture" src="/assets/images/profile_picture.jpg" style="float: left; margin-right: 10px">
-My name is&nbsp;Michael Grafnetter and&nbsp;I&nbsp;am an&nbsp;InfoSec professional (Active Directory security audits, penetration tests and&nbsp;trainings).
+![Michael Grafnetter Profile Picture](/assets/images/profile_picture.jpg){: style="float: left; margin-right: 10px"}
+
+My name is&nbsp;Michael Grafnetter and&nbsp;I&nbsp;am an&nbsp;InfoSec professional (Active Directory security assessments, penetration tests and&nbsp;trainings).
 I&nbsp;mainly work with&nbsp;[CQURE](https://cqure.pl/), [Gopas](https://www.gopas.cz/), [Mainstream Technologies](https://www.mainstream.cz/), and&nbsp;[SoftwareOne](https://www.softwareone.com).
+
+![Microsoft MVP Logo](/assets/images/microsoft_mvp.png){: style="float: right; margin-left: 10px"} I enjoy doing Active Directory [security research](/en/projects.md), about which I&nbsp;then&nbsp;regularly give public [tech talks](/en/videos.md) at&nbsp;various conferences and&nbsp;events.
+
+For&nbsp;these community activities, I&nbsp;have repeatedly been given the&nbsp;[MVP award](https://mvp.microsoft.com/en-us/PublicProfile/5001919?fullName=Michael%20Grafnetter) by&nbsp;Microsoft.
 
 The&nbsp;information and&nbsp;views presented in&nbsp;this&nbsp;blog are my own and&nbsp;do&nbsp;not reflect the&nbsp;official position of&nbsp;companies I&nbsp;work with. 
 Moreover, some&nbsp;most of&nbsp;the&nbsp;blog posts have been written a&nbsp;long time ago and&nbsp;thus might be&nbsp;outdated.

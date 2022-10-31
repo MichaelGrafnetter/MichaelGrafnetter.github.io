@@ -14,7 +14,7 @@ The [DSInternals PowerShell Module](https://www.powershellgallery.com/packages/D
 
 The most popular feature of&nbsp;DSInternals is&nbsp;probably the&nbsp;[Test-PasswordQuality cmdlet](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), which&nbsp;can check Active Directory passwords against the&nbsp;list of&nbsp;leaked passwords published at [Have I&nbsp;Been Pwned (HIBP)](https://haveibeenpwned.com/):
 
-![](/assets/images/dsinternals_password_quality.png)
+![Sample Test-PasswordQuality output](/assets/images/dsinternals_password_quality.png)
 
 More information on the&nbsp;DSInternals module:
 - [PowerShell Gallery](https://www.powershellgallery.com/packages/DSInternals)
