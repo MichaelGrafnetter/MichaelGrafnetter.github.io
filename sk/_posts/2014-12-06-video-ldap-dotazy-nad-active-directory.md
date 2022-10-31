@@ -16,4 +16,4 @@ tags:
 
 <!--more-->
 
-{%- include youtube.html id="rmOT0z3fwws" title="MS Fest 2012 Praha: LDAP dotazy nad Active Directory (Michael Grafnetter)" -%}
+{% include youtube.html id="rmOT0z3fwws" title="MS Fest 2012 Praha: LDAP dotazy nad Active Directory (Michael Grafnetter)" %}

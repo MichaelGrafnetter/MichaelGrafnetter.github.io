@@ -16,4 +16,4 @@ tags:
 
 Na YouTube sa&nbsp;objavil záznam mojej prenášky z&nbsp;konferencie Black Hat Europe 2019 s&nbsp;názvom [Exploiting Windows Hello for&nbsp;Business](https://www.blackhat.com/eu-19/briefings/schedule/#exploiting-windows-hello-for-business-17260):
 
-{%- include youtube.html id="u22XC01ewn0" title="Exploiting Windows Hello for Business" -%}
+{% include youtube.html id="u22XC01ewn0" title="Exploiting Windows Hello for Business" %}

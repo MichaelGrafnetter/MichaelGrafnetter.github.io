@@ -16,4 +16,4 @@ Like an&nbsp;NT hash (AKA NTLM hash AKA MD4 hash) and&nbsp;a&nbsp;Kerberos ticke
 
 I have recorded a&nbsp;short demo of&nbsp;the&nbsp;Pass-the-PRT Attack:
 
-{%- include youtube.html id="9WDe7IiSrWE" title="CQ Hacks 39: a&nbsp;Look Inside a Pass-the-PRT Attack" -%}
+{% include youtube.html id="9WDe7IiSrWE" title="CQ Hacks 39: a&nbsp;Look Inside a Pass-the-PRT Attack" %}

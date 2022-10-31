@@ -13,4 +13,4 @@ tags:
 
 <!--more-->
 
-{%- include youtube.html id="5LwDxYZgIQI" title="MS Fest 2013 Praha: Novinky v PowerShell 4 (Michael Grafnetter)" -%}
+{% include youtube.html id="5LwDxYZgIQI" title="MS Fest 2013 Praha: Novinky v PowerShell 4 (Michael Grafnetter)" %}
