@@ -1,4 +1,4 @@
----
+﻿---
 ref: video-webauthn
 title: 'Video: Moderná autentifikácia na&nbsp;webe'
 date: '2020-07-27T00:00:00+00:00'
@@ -19,4 +19,4 @@ tags:
 
 <!--more-->
 
-[![Moderní autentizace na webu](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3188&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/617-Moderni-autentizace-na-webu)
+[![Moderní autentizace na&nbsp;webu](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3188&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/617-Moderni-autentizace-na-webu)

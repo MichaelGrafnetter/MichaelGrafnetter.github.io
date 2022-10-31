@@ -1,4 +1,4 @@
----
+﻿---
 ref: dpapi-backup-keys
 title: 'Získanie záložných kľúčov DPAPI z&nbsp;Active Directory'
 date: 2015-10-26T23:07:58+00:00
@@ -11,4 +11,4 @@ tags:
     - Security
 ---
 
-Podarilo sa&nbsp;mi nájsť spôsob, ako vytiahnuť záložné kľúče DPAPI zo záloh ntds.dit súborov a&nbsp;aj&nbsp;na diaľku cez&nbsp;replikačný protokol. Napísal som o&nbsp;tom [článok v anglickom jazyku](/en/retrieving-dpapi-backup-keys-from-active-directory/).
+Podarilo sa&nbsp;mi nájsť spôsob, ako vytiahnuť záložné kľúče DPAPI zo záloh ntds.dit súborov a&nbsp;aj&nbsp;na&nbsp;diaľku cez&nbsp;replikačný protokol. Napísal som o&nbsp;tom [článok v&nbsp;anglickom jazyku](/en/retrieving-dpapi-backup-keys-from-active-directory/).

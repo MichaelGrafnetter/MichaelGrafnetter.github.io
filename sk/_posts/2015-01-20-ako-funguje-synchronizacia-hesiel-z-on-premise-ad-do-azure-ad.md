@@ -1,4 +1,4 @@
----
+﻿---
 ref: how-azure-active-directory-connect-syncs-passwords
 title: 'Ako funguje synchronizácia hesiel z&nbsp;on-premise AD do&nbsp;Azure AD'
 date: 2015-01-20T12:01:37+00:00
@@ -14,7 +14,7 @@ tags:
     - Security
 ---
 
-Článkov o&nbsp;tom, ako nakonfigurovať synchronizáciu hesiel z&nbsp;vnútrofiremného Active Directory do&nbsp;Azure&nbsp;AD / Office 365, či&nbsp;už&nbsp;pomocou pôvodného nástroja DirSync, alebo&nbsp;jeho novšej verzie s&nbsp;názvom Azure AD Connect, nájdete na&nbsp;internete hromadu a&nbsp;nie je&nbsp;to&nbsp;žiadna veda. Čo sa&nbsp;však nikde nedočítate, je&nbsp;to, ako presne táto synchronizácia funguje. A&nbsp;to&nbsp;je otázka, ktorú si&nbsp;určite položí každý správca, ktorému bezpečnosť nie je&nbsp;cudzia. Rozhodol som sa&nbsp;teda, že to&nbsp;preskúmam a&nbsp;podelím sa&nbsp;s&nbsp;Vami o&nbsp;výsledky svojho bádania.
+Článkov o&nbsp;tom, ako nakonfigurovať synchronizáciu hesiel z&nbsp;vnútrofiremného Active Directory do&nbsp;Azure&nbsp;AD / Office 365, či&nbsp;už&nbsp;pomocou pôvodného nástroja DirSync, alebo&nbsp;jeho novšej verzie s&nbsp;názvom Azure AD Connect, nájdete na&nbsp;internete hromadu a&nbsp;nie je&nbsp;to&nbsp;žiadna veda. Čo sa&nbsp;však nikde nedočítate, je&nbsp;to, ako presne táto synchronizácia funguje. A&nbsp;to&nbsp;je&nbsp;otázka, ktorú si&nbsp;určite položí každý správca, ktorému bezpečnosť nie je&nbsp;cudzia. Rozhodol som sa&nbsp;teda, že to&nbsp;preskúmam a&nbsp;podelím sa&nbsp;s&nbsp;Vami o&nbsp;výsledky svojho bádania.
 
 <!--more-->
 
@@ -28,7 +28,7 @@ Táto funkcionalita DirSyncu je&nbsp;implementovaná v&nbsp;knižnici *Microsoft
 
   Je&nbsp;celkom známe, že MD4 hash sa&nbsp;používa v autentizačných protokoloch NTLM a Kerberos a je v podstate ekvivalentom hesla. Navyše sa&nbsp;z dnešného pohľadu jedná o zastaralú hashovaciu funkciu, ktorá sa&nbsp;pri heslách do 10 znakov dá efektívne prelomiť pomocou rainbow tables aj brute-force útoku. Z týchto dôvodov by nebolo veľmi bezpečné, keby DirSync posielal do cloudu priamo MD4 hashe. Preto s nimi spraví ešte túto transformáciu:
 
-Hashe, ktoré majú 16B, sú najprv skonvertované do&nbsp;kapitálkovej textovej hexadecimálnej reprezentácie, čím sa&nbsp;zväčšia na&nbsp;32B. Ďalej sú prekódované do&nbsp;UTF-16 kódovania, čo&nbsp;ich roztiahne na&nbsp;64B. Následne sa&nbsp;vygeneruje 10B náhodných dát, ktoré budú slúžiť ako tzv.&nbsp;soľ. Na&nbsp;to je na&nbsp;záver aplikovaná štandardná funkcia [PBKDF2 ](https://en.wikipedia.org/wiki/PBKDF2 "PBKDF2")(Password-based Key Derivation Function 2) so&nbsp;100 iteráciami hashu HMAC-SHA256, ktorej výstupom je&nbsp;hash dlhý 32B. Tento hash je&nbsp;interne nazývaný **OrgId Hash** a&nbsp;až&nbsp;v&nbsp;jeho podobe sú heslá odosielané na&nbsp;servery Microsoftu.
+Hashe, ktoré majú 16B, sú najprv skonvertované do&nbsp;kapitálkovej textovej hexadecimálnej reprezentácie, čím sa&nbsp;zväčšia na&nbsp;32B. Ďalej sú prekódované do&nbsp;UTF-16 kódovania, čo&nbsp;ich roztiahne na&nbsp;64B. Následne sa&nbsp;vygeneruje 10B náhodných dát, ktoré budú slúžiť ako tzv.&nbsp;soľ. Na&nbsp;to&nbsp;je&nbsp;na&nbsp;záver aplikovaná štandardná funkcia [PBKDF2 ](https://en.wikipedia.org/wiki/PBKDF2 "PBKDF2")(Password-based Key Derivation Function 2) so&nbsp;100 iteráciami hashu HMAC-SHA256, ktorej výstupom je&nbsp;hash dlhý 32B. Tento hash je&nbsp;interne nazývaný **OrgId Hash** a&nbsp;až&nbsp;v&nbsp;jeho podobe sú heslá odosielané na&nbsp;servery Microsoftu.
 
 Schematicky vyzerá výpočet OrgId hashu nasledovne:
 
@@ -42,7 +42,7 @@ Po dosadení NT hashu do&nbsp;predošlého vzorca dostaneme kompletnú transform
 
 **OrgId Hash(plaintext)&nbsp;:= PBKDF2(UTF-16(ToUpper(ToHex(MD4(UTF-16(plaintext))))), RND(10), 100, HMAC-SHA256, 32)**
 
-**Príklad:** MD4 hash hesla „Pa$$w0rd” je v&nbsp;kapitálkovej hexadecimálnej reprezentácii nasledovný:
+**Príklad:** MD4 hash hesla „Pa$$w0rd” je&nbsp;v&nbsp;kapitálkovej hexadecimálnej reprezentácii nasledovný:
 
 “**92937945B518814341DE3F726500D4FF**”
 
@@ -60,14 +60,14 @@ Pokiaľ by&nbsp;ste na&nbsp;serveri, kde beží DirSync, vypli podporu algoritmo
 
 ## Bezpečnostná analýza
 
-Popísanému algoritmu by&nbsp;sa&nbsp;dalo z&nbsp;bezpečnostného hľadiska vytknúť len&nbsp;jediné: V príslušnom [RFC dokumente ](https://www.ietf.org/rfc/rfc2898.txt "PKCS #5: Password-Based Cryptography Specification") z&nbsp;roku 2000 sa&nbsp;odporúča použiť PBKDF2 s&nbsp;aspoň 1000 iteráciami, kým DirSync ich používa iba&nbsp;100. To&nbsp;je&nbsp;zvláštne rozhodnutie, pretože už vo&nbsp;Windows Vista bola interne používaná funkcia PBKDF2 s&nbsp;10240 iteráciami. Argumentom by&nbsp;snáď mohla byť snaha znížiť záťaž autentizačných serverov. No&nbsp;rádovo 100-násobné zvýšenie počtu iterácií podľa nemá až&nbsp;tak&nbsp;drastický dopad na&nbsp;výkon: Môj rýchly a&nbsp;neobjektívny test ukázal, že&nbsp;kým 100 iterácií trvá na&nbsp;procesore Core i5 cca. 10ms, 10240 iterácií predĺži čas potrebný k&nbsp;výpočtu na&nbsp;stále prijateľných 60 ms. Tieto čísla treba brať s&nbsp;veľkou rezervou, ale na&nbsp;vytvorenie si&nbsp;obrazu stačia. Ako sme si už&nbsp;ale&nbsp;naznačili, počet iterácií s&nbsp;pravdepodobne časom zmení.
+Popísanému algoritmu by&nbsp;sa&nbsp;dalo z&nbsp;bezpečnostného hľadiska vytknúť len&nbsp;jediné: V&nbsp;príslušnom [RFC dokumente ](https://www.ietf.org/rfc/rfc2898.txt "PKCS #5: Password-Based Cryptography Specification") z&nbsp;roku 2000 sa&nbsp;odporúča použiť PBKDF2 s&nbsp;aspoň 1000 iteráciami, kým DirSync ich používa iba&nbsp;100. To&nbsp;je&nbsp;zvláštne rozhodnutie, pretože už vo&nbsp;Windows Vista bola interne používaná funkcia PBKDF2 s&nbsp;10240 iteráciami. Argumentom by&nbsp;snáď mohla byť snaha znížiť záťaž autentizačných serverov. No&nbsp;rádovo 100-násobné zvýšenie počtu iterácií podľa nemá až&nbsp;tak&nbsp;drastický dopad na&nbsp;výkon: Môj rýchly a&nbsp;neobjektívny test ukázal, že&nbsp;kým 100 iterácií trvá na&nbsp;procesore Core i5 cca. 10ms, 10240 iterácií predĺži čas potrebný k&nbsp;výpočtu na&nbsp;stále prijateľných 60 ms. Tieto čísla treba brať s&nbsp;veľkou rezervou, ale&nbsp;na&nbsp;vytvorenie si&nbsp;obrazu stačia. Ako sme si&nbsp;už&nbsp;ale&nbsp;naznačili, počet iterácií s&nbsp;pravdepodobne časom zmení.
 
-Druhé odporúčanie z&nbsp;RFC, dĺžku soli minimálne 8B, už&nbsp;DirSync použitím 10B spĺňa. Nekonvenčný je&nbsp;ešte spôsob natiahnutia MD4 hashu zo&nbsp;16B na&nbsp;64B, ale&nbsp;na&nbsp;bezpečnosť to&nbsp;nemá žiaden vplyv. Vďaka použitiu náhodnej soli sa&nbsp;nebudú zhodovať hashe prípadných duplicitných hesiel. To&nbsp;je obzvlášť dôležité u&nbsp;cloudovej služby, kde je&nbsp;možné predpokladať milióny účtov a&nbsp;tým pádom vyššiu pravdepodobnosť výskytu totožných hesiel v&nbsp;jednej databáze.
+Druhé odporúčanie z&nbsp;RFC, dĺžku soli minimálne 8B, už&nbsp;DirSync použitím 10B spĺňa. Nekonvenčný je&nbsp;ešte spôsob natiahnutia MD4 hashu zo&nbsp;16B na&nbsp;64B, ale&nbsp;na&nbsp;bezpečnosť to&nbsp;nemá žiaden vplyv. Vďaka použitiu náhodnej soli sa&nbsp;nebudú zhodovať hashe prípadných duplicitných hesiel. To&nbsp;je&nbsp;obzvlášť dôležité u&nbsp;cloudovej služby, kde je&nbsp;možné predpokladať milióny účtov a&nbsp;tým pádom vyššiu pravdepodobnosť výskytu totožných hesiel v&nbsp;jednej databáze.
 
 Funkcia PBKDF2 je&nbsp;dnes pri použití rozumného hesla považovaná za&nbsp;bezpečnú. Aj&nbsp;keby sa&nbsp;k&nbsp;OrgId hashu dostala nepovolaná osoba, nepodarilo by&nbsp;sa&nbsp;jej ho&nbsp;zneužiť k&nbsp;preniknutiu do&nbsp;vnútrofiremnej siete. Preto z&nbsp;posielania hesiel v&nbsp;tejto podobe do&nbsp;Azure Active Directory zrejme neplynie bezpečnostné riziko.
 
 ## Ukážková implementácia
 
-Pre&nbsp;demonštračné účely som si&nbsp;naprogramoval moju vlastnú implementáciu OrgId hashu. Je&nbsp;sprístupnená cez&nbsp;PowerShell cmdlet **ConvertTo-OrgIdHash** v [module DSInternals](/sk/na-stiahnutie/ "Na stiahnutie"). Tu je&nbsp;ukážka jeho použitia:
+Pre&nbsp;demonštračné účely som si&nbsp;naprogramoval moju vlastnú implementáciu OrgId hashu. Je&nbsp;sprístupnená cez&nbsp;PowerShell cmdlet **ConvertTo-OrgIdHash** v&nbsp;[module DSInternals](/sk/na-stiahnutie/ "Na stiahnutie"). Tu je&nbsp;ukážka jeho použitia:
 
 ![PowerShell OrgId Hash Calculation](../../assets/images/ps_orgidhash.png)

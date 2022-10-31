@@ -1,4 +1,4 @@
----
+﻿---
 ref: retrieving-active-directory-passwords-remotely
 title: 'Vykrádanie hesiel z&nbsp;Active Directory na&nbsp;diaľku'
 date: 2015-08-03T20:35:52+00:00
@@ -12,12 +12,12 @@ tags:
     - Security
 ---
 
-Predstavujem Vám príkaz **Get-ADReplAccount**, najnovší prírastok do môjho [PowerShell modulu DSInternals](/sk/na-stiahnutie/), ktorý umožňuje z doménových kontrolérov na diaľku získať plaintextové heslá, hashe hesiel a Kerberos kľúče všetkých používateľov. Toho dosahuje tým, že simuluje chovanie príkazu **dcromo** a cez protokol [MS-DRSR](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47) si vytvorí repliku všetkých dát v Active Directory databáze. Podľa mojich informácií sa jedná o jediný verejne dostupný nástroj svojho druhu na svete. Ďalej má tieto vlastnosti:
+Predstavujem Vám príkaz **Get-ADReplAccount**, najnovší prírastok do&nbsp;môjho [PowerShell modulu DSInternals](/sk/na-stiahnutie/), ktorý umožňuje z&nbsp;doménových kontrolérov na&nbsp;diaľku získať plaintextové heslá, hashe hesiel a&nbsp;Kerberos kľúče všetkých používateľov. Toho dosahuje tým, že simuluje chovanie príkazu **dcromo** a&nbsp;cez&nbsp;protokol [MS-DRSR](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47) si&nbsp;vytvorí repliku všetkých dát v&nbsp;Active Directory databáze. Podľa mojich informácií sa&nbsp;jedná o&nbsp;jediný verejne dostupný nástroj svojho druhu na&nbsp;svete. Ďalej má tieto vlastnosti:
 
 - Ku svojej činnosti nevyžaduje ani práva doménového správcu. Bohate si&nbsp;vystačí s&nbsp;oprávnením **Replicating Directory Changes All**, ktoré má napríklad DirSync, Cisco WAAS či&nbsp;zle nakonfigurovaný SharePoint.
 - Otvára dvere dokorán ďalším útokom, ako sú pass-the-hash, pass-the-ticket či&nbsp;PAC spoofing, pomocou ktorých je&nbsp;útočník schopný dostať pod&nbsp;kontrolu celý Active Directory forest. Takéto útoky zvláda napríklad nástroj [mimikatz](https://blog.gentilkiwi.com/mimikatz).
 - Nedá sa&nbsp;zablokovať pomocou firewallu, pretože by&nbsp;to&nbsp;základnú funkčnosť Active Directory.
-- V logoch na&nbsp;doménovom radiči zanecháva len&nbsp;minimálnu stopu, ktorú prehliadne väčšina bezpečnostných auditov.
+- V&nbsp;logoch na&nbsp;doménovom radiči zanecháva len&nbsp;minimálnu stopu, ktorú prehliadne väčšina bezpečnostných auditov.
 - Nezneužíva žiadnu bezpečnostnú zraniteľnosť, ktorá by&nbsp;sa&nbsp;dala jednoducho opraviť v&nbsp;rámci aktualizácie systému.
 - Jeho použitie nevyžaduje žiadne špeciálne vedomosti či&nbsp;prípravu. Útočníkovi stačí základná znalosť Active Directory.
 

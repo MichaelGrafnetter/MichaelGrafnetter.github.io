@@ -1,4 +1,4 @@
----
+﻿---
 ref: 1071
 title: 'Ako na&nbsp;snapshoty Active Directory databázy'
 date: 2015-03-01T23:22:03+00:00
@@ -20,7 +20,7 @@ Ako jeden z&nbsp;mechanizmov zálohovania Active Directory sa&nbsp;mi&nbsp;osved
 
 Štandardný postup získania snapshotu pomocou nástroja [ntdsutil](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc731620(v=ws.11) "ntdsutil snapshot") je&nbsp;nasledovný:
 
-1. Pripojiť sa k&nbsp;AD (príkaz activate instance ntds)
+1. Pripojiť sa&nbsp;k&nbsp;AD (príkaz activate instance ntds)
 2. Vytvoriť snapshot (príkaz create)
 3. Zobraziť zoznam snapshotov a&nbsp;poznačiť si&nbsp;číslo toho najnovšieho (príkaz list all)
 4. Pripojiť vytvorený snapshot ako podadresár C:\\ (príkaz mount)
@@ -46,7 +46,7 @@ Navyše prebehne aj&nbsp;defragmentácia databázy a&nbsp;odzálohovanie registr
     - Súbor SECURITY – Registry hive obsahujúci vetvu HKLM\\Security
     - Súbor SYSTEM – Registry hive obsahujúci vetvu HKLM\\System.
 
-Registre sú súčasťou IFM zálohy preto,&nbsp;lebo hashe používateľských hesiel sú&nbsp;v&nbsp;databáze zasifrované pomocou tzv.&nbsp;SYSKEY/BOOTKEY, ktorý sa&nbsp;nachádza práve v&nbsp;registroch.
+Registre sú súčasťou IFM zálohy preto,&nbsp;lebo&nbsp;hashe používateľských hesiel sú&nbsp;v&nbsp;databáze zasifrované pomocou tzv.&nbsp;SYSKEY/BOOTKEY, ktorý sa&nbsp;nachádza práve v&nbsp;registroch.
 
 ## Použitie IFM zálohy
 

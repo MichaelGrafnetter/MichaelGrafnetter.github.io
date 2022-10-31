@@ -1,4 +1,4 @@
----
+﻿---
 ref: retrieving-cleartext-gmsa-passwords
 title: 'Retrieving Cleartext GMSA Passwords from&nbsp;Active Directory'
 date: 2015-12-28T14:09:53+00:00
@@ -13,11 +13,11 @@ tags:
     - Security
 ---
 
-Have you ever wondered how the&nbsp;automatically generated passwords of&nbsp;Group Managed Service Accounts (GMSA) look like? Well, you can fetch them from&nbsp;Active Directory in&nbsp;the&nbsp;same way as&nbsp;Windows Servers do&nbsp;and see yourself. Here is&nbsp;how:
+Have you ever wondered how the&nbsp;automatically generated passwords of&nbsp;Group Managed Service Accounts (GMSA) look like? Well, you can fetch them from&nbsp;Active Directory in&nbsp;the&nbsp;same way as&nbsp;Windows Servers do&nbsp;and&nbsp;see yourself. Here is&nbsp;how:
 
-## Creating a GMSA
+## Creating a&nbsp;GMSA
 
-To start experimenting, we need to have a GMSA first, so we create one:
+To start experimenting, we need to&nbsp;have a&nbsp;GMSA first, so&nbsp;we create one:
 
 ```powershell
 # Create a new KDS Root Key that will be used by DC to generate managed passwords
@@ -32,13 +32,15 @@ New-ADServiceAccount `
 
 <!--more-->
 
-We can check the result in the *Active Directory Users and Computers* console:
+We can check the&nbsp;result in&nbsp;the&nbsp;*Active Directory Users and&nbsp;Computers* console:
 
-![Group Managed Service Account](../../assets/images/gmsa.png)Unfortunately, the built-in GUI will not help us much when working with GMSAs. Although there is a [nice 3rd party tool](https://www.cjwdev.com/Software/MSAGUI/Info.html), we will stick to PowerShell.
+![Group Managed Service Account](../../assets/images/gmsa.png)
 
-## Setting the Managed Password ACL
+Unfortunately, the&nbsp;built-in GUI will not help us much when&nbsp;working with&nbsp;GMSAs. Although&nbsp;there is&nbsp;a&nbsp;[nice 3rd party tool](https://www.cjwdev.com/Software/MSAGUI/Info.html), we will stick to&nbsp;PowerShell.
 
-Now&nbsp;we need to provide a list of&nbsp;principals that&nbsp;are allowed to&nbsp;retrieve the&nbsp;plaintext password from&nbsp;DCs through LDAP. Normally, we would grant this privilege to one or&nbsp;more servers (members of&nbsp;the same cluster/web farm). But&nbsp;we will grant the&nbsp;privilege to&nbsp;ourselves instead:
+## Setting the&nbsp;Managed Password ACL
+
+Now&nbsp;we need to provide a list of&nbsp;principals that&nbsp;are allowed to&nbsp;retrieve the&nbsp;plaintext password from&nbsp;DCs through LDAP. Normally, we would grant this&nbsp;privilege to one or&nbsp;more servers (members of&nbsp;the&nbsp;same cluster/web farm). But&nbsp;we will grant the&nbsp;privilege to&nbsp;ourselves instead:
 
 ```powershell
 Set-ADServiceAccount `
@@ -46,11 +48,11 @@ Set-ADServiceAccount `
 	-PrincipalsAllowedToRetrieveManagedPassword 'Administrator'
 ```
 
-Of course, you should not use the built-in Administrator account in a production environment.
+Of course, you should not use the&nbsp;built-in Administrator account in&nbsp;a&nbsp;production environment.
 
-## Retrieving the Managed Password
+## Retrieving the&nbsp;Managed Password
 
-Now comes the fun part:
+Now comes the&nbsp;fun part:
 
 ```powershell
 # We have to explicitly ask for the value of the msDS-ManagedPassword attribute. Even a wildcard (*) would not work.
@@ -74,13 +76,13 @@ UserPrincipalName :
 #>
 ```
 
-Note that&nbsp;until now, we have only used regular, built-in cmdlets from&nbsp;the&nbsp;ActiveDirectory module, courtesy of&nbsp;Microsoft.
+Note that&nbsp;until&nbsp;now, we have only used regular, built-in cmdlets from&nbsp;the&nbsp;ActiveDirectory module, courtesy of&nbsp;Microsoft.
 
-## Decoding the Managed Password
+## Decoding the&nbsp;Managed Password
 
-Let's have a&nbsp;look at the&nbsp;msDS-ManagedPassword attribute, that&nbsp;has been returned by&nbsp;the command above. It is&nbsp;a constructed attribute, which&nbsp;means that&nbsp;its value is&nbsp;calculated by&nbsp;DC from&nbsp;the&nbsp;KDS root key and&nbsp;the&nbsp;msDS-ManagedPasswordId attribute every time someone asks for&nbsp;it. Although&nbsp;documented, the&nbsp;cryptographic algorithm used is&nbsp;quite complicated. Furthermore, the&nbsp;value of&nbsp;the msDS-ManagedPasswordId gets re-generated every (msDS-ManagedPasswordInterval)-days (30 by&nbsp;default).
+Let's have a&nbsp;look at the&nbsp;msDS-ManagedPassword attribute, that&nbsp;has been returned by&nbsp;the&nbsp;command above. It&nbsp;is&nbsp;a constructed attribute, which&nbsp;means that&nbsp;its value is&nbsp;calculated by&nbsp;DC from&nbsp;the&nbsp;KDS root key and&nbsp;the&nbsp;msDS-ManagedPasswordId attribute every time someone asks for&nbsp;it. Although&nbsp;documented, the&nbsp;cryptographic algorithm used is&nbsp;quite complicated. Furthermore, the&nbsp;value of&nbsp;the&nbsp;msDS-ManagedPasswordId gets re-generated every (msDS-ManagedPasswordInterval)-days (30 by&nbsp;default).
 
-We see that the msDS-ManagedPassword attribute of our GMSA contains a sequence of bytes. It is a binary representation of the [MSDS-MANAGEDPASSWORD_BLOB](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/a9019740-3d73-46ef-a9ae-3ea8eb86ac2e) data structure, which contains some metadata in addition to the actual password. As there had been no publicly available tool to decode this structure, I have created one myself:
+We see that&nbsp;the&nbsp;msDS-ManagedPassword attribute of&nbsp;our GMSA contains a&nbsp;sequence of&nbsp;bytes. It&nbsp;is&nbsp;a&nbsp;binary representation of&nbsp;the&nbsp;[MSDS-MANAGEDPASSWORD_BLOB](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/a9019740-3d73-46ef-a9ae-3ea8eb86ac2e) data structure, which&nbsp;contains some&nbsp;metadata in&nbsp;addition to&nbsp;the&nbsp;actual password. As&nbsp;there had been no publicly available tool to&nbsp;decode this&nbsp;structure, I&nbsp;have created one myself:
 
 ```powershell
 # Save the blob to a variable
@@ -104,10 +106,10 @@ UnchangedPasswordInterval : 29.17:10:36.3736817
 #>
 ```
 
-TADA!!! The CurrentPassword property contains the actual cleartext password of the GMSA in question. Why does it look like gibberish? Because it is just 256 bytes of pseudorandom data, interpreted as 128 UTF-16 characters. Good luck writing that on your keyboard. But if we [calculate its NT hash](/en/dsinternals-powershell-module-released/), it will match the [hash stored in AD](/en/dumping-ntds-dit-files-using-powershell/).
+TADA!!! The&nbsp;CurrentPassword property contains the&nbsp;actual cleartext password of&nbsp;the&nbsp;GMSA in&nbsp;question. Why&nbsp;does it&nbsp;look like gibberish? Because&nbsp;it&nbsp;is&nbsp;just 256 bytes of&nbsp;pseudorandom data, interpreted as&nbsp;128 UTF-16 characters. Good luck writing that&nbsp;on your keyboard. But&nbsp;if&nbsp;we [calculate its NT hash](/en/dsinternals-powershell-module-released/), it&nbsp;will match the&nbsp;[hash stored in&nbsp;AD](/en/dumping-ntds-dit-files-using-powershell/).
 
 ## Conclusion
 
-We have seen that retrieving the value of GMSA passwords is quite easy. But don’t be afraid, there is no security hole in Active Directory. The cleartext password is always passed through an encrypted channel, it is automatically changed on a regular basis and even members of the Domain Admins group are not allowed to retrieve it by default. So do not hesitate and start using the (Group) Managed Service Accounts. They are much safer than using regular accounts for running services.
+We have seen that&nbsp;retrieving the&nbsp;value of&nbsp;GMSA passwords is&nbsp;quite easy. But&nbsp;don’t be&nbsp;afraid, there is&nbsp;no security hole in&nbsp;Active Directory. The&nbsp;cleartext password is&nbsp;always passed through an&nbsp;encrypted channel, it&nbsp;is&nbsp;automatically changed on a&nbsp;regular basis and&nbsp;even&nbsp;members of&nbsp;the&nbsp;Domain Admins group are not allowed to&nbsp;retrieve it&nbsp;by&nbsp;default. So&nbsp;do&nbsp;not hesitate and&nbsp;start using the&nbsp;(Group) Managed Service Accounts. They are much safer than&nbsp;using regular accounts for&nbsp;running services.
 
-If you want to play more with this stuff, just [grab the DSInternals module](/en/downloads/). And for developers, the C# code I use to decode the structure can be found on [GitHub](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Src/DSInternals.Common/Data/Principals/ManagedPassword.cs).
+If you want to&nbsp;play more with&nbsp;this&nbsp;stuff, just [grab the&nbsp;DSInternals module](/en/projects/). And&nbsp;for&nbsp;developers, the&nbsp;C# code I&nbsp;use to&nbsp;decode the&nbsp;structure can be&nbsp;found on [GitHub](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Src/DSInternals.Common/Data/Principals/ManagedPassword.cs).

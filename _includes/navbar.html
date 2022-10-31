@@ -1,5 +1,5 @@
 <!-- Menu Items -->
-{%- assign menurefs = "blog, videos, downloads, about" | split: ", " -%}
+{%- assign menurefs = "blog, videos, projects, about" | split: ", " -%}
 {%- for menuref in menurefs -%}
   {%- assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
   <a href="{{ menuitem.url }}" class="page-link"><i class="{{ menuitem.fa_class }}"></i>&nbsp;

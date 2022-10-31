@@ -1,6 +1,6 @@
----
+﻿---
 ref: video-uvod-do-cloud-security
-title: 'Video: Úvod do Cloud Security'
+title: 'Video: Úvod do&nbsp;Cloud Security'
 date: '2022-04-12T00:00:00+00:00'
 layout: post
 permalink: /sk/video-uvod-do-cloud-security/
@@ -16,4 +16,4 @@ tags:
     - WUG
 ---
 
-[![Úvod do Cloud Security](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3335&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/748-Uvod-do-Cloud-Security)
+[![Úvod do&nbsp;Cloud Security](https://wug.cz/online/akce/GetFile.ashx?PhotoID=3335&ThumbnailSizeName=detail)](https://wug.cz/zaznamy/748-Uvod-do-Cloud-Security)

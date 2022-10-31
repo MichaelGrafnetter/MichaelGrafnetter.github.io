@@ -1,4 +1,4 @@
----
+﻿---
 ref: 3101
 title: 'Moje slajdy z&nbsp;TechEd 2015'
 date: '2015-05-31T17:27:07+00:00'
@@ -15,13 +15,13 @@ tags:
 
 ![TechEd 2015 Slajd](../../assets/images/teched_2015.jpg)
 
-Ešte raz ďakujem všetkým účastníkom mojich prednášok na konferencii **TechEd 2015**, plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
+Ešte raz ďakujem všetkým účastníkom mojich prednášok na&nbsp;konferencii **TechEd 2015**, plné kinosály ma príjemne prekvapili. Tu sú slajdy, ktoré som premietal:
 
 - [<i class="fas fa-file-pdf"></i>  Obrana proti pass-the-hash útokom](../../assets/documents/teched2015_pth.pdf)
 - [<i class="fas fa-file-pdf"></i>  Ako funguje Active Directory databáza](../../assets/documents/teched2015_addb.pdf)
-- [<i class="fas fa-file-pdf"></i>  Novinky v PowerShell 5 Preview](../../assets/documents/teched2015_ps5.pdf)
+- [<i class="fas fa-file-pdf"></i>  Novinky v&nbsp;PowerShell 5 Preview](../../assets/documents/teched2015_ps5.pdf)
 
-A tu sú príklady, na ktorých som ukazoval novinky v PowerShell 5:
+A tu sú príklady, na&nbsp;ktorých som ukazoval novinky v&nbsp;PowerShell 5:
 
 ```powershell
 #region Init

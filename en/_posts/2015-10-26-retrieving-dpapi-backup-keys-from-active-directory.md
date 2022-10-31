@@ -1,4 +1,4 @@
----
+﻿---
 ref: dpapi-backup-keys
 title: 'Retrieving DPAPI Backup Keys from&nbsp;Active Directory'
 date: 2015-10-26T22:51:00+00:00
@@ -13,27 +13,27 @@ tags:
     - Security
 ---
 
-The Data Protection API (DPAPI) is used by several components of Windows to securely store passwords, encryption keys and other sensitive data. When DPAPI is used in an Active Directory domain environment, a copy of user’s master key is encrypted with a so-called DPAPI Domain Backup Key that is known to all domain controllers. Windows Server 2000 DCs use a symmetric key and newer systems use a public/private key pair. If the user password is reset and the original master key is rendered inaccessible to the user, the user’s access to the master key is automatically restored using the backup key.
+The Data Protection API (DPAPI) is&nbsp;used by&nbsp;several components of&nbsp;Windows to&nbsp;securely store passwords, encryption keys and&nbsp;other sensitive data. When&nbsp;DPAPI is&nbsp;used in&nbsp;an&nbsp;Active Directory domain environment, a&nbsp;copy of&nbsp;user’s master key is&nbsp;encrypted with&nbsp;a&nbsp;so-called DPAPI Domain Backup Key that&nbsp;is&nbsp;known to&nbsp;all domain controllers. Windows Server 2000 DCs use a&nbsp;symmetric key and&nbsp;newer systems use a&nbsp;public/private key pair. If&nbsp;the&nbsp;user password is&nbsp;reset and&nbsp;the&nbsp;original master key is&nbsp;rendered inaccessible to&nbsp;the&nbsp;user, the&nbsp;user’s access to&nbsp;the&nbsp;master key is&nbsp;automatically restored using the&nbsp;backup key.
 
 <!--more-->
 
-## The Mimikatz Method
+## The&nbsp;Mimikatz Method
 
-Benjamin Delpy has already found a way to extract these backup keys from the LSASS of domain controllers and it even works remotely:
+Benjamin Delpy has already found a&nbsp;way to&nbsp;extract these backup keys from&nbsp;the&nbsp;LSASS of&nbsp;domain controllers and&nbsp;it&nbsp;even&nbsp;works remotely:
 
 ![Mimikatz DPAPI Backup Keys](../../assets/images/mimikatz_backupkeys.png)
 
 ## Key Storage
 
-I have taken Benjamin’s research one step further and I can now extract these keys directly from the Active Directory database, where they are physically stored:
+I have taken Benjamin’s research one step further and&nbsp;I&nbsp;can now&nbsp;extract these keys directly from&nbsp;the&nbsp;Active Directory database, where&nbsp;they are physically stored:
 
 ![Backup Key Storage](../../assets/images/backupkeys_storage.png)
 
-The keys are stored in the **currentValue** attribute of objects whose names begin with **BCKUPKEY** and are of class **secret**. The **BCKUPKEY_PREFERRED Secret** and **BCKUPKEY_P Secret** objects actually only contain GUIDs of objects that hold the current modern and legacy keys, respectively. Furthermore, the currentValue attribute is encrypted using BootKey (aka SysKey) and is never sent through LDAP.
+The keys are stored in&nbsp;the&nbsp;**currentValue** attribute of&nbsp;objects whose names begin with&nbsp;**BCKUPKEY** and&nbsp;are of&nbsp;class **secret**. The&nbsp;**BCKUPKEY_PREFERRED Secret** and&nbsp;**BCKUPKEY_P Secret** objects actually only contain GUIDs of&nbsp;objects that&nbsp;hold the&nbsp;current modern and&nbsp;legacy keys, respectively. Furthermore, the&nbsp;currentValue attribute is&nbsp;encrypted using BootKey (aka SysKey) and&nbsp;is&nbsp;never sent through LDAP.
 
-## The Database Dump Method
+## The&nbsp;Database Dump Method
 
-The **Get-BootKey**, **Get-ADDBBackupKey** and **Save-DPAPIBlob** cmdlets from my [DSInternals PowerShell Module](/en/downloads/) can be used to retrieve the DPAPI Domain Backup Keys from ntds.dit files:
+The **Get-BootKey**, **Get-ADDBBackupKey** and&nbsp;**Save-DPAPIBlob** cmdlets from&nbsp;my [DSInternals PowerShell Module](/en/projects/) can be&nbsp;used to&nbsp;retrieve the&nbsp;DPAPI Domain Backup Keys from&nbsp;ntds.dit files:
 
 ```powershell
 # We need to get the BootKey from the SYSTEM registry hive first:
@@ -94,19 +94,20 @@ ntds_legacy_7882b20e-96ef-4ce5-a2b9-3efdccbbce28.key
 #>
 ```
 
-Note that mimikatz would name these files similarly.
+Note that&nbsp;mimikatz would name these files similarly.
 
-## The DRSR Method
+## The&nbsp;DRSR Method
 
-The same result can be achieved by communicating with the Directory Replication Service using the **Get-ADReplBackupKey** cmdlet:
+The same result can be&nbsp;achieved by&nbsp;communicating with&nbsp;the&nbsp;Directory Replication Service using the&nbsp;**Get-ADReplBackupKey** cmdlet:
 
-```powershellGet-ADReplBackupKey -Domain 'Adatum.com' -Server LON-DC1 |
+```powershell
+Get-ADReplBackupKey -Domain 'Adatum.com' -Server LON-DC1 |
     Save-DPAPIBlob -DirectoryPath .\Keys
 ```
 
 ## Defense
 
-I am already starting to repeat myself:
+I am already starting to&nbsp;repeat myself:
 
-- Restrict access to domain controller backups.
-- Be cautious when delegating the *Replicating Directory Changes All* right.
+- Restrict access to&nbsp;domain controller backups.
+- Be&nbsp;cautious when&nbsp;delegating the&nbsp;*Replicating Directory Changes All* right.

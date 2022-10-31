@@ -1,6 +1,6 @@
----
+﻿---
 ref: dsinternals-ou-filtering
-title: OU Filtering With DSInternals PowerShell Cmdlets
+title: OU Filtering With&nbsp;DSInternals PowerShell Cmdlets
 date: '2022-10-01T00:00:00+00:00'
 layout: post
 lang: en
@@ -8,11 +8,11 @@ image: /assets/images/HIBP.png
 permalink: /en/dsinternals-ou-filtering/
 ---
 
-One of the most frequent questions I am asked about the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) cmdlets that fetch password hashes from Active Directory ([Get-ADReplAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADReplAccount.md#get-adreplaccount) and [Get-ADDBAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADDBAccount.md#get-addbaccount)) is whether they could only return accounts from a specified organizational unit (OU). While OU-based filtering is not yet implemented in DSInternals directly, two PowerShell built-in features could be used to achieve this goal.
+One of&nbsp;the&nbsp;most frequent questions I&nbsp;am asked about the&nbsp;[DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) cmdlets that&nbsp;fetch password hashes from&nbsp;Active Directory ([Get-ADReplAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADReplAccount.md#get-adreplaccount) and&nbsp;[Get-ADDBAccount](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-ADDBAccount.md#get-addbaccount)) is&nbsp;whether&nbsp;they could only return accounts from&nbsp;a&nbsp;specified organizational unit (OU). While&nbsp;OU-based filtering is&nbsp;not yet&nbsp;implemented in&nbsp;DSInternals directly, two PowerShell built-in features could be&nbsp;used to&nbsp;achieve this&nbsp;goal.
 
 ## A. Where-Object
 
-The [Where-Object cmdlet](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object?view=powershell-5.1) can easily be used to filter out unwanted objects based on any property, including OU:
+The [Where-Object cmdlet](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object?view=powershell-5.1) can easily be&nbsp;used to&nbsp;filter out unwanted objects based on any property, including OU:
 
 ```powershell
 <#
@@ -79,7 +79,7 @@ These accounts that require smart card authentication have a password:
 
 ## B. Pipeline Input
 
-The second option is to first fetch the desired accounts using the [Get-ADUser cmdlet](https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduser) and then pipe them into DSInternals:
+The second option is&nbsp;to&nbsp;first fetch the&nbsp;desired accounts using the&nbsp;[Get-ADUser cmdlet](https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-aduser) and&nbsp;then pipe them into DSInternals:
 
 ```powershell
 <#
@@ -92,4 +92,4 @@ Get-ADUser -SearchBase 'OU=Admins,DC=contoso,DC=com' -Filter * |
     Test-PasswordQuality -WeakPasswordHashesSortedFile pwned-passwords-ntlm-ordered-by-hash-v7.txt
 ```
 
-I will probably add these two examples to the [Get-Help documentation](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md).
+I will probably add these two examples to&nbsp;the&nbsp;[Get-Help documentation](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md).

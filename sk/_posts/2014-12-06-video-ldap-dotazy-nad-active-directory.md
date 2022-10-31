@@ -1,4 +1,4 @@
----
+﻿---
 ref: video-ldap-active-directory
 title: 'Video: LDAP dotazy nad&nbsp;Active Directory'
 date: 2014-12-06T17:50:54+00:00

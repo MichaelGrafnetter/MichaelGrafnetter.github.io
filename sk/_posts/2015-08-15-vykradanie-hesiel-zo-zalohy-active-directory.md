@@ -1,4 +1,4 @@
----
+﻿---
 ref: dumping-ntds-dit-files
 title: 'Vykrádanie hesiel zo zálohy Active&nbsp;Directory'
 date: 2015-08-15T21:29:37+00:00
@@ -12,7 +12,7 @@ tags:
     - Security
 ---
 
-Nedávno som písal o príkaze [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/), pomocou ktorého je možné vzdialene vytiahnuť heslá a iné citlivé informácie z doménového kontroléru. Tieto dáta sú na každom doménovom kontroléri uložené v súbore **ndts.dit** a odtiaľ sa dajú získať aj napriamo. Dokáže to napríklad nástroj [NTDSXtact](https://github.com/csababarta/ntdsxtract), ale ten je určený pre Linux, nemá moc jednoduché ovládanie a na väčších databázach je dosť pomalý. Preto som do svojho [PowerShell modulu DSInternals](/sk/na-stiahnutie/) pridal príkaz **Get-ADDBAccount**, ktorého použitie je hračka:
+Nedávno som písal o&nbsp;príkaze [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/), pomocou ktorého je&nbsp;možné vzdialene vytiahnuť heslá a&nbsp;iné citlivé informácie z&nbsp;doménového kontroléru. Tieto dáta sú na&nbsp;každom doménovom kontroléri uložené v&nbsp;súbore **ndts.dit** a&nbsp;odtiaľ sa&nbsp;dajú získať aj&nbsp;napriamo. Dokáže to&nbsp;napríklad nástroj [NTDSXtact](https://github.com/csababarta/ntdsxtract), ale&nbsp;ten je&nbsp;určený pre&nbsp;Linux, nemá moc jednoduché ovládanie a&nbsp;na&nbsp;väčších databázach je&nbsp;dosť pomalý. Preto som do&nbsp;svojho [PowerShell modulu DSInternals](/sk/na-stiahnutie/) pridal príkaz **Get-ADDBAccount**, ktorého použitie je&nbsp;hračka:
 
 ```powershell
 # Z registrov najprv získame tzv. Boot Key, ktorým sú heslá zašifrované:
@@ -27,7 +27,7 @@ Get-ADDBAccount -DistinguishedName 'CN=krbtgt,CN=Users,DC=Adatum,DC=com' -DBPath
 
 <!--more-->
 
-Výstup vyzerá úplne rovnako ako v prípade príkazu [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/):
+Výstup vyzerá úplne rovnako ako v&nbsp;prípade príkazu [Get-ADReplAccount](/sk/vykradanie-hesiel-z-active-directory-na-dialku/):
 
 ```
 DistinguishedName: CN=krbtgt,CN=Users,DC=Adatum,DC=com

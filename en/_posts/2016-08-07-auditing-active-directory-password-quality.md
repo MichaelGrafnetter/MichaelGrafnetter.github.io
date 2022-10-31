@@ -1,4 +1,4 @@
----
+﻿---
 ref: auditing-active-directory-password-quality
 title: Auditing Active Directory Password Quality
 date: 2016-08-07T13:15:43+00:00
@@ -14,11 +14,11 @@ tags:
 
 ## Overview
 
-The latest version of the [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) contains a new cmdlet called `Test-PasswordQuality`, which is a powerful yet easy to use tool for Active Directory password auditing. It can detect **weak, duplicate, default, non-expiring or empty passwords** and find accounts that are violating **security best practices**. All domain administrators can now audit Active Directory passwords on a regular basis, without any special knowledge.
+The latest version of&nbsp;the&nbsp;[DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) contains a&nbsp;new cmdlet called `Test-PasswordQuality`, which&nbsp;is&nbsp;a&nbsp;powerful yet&nbsp;easy to&nbsp;use tool for&nbsp;Active Directory password auditing. It&nbsp;can detect **weak, duplicate, default, non-expiring or&nbsp;empty passwords** and&nbsp;find accounts that&nbsp;are violating **security best practices**. All domain administrators can now&nbsp;audit Active Directory passwords on a&nbsp;regular basis, without any special knowledge.
 
 ## Usage
 
-The `Test-PasswordQuality` cmdlet accepts output of the [Get-ADDBAccount](/en/dumping-ntds-dit-files-using-powershell/) and [Get-ADReplAccount](/en/retrieving-active-directory-passwords-remotely/) cmdlets, so both **offline** (ntds.dit) and **online** (DCSync) analysis can be done:
+The `Test-PasswordQuality` cmdlet accepts output of&nbsp;the&nbsp;[Get-ADDBAccount](/en/dumping-ntds-dit-files-using-powershell/) and&nbsp;[Get-ADReplAccount](/en/retrieving-active-directory-passwords-remotely/) cmdlets, so&nbsp;both **offline** (ntds.dit) and&nbsp;**online** (DCSync) analysis can be&nbsp;done:
 
 ```powershell
 Get-ADReplAccount -All -Server LON-DC1 -NamingContext "dc=adatum,dc=com" |
@@ -92,8 +92,8 @@ These accounts are not required to have a password:
 
 ```
 
-Although the cmdlet output is formatted in a human readable fashion, it is still an object, whose properties can be accessed separately (e.g. `$result.WeakPassword`) to produce a desired output.
+Although the&nbsp;cmdlet output is&nbsp;formatted in&nbsp;a&nbsp;human readable fashion, it&nbsp;is&nbsp;still an&nbsp;object, whose properties can be&nbsp;accessed separately (e.g. `$result.WeakPassword`) to&nbsp;produce a&nbsp;desired output.
 
 ## Credits
 
-I&nbsp;would like to&nbsp;thank [Jakob Heidelberg](https://twitter.com/jakobheidelberg) for [his idea](https://github.com/improsec/Get-bADpasswords) to&nbsp;use the&nbsp;DSInternals module for&nbsp;password auditing. A&nbsp;big thank you also goes to&nbsp;[Ondrej Sevecek](https://www.sevecek.com/EnglishPages/default.aspx) for&nbsp;sharing his comprehensive auditing tool called SAPHA, from&nbsp;which I&nbsp;borrowed ideas for&nbsp;a&nbsp;few tests.
+I&nbsp;would like to&nbsp;thank [Jakob Heidelberg](https://twitter.com/jakobheidelberg) for&nbsp;[his idea](https://github.com/improsec/Get-bADpasswords) to&nbsp;use the&nbsp;DSInternals module for&nbsp;password auditing. A&nbsp;big thank you also goes to&nbsp;[Ondrej Sevecek](https://www.sevecek.com/EnglishPages/default.aspx) for&nbsp;sharing his&nbsp;comprehensive auditing tool called SAPHA, from&nbsp;which&nbsp;I&nbsp;borrowed ideas for&nbsp;a&nbsp;few tests.
