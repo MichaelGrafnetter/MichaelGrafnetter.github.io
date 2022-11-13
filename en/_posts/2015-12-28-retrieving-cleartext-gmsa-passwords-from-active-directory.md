@@ -40,7 +40,7 @@ Unfortunately, the&nbsp;built-in GUI will not help us much when&nbsp;working wit
 
 ## Setting the&nbsp;Managed Password ACL
 
-Now&nbsp;we need to provide a list of&nbsp;principals that&nbsp;are allowed to&nbsp;retrieve the&nbsp;plaintext password from&nbsp;DCs through LDAP. Normally, we would grant this&nbsp;privilege to one or&nbsp;more servers (members of&nbsp;the&nbsp;same cluster/web farm). But&nbsp;we will grant the&nbsp;privilege to&nbsp;ourselves instead:
+Now&nbsp;we need to provide a list of&nbsp;principals that&nbsp;are&nbsp;allowed to&nbsp;retrieve the&nbsp;plaintext password from&nbsp;DCs through LDAP. Normally, we would grant this&nbsp;privilege to one or&nbsp;more servers (members of&nbsp;the&nbsp;same cluster/web farm). But&nbsp;we will grant the&nbsp;privilege to&nbsp;ourselves instead:
 
 ```powershell
 Set-ADServiceAccount `
@@ -110,6 +110,6 @@ TADA!!! The&nbsp;CurrentPassword property contains the&nbsp;actual cleartext pas
 
 ## Conclusion
 
-We have seen that&nbsp;retrieving the&nbsp;value of&nbsp;GMSA passwords is&nbsp;quite easy. But&nbsp;don’t be&nbsp;afraid, there is&nbsp;no security hole in&nbsp;Active Directory. The&nbsp;cleartext password is&nbsp;always passed through an&nbsp;encrypted channel, it&nbsp;is&nbsp;automatically changed on a&nbsp;regular basis and&nbsp;even&nbsp;members of&nbsp;the&nbsp;Domain Admins group are not allowed to&nbsp;retrieve it&nbsp;by&nbsp;default. So&nbsp;do&nbsp;not hesitate and&nbsp;start using the&nbsp;(Group) Managed Service Accounts. They are much safer than&nbsp;using regular accounts for&nbsp;running services.
+We have seen that&nbsp;retrieving the&nbsp;value of&nbsp;GMSA passwords is&nbsp;quite easy. But&nbsp;don’t be&nbsp;afraid, there is&nbsp;no security hole in&nbsp;Active Directory. The&nbsp;cleartext password is&nbsp;always passed through an&nbsp;encrypted channel, it&nbsp;is&nbsp;automatically changed on a&nbsp;regular basis and&nbsp;even&nbsp;members of&nbsp;the&nbsp;Domain Admins group are&nbsp;not allowed to&nbsp;retrieve it&nbsp;by&nbsp;default. So&nbsp;do&nbsp;not hesitate and&nbsp;start using the&nbsp;(Group) Managed Service Accounts. They are&nbsp;much safer than&nbsp;using regular accounts for&nbsp;running services.
 
 If you want to&nbsp;play more with&nbsp;this&nbsp;stuff, just [grab the&nbsp;DSInternals module](/en/projects/). And&nbsp;for&nbsp;developers, the&nbsp;C# code I&nbsp;use to&nbsp;decode the&nbsp;structure can be&nbsp;found on [GitHub](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Src/DSInternals.Common/Data/Principals/ManagedPassword.cs).

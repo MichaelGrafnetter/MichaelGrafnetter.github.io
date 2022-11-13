@@ -8,7 +8,7 @@ fa_class: fas fa-download
 
 ## DSInternals PowerShell Module
 
-> DISCLAIMER: Features exposed through this&nbsp;module are not supported by&nbsp;Microsoft and&nbsp;it&nbsp;is&nbsp;therefore not intended to&nbsp;be&nbsp;used in&nbsp;production environments. Improper use might cause irreversible damage to&nbsp;domain controllers or&nbsp;negatively impact domain security.
+> DISCLAIMER: Features exposed through this&nbsp;module are&nbsp;not supported by&nbsp;Microsoft and&nbsp;it&nbsp;is&nbsp;therefore not intended to&nbsp;be&nbsp;used in&nbsp;production environments. Improper use might cause irreversible damage to&nbsp;domain controllers or&nbsp;negatively impact domain security.
 
 The [DSInternals PowerShell Module](https://www.powershellgallery.com/packages/DSInternals) exposes several internal features of&nbsp;Active Directory and&nbsp;Azure Active Directory. These include [FIDO2 and&nbsp;NGC key auditing](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#get-azureaduserex), [offline ntds.dit file manipulation](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-offline-active-directory-operations), [password auditing](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), [DC recovery from&nbsp;IFM backups](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/New-ADDBRestoreFromMediaScript.md#new-addbrestorefrommediascript), and&nbsp;[password hash calculation](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-password-hash-calculation).
 
@@ -27,7 +27,7 @@ Interestingly, the&nbsp;DSInternals PowerShell module was allegedly used in&nbsp
 
 ## DSInternals Framework
 
-The same features as&nbsp;in&nbsp;the&nbsp;DSInternals PowerShell module are also available through the
+The same features as&nbsp;in&nbsp;the&nbsp;DSInternals PowerShell module are&nbsp;also available through the
 [NuGet packages for&nbsp;.NET](https://www.nuget.org/profiles/DSInternals).
 
 To my knowledge, the&nbsp;following products utilize DSInternals:
@@ -44,7 +44,7 @@ As part of&nbsp;a&nbsp;cooperation with&nbsp;[Thycotic](https://thycotic.com/), 
 
 ## Administrative Template (ADMX) for&nbsp;YubiKey Smart Card Minidriver
 
-I have created [this ADMX administrative template](https://github.com/MichaelGrafnetter/yubikey-minidriver-admx) that&nbsp;allows administrators to&nbsp;easily deploy the&nbsp;configuration of&nbsp;the&nbsp;[YubiKey Smart Card Minidriver](https://www.yubico.com/products/services-software/download/smart-card-drivers-tools/) through&nbsp;the&nbsp;Active Directory Group Policy. It&nbsp;can also be&nbsp;used on standalone computers to&nbsp;unlock some&nbsp;features of&nbsp;the&nbsp;YubiKey Minidriver that&nbsp;are disabled by&nbsp;default, like controlling the&nbsp;touch policy or&nbsp;blocking the&nbsp;generation of&nbsp;unsafe keys (ROCA).
+I have created [this ADMX administrative template](https://github.com/MichaelGrafnetter/yubikey-minidriver-admx) that&nbsp;allows administrators to&nbsp;easily deploy the&nbsp;configuration of&nbsp;the&nbsp;[YubiKey Smart Card Minidriver](https://www.yubico.com/products/services-software/download/smart-card-drivers-tools/) through&nbsp;the&nbsp;Active Directory Group Policy. It&nbsp;can also be&nbsp;used on standalone computers to&nbsp;unlock some&nbsp;features of&nbsp;the&nbsp;YubiKey Minidriver that&nbsp;are&nbsp;disabled by&nbsp;default, like controlling the&nbsp;touch policy or&nbsp;blocking the&nbsp;generation of&nbsp;unsafe keys (ROCA).
 
 ![Group Policy Editor Screenshot](/assets/images/yubikey-admx.png)
 
@@ -52,7 +52,7 @@ I have created [this ADMX administrative template](https://github.com/MichaelGra
 
 ### AD Privilege Escalation through Windows Hello
 
-In 2019 I&nbsp;have discovered multiple attack vectors against the&nbsp;implementation of&nbsp;Windows Hello for&nbsp;Business in&nbsp;Active Directory. I&nbsp;made my discoveries publicly available at the&nbsp;Black Hat Europe conference. Both the&nbsp;[recording](/en/_posts/2019-12-22-video-black-hat-europe-2019-talk.md) and&nbsp;[slide deck](/en/_posts/2019-12-10-black-hat-europe-2019-slides.md) are publicly available.
+In 2019 I&nbsp;have discovered multiple attack vectors against the&nbsp;implementation of&nbsp;Windows Hello for&nbsp;Business in&nbsp;Active Directory. I&nbsp;made my discoveries publicly available at the&nbsp;Black Hat Europe conference. Both the&nbsp;[recording](/en/video-black-hat-europe-2019-talk/) and&nbsp;[slide deck](/en/black-hat-europe-2019-slides/) are&nbsp;publicly available.
 
 ![ROCA Vulnerable NGC Keys in&nbsp;Active Directory](/assets/images/roca.png)
 
@@ -80,15 +80,15 @@ In 2020 I&nbsp;have discovered that&nbsp;Azure Active Directory Graph API was ex
 
 ### Azure AD Silver Ticket Attack
 
-In 2017 I&nbsp;was the&nbsp;first to&nbsp;publicly describe the&nbsp;possibility to&nbsp;perform the&nbsp;[silver ticket attack against Azure Active Directory](/en/_posts/2017-01-15-impersonating-office-365-users-mimikatz.md) by&nbsp;misusing the&nbsp;**Seamless Single Sign-on** feature, while&nbsp;it&nbsp;was still in&nbsp;preview. This&nbsp;attack can be&nbsp;used to&nbsp;impersonate any user against Office 365 or&nbsp;any other service connected to&nbsp;Azure Active Directory.
+In 2017 I&nbsp;was the&nbsp;first to&nbsp;publicly describe the&nbsp;possibility to&nbsp;perform the&nbsp;[silver ticket attack against Azure Active Directory](/en/impersonating-office-365-users-mimikatz/) by&nbsp;misusing the&nbsp;**Seamless Single Sign-on** feature, while&nbsp;it&nbsp;was still in&nbsp;preview. This&nbsp;attack can be&nbsp;used to&nbsp;impersonate any user against Office 365 or&nbsp;any other service connected to&nbsp;Azure Active Directory.
 
 ![Silver Ticket Attack against Azure AD](/assets/images/aad_sso3.png)
 
-As a&nbsp;response to&nbsp;these security concerns, Microsoft has implemented the&nbsp;ability to&nbsp;roll over the&nbsp;password used by&nbsp;the&nbsp;SSO feature and&nbsp;[recommends doing so&nbsp;at least every 30 days](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-faq#how-can-i-roll-over-the-kerberos-decryption-key-of-the--azureadsso--computer-account-).
+As a&nbsp;response to&nbsp;these security concerns, Microsoft has implemented the&nbsp;ability to&nbsp;roll over the&nbsp;password of&nbsp;the&nbsp;`AZUREADSSOACC$` account and&nbsp;[recommends doing so&nbsp;at least every 30 days](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sso-faq#how-can-i-roll-over-the-kerberos-decryption-key-of-the--azureadsso--computer-account-).
 
 ### Azure AD Password Hash Synchronization Reverse Engineering
 
-Long before&nbsp;Microsoft had [proper documentation](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#detailed-description-of-how-password-hash-synchronization-works) on the&nbsp;Azure Active Directory password hash synchronization feature, I&nbsp;was able to&nbsp;reverse engineer the&nbsp;Azure AD Connect tool and&nbsp;[discover the&nbsp;exact hash function used by&nbsp;Azure Active Directory](/en/_posts/2015-10-18-how-azure-active-directory-connect-syncs-passwords.md).
+Long before&nbsp;Microsoft had [proper documentation](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#detailed-description-of-how-password-hash-synchronization-works) on the&nbsp;Azure Active Directory password hash synchronization feature, I&nbsp;was able to&nbsp;reverse engineer the&nbsp;Azure AD Connect tool and&nbsp;[discover the&nbsp;exact hash function used by&nbsp;Azure Active Directory](/en/how-azure-active-directory-connect-syncs-passwords/).
 
 ![OrgIdHash](/assets/images/ps_orgidhash.png)
 

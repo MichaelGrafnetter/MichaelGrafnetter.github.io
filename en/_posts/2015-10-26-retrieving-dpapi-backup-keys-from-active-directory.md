@@ -25,11 +25,11 @@ Benjamin Delpy has already found a&nbsp;way to&nbsp;extract these backup keys fr
 
 ## Key Storage
 
-I have taken Benjamin’s research one step further and&nbsp;I&nbsp;can now&nbsp;extract these keys directly from&nbsp;the&nbsp;Active Directory database, where&nbsp;they are physically stored:
+I have taken Benjamin’s research one step further and&nbsp;I&nbsp;can now&nbsp;extract these keys directly from&nbsp;the&nbsp;Active Directory database, where&nbsp;they are&nbsp;physically stored:
 
 ![Backup Key Storage](../../assets/images/backupkeys_storage.png)
 
-The keys are stored in&nbsp;the&nbsp;**currentValue** attribute of&nbsp;objects whose names begin with&nbsp;**BCKUPKEY** and&nbsp;are of&nbsp;class **secret**. The&nbsp;**BCKUPKEY_PREFERRED Secret** and&nbsp;**BCKUPKEY_P Secret** objects actually only contain GUIDs of&nbsp;objects that&nbsp;hold the&nbsp;current modern and&nbsp;legacy keys, respectively. Furthermore, the&nbsp;currentValue attribute is&nbsp;encrypted using BootKey (aka SysKey) and&nbsp;is&nbsp;never sent through LDAP.
+The keys are&nbsp;stored in&nbsp;the&nbsp;**currentValue** attribute of&nbsp;objects whose names begin with&nbsp;**BCKUPKEY** and&nbsp;are&nbsp;of&nbsp;class **secret**. The&nbsp;**BCKUPKEY_PREFERRED Secret** and&nbsp;**BCKUPKEY_P Secret** objects actually only contain GUIDs of&nbsp;objects that&nbsp;hold the&nbsp;current modern and&nbsp;legacy keys, respectively. Furthermore, the&nbsp;currentValue attribute is&nbsp;encrypted using BootKey (aka SysKey) and&nbsp;is&nbsp;never sent through LDAP.
 
 ## The&nbsp;Database Dump Method
 

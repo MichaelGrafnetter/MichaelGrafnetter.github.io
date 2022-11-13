@@ -1,4 +1,4 @@
----
+﻿---
 ref: powershell-security
 title: PowerShell Security
 date: 2017-09-17T11:06:03+00:00
@@ -30,7 +30,7 @@ Sub Workbook_Open()
     Auto_Open
 End Sub
 ```
-## Automatické generovanie dokumentov s makrami
+## Automatické generovanie dokumentov s&nbsp;makrami
 
 ```powershell
 # Import prikazu Out-Word z modulu nishang

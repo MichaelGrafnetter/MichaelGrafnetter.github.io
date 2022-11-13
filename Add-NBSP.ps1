@@ -1,5 +1,6 @@
 [string[]] $rules = @(
     'an',
+    'are',
     'as',
     'be',
     'so',
@@ -100,17 +101,33 @@
     'či'
 )
 
+[bool] $inCode = $false
+[bool] $inFrontMatter = $false
+
 Get-ChildItem -Path $PSScriptRoot -Filter *.md -File -Recurse | ForEach-Object {
     $newContent = Get-Content -Path $PSItem.FullName -Encoding UTF8 | ForEach-Object {
         [string] $line = $PSItem
 
-        # TODO: Ignore code blocks
-        foreach($rule in $rules)
+        # Detect code blocks
+        [bool] $inlineCode = $false
+        switch -Wildcard ($line)
         {
-            $line = $line -replace "( $rule) ",'$1&nbsp;'
-            $line = $line -replace "(&nbsp;$rule) ",'$1&nbsp;'
+            '``````*' { $inCode = -not $inCode }
+            '---' { $inFrontMatter = -not $inFrontMatter }
+            '{*' { $inlineCode = $true }
         }
 
+        if(-not ($inFrontMatter -or $inCode -or $inlineCode))
+        {
+            # Do not touch code blocks and front matter
+            foreach($rule in $rules)
+            {
+                $line = $line -replace "( $rule) ",'$1&nbsp;'
+                $line = $line -replace "(&nbsp;$rule) ",'$1&nbsp;'
+            }
+        }
+
+        # Output
         $line
     }
 

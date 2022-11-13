@@ -24,7 +24,7 @@ Since version 2.15, the&nbsp;[DSInternals PowerShell Module](https://github.com/
 
 <!--more-->
 
-> DISCLAIMER: Features exposed through the&nbsp;DSInternals module are not supported by&nbsp;Microsoft and&nbsp;it&nbsp;is&nbsp;therefore not intended to&nbsp;be&nbsp;used in&nbsp;production environments. Improper use might cause irreversible damage to&nbsp;domain controllers or&nbsp;negatively impact domain security.
+> DISCLAIMER: Features exposed through the&nbsp;DSInternals module are&nbsp;not supported by&nbsp;Microsoft and&nbsp;it&nbsp;is&nbsp;therefore not intended to&nbsp;be&nbsp;used in&nbsp;production environments. Improper use might cause irreversible damage to&nbsp;domain controllers or&nbsp;negatively impact domain security.
 
 ## Required access
 

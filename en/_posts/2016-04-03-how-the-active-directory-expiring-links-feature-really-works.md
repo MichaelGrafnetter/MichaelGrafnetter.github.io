@@ -49,7 +49,7 @@ As we can see, the&nbsp;TTL value in&nbsp;the&nbsp;output is&nbsp;in&nbsp;second
 
 ## Creating Expiring Links using LDAP
 
-PowerShell is&nbsp;great, but&nbsp;what if&nbsp;we needed to&nbsp;stick with&nbsp;pure LDAP? Well, if&nbsp;you want to&nbsp;add a&nbsp;user into a&nbsp;group for&nbsp;a&nbsp;limited amount of&nbsp;time, you do&nbsp;it&nbsp;exactly as&nbsp;you are used to, but&nbsp;you have to&nbsp;specify his&nbsp;distinguished name (DN) in&nbsp;the&nbsp;new [TTL-DN form](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/b645c125-a7da-4097-84a1-2fa7cea07714#gt_2188fc83-e53b-4464-867d-9ab1c62e1619): &lt;TTL=TimeToLive,DN&gt;. In&nbsp;our sample case, it&nbsp;would look like this:
+PowerShell is&nbsp;great, but&nbsp;what if&nbsp;we needed to&nbsp;stick with&nbsp;pure LDAP? Well, if&nbsp;you want to&nbsp;add a&nbsp;user into a&nbsp;group for&nbsp;a&nbsp;limited amount of&nbsp;time, you do&nbsp;it&nbsp;exactly as&nbsp;you are&nbsp;used to, but&nbsp;you have to&nbsp;specify his&nbsp;distinguished name (DN) in&nbsp;the&nbsp;new [TTL-DN form](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/b645c125-a7da-4097-84a1-2fa7cea07714#gt_2188fc83-e53b-4464-867d-9ab1c62e1619): &lt;TTL=TimeToLive,DN&gt;. In&nbsp;our sample case, it&nbsp;would look like this:
 
 **&lt;TTL=7200,CN=PatColeman,CN=Users,DC=adatum,DC=com&gt;**
 

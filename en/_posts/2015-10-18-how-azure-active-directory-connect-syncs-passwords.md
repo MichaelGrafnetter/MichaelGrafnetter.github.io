@@ -14,9 +14,9 @@ tags:
     - Security
 ---
 
-Many people have asked me about the&nbsp;security implications of&nbsp;synchronizing passwords from&nbsp;Active Directory to&nbsp;Azure Active Directory using the&nbsp;[Azure AD Connect](https://www.microsoft.com/en-us/download/details.aspx?id=47594) tool. Although&nbsp;there is&nbsp;an&nbsp;article on Technet that&nbsp;[claims](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/whatis-phs) that&nbsp;the&nbsp;passwords are synced in&nbsp;a&nbsp;very secure hashed form&nbsp;that&nbsp;cannot be&nbsp;misused for&nbsp;authentication against the&nbsp;on-premise Active Directory, it&nbsp;lacks any detail about the&nbsp;exact information being sent to&nbsp;Microsoft’s servers.
+Many people have asked me about the&nbsp;security implications of&nbsp;synchronizing passwords from&nbsp;Active Directory to&nbsp;Azure Active Directory using the&nbsp;[Azure AD Connect](https://www.microsoft.com/en-us/download/details.aspx?id=47594) tool. Although&nbsp;there is&nbsp;an&nbsp;article on Technet that&nbsp;[claims](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/whatis-phs) that&nbsp;the&nbsp;passwords are&nbsp;synced in&nbsp;a&nbsp;very secure hashed form&nbsp;that&nbsp;cannot be&nbsp;misused for&nbsp;authentication against the&nbsp;on-premise Active Directory, it&nbsp;lacks any detail about the&nbsp;exact information being sent to&nbsp;Microsoft’s servers.
 
-A [post](https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/aad-password-sync-encryption-and-fips-compliance/ba-p/243709) at the&nbsp;Active Directory Team Blog hints that&nbsp;the&nbsp;Password Sync agent retrieves pre-existing password hashes from&nbsp;AD and&nbsp;secures them by&nbsp;re-hashing them using SHA256 hash per [RFC 2898](https://www.ietf.org/rfc/rfc2898.txt) (aka PBKDF2) before&nbsp;uploading them to&nbsp;the&nbsp;cloud. This&nbsp;sheds some&nbsp;light on the&nbsp;functionality, but&nbsp;some&nbsp;important implementation details are still missing, including the&nbsp;number of&nbsp;SHA256 iterations, salt length and&nbsp;the&nbsp;type of&nbsp;hash that&nbsp;is&nbsp;extracted from&nbsp;AD. Some&nbsp;[research](https://www.cogmotive.com/blog/office-365-tips/how-secure-is-dirsync-with-password-synchronisation) on this&nbsp;topic has been done by&nbsp;Alan Byrne, but&nbsp;it&nbsp;is&nbsp;inconclusive. Therefore, I&nbsp;have decided to&nbsp;do&nbsp;my own research and&nbsp;to&nbsp;share my results.
+A [post](https://techcommunity.microsoft.com/t5/microsoft-entra-azure-ad-blog/aad-password-sync-encryption-and-fips-compliance/ba-p/243709) at the&nbsp;Active Directory Team Blog hints that&nbsp;the&nbsp;Password Sync agent retrieves pre-existing password hashes from&nbsp;AD and&nbsp;secures them by&nbsp;re-hashing them using SHA256 hash per [RFC 2898](https://www.ietf.org/rfc/rfc2898.txt) (aka PBKDF2) before&nbsp;uploading them to&nbsp;the&nbsp;cloud. This&nbsp;sheds some&nbsp;light on the&nbsp;functionality, but&nbsp;some&nbsp;important implementation details are&nbsp;still missing, including the&nbsp;number of&nbsp;SHA256 iterations, salt length and&nbsp;the&nbsp;type of&nbsp;hash that&nbsp;is&nbsp;extracted from&nbsp;AD. Some&nbsp;[research](https://www.cogmotive.com/blog/office-365-tips/how-secure-is-dirsync-with-password-synchronisation) on this&nbsp;topic has been done by&nbsp;Alan Byrne, but&nbsp;it&nbsp;is&nbsp;inconclusive. Therefore, I&nbsp;have decided to&nbsp;do&nbsp;my own research and&nbsp;to&nbsp;share my results.
 
 <!--more-->
 
@@ -30,11 +30,11 @@ You should also know that&nbsp;the&nbsp;password synchronization service connect
 
 ## How Azure AD Connect sends passwords to&nbsp;the&nbsp;Cloud
 
-As already mentioned, a&nbsp;few cryptographic transformations are applied to&nbsp;the&nbsp;MD4 hash by&nbsp;the&nbsp;sync server before&nbsp;it&nbsp;is&nbsp;sent to&nbsp;the&nbsp;cloud:
+As already mentioned, a&nbsp;few cryptographic transformations are&nbsp;applied to&nbsp;the&nbsp;MD4 hash by&nbsp;the&nbsp;sync server before&nbsp;it&nbsp;is&nbsp;sent to&nbsp;the&nbsp;cloud:
 
 1. The&nbsp;binary form of&nbsp;the&nbsp;MD4 hash, which&nbsp;has 16B, is&nbsp;converted to&nbsp;a&nbsp;32B uppercase hexadecimal string.
 2. This&nbsp;string is&nbsp;then converted back to&nbsp;binary form using the&nbsp;UTF-16 encoding, which&nbsp;extends the&nbsp;result into 64B.
-3. Ten random bytes are generated to&nbsp;be&nbsp;used as&nbsp;salt.
+3. Ten random bytes are&nbsp;generated to&nbsp;be&nbsp;used as&nbsp;salt.
 4. The&nbsp;data generated in&nbsp;steps 2 and&nbsp;3 is&nbsp;then used as&nbsp;input to&nbsp;the&nbsp;[PBKDF2](https://en.wikipedia.org/wiki/PBKDF2 "PBKDF2") (Password-based Key Derivation Function 2) function with&nbsp;<del>100</del> 1000 (new since&nbsp;2016) iterations of&nbsp;**HMAC-SHA256**. The&nbsp;output is&nbsp;32B long.
 
 This cryptographic transformation is&nbsp;internally called OrgId hash. A&nbsp;more formal definition could look as&nbsp;follows:
@@ -58,7 +58,7 @@ Note that&nbsp;the&nbsp;string contains the&nbsp;iteration count and&nbsp;versio
 
 ## Security analysis
 
-Here are my thoughts on the&nbsp;security of&nbsp;the&nbsp;OrgId hash:
+Here are&nbsp;my thoughts on the&nbsp;security of&nbsp;the&nbsp;OrgId hash:
 
 ### + Proven algorithm
 
@@ -103,7 +103,7 @@ I would say that&nbsp;the&nbsp;Password Sync feature is&nbsp;**very** **secure <
 2. Secure remote access to&nbsp;your network by&nbsp;using **multi-factor authentication**, so&nbsp;that&nbsp;the&nbsp;knowledge of&nbsp;someone’s password is&nbsp;not enough to&nbsp;get access to&nbsp;corporate resources.
 3. Never, ever, under no circumstances, sync passwords of&nbsp;**administrative accounts** (Domain Admins, Schema Admins, etc.) to&nbsp;ANY cloud service.
 
-And for&nbsp;those who&nbsp;are still in&nbsp;doubt, Microsoft offers an&nbsp;alternative, the&nbsp;so-called [Federated Identity](https://support.office.com/en-us/article/Understanding-Office-365-identity-and-Azure-Active-Directory-06a189e7-5ec6-4af2-94bf-a22ea225a7a9#BK_Federated). The&nbsp;difference is&nbsp;that&nbsp;passwords are verified by&nbsp;the&nbsp;on-premises Active Directory, which&nbsp;means that&nbsp;the&nbsp;password hashes do&nbsp;not need to&nbsp;be&nbsp;synchronized to&nbsp;Azure AD.
+And for&nbsp;those who&nbsp;are&nbsp;still in&nbsp;doubt, Microsoft offers an&nbsp;alternative, the&nbsp;so-called [Federated Identity](https://support.office.com/en-us/article/Understanding-Office-365-identity-and-Azure-Active-Directory-06a189e7-5ec6-4af2-94bf-a22ea225a7a9#BK_Federated). The&nbsp;difference is&nbsp;that&nbsp;passwords are&nbsp;verified by&nbsp;the&nbsp;on-premises Active Directory, which&nbsp;means that&nbsp;the&nbsp;password hashes do&nbsp;not need to&nbsp;be&nbsp;synchronized to&nbsp;Azure AD.
 
 ## Sample implementation
 

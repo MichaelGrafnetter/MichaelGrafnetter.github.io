@@ -18,7 +18,7 @@ I recently worked with&nbsp;[Thycotic](https://thycotic.com/) to&nbsp;create a&n
 
 ![Screenshot 3](../../assets/images/scanner_screen04.png)
 
-It generates reports which&nbsp;are suitable for&nbsp;the&nbsp;management:
+It generates reports which&nbsp;are&nbsp;suitable for&nbsp;the&nbsp;management:
 
 ![Report 1](../../assets/images/thycotic_report1.png)
 

@@ -15,8 +15,8 @@ tags:
 Although there exist several tools for&nbsp;dumping password hashes from&nbsp;the&nbsp;Active Directory database files, including the&nbsp;open-source [NTDSXtract](https://github.com/csababarta/ntdsxtract) from&nbsp;Csaba Bárta whose great research started it&nbsp;all, they have these limitations:
 
 - They do&nbsp;not support the&nbsp;built-in indices, so&nbsp;searching for&nbsp;a&nbsp;single object is&nbsp;slow when&nbsp;dealing with&nbsp;large databases.
-- Most of&nbsp;the&nbsp;tools are either Linux-only or&nbsp;running them on Windows is&nbsp;not simple enough.
-- Almost none of&nbsp;these tools can modify the&nbsp;database. And&nbsp;if&nbsp;they do, they do&nbsp;not support transaction logs and&nbsp;are quite cumbersome.
+- Most of&nbsp;the&nbsp;tools are&nbsp;either Linux-only or&nbsp;running them on Windows is&nbsp;not simple enough.
+- Almost none of&nbsp;these tools can modify the&nbsp;database. And&nbsp;if&nbsp;they do, they do&nbsp;not support transaction logs and&nbsp;are&nbsp;quite cumbersome.
 
 Therefore, I&nbsp;have decided to&nbsp;create [my own set of&nbsp;PowerShell cmdlets](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md) that&nbsp;wouldn’t have these shortcomings. In&nbsp;the&nbsp;process, I&nbsp;have unintentionally created my own framework that&nbsp;is&nbsp;built on top of&nbsp;Microsoft’s [ManagedEsent](https://github.com/microsoft/ManagedEsent) library and&nbsp;hides the&nbsp;complexity of&nbsp;the&nbsp;underlying database. I&nbsp;am planning to&nbsp;release it&nbsp;at GitHub later this&nbsp;year.
 

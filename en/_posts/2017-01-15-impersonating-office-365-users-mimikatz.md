@@ -18,7 +18,7 @@ Last month, Microsoft has introduced a&nbsp;new feature of&nbsp;Azure AD Connect
 
 ![Azure AD Connect SSO Diagram](https://docs.microsoft.com/en-us/azure/active-directory/connect/media/active-directory-aadconnect-sso/sso2.png)
 
-As we can see from&nbsp;the&nbsp;diagram above, Azure AD exposes a&nbsp;[publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever&nbsp;you have Kerberos-based authentication, it&nbsp;can be&nbsp;attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
+As we can see from&nbsp;the&nbsp;diagram above, Azure AD exposes a&nbsp;[publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are&nbsp;understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever&nbsp;you have Kerberos-based authentication, it&nbsp;can be&nbsp;attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
 
 In&nbsp;usual circumstances this&nbsp;attack can only be&nbsp;performed from&nbsp;the&nbsp;intranet. But&nbsp;what really caught my attention is&nbsp;the&nbsp;fact that&nbsp;with&nbsp;this&nbsp;new SSO feature, **Silver Tickets could be&nbsp;used from&nbsp;the&nbsp;entire internet**. Let’s give it&nbsp;a&nbsp;try then!
 
@@ -28,7 +28,7 @@ In&nbsp;usual circumstances this&nbsp;attack can only be&nbsp;performed from&nbs
 
 To&nbsp;test this&nbsp;technique, we need to&nbsp;retrieve some&nbsp;information from&nbsp;Active Directory first:
 
-1. NTLM password hash of&nbsp;the&nbsp;[AZUREADSSOACC](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#how-single-sign-on-works) account, e.g. *f9969e088b2c13d93833d0ce436c76dd*. This&nbsp;value can be&nbsp;retrieved from&nbsp;AD using [mimikatz](https://github.com/gentilkiwi/mimikatz):
+1. NTLM password hash of&nbsp;the&nbsp;[AZUREADSSOACC$](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#how-single-sign-on-works) account, e.g. *f9969e088b2c13d93833d0ce436c76dd*. This&nbsp;value can be&nbsp;retrieved from&nbsp;AD using [mimikatz](https://github.com/gentilkiwi/mimikatz):
 
     ```bat
     mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
@@ -74,7 +74,7 @@ Having this&nbsp;information we can now&nbsp;create and&nbsp;use the&nbsp;Silver
     klist purge
     ```
 
-It is&nbsp;also worth noting that&nbsp;the&nbsp;password of&nbsp;the&nbsp;*AZUREADSSOACC* account never changes, so&nbsp;the&nbsp;stolen hash/key will work forever. It&nbsp;could therefore be&nbsp;misused by&nbsp;highly privileged employees to&nbsp;retain access to&nbsp;the&nbsp;IT&nbsp;environment after&nbsp;leaving the&nbsp;company. Dealing with&nbsp;such situations is&nbsp;a&nbsp;much broader problem, which&nbsp;is&nbsp;aptly depicted by&nbsp;the&nbsp;following old Narnian saying:
+It is&nbsp;also worth noting that&nbsp;the&nbsp;password of&nbsp;the&nbsp;*AZUREADSSOACC$* account never changes, so&nbsp;the&nbsp;stolen hash/key will work forever. It&nbsp;could therefore be&nbsp;misused by&nbsp;highly privileged employees to&nbsp;retain access to&nbsp;the&nbsp;IT&nbsp;environment after&nbsp;leaving the&nbsp;company. Dealing with&nbsp;such situations is&nbsp;a&nbsp;much broader problem, which&nbsp;is&nbsp;aptly depicted by&nbsp;the&nbsp;following old Narnian saying:
 
 ![Once a&nbsp;Domain Admin, always a&nbsp;Domain Admin](../../assets/images/narnia.png)
 
@@ -83,8 +83,8 @@ It is&nbsp;also worth noting that&nbsp;the&nbsp;password of&nbsp;the&nbsp;*AZURE
 First of&nbsp;all, I&nbsp;have to&nbsp;point out that&nbsp;this&nbsp;technique would not be&nbsp;very practical in&nbsp;real-world situations due to&nbsp;these reasons:
 
 - The&nbsp;SSO feature is&nbsp;in&nbsp;Preview and&nbsp;has to&nbsp;be&nbsp;explicitly enabled by&nbsp;an&nbsp;AD admin. Just a&nbsp;handful of&nbsp;companies probably use it&nbsp;at the&nbsp;time of&nbsp;writing this&nbsp;article and&nbsp;enterprises will quite surely stick to&nbsp;their proven ADFS deployments even&nbsp;after&nbsp;this&nbsp;feature reaches GA.
-- The&nbsp;hash/key of&nbsp;the&nbsp;*AZUREADSSOACC* account can only be&nbsp;retrieved by&nbsp;Domain Admins from&nbsp;DCs by&nbsp;default. But&nbsp;if&nbsp;an&nbsp;attacker had such highly privileged access to&nbsp;an&nbsp;Active Directory domain, he/she would be&nbsp;able to&nbsp;do&nbsp;some&nbsp;way nastier stuff than&nbsp;just replicating a&nbsp;single hash.
-- The&nbsp;password of&nbsp;the&nbsp;*AZUREADSSOACC* account is&nbsp;randomly generated during the&nbsp;deployment of&nbsp;*Azure AD Connect*. It&nbsp;would therefore be&nbsp;impossible to&nbsp;guess this&nbsp;password.
+- The&nbsp;hash/key of&nbsp;the&nbsp;*AZUREADSSOACC$* account can only be&nbsp;retrieved by&nbsp;Domain Admins from&nbsp;DCs by&nbsp;default. But&nbsp;if&nbsp;an&nbsp;attacker had such highly privileged access to&nbsp;an&nbsp;Active Directory domain, he/she would be&nbsp;able to&nbsp;do&nbsp;some&nbsp;way nastier stuff than&nbsp;just replicating a&nbsp;single hash.
+- The&nbsp;password of&nbsp;the&nbsp;*AZUREADSSOACC$* account is&nbsp;randomly generated during the&nbsp;deployment of&nbsp;*Azure AD Connect*. It&nbsp;would therefore be&nbsp;impossible to&nbsp;guess this&nbsp;password.
 
 As&nbsp;you can see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;just to&nbsp;be&nbsp;safe, I&nbsp;would recommend these generic security measures:
 
@@ -93,7 +93,7 @@ As&nbsp;you can see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;just t
 - Enable and&nbsp;enforce [Azure MFA](https://docs.microsoft.com/en-us/azure/multi-factor-authentication/multi-factor-authentication) for&nbsp;users authenticating from&nbsp;external IP addresses. It&nbsp;is&nbsp;very straightforward and&nbsp;effective against many kinds of&nbsp;attacks.
 - Consider implementing [Azure AD conditional access](https://docs.microsoft.com/cs-cz/azure/active-directory/active-directory-conditional-access).
 - Deploy [Microsoft Defender for&nbsp;Identity](https://www.microsoft.com/en-us/cloud-platform/advanced-threat-analytics) to&nbsp;detect malicious replication and&nbsp;other threats to&nbsp;your AD infrastructure.  
-- Force a&nbsp;password change on the&nbsp;*AZUREADSSOACC* account by&nbsp;<del>re-deploying Azure AD Connect SSO</del> [running the&nbsp;Update-AzureSSOForest cmdlet](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso-faq#how-can-i-roll-over-the-kerberos-decryption-key-of-the-azureadssoacc-computer-account) after&nbsp;a&nbsp;highly privileged employee leaves the&nbsp;company and/or on a&nbsp;regular basis. This&nbsp;should be&nbsp;done together with&nbsp;resetting the&nbsp;password of&nbsp;*krbtgt* and&nbsp;other sensitive accounts.
+- Force a&nbsp;password change on the&nbsp;*AZUREADSSOACC$* account by&nbsp;<del>re-deploying Azure AD Connect SSO</del> [running the&nbsp;Update-AzureSSOForest cmdlet](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso-faq#how-can-i-roll-over-the-kerberos-decryption-key-of-the-azureadssoacc-computer-account) after&nbsp;a&nbsp;highly privileged employee leaves the&nbsp;company and/or on a&nbsp;regular basis. This&nbsp;should be&nbsp;done together with&nbsp;resetting the&nbsp;password of&nbsp;*krbtgt* and&nbsp;other sensitive accounts.
 
 ## Conclusion
 
