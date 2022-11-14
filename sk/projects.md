@@ -21,7 +21,7 @@ Viac informácií o&nbsp;tomto module:
 - [Dokumentácia](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md)
 - [Zdrojové kódy](https://github.com/MichaelGrafnetter/DSInternals)
 
-PowerShell modul DSInternals bol údajne použitý aj pri útokoch v rámci tzv. SoloriGate, podľa [správy Symantecu o malvéri Raindrop](https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/solarwinds-raindrop-malware):
+PowerShell modul DSInternals bol údajne použitý aj&nbsp;pri útokoch v&nbsp;rámci tzv. SoloriGate, podľa [správy Symantecu o&nbsp;malvéri Raindrop](https://symantec-enterprise-blogs.security.com/blogs/threat-intelligence/solarwinds-raindrop-malware):
 
 ![Príklad časovej osi útoku malvéru Raindrop](/assets/images/solorigate.webp)
 
@@ -64,7 +64,7 @@ Počas skúmania Windows Hello for&nbsp;Business som vyvinul aj&nbsp;nástroj na
 
 ![Auditovanie Auditing Shadow Credentials pomocou DSInternals](/assets/images/ngc_audit.png)
 
-Ak vie útočník upraviť tento atribút na nejakom účte, môže sa&nbsp;ako tento účet prihlásiť do&nbsp;AD cez&nbsp;protokol Kerberos PKINIT. To&nbsp;môže viesť buď k&nbsp;elevácii oprávnení, alebo k&nbsp;perzistencii. Vedľajším dôsledkom je, že je&nbsp;možné voči napadnutému účtu vykonať útok UnPAC-the-Hash a&nbsp;dostať sa&nbsp;tak k&nbsp;NT hashu používateľského hesla. Tento útok tak môžeme považovať za&nbsp;zacielený DCSync.
+Ak vie útočník upraviť tento atribút na&nbsp;nejakom účte, môže sa&nbsp;ako tento účet prihlásiť do&nbsp;AD cez&nbsp;protokol Kerberos PKINIT. To&nbsp;môže viesť buď k&nbsp;elevácii oprávnení, alebo k&nbsp;perzistencii. Vedľajším dôsledkom je, že je&nbsp;možné voči napadnutému účtu vykonať útok UnPAC-the-Hash a&nbsp;dostať sa&nbsp;tak k&nbsp;NT hashu používateľského hesla. Tento útok tak môžeme považovať za&nbsp;zacielený DCSync.
 
 Moje pôvodné zdrojové kódy si&nbsp;svojim životom žijú aj&nbsp;v&nbsp;týchto hackerských nástrojoch:
 - [KrbRelayUp](https://github.com/Dec0ne/KrbRelayUp)
@@ -88,8 +88,8 @@ Microsoft následne implementoval možnosť zmeniť heslo účtu `AZUREADSSOACC$
 
 ### Reverzné inžinierstvo Azure AD Connect
 
-Dávno pred tým, než existovala [oficiálna dokumentácia](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#detailed-description-of-how-password-hash-synchronization-works) k funkcii synchronizácie hesiel v programe Azure Active Directory Connect, podarilo sa mi pomocou reverzného inžinierstva [odhaliť použitý kryptografický algoritmus](/en/how-azure-active-directory-connect-syncs-passwords/).
+Dávno pred tým, než existovala [oficiálna dokumentácia](https://learn.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-password-hash-synchronization#detailed-description-of-how-password-hash-synchronization-works) k&nbsp;funkcii synchronizácie hesiel v&nbsp;programe Azure Active Directory Connect, podarilo sa&nbsp;mi pomocou reverzného inžinierstva [odhaliť použitý kryptografický algoritmus](/en/how-azure-active-directory-connect-syncs-passwords/).
 
 ![OrgIdHash](/assets/images/ps_orgidhash.png)
 
-V reakcii na moju spätnú väzbu zvýšil Microsoft počet iterácií SHA256 zo 100 na 1000. A už deň po vydaní môjho článku bol do programu `hashcat`, populárneho nástroja na lámanie hesiel, pridaný [hash mode 12800 (MS-AzureSync PBKDF2-HMAC-SHA256)](https://hashcat.net/wiki/doku.php?id=example_hashes).
+V reakcii na&nbsp;moju spätnú väzbu zvýšil Microsoft počet iterácií SHA256 zo 100 na&nbsp;1000. A&nbsp;už deň po vydaní môjho článku bol do&nbsp;programu `hashcat`, populárneho nástroja na&nbsp;lámanie hesiel, pridaný [hash mode 12800 (MS-AzureSync PBKDF2-HMAC-SHA256)](https://hashcat.net/wiki/doku.php?id=example_hashes).
