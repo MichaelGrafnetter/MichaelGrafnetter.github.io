@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 2821
 title: 'Offline zmena členstva v&nbsp;skupinách'
 date: 2015-05-31T13:55:51+00:00
@@ -14,7 +14,7 @@ tags:
 
 Spôsobov, ako sa&nbsp;dá **hacknúť doménový kontrolér**, ak útočník získa fyzický prístup k&nbsp;jeho systémovému disku, existuje veľa. Za&nbsp;zmienku stojí napríklad podvrhnutie [SID History](/sk/offline-zmena-sid-history/), o&nbsp;ktorom som nedávno písal, alebo [notoricky známe](https://www.sevecek.com/Lists/Posts/Post.aspx?ID=213) nahradenie nástroja **Klávesnica na&nbsp;obrazovke** príkazovým riadkom.
 <!--more-->
-Zo všetkých druhov útokov sa&nbsp;mi najviac páči **offline úprava Active Directory databázy**. Možnosť takéhoto zásahu do&nbsp;DC je&nbsp;známa už dávno, veď aj&nbsp;kvôli tomu vznikla funkcia [Read-Only Domain Controller](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc732801(v=ws.10)). Na&nbsp;druhú stranu, keďže je&nbsp;štruktúra Active Directory databázy veľmi komplikovaná a&nbsp;takmer nulovo zdokumentovaná, neexistujú skoro žiadne verejne dostupné nástroje pomocou ktorých by&nbsp;sa&nbsp;dal takýto útok realizovať. Tie, ktoré [poznám](/sk/offline-zmena-sid-history/), sa&nbsp;výhradne sústredia na&nbsp;už spomínanú úpravu SID History. Preto som sa&nbsp;rozhodol vytvoriť powershellovský príkaz **Set-ADDBPrimaryGroup**, ktorý slúži na&nbsp;offline zmenu členstva v&nbsp;skupinách.
+Zo všetkých druhov útokov sa&nbsp;mi najviac páči **offline úprava Active Directory databázy**. Možnosť takéhoto zásahu do&nbsp;DC je&nbsp;známa už&nbsp;dávno, veď aj&nbsp;kvôli tomu vznikla funkcia [Read-Only Domain Controller](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc732801(v=ws.10)). Na&nbsp;druhú stranu, keďže je&nbsp;štruktúra Active Directory databázy veľmi komplikovaná a&nbsp;takmer nulovo zdokumentovaná, neexistujú skoro žiadne verejne dostupné nástroje pomocou ktorých by&nbsp;sa&nbsp;dal takýto útok realizovať. Tie, ktoré [poznám](/sk/offline-zmena-sid-history/), sa&nbsp;výhradne sústredia na&nbsp;už&nbsp;spomínanú úpravu SID History. Preto som sa&nbsp;rozhodol vytvoriť powershellovský príkaz **Set-ADDBPrimaryGroup**, ktorý slúži na&nbsp;offline zmenu členstva v&nbsp;skupinách.
 
 > VAROVANIE: Funkcionalita modulu DSInternals nie je&nbsp;podporovaná firmou Microsoft a&nbsp;preto nie je&nbsp;určený pre&nbsp;produkčné nasadenie. Jeho nesprávne použitie môže spôsobiť nevratné poškodenie doménového kontroléru alebo negatívne ovplyvniť bezpečosť domény.
 
@@ -38,7 +38,7 @@ Výsledok môžeme overiť pohľadom do&nbsp;konzole Active Directory Users and&
 
 ![primary_group](../../assets/images/primary_group.png)
 
-Pri offline prístupe na&nbsp;disk (boot z&nbsp;flashky či&nbsp;pripojenie HDD/VHD do&nbsp;iného PC) samozrejme nie sú nutné príkazy na&nbsp;zastavenie a&nbsp;spustenie služby Active Directory Domain Services (ntds).
+Pri offline prístupe na&nbsp;disk (boot z&nbsp;flashky či&nbsp;pripojenie HDD/VHD do&nbsp;iného PC) samozrejme nie sú&nbsp;nutné príkazy na&nbsp;zastavenie a&nbsp;spustenie služby Active Directory Domain Services (ntds).
 
 Po nábehu&nbsp;služby ntds sa&nbsp;zmena členstva v&nbsp;skupinách automaticky zreplikuje na&nbsp;ostatné doménové kontroléry. Pokiaľ to&nbsp;nie je&nbsp;žiadúce chovanie, stačí spustiť príkaz Set-ADDBPrimaryGroup s&nbsp;prepínačom **-SkipMetaUpdate** a&nbsp;zmena ostane len&nbsp;na&nbsp;napadnutom DC. Zníži sa&nbsp;tým šanca na&nbsp;odhalenie útoku.
 

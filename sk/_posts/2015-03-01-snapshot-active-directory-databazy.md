@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 1071
 title: 'Ako na&nbsp;snapshoty Active Directory databázy'
 date: 2015-03-01T23:22:03+00:00
@@ -46,7 +46,7 @@ Navyše prebehne aj&nbsp;defragmentácia databázy a&nbsp;odzálohovanie registr
     - Súbor SECURITY – Registry hive obsahujúci vetvu HKLM\\Security
     - Súbor SYSTEM – Registry hive obsahujúci vetvu HKLM\\System.
 
-Registre sú súčasťou IFM zálohy preto,&nbsp;lebo&nbsp;hashe používateľských hesiel sú&nbsp;v&nbsp;databáze zasifrované pomocou tzv.&nbsp;SYSKEY/BOOTKEY, ktorý sa&nbsp;nachádza práve v&nbsp;registroch.
+Registre sú&nbsp;súčasťou IFM zálohy preto,&nbsp;lebo&nbsp;hashe používateľských hesiel sú&nbsp;v&nbsp;databáze zasifrované pomocou tzv.&nbsp;SYSKEY/BOOTKEY, ktorý sa&nbsp;nachádza práve v&nbsp;registroch.
 
 ## Použitie IFM zálohy
 

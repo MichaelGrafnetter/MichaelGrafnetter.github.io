@@ -20,4 +20,4 @@ tags:
 
 <!--more-->
 
-[![Svět bez hesel: Už tam budem?](/assets/images/cover/wug-passwordless.jpg)](https://wug.cz/zaznamy/677-WUG-Days-2020-Svet-bez-hesel-Uz-tam-budem)
+[![Svět bez hesel: Už&nbsp;tam budem?](/assets/images/cover/wug-passwordless.jpg)](https://wug.cz/zaznamy/677-WUG-Days-2020-Svet-bez-hesel-Uz-tam-budem)

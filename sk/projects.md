@@ -1,4 +1,4 @@
-﻿---
+---
 title: Projekty
 lang: sk
 ref: projects
@@ -51,7 +51,7 @@ Pred časom som vytvoril [ADMX šablónu](https://github.com/MichaelGrafnetter/y
 
 ### Elevácia oprávnení cez&nbsp;Windows Hello for&nbsp;Business
 
-V roku 2019 som objavil niekoľko nových vektorov útoku voči&nbsp;implementácii Windows Hello for&nbsp;Business v&nbsp;Active Directory. Výsledky môjho výskumu som prezentoval na&nbsp;konferencii Black Hat Europe, pričom [záznam prednášky](/sk/video-prednaska-black-hat-europe-2019/) aj&nbsp;[slajdy](/sk/slajdy-black-hat-europe-2019/) sú verejné dostupné.
+V roku 2019 som objavil niekoľko nových vektorov útoku voči&nbsp;implementácii Windows Hello for&nbsp;Business v&nbsp;Active Directory. Výsledky môjho výskumu som prezentoval na&nbsp;konferencii Black Hat Europe, pričom [záznam prednášky](/sk/video-prednaska-black-hat-europe-2019/) aj&nbsp;[slajdy](/sk/slajdy-black-hat-europe-2019/) sú&nbsp;verejné dostupné.
 
 ![NGC kľúče so&nbsp;zraniteľnosťou ROCA v&nbsp;Active Directory](/assets/images/roca.png)
 
@@ -64,7 +64,7 @@ Počas skúmania Windows Hello for&nbsp;Business som vyvinul aj&nbsp;nástroj na
 
 ![Auditovanie Auditing Shadow Credentials pomocou DSInternals](/assets/images/ngc_audit.png)
 
-Ak vie útočník upraviť tento atribút na&nbsp;nejakom účte, môže sa&nbsp;ako tento účet prihlásiť do&nbsp;AD cez&nbsp;protokol Kerberos PKINIT. To&nbsp;môže viesť buď k&nbsp;elevácii oprávnení, alebo k&nbsp;perzistencii. Vedľajším dôsledkom je, že je&nbsp;možné voči napadnutému účtu vykonať útok UnPAC-the-Hash a&nbsp;dostať sa&nbsp;tak k&nbsp;NT hashu používateľského hesla. Tento útok tak môžeme považovať za&nbsp;zacielený DCSync.
+Ak vie útočník upraviť tento atribút na&nbsp;nejakom účte, môže sa&nbsp;ako tento účet prihlásiť do&nbsp;AD cez&nbsp;protokol Kerberos PKINIT. To&nbsp;môže viesť buď k&nbsp;elevácii oprávnení, alebo k&nbsp;perzistencii. Vedľajším dôsledkom je, že&nbsp;je&nbsp;možné voči napadnutému účtu vykonať útok UnPAC-the-Hash a&nbsp;dostať sa&nbsp;tak k&nbsp;NT hashu používateľského hesla. Tento útok tak môžeme považovať za&nbsp;zacielený DCSync.
 
 Moje pôvodné zdrojové kódy si&nbsp;svojim životom žijú aj&nbsp;v&nbsp;týchto hackerských nástrojoch:
 - [KrbRelayUp](https://github.com/Dec0ne/KrbRelayUp)
@@ -74,7 +74,7 @@ Moje pôvodné zdrojové kódy si&nbsp;svojim životom žijú aj&nbsp;v&nbsp;tý
 
 ### Bezpečnostná zraniteľnosť v&nbsp;Azure AD Graph API
 
-V roku 2020 som náhodou zistil, že prostredníctvom Azure AD Graph API sú nedopatrením sprístupnené šifrovacie kľúče DPAPI všekých používateľov ostatným používateľom daného AAD tenantu cez&nbsp;atribút `searchableDeviceKey`. Túto zraniteľnosť som nahlásil Microsoftu, ktorý ju následne ošetril.
+V roku 2020 som náhodou zistil, že&nbsp;prostredníctvom Azure AD Graph API sú&nbsp;nedopatrením sprístupnené šifrovacie kľúče DPAPI všekých používateľov ostatným používateľom daného AAD tenantu cez&nbsp;atribút `searchableDeviceKey`. Túto zraniteľnosť som nahlásil Microsoftu, ktorý ju následne ošetril.
 
 ![Zobrazenie kľúčov DPAPI pomocou DSInternals](/assets/images/aad_dpapi.png)
 
@@ -92,4 +92,4 @@ Dávno pred tým, než existovala [oficiálna dokumentácia](https://learn.micro
 
 ![OrgIdHash](/assets/images/ps_orgidhash.png)
 
-V reakcii na&nbsp;moju spätnú väzbu zvýšil Microsoft počet iterácií SHA256 zo 100 na&nbsp;1000. A&nbsp;už deň po vydaní môjho článku bol do&nbsp;programu `hashcat`, populárneho nástroja na&nbsp;lámanie hesiel, pridaný [hash mode 12800 (MS-AzureSync PBKDF2-HMAC-SHA256)](https://hashcat.net/wiki/doku.php?id=example_hashes).
+V reakcii na&nbsp;moju spätnú väzbu zvýšil Microsoft počet iterácií SHA256 zo 100 na&nbsp;1000. A&nbsp;už&nbsp;deň po vydaní môjho článku bol do&nbsp;programu `hashcat`, populárneho nástroja na&nbsp;lámanie hesiel, pridaný [hash mode 12800 (MS-AzureSync PBKDF2-HMAC-SHA256)](https://hashcat.net/wiki/doku.php?id=example_hashes).

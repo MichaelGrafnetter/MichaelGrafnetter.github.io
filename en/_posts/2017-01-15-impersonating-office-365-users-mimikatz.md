@@ -16,7 +16,7 @@ tags:
 
 Last month, Microsoft has introduced a&nbsp;new feature of&nbsp;Azure AD Connect called [Single Sign On](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso). It&nbsp;allows companies to&nbsp;configure SSO between AD and&nbsp;AAD without the&nbsp;need to&nbsp;deploy [ADFS](https://learn.microsoft.com/en-us/windows-server/identity/active-directory-federation-services), which&nbsp;makes it&nbsp;an&nbsp;ideal solution for&nbsp;SMEs. Here is&nbsp;a&nbsp;high-level diagram of&nbsp;this&nbsp;functionality:
 
-![Azure AD Connect SSO Diagram](https://docs.microsoft.com/en-us/azure/active-directory/connect/media/active-directory-aadconnect-sso/sso2.png)
+![Azure AD Connect SSO Diagram](../../assets/images/aad_sso4.png)
 
 As we can see from&nbsp;the&nbsp;diagram above, Azure AD exposes a&nbsp;[publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are&nbsp;understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever&nbsp;you have Kerberos-based authentication, it&nbsp;can be&nbsp;attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
 

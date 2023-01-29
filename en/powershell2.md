@@ -1,4 +1,4 @@
-﻿---
+---
 ref: wug-powershell-ad-audit
 title: Active Directory Security Assessment with PowerShell
 date: 2023-01-29T00:00:00+00:00
@@ -8,7 +8,7 @@ permalink: /en/wug-powershell-ad-audit/
 sitemap: false
 ---
 
-## Generic Techniques
+## 1. Generic Techniques
 
 ### Event Logs
 
@@ -72,7 +72,7 @@ Get-ADUser -Filter { Enabled -eq $true -and ServicePrincipalNames -like '*' } `
 Issues
   - Requires Administrative permissions.
   - Requires Internet connectivity.
-  - Fails in many WSUS environments.
+  - Fails in&nbsp;many WSUS environments.
 
 ##### Import DLLs
 
@@ -82,7 +82,7 @@ Issues
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
 ```
 
-## PowerShell-Based Assessment Tools
+## 2. PowerShell-Based Assessment Tools
 
 ### Purple Knight
 
@@ -106,7 +106,7 @@ iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com
 - [PowerView GitHub](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
 - [PowerView Intro](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-enumeration-with-powerview)
 
-## DSInternals
+### DSInternals
 
 ```powershell
 Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
@@ -115,9 +115,9 @@ Get-ADReplAccount -All -Server dc.contoso.com |
     Test-PasswordQuality -WeakPasswords 'Pa$$w0rd','WUG2023','January2023'
 ```
 
-[Have I Been Pwned Passwords](https://haveibeenpwned.com/Passwords)
+[Have I&nbsp;Been Pwned Passwords](https://haveibeenpwned.com/Passwords)
 
-## Desired State Configuration (DSC)
+## 3. Desired State Configuration (DSC)
 
 ### DSC Intro
 
@@ -276,7 +276,7 @@ $results.ResourcesInDesiredState.ResourceId
 $results.ResourcesNotInDesiredState.ResourceId
 ```
 
-## Pester
+## 4. Pester
 
 ### DomainController.Tests.ps1
 

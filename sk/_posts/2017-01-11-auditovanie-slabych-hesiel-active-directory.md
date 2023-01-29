@@ -1,4 +1,4 @@
-﻿---
+---
 ref: finding-weak-active-directory-passwords
 title: 'Auditovanie slabých hesiel v&nbsp;Active Directory'
 date: 2017-01-11T22:21:00+00:00
@@ -17,7 +17,7 @@ Nedávno som spolupracoval so&nbsp;spoločnosťou [Thycotic](https://thycotic.co
 ![Screenshot 2](../../assets/images/scanner_screen03.png)
 ![Screenshot 3](../../assets/images/scanner_screen04.png)
 
-Výsledkom skenovania AD sú prehľadné manažérske reporty:
+Výsledkom skenovania AD sú&nbsp;prehľadné manažérske reporty:
 
 ![Report 1](../../assets/images/thycotic_report1.png)
 
