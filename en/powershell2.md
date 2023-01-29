@@ -4,41 +4,15 @@ title: Active Directory Security Assessment with PowerShell
 date: 2023-01-29T00:00:00+00:00
 layout: page
 lang: en
-permalink: /en/powershell2/
+permalink: /en/wug-powershell-ad-audit/
 sitemap: false
 ---
 
-## PowerShell-Based Assessment Tools
+## Generic Techniques
 
-### Purple Knight
+### Event Logs
 
-- [Purple Knight Web](https://www.purple-knight.com/)
-- [Security Indicators](https://www.purple-knight.com/security-indicators/)
-
-![](https://www.purple-knight.com/wp-content/uploads/images_screenshots/image-pk-home-step01find-768x614.png)
-
-### AD ACL Scanner
-
-[AD ACL Scanner GitHub](https://github.com/canix1/ADACLScanner)
-
-![](https://github.com/canix1/ADACLScanner/raw/master/src/ADACLScan7.0_Permission.png)
-
-![](https://github.com/canix1/ADACLScanner/raw/master/src/ADACLScan6.0.png)
-
-![](https://github.com/canix1/ADACLScanner/raw/master/src/effectiverights.gif)
-
-### PowerView
-- [PowerView GitHub](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
-- [PowerView Intro](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-enumeration-with-powerview)
-
-## Password Quality
-
-```powershell
-Install-Module -Name DSInternals -Force
-Get-ADReplAccount -All -Server dc.contoso.com |
-    Test-PasswordQuality -WeakPasswords 'Pa$$w0rd','Cqure2022','October2022'
-```
-## Event Logs
+#### Get-EventLog Cmdlet
 
 ```powershell
 Get-EventLog -ComputerName localhost -After ([DateTime]::Today) -LogName System -Source 'Service Control Manager' |
@@ -47,7 +21,11 @@ Get-EventLog -ComputerName localhost -After ([DateTime]::Today) -LogName System 
                             @{ n='Time'; e={$PSItem.TimeGenerated}},
                             @{ n='ServiceName'; e = {$PSItem.ReplacementStrings[0]} },
                             @{ n='State'; e = {$PSItem.ReplacementStrings[1]}}
+```
 
+#### Get-WinEvent Cmdlet
+
+```powershell
 Get-WinEvent -ComputerName localhost -FilterHashtable @{
     LogName = 'System'
     ProviderName = 'Service Control Manager'
@@ -65,10 +43,85 @@ Get-WinEvent -ComputerName localhost -FilterHashtable @{
     Out-GridView
 ```
 
+### ActiveDirectory PowerShell Module
+
+#### Stale Accounts
+
+```powershell
+$3monthsAgo = (Get-Date).AddMonths(-3)
+Get-ADUser -Filter { Enabled -eq $true -and (LastLogonDate -lt $3monthsAgo -or LastLogonDate -notlike '*') } `
+           -Properties LastLogonDate,PasswordLastSet |
+    Sort-Object -Property LastLogonDate |
+    Format-Table -Property Name,SamAccountName,LastLogonDate,PasswordLastSet
+```
+
+#### Kerberos-Enabled Accounts
+
+```powershell
+Get-ADUser -Filter { Enabled -eq $true -and ServicePrincipalNames -like '*' } `
+           -Properties ServicePrincipalNames,UseDESKeyOnly,KerberosEncryptionType |
+    Format-Table -Property SamAccountName,ServicePrincipalNames,KerberosEncryptionType,UseDESKeyOnly
+```
+
+#### Module Installation
+
+##### Windows Optional Feature
+
+![Optional Features List](/assets/images/optional_features.png)
+
+Issues
+  - Requires Administrative permissions.
+  - Requires Internet connectivity.
+  - Fails in many WSUS environments.
+
+##### Import DLLs
+
+[Nikhil Mittal's AD Module Clone](https://github.com/samratashok/ADModule)
+
+```powershell
+iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
+```
+
+## PowerShell-Based Assessment Tools
+
+### Purple Knight
+
+- [Purple Knight Web](https://www.purple-knight.com/)
+- [Security Indicators](https://www.purple-knight.com/security-indicators/)
+- [Direct Download](https://www.purple-knight.com/resources/)
+
+![](https://www.purple-knight.com/wp-content/uploads/images_screenshots/image-pk-home-step01find-768x614.png)
+
+### AD ACL Scanner
+
+[AD ACL Scanner GitHub](https://github.com/canix1/ADACLScanner)
+
+![](https://github.com/canix1/ADACLScanner/raw/master/src/ADACLScan7.0_Permission.png)
+
+![](https://github.com/canix1/ADACLScanner/raw/master/src/ADACLScan6.0.png)
+
+![](https://github.com/canix1/ADACLScanner/raw/master/src/effectiverights.gif)
+
+### PowerView
+- [PowerView GitHub](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
+- [PowerView Intro](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-enumeration-with-powerview)
+
+## DSInternals
+
+```powershell
+Install-PackageProvider -Name NuGet -Scope CurrentUser -Force
+Install-Module -Name DSInternals -Scope CurrentUser -Force
+Get-ADReplAccount -All -Server dc.contoso.com |
+    Test-PasswordQuality -WeakPasswords 'Pa$$w0rd','WUG2023','January2023'
+```
+
+[Have I Been Pwned Passwords](https://haveibeenpwned.com/Passwords)
+
 ## Desired State Configuration (DSC)
 
 ### DSC Intro
 
+Referenced Resources
 - [NetworkingDsc](https://www.powershellgallery.com/packages/NetworkingDsc)
 - [LAPS](https://www.microsoft.com/en-us/download/details.aspx?id=46899)
 - [SecurityPolicyDsc](https://www.powershellgallery.com/packages/SecurityPolicyDsc/)
@@ -142,17 +195,10 @@ Configuration WindowsServerSecurityBaseline
             DefaultInboundAction = 'Block'
         }
 
-        UserRightsAssignment RDPPermissions_DomainUsers
+        UserRightsAssignment RDPPermissions_ExcludeUsers
         {
             Policy = 'Allow_log_on_through_Remote_Desktop_Services'
-            Identity = 'Domain Users'
-            Ensure = 'Absent'
-        }
-
-        UserRightsAssignment RDPPermissions_AuthUsers
-        {
-            Policy = 'Allow_log_on_through_Remote_Desktop_Services'
-            Identity = 'Authenticated Users'
+            Identity = 'Domain Users','Authenticated Users'
             Ensure = 'Absent'
         }
     }
@@ -168,10 +214,20 @@ Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbo
 ```
 
 ### Security Baseline Tooling
-- [BaselineManagement](https://www.powershellgallery.com/packages/BaselineManagement)
-- [Microsoft Security Compliance Manager 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=53353)
 - [Microsoft Security Compliance Toolkit 1.0 ](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
+- [Microsoft Security Compliance Manager 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=53353)
 - [Quickstart: Convert Group Policy into DSC](https://learn.microsoft.com/en-us/powershell/dsc/quickstarts/gpo-quickstart)
+- [BaselineManagement](https://www.powershellgallery.com/packages/BaselineManagement)
+
+![Policy Viewer](https://techcommunity.microsoft.com/t5/image/serverpage/image-id/119320i7FDC58E883D5F3BA)
+
+```powershell
+Install-PackageProvider -Name NuGet -Scope AllUsers -Force
+Install-Module -Name BaselineManagement -Scope AllUsers -Force
+Update-Module -Force -Verbose
+Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192 -Force
+ConvertFrom-GPO -Path 'C:\Users\Admin\Downloads\Windows-11-v22H2-Security-Baseline\GPOs\' -OutputConfigurationScript
+```
 
 ### Center for&nbsp;Internet Security (CIS) Benchmarks
 - [CIS Benchmarks](https://www.cisecurity.org/benchmark/microsoft_windows_server)
@@ -183,9 +239,46 @@ Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbo
 - [Windows Server 2019 STIG](https://www.stigviewer.com/stig/windows_server_2019/)
 - [PowerSTIG](https://github.com/microsoft/PowerStig)
 
+```powershell
+Install-Module -Name PowerStig -Scope AllUsers -Force
+Get-Stig -ListAvailable | Format-Table
+Set-Item -Path WSMan:\localhost\MaxEnvelopeSizekb -Value 8192 -Force
+
+Configuration DnsServerBaseline
+{
+    param
+    (
+        [parameter()]
+        [string]
+        $NodeName = 'localhost'
+    )
+
+    Import-DscResource -ModuleName PowerStig
+
+    Node $NodeName
+    {
+        WindowsDnsServer DnsSettings
+        {
+            OsVersion   = '2012R2'
+            StigVersion = '2.5'
+            DomainName  = 'contoso.com'
+            ForestName  = 'contoso.com'
+            Exception   = @{"V-58697.a"=@{'Identity'='Administrators,DnsAdministrators'}}
+        }
+    }
+}
+
+DnsServerBaseline -OutputPath .
+
+$results = Test-DscConfiguration -Path .\DnsServerBaseline -Verbose
+$results
+$results.ResourcesInDesiredState.ResourceId
+$results.ResourcesNotInDesiredState.ResourceId
+```
+
 ## Pester
 
-### Tests #1
+### DomainController.Tests.ps1
 
 ```powershell
 <#
@@ -196,19 +289,25 @@ Invokes DC tests using Pester.
 
 #Requires -Version 5 -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.0' }
 
-Describe 'Domain Controllers' {
+Param(
+    [Parameter(Mandatory = $false)]
+    [ValidateNotNullOrEmpty()]
+    [string] $DCName = 'localhost'
+)
+
+Describe 'Domain Controller' {
     Context 'Print Spooler Service' {
         BeforeAll {
             Add-Type -AssemblyName System.ServiceProcess
         }
         It 'Print Spooler should be disabled' {
-            Get-Service -Name Spooler -ComputerName dc -ErrorAction Stop |
+            Get-Service -Name Spooler -ComputerName $DCName -ErrorAction Stop |
                 Select-Object -ExpandProperty StartType |
                 Should -Be ([System.ServiceProcess.ServiceStartMode]::Disabled)
         }
 
         It 'Print Spooler should be stopped' {
-            Get-Service -Name Spooler -ComputerName dc -ErrorAction Stop |
+            Get-Service -Name Spooler -ComputerName $DCName -ErrorAction Stop |
                 Select-Object -ExpandProperty Status |
                 Should -Be ([System.ServiceProcess.ServiceControllerStatus]::Stopped)
         }
@@ -222,13 +321,13 @@ Describe 'Domain Controllers' {
         }
 
         It 'Server DC should be pingable' {
-            Test-Connection -ComputerName dc -Quiet -Count 1 | Should -BeTrue
+            Test-Connection -ComputerName $DCName -Quiet -Count 1 | Should -BeTrue
         }
 
         It '<Service> (TCP port <Port>) should be reachable on DC' -TestCases $ports {
             param([int] $Port, [string] $Service)
 
-            Test-NetConnection -Port $Port -ComputerName DC |
+            Test-NetConnection -Port $Port -ComputerName $DCName |
                 Select-Object -ExpandProperty TcpTestSucceeded |
                 Should -BeTrue
         }
@@ -236,7 +335,7 @@ Describe 'Domain Controllers' {
 }
 ```
 
-### Tests #2
+### ADGroups.Tests.ps1
 
 ```powershell
 <#
@@ -269,9 +368,13 @@ Describe 'Group Membership' {
 
 ### Test Runner
 
+#### Basic
+
 ```powershell
 Invoke-Pester -Path .\Tests\ -Output Detailed
 ```
+
+#### Run.ps1
 
 ```powershell
 <#

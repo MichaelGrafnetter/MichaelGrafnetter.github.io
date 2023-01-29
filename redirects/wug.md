@@ -1,5 +1,5 @@
 ---
 permalink: /wug
-redirect_to: /en/powershell2
+redirect_to: /en/wug-powershell-ad-audit
 sitemap: false
 ---
