@@ -30,6 +30,6 @@ Of course, you can also drill down through the&nbsp;detailed data:
 
 Here is&nbsp;a&nbsp;quick demo of&nbsp;the&nbsp;tool:
 
-<iframe allowfullscreen="allowfullscreen" frameborder="0" height="281" mozallowfullscreen="mozallowfullscreen" src="https://player.vimeo.com/video/197521549" title="Weak Password Finder Demo" webkitallowfullscreen="webkitallowfullscreen" width="500"></iframe>
+{% include vimeo.html id="197521549" title="Weak Password Finder Demo" %}
 
 Did I&nbsp;mention that&nbsp;the&nbsp;[Weak Password Finder](https://thycotic.com/solutions/free-it-tools/weak-password-finder/weak-password-finder-nvlss/) is&nbsp;totally free?

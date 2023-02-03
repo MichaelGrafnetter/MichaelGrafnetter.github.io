@@ -29,6 +29,6 @@ Správcovia siete potom môžu analyzovať podrobné výsledky:
 
 Tu je&nbsp;krátke video demonštrujúce funkcionalitu programu:
 
-<iframe allowfullscreen="allowfullscreen" frameborder="0" height="281" mozallowfullscreen="mozallowfullscreen" src="https://player.vimeo.com/video/197521549" title="Weak Password Finder Demo" webkitallowfullscreen="webkitallowfullscreen" width="500"></iframe>
+{% include vimeo.html id="197521549" title="Weak Password Finder Demo" %}
 
 A&nbsp;čo je&nbsp;najlepšie, [Weak Password Finder](https://thycotic.com/solutions/free-it-tools/weak-password-finder/weak-password-finder-nvlss/) je&nbsp;dostupný úplne zadarmo.
