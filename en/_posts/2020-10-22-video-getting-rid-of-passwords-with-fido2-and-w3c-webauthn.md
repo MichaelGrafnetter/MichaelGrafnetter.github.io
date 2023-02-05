@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-webauthn
 title: 'Video: Getting Rid of&nbsp;Passwords with&nbsp;FIDO2 and&nbsp;W3C WebAuthn'
 date: '2020-10-22T00:00:00+00:00'

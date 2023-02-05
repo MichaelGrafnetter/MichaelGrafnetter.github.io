@@ -1,4 +1,4 @@
-﻿---
+---
 ref: esent-workbench
 title: 'Pohľad do&nbsp;Active Directory databázy'
 date: 2015-06-02T11:45:41+00:00

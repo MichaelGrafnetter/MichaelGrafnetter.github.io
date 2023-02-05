@@ -1,4 +1,4 @@
-﻿---
+---
 ref: active-directory-expiring-links
 title: 'Expirácia Linkov v&nbsp;Active Directory'
 date: 2016-04-03T07:00:47+00:00

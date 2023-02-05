@@ -1,4 +1,4 @@
-﻿---
+---
 title: Projects
 lang: en
 ref: projects

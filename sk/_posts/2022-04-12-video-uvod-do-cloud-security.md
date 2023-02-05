@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-uvod-do-cloud-security
 title: 'Video: Úvod do&nbsp;Cloud Security'
 date: '2022-04-12T00:00:00+00:00'

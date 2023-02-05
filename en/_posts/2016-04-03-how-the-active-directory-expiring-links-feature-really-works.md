@@ -1,4 +1,4 @@
-﻿---
+---
 ref: active-directory-expiring-links
 title: 'How the&nbsp;Active Directory Expiring Links Feature Really Works'
 date: 2016-04-03T07:00:53+00:00

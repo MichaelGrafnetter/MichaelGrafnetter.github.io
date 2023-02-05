@@ -1,4 +1,4 @@
-﻿---
+---
 ref: powershell-security
 title: PowerShell Security
 date: 2017-09-17T11:06:03+00:00

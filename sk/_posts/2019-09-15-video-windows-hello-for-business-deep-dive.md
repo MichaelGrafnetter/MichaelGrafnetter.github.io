@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-windows-hello-for-business-deep-dive
 title: 'Video: Windows Hello for&nbsp;Business Deep-Dive'
 date: '2019-09-15T00:00:00+00:00'

@@ -1,4 +1,4 @@
-﻿---
+---
 ref: dumping-ntds-dit-files
 title: 'Dumping the&nbsp;contents of&nbsp;ntds.dit files using PowerShell'
 date: 2015-10-20T18:20:18+00:00

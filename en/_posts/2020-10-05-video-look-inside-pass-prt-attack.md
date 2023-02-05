@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-pass-the-prt-attack
 title: 'Video: A&nbsp;Look Inside a&nbsp;Pass-the-PRT Attack'
 date: '2020-10-05T00:00:00+00:00'

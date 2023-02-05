@@ -1,4 +1,4 @@
-﻿---
+---
 ref: retrieving-cleartext-gmsa-passwords
 title: 'Získanie hesla GMSA účtu z&nbsp;AD'
 date: 2015-12-28T14:54:42+00:00

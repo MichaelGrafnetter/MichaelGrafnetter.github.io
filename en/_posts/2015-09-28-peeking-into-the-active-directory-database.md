@@ -1,4 +1,4 @@
-﻿---
+---
 ref: esent-workbench
 title: 'Peeking into the&nbsp;Active Directory Database'
 date: 2015-09-28T21:32:07+00:00

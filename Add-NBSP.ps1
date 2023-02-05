@@ -131,5 +131,6 @@ Get-ChildItem -Path $PSScriptRoot -Filter *.md -File -Recurse | ForEach-Object {
         $line
     }
 
-    Set-Content -Path $PSItem.FullName -Value $newContent -Encoding UTF8 -Verbose -Force
+    $utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
+    [System.IO.File]::WriteAllLines($PSItem.FullName, $newContent, $utf8NoBomEncoding)
 }

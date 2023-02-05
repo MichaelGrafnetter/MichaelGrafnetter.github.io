@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 861
 title: 'Účet Administrator a&nbsp;DCPromo'
 date: 2015-01-24T22:02:30+00:00

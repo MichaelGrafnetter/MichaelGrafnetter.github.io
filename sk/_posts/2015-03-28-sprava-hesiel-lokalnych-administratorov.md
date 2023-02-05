@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 2211
 title: Správa hesiel lokálnych administrátorov
 date: 2015-03-28T14:18:20+00:00

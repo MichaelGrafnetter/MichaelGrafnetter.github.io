@@ -1,4 +1,4 @@
-﻿---
+---
 ref: retrieving-active-directory-passwords-remotely
 title: Retrieving Active Directory Passwords Remotely
 date: 2015-08-04T10:38:08+00:00

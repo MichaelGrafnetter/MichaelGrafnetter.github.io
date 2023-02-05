@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-offline-attacks-on-active-directory
 title: 'Video: Offline útoky na&nbsp;Active Directory'
 date: '2019-09-19T08:55:27+00:00'

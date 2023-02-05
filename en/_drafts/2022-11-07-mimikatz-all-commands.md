@@ -1,4 +1,4 @@
-﻿---
+---
 ref: mimikatz-all-commands
 title: 🥝 The Ultimate List of Mimikatz Commands
 date: '2022-11-07T00:00:00+00:00'

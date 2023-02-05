@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 6661
 title: 'Video: Novinky v&nbsp;PowerShell 5'
 date: 2015-12-27T23:29:07+00:00

@@ -1,4 +1,4 @@
-﻿---
+---
 ref: finding-weak-active-directory-passwords
 title: Finding Weak Active Directory Passwords
 date: 2017-01-11T21:43:55+00:00

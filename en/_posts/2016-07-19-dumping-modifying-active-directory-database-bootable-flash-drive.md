@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 7611
 title: 'Dumping and&nbsp;Modifying Active Directory Database Using a&nbsp;Bootable Flash Drive'
 date: 2016-07-19T15:18:36+00:00

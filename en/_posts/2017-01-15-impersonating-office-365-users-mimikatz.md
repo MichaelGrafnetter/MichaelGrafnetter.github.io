@@ -1,4 +1,4 @@
-﻿---
+---
 ref: impersonating
 title: Impersonating Office 365 Users With&nbsp;Mimikatz
 date: 2017-01-15T19:35:43+00:00

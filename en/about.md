@@ -1,4 +1,4 @@
-﻿---
+---
 title: About
 lang: en
 ref: about

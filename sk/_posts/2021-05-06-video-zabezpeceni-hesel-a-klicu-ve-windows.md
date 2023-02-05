@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-zabezpecenie-hesiel-a-klucov-vo-windows
 title: 'Video: Zabezpečenie hesiel a&nbsp;šifrovacích kľúčov vo&nbsp;Windows'
 date: '2021-05-06T00:00:00+00:00'

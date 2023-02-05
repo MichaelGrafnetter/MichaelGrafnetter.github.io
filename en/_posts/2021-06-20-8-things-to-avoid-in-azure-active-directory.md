@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 8-things-avoid-azure-active-directory
 title: 8 Things to&nbsp;Avoid in&nbsp;Azure Active Directory
 date: '2021-06-20T00:00:00+00:00'

@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 9688
 title: 'Cross-Forest Duplicate Password Discovery'
 date: '2020-03-24T22:51:17+00:00'

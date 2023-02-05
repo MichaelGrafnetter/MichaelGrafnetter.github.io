@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-black-hat-europe-2019-talk
 title: 'Video: Exploitácia Windows Hello for&nbsp;Business'
 date: '2019-12-22T11:36:26+00:00'

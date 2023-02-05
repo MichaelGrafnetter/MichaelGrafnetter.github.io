@@ -1,4 +1,4 @@
-﻿---
+---
 ref: dpapi-backup-keys
 title: 'Retrieving DPAPI Backup Keys from&nbsp;Active Directory'
 date: 2015-10-26T22:51:00+00:00

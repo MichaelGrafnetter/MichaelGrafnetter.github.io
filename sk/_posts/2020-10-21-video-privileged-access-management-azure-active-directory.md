@@ -1,4 +1,4 @@
-﻿---
+---
 ref: video-privileged-access-management-azure-active-directory
 title: 'Video: Privileged Access Management v&nbsp;(Azure) Active Directory'
 date: '2020-10-21T00:00:00+00:00'

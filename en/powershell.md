@@ -1,4 +1,4 @@
-﻿---
+---
 ref: cmap-powershell
 title: CMAP Module 10 - Empowering the PowerShell
 date: 2022-10-25T00:00:00+00:00

@@ -1,4 +1,4 @@
-﻿---
+---
 ref: 6621
 title: 'Video: Pass-the-Hash útoky a&nbsp;obrana proti nim'
 date: 2015-12-27T23:24:21+00:00
