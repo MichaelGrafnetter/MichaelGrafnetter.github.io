@@ -16,7 +16,7 @@ layout: default
         </span>
         <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
         {% if site.show_excerpts -%}
-          {{ post.excerpt }}
+          {{ post.excerpt | replace: "<h2", "<h3" | replace: "</h2>", "</h3>" }}
           {% if post.content.size > post.excerpt.size -%}
             <a href="{{ post.url | relative_url }}">
               {%- if page.lang == 'en' -%}

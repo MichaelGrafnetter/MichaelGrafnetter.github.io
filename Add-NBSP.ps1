@@ -10,6 +10,7 @@
     'is',
     'and',
     'but',
+    'can',
     'nor',
     'for',
     'yet',
