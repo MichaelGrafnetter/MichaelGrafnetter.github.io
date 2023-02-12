@@ -24,7 +24,7 @@ Although not officially supported, it&nbsp;is&nbsp;also possible to&nbsp;use Cla
 
 ![Claims X-Ray Application Registration Screenshot](/assets/images/claims-xray-registration.png) 
 
-As Microsoft is [pushing Azure AD customers to migrate applications from ADFS to AAD](https://learn.microsoft.com/en-us/azure/active-directory/reports-monitoring/recommendation-migrate-apps-from-adfs-to-azure-ad), this utility might become more useful than ever.
+As Microsoft is&nbsp;[pushing Azure AD customers to&nbsp;migrate applications from&nbsp;ADFS to&nbsp;AAD](https://learn.microsoft.com/en-us/azure/active-directory/reports-monitoring/recommendation-migrate-apps-from-adfs-to-azure-ad), this&nbsp;utility might become more useful than&nbsp;ever.
 
 Claims X-Ray app registration through the&nbsp;[Azure AD Portal](https://aad.portal.azure.com) is&nbsp;[pretty straightforward](https://tristanwatkins.com/start-using-claims-x-ray-with-azure-ad/). But&nbsp;what is&nbsp;more challenging, is&nbsp;
 doing the&nbsp;entire configuration with
@@ -67,6 +67,7 @@ We are&nbsp;now&nbsp;ready to&nbsp;register the&nbsp;Claims X-Ray application in
                      -Description $appDescription `
                      -Web @{RedirectUris = $redirectUrl } `
                      -DefaultRedirectUri $redirectUrl `
+                     -GroupMembershipClaims All `
                      -Info $infoUrls
 ```
 <!--more-->
@@ -223,7 +224,7 @@ Here is&nbsp;how the&nbsp;change will show up in&nbsp;the&nbsp;UI:
 ![Optional Claims Screenshot](/assets/images/claims-xray-optional-claims.png)
 
 Contrary to&nbsp;[what the&nbsp;documentation says](
-https://learn.microsoft.com/en-us/azure/active-directory/develop/active-directory-saml-claims-customization#add-the-upn-claim-to-saml-tokens), the&nbsp;`email` and&nbsp;`upn` do&nbsp;not need to&nbsp;be&nbsp;configured here to&nbsp;appear in&nbsp;SAML tokens.
+https://learn.microsoft.com/en-us/azure/active-directory/develop/active-directory-saml-claims-customization#add-the-upn-claim-to-saml-tokens), the&nbsp;`email` and&nbsp;`upn` do&nbsp;not need to&nbsp;be&nbsp;configured here to&nbsp;appear in&nbsp;SAML tokens. Even&nbsp;the&nbsp;`groups` claim does not need to&nbsp;be&nbsp;specified if&nbsp;the&nbsp;default group identifier settings are&nbsp;sufficient.
 
 It is&nbsp;also possible to&nbsp;define custom SAML claims for&nbsp;an&nbsp;application:
 
@@ -382,7 +383,7 @@ Start-Process ('https://myapps.microsoft.com/signin/{0}?tenantId={1}' -f $servic
 - Unlike production applications, the&nbsp;Claims X-Ray does not validate the&nbsp;**token-signing certificates**.
 - This&nbsp;article does not cover the&nbsp;assignment of&nbsp;a&nbsp;**Conditional Access Policy**, which&nbsp;could enforce MFA.
 
-## Listing the&nbsp;New Objects
+## Fetching the&nbsp;New Objects
 
 This is&nbsp;how we can&nbsp;list all Azure AD objects created by&nbsp;the&nbsp;PowerShell commands above:
 
@@ -426,6 +427,7 @@ Connect-MgGraph -Scopes @(
                      -Description $appDescription `
                      -Web @{RedirectUris = $redirectUrl } `
                      -DefaultRedirectUri $redirectUrl `
+                     -GroupMembershipClaims All `
                      -Info $infoUrls
 
 Update-MgApplication -ApplicationId $registeredApp.Id `
@@ -609,5 +611,6 @@ Update-MgApplication -ApplicationId $registeredApp.Id -OptionalClaims $optionalC
 New-MgServicePrincipalClaimMappingPolicyByRef -ServicePrincipalId $servicePrincipal.Id -OdataId "https://graph.microsoft.com/v1.0/policies/claimsMappingPolicies/$($allClaimsPolicy.Id)"
 
 # Open the Claims X-Ray app in a browser
+# Note that it might take a minute for the application to become accessible.
 Start-Process ('https://myapps.microsoft.com/signin/{0}?tenantId={1}' -f $servicePrincipal.AppId,$servicePrincipal.AppOwnerOrganizationId)
 ```
