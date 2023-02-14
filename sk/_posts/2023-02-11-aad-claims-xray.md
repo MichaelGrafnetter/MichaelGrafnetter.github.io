@@ -8,8 +8,6 @@ image: /assets/images/claims-xray-claims.png
 permalink: /sk/azure-ad-claims-xray-powershell-microsoft-graph-api/
 ---
 
-## Introduction
-
 *[ADFS]: Active Directory Federation Services
 *[SAML]: Security Assertion Markup Language
 *[AAD]: Azure Active Directory
