@@ -1,0 +1,60 @@
+---
+ref: list
+layout: page
+title: "List of Articles"
+permalink: /list/
+lang: en
+sitemap: false
+---
+
+<h2>Posts</h2>
+<table>
+  <thead>
+    <th>Title</th>
+    <th>Date</th>
+    <th>Lang</th>
+    <th>Image</th>
+  </thead>
+  <tbody>
+    {% assign posts = site.posts %}
+    {%- if posts.size > 0 -%}
+      {%- for post in posts %}
+        <tr>
+          <td><a href="{{ post.url | relative_url }}">{{ post.title }}</a></time></td>
+          <td><time datetime="{{ post.date | date_to_xmlschema }}">{% include date.html date=post.date %}</time></td>
+          <td>
+            {%-
+              assign translations = site.posts
+                | where:"ref", post.ref
+                | sort: 'lang'
+            -%}
+            {%- for translation in translations -%}
+            <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url }}">{{ translation.lang | upcase }}</a>
+            {%- endfor -%}
+          </td>
+          <td><img src="{{ post.image }}"></td>
+        </tr>
+      {%- endfor %}
+    {%- endif %}
+  </tbody>
+</table>
+
+<h2>Pages</h2>
+<table>
+  <thead>
+    <th>Title</th>
+    <th>Image</th>
+  </thead>
+  <tbody>
+    {% assign pageRefs = "projects,videos,blog,about" | split:"," %}
+    {% assign pages = site.pages | where_exp:"item", "pageRefs contains item.ref" %}
+    {%- if pages.size > 0 -%}
+      {%- for xpage in pages %}
+        <tr>
+          <td><a href="{{ xpage.url | relative_url }}">{{ xpage.title }}</a></time></td>
+          <td><img src="{{ xpage.image }}"></td>
+        </tr>
+      {%- endfor %}
+    {%- endif %}
+  </tbody>
+</table>

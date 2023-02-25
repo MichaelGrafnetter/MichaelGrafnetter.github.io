@@ -3,6 +3,7 @@ title: Projekty
 lang: sk
 ref: projects
 permalink: /sk/projekty/
+image: /assets/images/dsinternals_password_quality.png
 fa_class: fas fa-download
 ---
 

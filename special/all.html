@@ -1,28 +1,38 @@
 ---
 ref: all
-layout: default
-title: "All Articles"
+layout: page
+title: "Site Content"
 permalink: /all/
 lang: en
 sitemap: false
 ---
 
-<div class="home">
-  <h1 class="page-heading">Directory Services Internals {{ page.title }}</h1>
-  {% assign posts = site.posts %}
-  {%- if posts.size > 0 -%}
-    <ul class="post-list">
-      {%- for post in posts %}
-      <li>
-        <span class="post-meta">
-          <time class="dt-published" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
-            <i class="fas fa-calendar"></i>&nbsp;{%- include date.html date=post.date -%}
-          </time>
-        </span>
-        <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-        {{ post.content }}
-      </li>
-      {%- endfor %}
-    </ul>
-  {%- endif %}
-</div>
+{% assign pageRefs = "projects,about" | split:"," %}
+{% assign pages = site.pages | where_exp:"item", "pageRefs contains item.ref" %}
+{%- if pages.size > 0 -%}
+  <ul class="post-list">
+    {%- for xpage in pages %}
+    <li>
+      <h2><a class="post-link" href="{{ xpage.url | relative_url }}">{{ xpage.title }}</a></h2>
+      {{ xpage.content | markdownify }}
+    </li>
+    {%- endfor %}
+  </ul>
+{%- endif %}
+
+{% assign posts = site.posts %}
+{%- if posts.size > 0 -%}
+  <ul class="post-list">
+    {%- for post in posts %}
+    <li>
+      <span class="post-meta">
+        <time class="dt-published" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+          <i class="fas fa-calendar"></i>&nbsp;{%- include date.html date=post.date -%}
+        </time>
+      </span>
+      <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      {{ post.content }}
+    </li>
+    {%- endfor %}
+  </ul>
+{%- endif %}

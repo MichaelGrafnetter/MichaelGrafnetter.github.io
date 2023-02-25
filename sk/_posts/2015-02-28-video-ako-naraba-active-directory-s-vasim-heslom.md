@@ -1,5 +1,5 @@
 ---
-ref: 1471
+ref: video-active-directory-database-security
 title: 'Video: Ako Active Directory narába s&nbsp;Vaším heslom'
 date: 2015-02-28T12:05:44+00:00
 layout: post

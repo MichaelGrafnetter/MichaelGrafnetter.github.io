@@ -3,6 +3,7 @@ title: Projects
 lang: en
 ref: projects
 permalink: /en/projects/
+image: /assets/images/dsinternals_password_quality.png
 fa_class: fas fa-download
 ---
 
