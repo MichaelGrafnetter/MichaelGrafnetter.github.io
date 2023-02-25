@@ -13,7 +13,7 @@ fa_class: fas fa-download
 
 The [DSInternals PowerShell Module](https://www.powershellgallery.com/packages/DSInternals) exposes several internal features of&nbsp;Active Directory and&nbsp;Azure Active Directory. These include [FIDO2 and&nbsp;NGC key auditing](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#get-azureaduserex), [offline ntds.dit file manipulation](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-offline-active-directory-operations), [password auditing](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), [DC recovery from&nbsp;IFM backups](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/New-ADDBRestoreFromMediaScript.md#new-addbrestorefrommediascript), and&nbsp;[password hash calculation](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-password-hash-calculation).
 
-The most popular feature of&nbsp;DSInternals is&nbsp;probably the&nbsp;[Test-PasswordQuality cmdlet](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), which&nbsp;can check Active Directory passwords against the&nbsp;list of&nbsp;leaked passwords published at [Have I&nbsp;Been Pwned (HIBP)](https://haveibeenpwned.com/):
+The most popular feature of&nbsp;DSInternals is&nbsp;probably the&nbsp;[Test-PasswordQuality cmdlet](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), which&nbsp;can&nbsp;check Active Directory passwords against the&nbsp;list of&nbsp;leaked passwords published at [Have I&nbsp;Been Pwned (HIBP)](https://haveibeenpwned.com/):
 
 ![Sample Test-PasswordQuality output](/assets/images/dsinternals_password_quality.png)
 
@@ -45,7 +45,7 @@ As part of&nbsp;a&nbsp;cooperation with&nbsp;[Thycotic](https://thycotic.com/), 
 
 ## Administrative Template (ADMX) for&nbsp;YubiKey Smart Card Minidriver
 
-I have created [this ADMX administrative template](https://github.com/MichaelGrafnetter/yubikey-minidriver-admx) that&nbsp;allows administrators to&nbsp;easily deploy the&nbsp;configuration of&nbsp;the&nbsp;[YubiKey Smart Card Minidriver](https://www.yubico.com/products/services-software/download/smart-card-drivers-tools/) through&nbsp;the&nbsp;Active Directory Group Policy. It&nbsp;can also be&nbsp;used on standalone computers to&nbsp;unlock some&nbsp;features of&nbsp;the&nbsp;YubiKey Minidriver that&nbsp;are&nbsp;disabled by&nbsp;default, like controlling the&nbsp;touch policy or&nbsp;blocking the&nbsp;generation of&nbsp;unsafe keys (ROCA).
+I have created [this ADMX administrative template](https://github.com/MichaelGrafnetter/yubikey-minidriver-admx) that&nbsp;allows administrators to&nbsp;easily deploy the&nbsp;configuration of&nbsp;the&nbsp;[YubiKey Smart Card Minidriver](https://www.yubico.com/products/services-software/download/smart-card-drivers-tools/) through&nbsp;the&nbsp;Active Directory Group Policy. It&nbsp;can&nbsp;also be&nbsp;used on standalone computers to&nbsp;unlock some&nbsp;features of&nbsp;the&nbsp;YubiKey Minidriver that&nbsp;are&nbsp;disabled by&nbsp;default, like controlling the&nbsp;touch policy or&nbsp;blocking the&nbsp;generation of&nbsp;unsafe keys (ROCA).
 
 ![Group Policy Editor Screenshot](/assets/images/yubikey-admx.png)
 
@@ -65,7 +65,7 @@ As part of&nbsp;my research of&nbsp;Windows Hello for&nbsp;Business internals, I
 
 ![Auditing Shadow Credentials using DSInternals](/assets/images/ngc_audit.png)
 
-If an&nbsp;attacker can modify this&nbsp;attribute of&nbsp;an&nbsp;account, they can&nbsp;impersonate it&nbsp;through Kerberos PKINIT. This&nbsp;can lead to&nbsp;either privilege escalation or&nbsp;persistence. As&nbsp;a&nbsp;side-effect, UnPAC-the-Hash attack can also be&nbsp;performed against the&nbsp;target account, leading to&nbsp;the&nbsp;exposure of&nbsp;its NT hash. Some&nbsp;thus call it&nbsp;a&nbsp;targeted DCSync attack.
+If an&nbsp;attacker can&nbsp;modify this&nbsp;attribute of&nbsp;an&nbsp;account, they can&nbsp;impersonate it&nbsp;through Kerberos PKINIT. This&nbsp;can&nbsp;lead to&nbsp;either privilege escalation or&nbsp;persistence. As&nbsp;a&nbsp;side-effect, UnPAC-the-Hash attack can&nbsp;also be&nbsp;performed against the&nbsp;target account, leading to&nbsp;the&nbsp;exposure of&nbsp;its NT hash. Some&nbsp;thus call it&nbsp;a&nbsp;targeted DCSync attack.
 
 My original code is&nbsp;currently part of&nbsp;these hacktools:
 - [KrbRelayUp](https://github.com/Dec0ne/KrbRelayUp)
@@ -81,7 +81,7 @@ In 2020 I&nbsp;have discovered that&nbsp;Azure Active Directory Graph API was ex
 
 ### Azure AD Silver Ticket Attack
 
-In 2017 I&nbsp;was the&nbsp;first to&nbsp;publicly describe the&nbsp;possibility to&nbsp;perform the&nbsp;[silver ticket attack against Azure Active Directory](/en/impersonating-office-365-users-mimikatz/) by&nbsp;misusing the&nbsp;**Seamless Single Sign-on** feature, while&nbsp;it&nbsp;was still in&nbsp;preview. This&nbsp;attack can be&nbsp;used to&nbsp;impersonate any user against Office 365 or&nbsp;any other service connected to&nbsp;Azure Active Directory.
+In 2017 I&nbsp;was the&nbsp;first to&nbsp;publicly describe the&nbsp;possibility to&nbsp;perform the&nbsp;[silver ticket attack against Azure Active Directory](/en/impersonating-office-365-users-mimikatz/) by&nbsp;misusing the&nbsp;**Seamless Single Sign-on** feature, while&nbsp;it&nbsp;was still in&nbsp;preview. This&nbsp;attack can&nbsp;be&nbsp;used to&nbsp;impersonate any user against Office 365 or&nbsp;any other service connected to&nbsp;Azure Active Directory.
 
 ![Silver Ticket Attack against Azure AD](/assets/images/aad_sso3.png)
 
