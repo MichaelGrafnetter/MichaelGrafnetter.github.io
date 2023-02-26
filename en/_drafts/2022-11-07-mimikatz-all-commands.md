@@ -1,6 +1,6 @@
 ---
-ref: mimikatz-all-commands
-title: 🥝 The Ultimate List of Mimikatz Commands
+ref: mimikatz-all-commands-parameters
+title: 🥝 The Ultimate List of Mimikatz Commands and Their Parameters
 date: '2022-11-07T00:00:00+00:00'
 layout: post
 lang: en
@@ -19,6 +19,7 @@ Synced to mimikatz version: 2.2.0 20191222
 These are&nbsp;some&nbsp;other great information sources on mimikatz:
 
 - 🥝 Benjamin Delpy's (the author of&nbsp;mimikatz) [Twitter @gentilkiwi](https://twitter.com/gentilkiwi)
+- [Mimikatz Wiki](https://github.com/gentilkiwi/mimikatz/wiki)
 - Sean Metcalf's [Unofficial Guide to&nbsp;Mimikatz & Command Reference](https://adsecurity.org/?page_id=1821)
 - Charlie Bromberg's [The Hacker Recipes](https://tools.thehacker.recipes/mimikatz/modules)
 
@@ -803,6 +804,20 @@ Possible values for&nbsp;the&nbsp;`/store` parameter include:
 - UserDS
 - Windows Live ID Token Issuer
 
+#### Example
+
+```
+mimikatz # crypto::certificates /systemstore:local_machine
+ * System Store  : 'local_machine' (0x00020000)
+ * Store         : 'My'
+
+ 0. www.contoso.com
+        Key Container  : www.contoso.com
+        Provider       : Microsoft Software Key Storage Provider
+        Type           : CNG Key (0xffffffff)
+        Exportable key : NO
+        Key size       : 2048
+```
 ### crypto::keys
 
 Lists or exports private keys containers.
@@ -1409,7 +1424,11 @@ Resume a&nbsp;process
 
 ### process::runp
 
-/run: /ppid: /token
+Parameter | Description
+--|--
+`/run:` |
+`/ppid:` |
+`/token` |
 
 ## Service Module
 
@@ -1463,43 +1482,81 @@ Me!
 
 Get the&nbsp;SysKey to&nbsp;decrypt SAM entries (from registry or&nbsp;hives)
 
-/system: /sam:
+Command | Description
+--|--
+`lsadump::sam` | 
+`lsadump::sam /sam: /system:` |
 
 ### lsadump::secrets
 
 Get the&nbsp;SysKey to&nbsp;decrypt SECRETS entries (from registry or&nbsp;hives)
 
-/system: /security:
+Command | Description
+--|--
+`lsadump::secrets` | 
+`lsadump::secrets /security: /system:` |
 
 ### lsadump::cache
 
 Get the&nbsp;SysKey to&nbsp;decrypt NL$KM then MSCache(v2) (from registry or&nbsp;hives)
 
+Command | Description
+--|--
+`lsadump::cache` | 
+`lsadump::cache /security: /system:` |
+
 ### lsadump::lsa
 
 Ask LSA Server to&nbsp;retrieve SAM/AD entries (normal, patch on the&nbsp;fly or&nbsp;inject)
 
-/patch /inject /id: /user:
+Parameter | Description
+--|--
+`/patch`
+`/inject`
+`/id:`
+`/user:`
 
 ### lsadump::trust
 
 Ask LSA Server to&nbsp;retrieve Trust Auth Information (normal or&nbsp;patch on the&nbsp;fly)
 
-/system: /patch
+Parameter | Description
+--|--
+`/system:`
+`/patch`
 
 ### lsadump::backupkeys
 
-/system: /export /secret /guid:
+Parameter | Description
+--|--
+`/system:`
+`/export`
+`/secret`
+`/guid:`
 
 ### lsadump::rpdata
 
-/system: /name: /export /secret
+Parameter | Description
+--|--
+`/system:`
+`/name:`
+`/export`
+`/secret`
 
 ### lsadump::dcsync
 
 Ask a&nbsp;DC to&nbsp;synchronize an&nbsp;object
 
-/all /user: /guid: /domain: /dc: /altservice: /export /csv
+Parameter | Description
+--|--
+`/all`
+`/user:`
+`/guid:`
+`/domain:`
+`/dc:`
+`/altservice:`
+`/export`
+`/csv`
 
 /altservice: examples: 'cifs', 'ldap', 'host', 'rpcss', 'http', 'mssql', 'wsman'
 
@@ -1507,25 +1564,72 @@ Ask a&nbsp;DC to&nbsp;synchronize an&nbsp;object
 
 They told me I&nbsp;could be&nbsp;anything I&nbsp;wanted, so&nbsp;I&nbsp;became a&nbsp;domain controller
 
-/object: /domain: /attribute: /value: /clean /multiple /replOriginatingUid: /replOriginatingUsn: /replOriginatingTime: /dynamic /dc: /computer: /push /stack /viewstack /clearstack /manualregister /manualpush /manualunregister /addentry /remotemodify /viewreplication /kill: /config /schema /root
+Parameter | Description
+--|--
+`/object:`
+`/domain:`
+`/attribute:`
+`/value:`
+`/clean`
+`/multiple`
+`/replOriginatingUid:`
+`/replOriginatingUsn:`
+`/replOriginatingTime:`
+`/dynamic`
+`/dc:`
+`/computer:`
+`/push`
+`/stack`
+`/viewstack`
+`/clearstack`
+`/manualregister`
+`/manualpush`
+`/manualunregister`
+`/addentry`
+`/remotemodify`
+`/viewreplication`
+`/kill:`
+`/config`
+`/schema`
+`/root`
 
 ### lsadump::setntlm
 
 Ask a&nbsp;server to&nbsp;set a&nbsp;new password/ntlm for&nbsp;one user
 
-/password: /ntlm: /server: /user: /rid:
+Parameter | Description
+--|--
+`/password:`
+`/ntlm:`
+`/server:`
+`/user:`
+`/rid:`
 
 ### lsadump::changentlm
 
 Ask a&nbsp;server to&nbsp;set a&nbsp;new password/ntlm for&nbsp;one user
 
-/oldpassword: /oldntlm: /newpassword: /newntlm: /server: /user: /rid:
+Parameter | Description
+--|--
+`/oldpassword:`
+`/oldntlm:`
+`/newpassword:`
+`/newntlm:`
+`/server:`
+`/user:`
+`/rid:`
 
 ### lsadump::netsync
 
 Ask a&nbsp;DC to&nbsp;send current and&nbsp;previous NTLM hash of&nbsp;DC/SRV/WKS
 
-/dc: /user: /ntlm: /account: /computer:
+Parameter | Description
+--|--
+`/dc:`
+`/user:`
+`/ntlm:`
+`/account:`
+`/computer:`
 
 ### lsadump::packages
 
@@ -1541,13 +1645,30 @@ Ask a&nbsp;DC to&nbsp;send current and&nbsp;previous NTLM hash of&nbsp;DC/SRV/WK
 
 patch Terminal Server service to&nbsp;allow multiples users
 
+#### Example
+
+```
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # ts::multirdp
+"TermService" service patched
+```
+
 ### ts::sessions
 
-/server:
+Command | Description
+--|--
+`ts::sessions` |
+`ts::sessions /server:<Server>` |
 
 ### ts::remote
 
-/id: /target: /password:
+Parameter | Description
+--|--
+`/id:`
+`/target:`
+`/password:`
 
 ### ts::logonpasswords
 
@@ -1559,7 +1680,7 @@ try to&nbsp;get passwords from&nbsp;mstsc process
 
 ## Event Module
 
-### evcent::drop
+### event::drop
 
 Patch Events service to&nbsp;avoid new events
 
@@ -1598,7 +1719,10 @@ Try to&nbsp;enumerate all modules with&nbsp;Detours-like hooks
 
 ### misc::skeleton
 
-/letaes
+Command | Description
+--|--
+`misc::skeleton` |
+`misc::skeleton /letaes` |
 
 ### misc::compress
 
@@ -1674,11 +1798,22 @@ Parameter | Description
 
 Impersonate a&nbsp;token
 
-/user: /id: /system /admin /domainadmin /enterpriseadmin
+Parameter   | Description
+--|--
+`/user:`
+`/id:`
+`/system`
+`/admin`
+`/domainadmin`
+`/enterpriseadmin`
 
 ### token::run
 
-/process: /user: /id:
+Parameter   | Description
+--|--
+`/process:` |
+`/user:`    |
+`/id:`      |
 
 ### token::revert
 
@@ -1698,35 +1833,507 @@ Revert to&nbsp;proces token
 
 ### minesweeper::infos
 
+
+#### Example
+```
+mimikatz # minesweeper::infos
+Field : 16 r x 30 c
+Mines : 99
+
+        . . . . . . * . * 1   1 * 1           1 * . . . . . . * . *
+        . . * . . . . . . 1   1 1 1       1 1 2 . * . * * . * * . .
+        . * . . . . . * . 1         1 1 1 1 * . . . * . . * . . . .
+        . . . . . * . * * 2 1     1 2 * . . . * * . . * . . . . * .
+        . . * . . * . . . * 1     1 * . * . . . . . . . * . * . . .
+        . * * . . . . . . . 2 1 1 1 . * . . . . * . . * . . . . . .
+        . . . . . . . . . . . * . . . . . * . . . . . * * . . . . .
+        . . . * . * . . . . . * . * . . . . * . . . . * . . . . . .
+        . . . . . * * . * . * . * . * * . * * * . . . . . . . . * .
+        * * . * . . . 3 1 2 1 2 1 . . * . . * . . * . . * . . . . .
+        . . . . * * * 1         1 . . * * . . . * . . . . . . * . *
+        . . * * * . 3 1     1 1 2 * 2 2 2 . * . . . . . . * . . . .
+        . . . . . * 1   1 1 2 * . 1 1   1 . . . . * . * * * . . . .
+        . . . . . . 1   1 * . . . 1     1 * . . . * . . . . . * . .
+        . . . . . . 1 1 2 . . . * 1     1 1 1 1 * * . * . . . . * .
+        . * . . . . . * . . . * . 1           1 . * . . . . . . . *
+```
 ## Net Module
 
 ### net::user
 
+Command | Description
+--|--
+`net::user` |
+`net::user <Server>` |
+
+#### Example 1
+
+```
+mimikatz # net::user
+
+Domain name : Builtin
+Domain SID  : S-1-5-32
+
+Domain name : PC01
+Domain SID  : S-1-5-21-2467133385-802839429-829951027
+ 500   Administrator
+ | 513   None   (Group)
+ |´544   Administrators (Alias)
+ 503   DefaultAccount
+ | 513   None   (Group)
+ |´581   System Managed Accounts Group  (Alias)
+ 501   Guest
+ | 513   None   (Group)
+ |´546   Guests (Alias)
+ 504   WDAGUtilityAccount
+ | 513   None   (Group)
+ ```
+
+#### Example 2
+
+```
+mimikatz # net::user dc01.contoso.com
+
+Domain name : Builtin
+Domain SID  : S-1-5-32
+
+Domain name : contoso
+Domain SID  : S-1-5-21-4191072367-501804341-2791600538
+ 500   Administrator
+ | 520   Group Policy Creator Owners    (Group)
+ | 519   Enterprise Admins      (Group)
+ | 513   Domain Users   (Group)
+ | 512   Domain Admins  (Group)
+ |´544   Administrators (Alias)
+ 501   Guest
+ | 514   Domain Guests  (Group)
+ |´546   Guests (Alias)
+ 502   krbtgt
+ | 513   Domain Users   (Group)
+ |`572   Denied RODC Password Replication Group (Alias)
+  1001  DC01$
+ | 516   Domain Controllers     (Group)
+ |´580   Remote Management Users        (Alias)
+ 1105  PC01$
+ | 515   Domain Computers       (Group)
+ 1106  PC02$
+ | 515   Domain Computers       (Group)
+ ```
+
 ### net::group
 
+Command | Description
+--|--
+`net::group` |
+`net::group <Server>` |
+
+#### Example 1
+```
+mimikatz # net::group
+
+Domain name : Builtin
+Domain SID  : S-1-5-32
+
+Domain name : PC1
+Domain SID  : S-1-5-21-2467133385-802839429-829951027
+ 513   None
+ | 500   Administrator  (User)
+ | 501   Guest  (User)
+ | 503   DefaultAccount (User)
+ | 504   WDAGUtilityAccount     (User)
+ | 1000  Admin  (User)
+ ```
+
+#### Example 2
+
+```
+mimikatz # net::group dc01.contoso.com
+
+Domain name : Builtin
+Domain SID  : S-1-5-32
+
+Domain name : contoso
+Domain SID  : S-1-5-21-4191072367-501804341-2791600538
+ 498   Enterprise Read-only Domain Controllers
+ 512   Domain Admins
+ | 500   Administrator  (User)
+ 513   Domain Users
+ | 500   Administrator  (User)
+ | 502   krbtgt (User)
+ | 1116  john   (User)
+ 514   Domain Guests
+ | 501   Guest  (User)
+ 515   Domain Computers
+ | 1105  PC01$  (User)
+ | 1106  PC02$  (User)
+ 516   Domain Controllers
+ | 1001  DC01$  (User)
+ | 1002  DC02$  (User)
+ 518   Schema Admins
+ 519   Enterprise Admins
+ | 500   Administrator  (User)
+ 520   Group Policy Creator Owners
+ | 500   Administrator  (User)
+ 521   Read-only Domain Controllers
+ 522   Cloneable Domain Controllers
+ 525   Protected Users
+ 526   Key Admins
+ 527   Enterprise Key Admins
+ 1103  DnsUpdateProxy
+```
 ### net::alias
+
+Command | Description
+--|--
+`net::alias` |
+`net::alias <Server>` |
+
+#### Example 1
+```
+mimikatz # net::alias
+
+Domain name : Builtin
+Domain SID  : S-1-5-32
+ 579   Access Control Assistance Operators
+ 544   Administrators
+ | S-1-5-21-2467133385-802839429-829951027-500
+ | S-1-5-21-4191072367-501804341-2791600538-512
+ | S-1-5-21-2467133385-802839429-829951027-1000
+ 551   Backup Operators
+ 569   Cryptographic Operators
+ 583   Device Owners
+ 562   Distributed COM Users
+ 573   Event Log Readers
+ 546   Guests
+ | S-1-5-21-2467133385-802839429-829951027-501
+ 578   Hyper-V Administrators
+ 568   IIS_IUSRS
+ | S-1-5-17
+ 556   Network Configuration Operators
+ 559   Performance Log Users
+ 558   Performance Monitor Users
+ 547   Power Users
+ 555   Remote Desktop Users
+ | S-1-5-21-4191072367-501804341-2791600538-513
+ 580   Remote Management Users
+ 552   Replicator
+ 581   System Managed Accounts Group
+ | S-1-5-21-2467133385-802839429-829951027-503
+ 545   Users
+ | S-1-5-4
+ | S-1-5-11
+ | S-1-5-21-4191072367-501804341-2791600538-513
+ | S-1-5-21-2467133385-802839429-829951027-1000
+
+Domain name : PC01
+Domain SID  : S-1-5-21-2467133385-802839429-829951027
+```
+
+#### Example 2
+```
+mimikatz # net::alias dc01
+
+Domain name : Builtin
+Domain SID  : S-1-5-32
+ 549   Server Operators
+ 548   Account Operators
+ 554   Pre-Windows 2000 Compatible Access
+ | S-1-5-21-4191072367-501804341-2791600538-1104
+ 557   Incoming Forest Trust Builders
+ 560   Windows Authorization Access Group
+ | S-1-5-9
+ 561   Terminal Server License Servers
+ 544   Administrators
+ | S-1-5-21-4191072367-501804341-2791600538-500
+ | S-1-5-21-4191072367-501804341-2791600538-519
+ | S-1-5-21-4191072367-501804341-2791600538-512
+ 545   Users
+ | S-1-5-21-4191072367-501804341-2791600538-1000
+ | S-1-5-4
+ | S-1-5-11
+ | S-1-5-21-4191072367-501804341-2791600538-513
+ 546   Guests
+ | S-1-5-21-4191072367-501804341-2791600538-501
+ | S-1-5-21-4191072367-501804341-2791600538-514
+ 550   Print Operators
+ 551   Backup Operators
+ 552   Replicator
+ 555   Remote Desktop Users
+ 556   Network Configuration Operators
+ 558   Performance Monitor Users
+ 559   Performance Log Users
+ 562   Distributed COM Users
+ 568   IIS_IUSRS
+ | S-1-5-17
+ 569   Cryptographic Operators
+ 573   Event Log Readers
+ 574   Certificate Service DCOM Access
+ 575   RDS Remote Access Servers
+ 576   RDS Endpoint Servers
+ 577   RDS Management Servers
+ 578   Hyper-V Administrators
+ 579   Access Control Assistance Operators
+ 580   Remote Management Users
+ | S-1-5-21-4191072367-501804341-2791600538-1001
+ 582   Storage Replica Administrators
+
+Domain name : contoso
+Domain SID  : S-1-5-21-4191072367-501804341-2791600538
+ 517   Cert Publishers
+ | S-1-5-21-4191072367-501804341-2791600538-1104
+ 553   RAS and IAS Servers
+ 571   Allowed RODC Password Replication Group
+ 572   Denied RODC Password Replication Group
+ | S-1-5-21-4191072367-501804341-2791600538-502
+ | S-1-5-21-4191072367-501804341-2791600538-516
+ | S-1-5-21-4191072367-501804341-2791600538-518
+ | S-1-5-21-4191072367-501804341-2791600538-519
+ | S-1-5-21-4191072367-501804341-2791600538-517
+ | S-1-5-21-4191072367-501804341-2791600538-512
+ | S-1-5-21-4191072367-501804341-2791600538-520
+ | S-1-5-21-4191072367-501804341-2791600538-521
+ 1102  DnsAdmins
+ ```
 
 ### net::session
 
+Command | Description
+--|--
+`net::session` |
+`net::session <Server>` |
+
+#### Example
+```
+mimikatz # net::session dc01.contoso.com
+
+Client  : \\10.85.0.6
+Username: Administrator
+Active  : 0
+Idle    : 0
+```
 ### net::wsession
+
+Command | Description
+--|--
+`net::wsession` |
+`net::wsession <Server>` |
+
+#### Example
+```
+mimikatz # net::wsession
+
+Username   : PC01$
+Domain     : contoso
+LogonServer:
+
+Username   : Adminisrator
+Domain     : contoso
+LogonServer: DC01
+```
 
 ### net::tod
 
+Command | Description
+--|--
+`net::tod` |
+`net::tod <Server>` |
+
+#### Example
+```
+mimikatz # net::tod
+Remote time (local): 2/26/2023 6:07:31 PM
+```
 ### net::stats
+
+Command | Description
+--|--
+`net::stats` |
+`net::stats <Server>` |
+
+#### Example
+
+```
+mimikatz # net::stats
+LanmanWorkstation StatisticsStartTime: 2/25/2023 5:05:16 PM
+```
 
 ### net::share
 
+Command | Description
+--|--
+`net::share` |
+`net::share <Server>` |
+
+#### Example 1
+
+```
+mimikatz # net::share
+
+Netname : ADMIN$
+Type    : 80000000 - disktree ; special ;
+Uses    : 0/4294967295
+Path    : C:\Windows
+
+Netname : C$
+Type    : 80000000 - disktree ; special ;
+Uses    : 0/4294967295
+Path    : C:\
+
+Netname : IPC$
+Type    : 80000003 - ipc ; special ;
+Uses    : 0/4294967295
+Path    :
+
+Netname : Data
+Type    : 00000000 - disktree ;
+Uses    : 0/4294967295
+Path    : C:\Data
+```
+
+#### Example 2
+
+```
+mimikatz # net::share dc01.contoso.com
+
+Netname : ADMIN$
+Type    : 80000000 - disktree ; special ;
+Uses    : 0/4294967295
+Path    : C:\Windows
+
+Netname : C$
+Type    : 80000000 - disktree ; special ;
+Uses    : 0/4294967295
+Path    : C:\
+
+Netname : IPC$
+Type    : 80000003 - ipc ; special ;
+Uses    : 1/4294967295
+Path    :
+
+Netname : NETLOGON
+Type    : 00000000 - disktree ;
+Uses    : 0/4294967295
+Path    : C:\Windows\Sysvol\sysvol\contoso.com\SCRIPTS
+
+Netname : SYSVOL
+Type    : 00000000 - disktree ;
+Uses    : 0/4294967295
+Path    : C:\Windows\Sysvol\sysvol
+```
+
 ### net::serverinfo
+
+#### Example 1
+
+```
+mimikatz # net::serverinfo
+platform_id: 500
+name       : PC01
+version    : 10.0
+comment    :
+type       : 00001003 - workstation ; server ; nt ;
+```
+
+#### Example 2
+
+```
+mimikatz # net::serverinfo dc01.contoso.com
+platform_id: 500
+name       : DC01
+version    : 10.0
+comment    :
+type       : 0080102b - workstation ; server ; domain_ctrl ; time_source ; nt ; dfs ;
+```
 
 ### net::trust
 
-/server:
+Command | Description
+--|--
+`net::trust` |
+`net::trust /server:<Server>` |
+
+
+```
+mimikatz # net::trust
+RPC mode:
+[ 0] Netbios   : test.contoso.com
+     DNS       : (null)
+     Flags     : 0x00000022 ( DIRECT_OUTBOUND ; DIRECT_INBOUND ; )
+     Type      : 0x00000003 - MIT Kerberos realm
+     Attributes: 0x00000000 ( )
+     SID       : ERROR kull_m_string_displaySID ; ConvertSidToStringSid (0x00000057)
+
+     GUID      : {00000000-0000-0000-0000-000000000000}
+
+[ 1] Netbios   : contoso
+     DNS       : contoso.com
+     Flags     : 0x0000001d ( IN_FOREST ; TREE_ROOT ; PRIMARY ; NATIVE_MODE ; )
+     Type      : 0x00000002 - UPLEVEL (DC >= 2000)
+     Attributes: 0x00000000 ( )
+     SID       : S-1-5-21-4191072367-501804341-2791600538
+     GUID      : {ede98601-c42e-4aaa-b364-d818ac4c15fb}
+
+
+LDAP mode: 1 entry
+
+CN=test.contoso.com,CN=System,DC=contoso,DC=com
+  objectGUID: {9c4c1d59-0e38-4d1e-8b72-c27315e8f229}
+  trustDirection: 0x00000003 - BIDIRECTIONAL
+  trustPartner: test.contoso.com
+  trustType: 0x00000003 - MIT Kerberos realm
+  trustAttributes: 0x00000000 -
+  flatName: test.contoso.com
+```
 
 ### net::deleg
 
-/dns /server:
+Parameter | Description
+--|--
+`/dns` |
+`/server:<Server>` |
 
+#### Example
+```
+mimikatz # net::deleg
+1 entries
+
+CN=PC01,CN=Computers,DC=contoso,DC=com
+  objectGUID: {301728b2-e7dc-4114-9aef-0aad462c9c35}
+  userAccountControl: 0x00001000 - WORKSTATION_TRUST_ACCOUNT ;
+  objectSid: S-1-5-21-4191072367-501804341-2791600538-1105
+  sAMAccountName: PC01$
+  servicePrincipalName:
+    WSMAN/PC01
+    WSMAN/PC01.contoso.com
+    TERMSRV/PC01
+    TERMSRV/PC01.contoso.com
+    RestrictedKrbHost/PC01
+    HOST/PC01
+    RestrictedKrbHost/PC01.contoso.com
+    HOST/PC01.contoso.com
+  msDS-AllowedToActOnBehalfOfOtherIdentity:
+```
 ### net::if
+
+Command | Description
+--|--
+`net::if` |
+`net::if <Server>` |
+
+#### Example 1
+```
+mimikatz # net::if
+PC01
+10.85.0.6
+172.27.80.1
+```
+
+#### Example 2
+```
+mimikatz # net::if dc01.contoso.com
+DC01
+10.85.0.3
+```
 
 ## DPAPI Module
 DPAPI Module (by API or&nbsp;RAW access)  [Data Protection application programming interface]
@@ -1735,24 +2342,61 @@ DPAPI Module (by API or&nbsp;RAW access)  [Data Protection application programmi
 
 Describe a&nbsp;DPAPI blob, unprotect it&nbsp;with&nbsp;API or&nbsp;Masterkey
 
-'dpapi::blob' = '/in: /raw: /out: /ascii /unprotect /masterkey: /password: /entropy: /prompt /machine'
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/raw:`           |               |
+| `/out:`           |               |
+| `/ascii`          |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::protect
 
 Protect a&nbsp;data via a&nbsp;DPAPI call
-'dpapi::protect' = '/data: /description: /entropy: /machine /system /prompt /c /out:'
+
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/data:`
+| `/description:`
+| `/entropy:`
+| `/machine`
+| `/system`
+| `/prompt`
+| `/c`
+| `/out:`
 
 ### dpapi::masterkey
 
 Describe a&nbsp;Masterkey file, unprotect each Masterkey (key depending)
-'dpapi::masterkey' = '/in: /protected /sid: /hash: /system: /password: /pvk: /rpc /dc: /domain:'
+
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/protected`
+| `/sid:`
+| `/hash:`
+| `/system:`
+| `/password:`
+| `/pvk:`
+| `/rpc`
+| `/dc:`
+| `/domain:`
 
 ### dpapi::credhist
 
 Describe a&nbsp;Credhist file
 
-'dpapi::credhist' = '/in: /sid: /password: /sha1:'
-
+| Parameter  | Description   |
+|------------|---------------|
+`/in:` |
+`/sid:` |
+`/password:` |
+`/sha1:` |
 
 ### dpapi::create
 
@@ -1761,13 +2405,30 @@ Create a&nbsp;Masterkey file from&nbsp;raw key and&nbsp;metadata
 ### dpapi::capi
 
 CAPI key test
-'dpapi::capi' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::cng
 
 CNG key test
 
-'dpapi::cng' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::tpm
 
@@ -1775,45 +2436,124 @@ TPM key test
 
 ### dpapi::cred
 
-'dpapi::cred' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::vault
 
-'dpapi::vault' = '/cred: /policy: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+| Parameter             | Description   |
+|-----------------------|---------------|
+| `/cred:<File Path>`   |               |
+| `/policy:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::wifi
 
-'dpapi::wifi' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::wwan
 
-'dpapi::wwan' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::chrome
 
-'dpapi::chrome' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/state:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::ssh
 
 SSH Agent registry cache
-'dpapi::ssh' = '/hive: /impersonate /unprotect /masterkey: /password: /entropy: /prompt /machine'
+
+| Parameter           | Description   |
+|---------------------|---------------|
+| `/hive:<File Path>` |               |
+| `/impersonate`      |               |
+| `/unprotect`        |               |
+| `/masterkey:`       |               |
+| `/password:`        |               |
+| `/entropy:`         |               |
+| `/prompt`           |               |
+| `/machine`          |               |
 
 ### dpapi::rdg
 
 RDG saved passwords
-'dpapi::rdg' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::ps
 
 PowerShell credentials (PSCredentials or&nbsp;SecureString)
 
-'dpapi::ps' = '/in: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+| Parameter         | Description   |
+|-------------------|---------------|
+| `/in:<File Path>` |               |
+| `/unprotect`      |               |
+| `/masterkey:`     |               |
+| `/password:`      |               |
+| `/entropy:`       |               |
+| `/prompt`         |               |
+| `/machine`        |               |
 
 ### dpapi::luna
 
 Safenet LunaHSM KSP
 
-'dpapi::luna' = '/client: /hive: /unprotect /masterkey: /password: /entropy: /prompt /machine'
+Parameter | Description
+--|--
+`/client:`
+`/hive:`
+`/unprotect`
+`/masterkey:`
+`/password:`
+`/entropy:`
+`/prompt`
+`/machine`
 
 ### dpapi::cloudapkd
 
@@ -2062,7 +2802,18 @@ Command | Description
 
 ### rpc::connect
 
-/server: /protseq: /endpoint: /service: /alg: /noauth /ntlm /kerberos /null /guid:
+Parameter | Description
+--|--
+`/server:` |
+`/protseq:` |
+`/endpoint:` |
+`/service:` |
+`/alg:` |
+`/noauth` |
+`/ntlm` |
+`/kerberos` |
+`/null` |
+`/guid:` |
 
 protseq: 'ncacn_ip_tcp', 'ncacn_http', 'ncacn_nb_tcp', 'ncacn_np'
 alg: 3DES
@@ -2139,7 +2890,7 @@ Parameter | Description
 
 Parameter | Description
 --|--
-`/trace` | TODO
+`/trace` |
 
 ### acr::close
 
