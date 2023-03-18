@@ -57,7 +57,7 @@ Connect-MgGraph -Scopes @(
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphApplication] $registeredApp =
    New-MgApplication -DisplayName $appName `
                      -Description $appDescription `
-                     -Web @{RedirectUris = $redirectUrl } `
+                     -Web @{ RedirectUris = $redirectUrl } `
                      -DefaultRedirectUri $redirectUrl `
                      -GroupMembershipClaims All `
                      -Info $infoUrls
@@ -140,7 +140,7 @@ Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
 
 Update-MgApplication -ApplicationId $registeredApp.Id -OptionalClaims $optionalClaims
 
-# Creathe a new claims mapping policy
+# Create a new claims mapping policy
 [string] $allClaimsMapping = @'
 {
    "ClaimsMappingPolicy": {

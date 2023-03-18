@@ -65,7 +65,7 @@ We are&nbsp;now&nbsp;ready to&nbsp;register the&nbsp;Claims X-Ray application in
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphApplication] $registeredApp =
    New-MgApplication -DisplayName $appName `
                      -Description $appDescription `
-                     -Web @{RedirectUris = $redirectUrl } `
+                     -Web @{ RedirectUris = $redirectUrl } `
                      -DefaultRedirectUri $redirectUrl `
                      -GroupMembershipClaims All `
                      -Info $infoUrls
@@ -425,7 +425,7 @@ Connect-MgGraph -Scopes @(
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphApplication] $registeredApp =
    New-MgApplication -DisplayName $appName `
                      -Description $appDescription `
-                     -Web @{RedirectUris = $redirectUrl } `
+                     -Web @{ RedirectUris = $redirectUrl } `
                      -DefaultRedirectUri $redirectUrl `
                      -GroupMembershipClaims All `
                      -Info $infoUrls
@@ -506,7 +506,7 @@ Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
 
 Update-MgApplication -ApplicationId $registeredApp.Id -OptionalClaims $optionalClaims
 
-# Creathe a new claims mapping policy
+# Create a new claims mapping policy
 [string] $allClaimsMapping = @'
 {
    "ClaimsMappingPolicy": {
