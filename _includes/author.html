@@ -1,0 +1,2 @@
+{%- assign about_page = site.pages | where: "ref", "about" | where: "lang", page.lang | first -%}
+<a href="{{ about_page.url }}" rel="author">{{ site.author.name }}</a>

@@ -13,6 +13,11 @@ layout: default
           <time class="dt-published" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
             <i class="fas fa-calendar"></i>&nbsp;{%- include date.html date=post.date -%}
           </time>
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">
+              <i class="fas fa-user"></i>&nbsp;{% include author.html %}
+            </span>
+          </span>
         </span>
         <h2><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
         {% if site.show_excerpts -%}
