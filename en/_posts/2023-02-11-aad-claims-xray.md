@@ -32,10 +32,10 @@ doing the&nbsp;entire configuration with
 
 ## App Registration
 
-We will first need to&nbsp;install the&nbsp;[Microsoft.Graph.Applications](https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.applications/) PowerShell module and&nbsp;its dependencies:
+We will first need to&nbsp;install the&nbsp;[Microsoft.Graph.Applications](https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.applications/) and&nbsp;[Microsoft.Graph.Identity.SignIns](https://learn.microsoft.com/en-us/powershell/module/microsoft.graph.identity.signins/) PowerShell modules, including their dependencies:
 
 ```powershell
-Install-Module -Name Microsoft.Graph.Applications -Scope AllUsers -Force
+Install-Module -Name Microsoft.Graph.Applications,Microsoft.Graph.Identity.SignIns -Scope AllUsers -Force
 ```
 
 We can&nbsp;then connect to&nbsp;Azure Active Directory while&nbsp;specifying all permissions required by&nbsp;the&nbsp;registration process: 
@@ -399,7 +399,10 @@ To wrap things up, here is&nbsp;the&nbsp;full PowerShell script, concatenated fr
 
 ```powershell
 #Requires -Version 5
-#Requires -Modules Microsoft.Graph.Applications
+#Requires -Modules Microsoft.Graph.Applications,Microsoft.Graph.Identity.SignIns
+
+# Note: The required modules can be installed using the following command:
+# Install-Module -Name Microsoft.Graph.Applications,Microsoft.Graph.Identity.SignIns -Scope AllUsers -Force
 
 # Connect to AzureAD
 # Note: The -TenantId parameter is also required when using a Microsoft Account.

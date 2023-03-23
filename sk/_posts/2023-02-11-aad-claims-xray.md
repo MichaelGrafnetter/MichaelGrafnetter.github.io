@@ -31,7 +31,10 @@ Podrobný popis nasledujúceho skriptu je&nbsp;[dostupný v&nbsp;anglickej verzi
 
 ```powershell
 #Requires -Version 5
-#Requires -Modules Microsoft.Graph.Applications
+#Requires -Modules Microsoft.Graph.Applications,Microsoft.Graph.Identity.SignIns
+
+# Note: The required modules can be installed using the following command:
+# Install-Module -Name Microsoft.Graph.Applications,Microsoft.Graph.Identity.SignIns -Scope AllUsers -Force
 
 # Connect to AzureAD
 # Note: The -TenantId parameter is also required when using a Microsoft Account.
