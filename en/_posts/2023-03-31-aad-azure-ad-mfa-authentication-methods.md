@@ -10,7 +10,7 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 
 ## Authentication Method Comparison
 
-| Method                                   | [PHR] | [Passwordless] | [SSPR] | Desktop | [RDP (AD)] | [RDP (AAD)] | [RADIUS] | [Mobile] | [Web] | Primary Factor | 2<sup>nd</sup> Factor |
+| Method                                   | [PHR] | [Passwordless] | [SSPR] | Winlogon | [RDP (AD)] | [RDP (AAD)] | [RADIUS] | [Mobile] | [Web] | Primary Factor | 2<sup>nd</sup> Factor |
 |------------------------------------------|-------|----------------|------|-----------|------------|-------------|----------|----------|-------|----------------|------------|
 | Password Only                            | ❌    |     ❌        |  ✅  |   ✅      |     ✅     |      ✅     |   ✅     |    ✅   |   ✅  |    ✅          |    ❌     |
 | [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ✅     |
