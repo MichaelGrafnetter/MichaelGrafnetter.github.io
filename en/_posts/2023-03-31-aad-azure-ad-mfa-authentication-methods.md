@@ -13,15 +13,15 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 | Method                                   | [PHR] | [Passwordless] | [SSPR] | Desktop | [RDP (AD)] | [RDP (AAD)] | [RADIUS] | [Mobile] | [Web] | Primary Factor | 2<sup>nd</sup> Factor |
 |------------------------------------------|-------|----------------|------|-----------|------------|-------------|----------|----------|-------|----------------|------------|
 | Password Only                            | ❌    |     ❌        |  ✅  |   ✅      |     ✅     |      ✅     |   ✅     |    ✅   |   ✅  |    ✅          |    ❌     |
-| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ❌     |
+| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ✅     |
 | [Microsoft Authenticator (Push)]         | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
 | [Microsoft Authenticator (Passwordless)] | ❌    |     ✅        |  ❌  |   ❌      |     ❌     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
-| [Windows Hello for Business]             | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ❌     |
-| [Certificate on a Smart Card]            | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ✅     |    ✅   |   ✅  |    ✅          |    ❌     |
+| [Windows Hello for Business]             | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ❌     |
+| [Certificate on a Smart Card]            | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ✅     |    ◐    |   ✅  |    ✅          |    ✅     |
 | [Software TOTP Token]                    | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
 | [Hardware OATH Token]                    | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
 | [SMS]                                    | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ✅          |    ✅     |
-| [Temporary Access Pass]                  | ❌    |     ❌        |  ❌  |   ✅      |     ✅     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
+| [Temporary Access Pass]                  | ❌    |     ❌        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
 | [Voice Call]                             | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
 | [Email OTP]                              | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
 | [Security Questions]                     | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ❌     |   ❌     |    ❌   |   ❌  |    ❌          |    ❌     |
@@ -53,4 +53,10 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 - RDP to&nbsp;AD-only joined devices with&nbsp;FIDO2 Security Keys, Windows Hello for&nbsp;Business, and&nbsp;Temporary Access Pass only works with&nbsp;the&nbsp;Remote Credential Guard and&nbsp;Restricted Admin features. The&nbsp;Azure AD Kerberos trust is&nbsp;required in&nbsp;some&nbsp;scenarios.
 - Smart card support depends on the&nbsp;specific OS and&nbsp;HW combination used.
 - Although&nbsp;FIDO2 security keys work on iOS, they currently cannot be&nbsp;used with&nbsp;Azure AD on this&nbsp;platform.
-- The&nbsp;table might have gotten outdated since&nbsp;it&nbsp;had been created. Feel free to&nbsp;ping me if&nbsp;you discover any errors in&nbsp;it.
+- Even though mobile phones do not directly support Windows Hello for Business or FIDO2 security keys, these methods can still indirectly be used in the Microsoft Authenticator app with the OAuth 2.0 device code authentication flow:
+
+  ![Microsoft Authenticator device code authentication flow screenshot](/assets/images/ios-oauth-device-code-authentication-flow.png)
+
+## Disclaimer
+
+The&nbsp;table might have gotten outdated since&nbsp;it&nbsp;had been created. Feel free to&nbsp;ping me if&nbsp;you discover any errors in&nbsp;it.
