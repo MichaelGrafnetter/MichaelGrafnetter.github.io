@@ -10,4 +10,4 @@ tags:
     - 'Active Directory'
 ---
 
-![Esent Workbench](../../assets/images/workbench.png) During my recent talk about inner workings of&nbsp;Active Directory, I&nbsp;showcased the&nbsp;**Esent Workbench** tool, which&nbsp;can be&nbsp;used to&nbsp;look inside a&nbsp;**ntds.dit** file. But&nbsp;one must really have stomach for&nbsp;it.
+![Esent Workbench](../../assets/images/workbench.png) During my recent talk about inner workings of&nbsp;Active Directory, I&nbsp;showcased the&nbsp;**Esent Workbench** tool, which&nbsp;can&nbsp;be&nbsp;used to&nbsp;look inside a&nbsp;**ntds.dit** file. But&nbsp;one must really have stomach for&nbsp;it.

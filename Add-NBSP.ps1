@@ -102,10 +102,9 @@
     'či'
 )
 
-[bool] $inCode = $false
-[bool] $inFrontMatter = $false
-
 Get-ChildItem -Path $PSScriptRoot -Filter *.md -File -Recurse | ForEach-Object {
+    [bool] $inCode = $false
+    [bool] $inFrontMatter = $false
     $newContent = Get-Content -Path $PSItem.FullName -Encoding UTF8 | ForEach-Object {
         [string] $line = $PSItem
 

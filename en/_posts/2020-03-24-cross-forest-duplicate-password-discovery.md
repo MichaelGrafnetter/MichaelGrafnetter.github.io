@@ -41,4 +41,4 @@ CONTOSO\joe_admin
 ...
 ```
 
-The example above uses the&nbsp;MS-DRSR protocol. Similar results can be&nbsp;achieved by&nbsp;using the&nbsp;`Get-ADDBAccount` cmdlet to&nbsp;read account information directly from&nbsp;a&nbsp;ntds.dit file.
+The example above uses the&nbsp;MS-DRSR protocol. Similar results can&nbsp;be&nbsp;achieved by&nbsp;using the&nbsp;`Get-ADDBAccount` cmdlet to&nbsp;read account information directly from&nbsp;a&nbsp;ntds.dit file.

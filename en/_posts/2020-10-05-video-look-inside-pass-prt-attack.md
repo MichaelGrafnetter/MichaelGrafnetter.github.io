@@ -12,7 +12,7 @@ tags:
     - Video
 ---
 
-Like an&nbsp;NT hash (AKA NTLM hash AKA MD4 hash) and&nbsp;a&nbsp;Kerberos ticket, a&nbsp;Primary Refresh Token (PRT) can be&nbsp;passed in&nbsp;an&nbsp;attack. Mimikatz author Benjamin Delpy and&nbsp;Dirk-jan Mollema have both released detailed research and&nbsp;code showing how attackers could Pass-the-PRT to&nbsp;perform the&nbsp;lateral movement to&nbsp;the&nbsp;cloud.
+Like an&nbsp;NT hash (AKA NTLM hash AKA MD4 hash) and&nbsp;a&nbsp;Kerberos ticket, a&nbsp;Primary Refresh Token (PRT) can&nbsp;be&nbsp;passed in&nbsp;an&nbsp;attack. Mimikatz author Benjamin Delpy and&nbsp;Dirk-jan Mollema have both released detailed research and&nbsp;code showing how attackers could Pass-the-PRT to&nbsp;perform the&nbsp;lateral movement to&nbsp;the&nbsp;cloud.
 
 I have recorded a&nbsp;short demo of&nbsp;the&nbsp;Pass-the-PRT Attack:
 

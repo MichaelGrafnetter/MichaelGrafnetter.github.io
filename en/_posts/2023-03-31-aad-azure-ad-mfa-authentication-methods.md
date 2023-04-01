@@ -49,8 +49,8 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 
 ## Notes
 
-- The table does not cover Federated MFA.
-- RDP to AD-only joined devices with FIDO2 Security Keys, Windows Hello for Business, and Temporary Access Pass only works with the Remote Credential Guard and Restricted Admin features. The Azure AD Kerberos trust is required in some scenarios.
-- Smart card support depends on the specific OS and HW combination used.
-- Although FIDO2 security keys work on iOS, they currently cannot be used with Azure AD on this platform.
-- The table might have gotten outdated since it had been created. Feel free to ping me if you discover any errors in it.
+- The&nbsp;table does not cover Federated MFA.
+- RDP to&nbsp;AD-only joined devices with&nbsp;FIDO2 Security Keys, Windows Hello for&nbsp;Business, and&nbsp;Temporary Access Pass only works with&nbsp;the&nbsp;Remote Credential Guard and&nbsp;Restricted Admin features. The&nbsp;Azure AD Kerberos trust is&nbsp;required in&nbsp;some&nbsp;scenarios.
+- Smart card support depends on the&nbsp;specific OS and&nbsp;HW combination used.
+- Although&nbsp;FIDO2 security keys work on iOS, they currently cannot be&nbsp;used with&nbsp;Azure AD on this&nbsp;platform.
+- The&nbsp;table might have gotten outdated since&nbsp;it&nbsp;had been created. Feel free to&nbsp;ping me if&nbsp;you discover any errors in&nbsp;it.

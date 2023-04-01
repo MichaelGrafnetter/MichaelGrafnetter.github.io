@@ -13,7 +13,7 @@ tags:
     - Security
 ---
 
-Since version 2.15, the&nbsp;[DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) fully supports [Windows PE](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-intro?view=windows-11), the&nbsp;free minimalistic edition of&nbsp;Windows. This&nbsp;means that&nbsp;all the&nbsp;nasty Active Directory database stuff can now&nbsp;be&nbsp;performed from&nbsp;a&nbsp;bootable flash drive or&nbsp;an&nbsp;ISO image, including:
+Since version 2.15, the&nbsp;[DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) fully supports [Windows PE](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-intro?view=windows-11), the&nbsp;free minimalistic edition of&nbsp;Windows. This&nbsp;means that&nbsp;all the&nbsp;nasty Active Directory database stuff can&nbsp;now&nbsp;be&nbsp;performed from&nbsp;a&nbsp;bootable flash drive or&nbsp;an&nbsp;ISO image, including:
 
 - [Dumping NT hashes, kerberos keys and&nbsp;cleartext passwords](/en/dumping-ntds-dit-files-using-powershell/) from&nbsp;ntds.dit files.
 - Modifying the&nbsp;SID History of&nbsp;user accounts and&nbsp;groups.
@@ -88,8 +88,8 @@ Dism /Mount-Image /ImageFile:"C:\WinPE_amd64\media\sources\boot.wim" /index:1 /M
     MakeWinPEMedia /ISO C:\WinPE_amd64 C:\WinPE_amd64\WinPE_amd64.iso
     ```
     
-    The&nbsp;same command can be&nbsp;used to&nbsp;create a&nbsp;bootable flash drive or&nbsp;VHD.
+    The&nbsp;same command can&nbsp;be&nbsp;used to&nbsp;create a&nbsp;bootable flash drive or&nbsp;VHD.
 
 ## Final thoughts
 
-As&nbsp;you have seen, it&nbsp;is&nbsp;pretty straightforward to&nbsp;create a&nbsp;bootable flash drive that&nbsp;can be&nbsp;used to&nbsp;conquer an&nbsp;Active Directory domain through a&nbsp;physically accessible DC. One of&nbsp;the&nbsp;precautions a&nbsp;domain administrator can take is&nbsp;to&nbsp;encrypt all DCs using BitLocker or&nbsp;other tool that&nbsp;does full volume encryption. Deploying RODCs at smaller branch offices is&nbsp;also a&nbsp;good idea. The&nbsp;new features in&nbsp;Windows Server 2016, Virtual TPMs and&nbsp;Shielded VMs, also seem very promising in&nbsp;regards to&nbsp;DC security.
+As&nbsp;you have seen, it&nbsp;is&nbsp;pretty straightforward to&nbsp;create a&nbsp;bootable flash drive that&nbsp;can&nbsp;be&nbsp;used to&nbsp;conquer an&nbsp;Active Directory domain through a&nbsp;physically accessible DC. One of&nbsp;the&nbsp;precautions a&nbsp;domain administrator can&nbsp;take is&nbsp;to&nbsp;encrypt all DCs using BitLocker or&nbsp;other tool that&nbsp;does full volume encryption. Deploying RODCs at smaller branch offices is&nbsp;also a&nbsp;good idea. The&nbsp;new features in&nbsp;Windows Server 2016, Virtual TPMs and&nbsp;Shielded VMs, also seem very promising in&nbsp;regards to&nbsp;DC security.

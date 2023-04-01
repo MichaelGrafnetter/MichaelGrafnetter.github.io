@@ -12,7 +12,7 @@ One of&nbsp;the&nbsp;most frequent questions I&nbsp;am asked about the&nbsp;[DSI
 
 ## A. Where-Object
 
-The [Where-Object cmdlet](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object?view=powershell-5.1) can easily be&nbsp;used to&nbsp;filter out unwanted objects based on any property, including OU:
+The [Where-Object cmdlet](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/where-object?view=powershell-5.1) can&nbsp;easily be&nbsp;used to&nbsp;filter out unwanted objects based on any property, including OU:
 
 ```powershell
 <#

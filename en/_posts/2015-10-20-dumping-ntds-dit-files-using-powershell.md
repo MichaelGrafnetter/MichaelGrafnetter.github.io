@@ -16,11 +16,11 @@ Although there exist several tools for&nbsp;dumping password hashes from&nbsp;th
 
 - They do&nbsp;not support the&nbsp;built-in indices, so&nbsp;searching for&nbsp;a&nbsp;single object is&nbsp;slow when&nbsp;dealing with&nbsp;large databases.
 - Most of&nbsp;the&nbsp;tools are&nbsp;either Linux-only or&nbsp;running them on Windows is&nbsp;not simple enough.
-- Almost none of&nbsp;these tools can modify the&nbsp;database. And&nbsp;if&nbsp;they do, they do&nbsp;not support transaction logs and&nbsp;are&nbsp;quite cumbersome.
+- Almost none of&nbsp;these tools can&nbsp;modify the&nbsp;database. And&nbsp;if&nbsp;they do, they do&nbsp;not support transaction logs and&nbsp;are&nbsp;quite cumbersome.
 
 Therefore, I&nbsp;have decided to&nbsp;create [my own set of&nbsp;PowerShell cmdlets](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md) that&nbsp;wouldn’t have these shortcomings. In&nbsp;the&nbsp;process, I&nbsp;have unintentionally created my own framework that&nbsp;is&nbsp;built on top of&nbsp;Microsoft’s [ManagedEsent](https://github.com/microsoft/ManagedEsent) library and&nbsp;hides the&nbsp;complexity of&nbsp;the&nbsp;underlying database. I&nbsp;am planning to&nbsp;release it&nbsp;at GitHub later this&nbsp;year.
 
-One of&nbsp;the&nbsp;cmdlets I&nbsp;have created is&nbsp;**Get-ADDBAccount**, which&nbsp;can be&nbsp;used to&nbsp;extract password hashes, Kerberos keys and&nbsp;even&nbsp;reversibly encrypted passwords from&nbsp;ntds.dit files. Here is&nbsp;an&nbsp;example of&nbsp;its usage:
+One of&nbsp;the&nbsp;cmdlets I&nbsp;have created is&nbsp;**Get-ADDBAccount**, which&nbsp;can&nbsp;be&nbsp;used to&nbsp;extract password hashes, Kerberos keys and&nbsp;even&nbsp;reversibly encrypted passwords from&nbsp;ntds.dit files. Here is&nbsp;an&nbsp;example of&nbsp;its usage:
 
 ```powershell
 # First, we fetch the so-called Boot Key (aka SysKey)

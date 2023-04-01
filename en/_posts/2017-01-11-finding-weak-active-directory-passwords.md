@@ -24,7 +24,7 @@ It generates reports which&nbsp;are&nbsp;suitable for&nbsp;the&nbsp;management:
 
 ![Report 2](../../assets/images/thycotic_report2.png)
 
-Of course, you can also drill down through the&nbsp;detailed data:
+Of course, you can&nbsp;also drill down through the&nbsp;detailed data:
 
 ![CSV Report](../../assets/images/thycotic_spreadsheet.png)
 

@@ -25,7 +25,7 @@ Benjamin Delpy has already found a&nbsp;way to&nbsp;extract these backup keys fr
 
 ## Key Storage
 
-I have taken Benjamin’s research one step further and&nbsp;I&nbsp;can now&nbsp;extract these keys directly from&nbsp;the&nbsp;Active Directory database, where&nbsp;they are&nbsp;physically stored:
+I have taken Benjamin’s research one step further and&nbsp;I&nbsp;can&nbsp;now&nbsp;extract these keys directly from&nbsp;the&nbsp;Active Directory database, where&nbsp;they are&nbsp;physically stored:
 
 ![Backup Key Storage](../../assets/images/backupkeys_storage.png)
 
@@ -33,7 +33,7 @@ The keys are&nbsp;stored in&nbsp;the&nbsp;**currentValue** attribute of&nbsp;obj
 
 ## The&nbsp;Database Dump Method
 
-The **Get-BootKey**, **Get-ADDBBackupKey** and&nbsp;**Save-DPAPIBlob** cmdlets from&nbsp;my [DSInternals PowerShell Module](/en/projects/) can be&nbsp;used to&nbsp;retrieve the&nbsp;DPAPI Domain Backup Keys from&nbsp;ntds.dit files:
+The **Get-BootKey**, **Get-ADDBBackupKey** and&nbsp;**Save-DPAPIBlob** cmdlets from&nbsp;my [DSInternals PowerShell Module](/en/projects/) can&nbsp;be&nbsp;used to&nbsp;retrieve the&nbsp;DPAPI Domain Backup Keys from&nbsp;ntds.dit files:
 
 ```powershell
 # We need to get the BootKey from the SYSTEM registry hive first:
@@ -98,7 +98,7 @@ Note that&nbsp;mimikatz would name these files similarly.
 
 ## The&nbsp;DRSR Method
 
-The same result can be&nbsp;achieved by&nbsp;communicating with&nbsp;the&nbsp;Directory Replication Service using the&nbsp;**Get-ADReplBackupKey** cmdlet:
+The same result can&nbsp;be&nbsp;achieved by&nbsp;communicating with&nbsp;the&nbsp;Directory Replication Service using the&nbsp;**Get-ADReplBackupKey** cmdlet:
 
 ```powershell
 Get-ADReplBackupKey -Domain 'Adatum.com' -Server LON-DC1 |

@@ -14,11 +14,11 @@ tags:
 
 ## Overview
 
-The latest version of&nbsp;the&nbsp;[DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) contains a&nbsp;new cmdlet called `Test-PasswordQuality`, which&nbsp;is&nbsp;a&nbsp;powerful yet&nbsp;easy to&nbsp;use tool for&nbsp;Active Directory password auditing. It&nbsp;can detect **weak, duplicate, default, non-expiring or&nbsp;empty passwords** and&nbsp;find accounts that&nbsp;are&nbsp;violating **security best practices**. All domain administrators can now&nbsp;audit Active Directory passwords on a&nbsp;regular basis, without any special knowledge.
+The latest version of&nbsp;the&nbsp;[DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) contains a&nbsp;new cmdlet called `Test-PasswordQuality`, which&nbsp;is&nbsp;a&nbsp;powerful yet&nbsp;easy to&nbsp;use tool for&nbsp;Active Directory password auditing. It&nbsp;can&nbsp;detect **weak, duplicate, default, non-expiring or&nbsp;empty passwords** and&nbsp;find accounts that&nbsp;are&nbsp;violating **security best practices**. All domain administrators can&nbsp;now&nbsp;audit Active Directory passwords on a&nbsp;regular basis, without any special knowledge.
 
 ## Usage
 
-The `Test-PasswordQuality` cmdlet accepts output of&nbsp;the&nbsp;[Get-ADDBAccount](/en/dumping-ntds-dit-files-using-powershell/) and&nbsp;[Get-ADReplAccount](/en/retrieving-active-directory-passwords-remotely/) cmdlets, so&nbsp;both **offline** (ntds.dit) and&nbsp;**online** (DCSync) analysis can be&nbsp;done:
+The `Test-PasswordQuality` cmdlet accepts output of&nbsp;the&nbsp;[Get-ADDBAccount](/en/dumping-ntds-dit-files-using-powershell/) and&nbsp;[Get-ADReplAccount](/en/retrieving-active-directory-passwords-remotely/) cmdlets, so&nbsp;both **offline** (ntds.dit) and&nbsp;**online** (DCSync) analysis can&nbsp;be&nbsp;done:
 
 ```powershell
 Get-ADReplAccount -All -Server LON-DC1 -NamingContext "dc=adatum,dc=com" |
@@ -92,7 +92,7 @@ These accounts are not required to have a password:
 
 ```
 
-Although the&nbsp;cmdlet output is&nbsp;formatted in&nbsp;a&nbsp;human readable fashion, it&nbsp;is&nbsp;still an&nbsp;object, whose properties can be&nbsp;accessed separately (e.g. `$result.WeakPassword`) to&nbsp;produce a&nbsp;desired output.
+Although the&nbsp;cmdlet output is&nbsp;formatted in&nbsp;a&nbsp;human readable fashion, it&nbsp;is&nbsp;still an&nbsp;object, whose properties can&nbsp;be&nbsp;accessed separately (e.g. `$result.WeakPassword`) to&nbsp;produce a&nbsp;desired output.
 
 ## Credits
 

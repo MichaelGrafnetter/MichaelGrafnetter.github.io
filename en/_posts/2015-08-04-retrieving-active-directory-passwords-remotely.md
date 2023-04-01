@@ -11,13 +11,13 @@ tags:
     - Security
 ---
 
-I have finally finished work on the&nbsp;**Get-ADReplAccount** cmdlet, the&nbsp;newest addition to&nbsp;my [DSInternals PowerShell Module](/en/projects/), that&nbsp;can retrieve [reversibly encrypted plaintext passwords](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh994559(v=ws.11)), password hashes and&nbsp;Kerberos keys of&nbsp;all user accounts from&nbsp;remote domain controllers. This&nbsp;is&nbsp;achieved by&nbsp;simulating the&nbsp;behavior of&nbsp;the&nbsp;**dcromo** tool and&nbsp;creating a&nbsp;replica of&nbsp;Active Directory database through the&nbsp;[MS-DRSR](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47) protocol. Furthermore, it&nbsp;has these properties:
+I have finally finished work on the&nbsp;**Get-ADReplAccount** cmdlet, the&nbsp;newest addition to&nbsp;my [DSInternals PowerShell Module](/en/projects/), that&nbsp;can&nbsp;retrieve [reversibly encrypted plaintext passwords](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh994559(v=ws.11)), password hashes and&nbsp;Kerberos keys of&nbsp;all user accounts from&nbsp;remote domain controllers. This&nbsp;is&nbsp;achieved by&nbsp;simulating the&nbsp;behavior of&nbsp;the&nbsp;**dcromo** tool and&nbsp;creating a&nbsp;replica of&nbsp;Active Directory database through the&nbsp;[MS-DRSR](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47) protocol. Furthermore, it&nbsp;has these properties:
 
 - It&nbsp;does not even&nbsp;need the&nbsp;Domain Admins group membership. The&nbsp;**Replicating Directory Changes All** permission is&nbsp;more than&nbsp;enough for&nbsp;this&nbsp;cmdlet to&nbsp;do&nbsp;its job.
-- It&nbsp;opens door to&nbsp;other attacks, e.g. pass-the-hash, pass-the-ticket or&nbsp;PAC spoofing, that&nbsp;can be&nbsp;used to&nbsp;seize control of&nbsp;the&nbsp;entire Active Directory forest. Long live [mimikatz](https://github.com/gentilkiwi/mimikatz)!
+- It&nbsp;opens door to&nbsp;other attacks, e.g. pass-the-hash, pass-the-ticket or&nbsp;PAC spoofing, that&nbsp;can&nbsp;be&nbsp;used to&nbsp;seize control of&nbsp;the&nbsp;entire Active Directory forest. Long live [mimikatz](https://github.com/gentilkiwi/mimikatz)!
 - It&nbsp;cannot be&nbsp;effectively blocked by&nbsp;firewalls, because&nbsp;the&nbsp;directory replication service (DRSGetNCChanges call to&nbsp;be&nbsp;more precise) shares the&nbsp;same port with&nbsp;other critical services, like user name resolution (exposed by&nbsp;the&nbsp;DsCrackNames call).
 - It&nbsp;only uses documented features of&nbsp;Active Directory and&nbsp;is&nbsp;not a&nbsp;hack per se.
-- It&nbsp;leaves only minimal footprint on Domain Conrollers and&nbsp;can be&nbsp;easily overlooked by&nbsp;security audits.
+- It&nbsp;leaves only minimal footprint on Domain Conrollers and&nbsp;can&nbsp;be&nbsp;easily overlooked by&nbsp;security audits.
 
 Usage example:
 
@@ -136,7 +136,7 @@ SupplementalCredentials:
     Hash 29: 84010d657e6b58ce233fae2bd7644222
 ```
 
-You could even dump all accounts at once, but&nbsp;this&nbsp;can cause heavy (=suspicious) replication traffic:
+You could even dump all accounts at once, but&nbsp;this&nbsp;can&nbsp;cause heavy (=suspicious) replication traffic:
 
 ```powershell
 Get-ADReplAccount -All -NamingContext 'DC=Adatum,DC=com' -Server LON-DC1

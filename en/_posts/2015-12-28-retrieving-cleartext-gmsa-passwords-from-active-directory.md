@@ -13,7 +13,7 @@ tags:
     - Security
 ---
 
-Have you ever wondered how the&nbsp;automatically generated passwords of&nbsp;Group Managed Service Accounts (GMSA) look like? Well, you can fetch them from&nbsp;Active Directory in&nbsp;the&nbsp;same way as&nbsp;Windows Servers do&nbsp;and&nbsp;see yourself. Here is&nbsp;how:
+Have you ever wondered how the&nbsp;automatically generated passwords of&nbsp;Group Managed Service Accounts (GMSA) look like? Well, you can&nbsp;fetch them from&nbsp;Active Directory in&nbsp;the&nbsp;same way as&nbsp;Windows Servers do&nbsp;and&nbsp;see yourself. Here is&nbsp;how:
 
 ## Creating a&nbsp;GMSA
 
@@ -32,7 +32,7 @@ New-ADServiceAccount `
 
 <!--more-->
 
-We can check the&nbsp;result in&nbsp;the&nbsp;*Active Directory Users and&nbsp;Computers* console:
+We can&nbsp;check the&nbsp;result in&nbsp;the&nbsp;*Active Directory Users and&nbsp;Computers* console:
 
 ![Group Managed Service Account](../../assets/images/gmsa.png)
 
@@ -112,4 +112,4 @@ TADA!!! The&nbsp;CurrentPassword property contains the&nbsp;actual cleartext pas
 
 We have seen that&nbsp;retrieving the&nbsp;value of&nbsp;GMSA passwords is&nbsp;quite easy. But&nbsp;don’t be&nbsp;afraid, there is&nbsp;no security hole in&nbsp;Active Directory. The&nbsp;cleartext password is&nbsp;always passed through an&nbsp;encrypted channel, it&nbsp;is&nbsp;automatically changed on a&nbsp;regular basis and&nbsp;even&nbsp;members of&nbsp;the&nbsp;Domain Admins group are&nbsp;not allowed to&nbsp;retrieve it&nbsp;by&nbsp;default. So&nbsp;do&nbsp;not hesitate and&nbsp;start using the&nbsp;(Group) Managed Service Accounts. They are&nbsp;much safer than&nbsp;using regular accounts for&nbsp;running services.
 
-If you want to&nbsp;play more with&nbsp;this&nbsp;stuff, just [grab the&nbsp;DSInternals module](/en/projects/). And&nbsp;for&nbsp;developers, the&nbsp;C# code I&nbsp;use to&nbsp;decode the&nbsp;structure can be&nbsp;found on [GitHub](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Src/DSInternals.Common/Data/Principals/ManagedPassword.cs).
+If you want to&nbsp;play more with&nbsp;this&nbsp;stuff, just [grab the&nbsp;DSInternals module](/en/projects/). And&nbsp;for&nbsp;developers, the&nbsp;C# code I&nbsp;use to&nbsp;decode the&nbsp;structure can&nbsp;be&nbsp;found on [GitHub](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Src/DSInternals.Common/Data/Principals/ManagedPassword.cs).

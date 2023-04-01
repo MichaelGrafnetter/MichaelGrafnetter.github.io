@@ -25,11 +25,11 @@ The Expiring Links feature had been a&nbsp;standalone feature in&nbsp;early Wind
 Enable-ADOptionalFeature -Identity 'Privileged Access Management Feature' -Target (Get-ADForest) -Scope ForestOrConfigurationSet
 ```
 
-Note that&nbsp;once&nbsp;this&nbsp;feature is&nbsp;enabled in&nbsp;a&nbsp;forest, it&nbsp;can never be&nbsp;disabled again.
+Note that&nbsp;once&nbsp;this&nbsp;feature is&nbsp;enabled in&nbsp;a&nbsp;forest, it&nbsp;can&nbsp;never be&nbsp;disabled again.
 
 ## Creating Expiring Links using PowerShell
 
-Unfortunately, this&nbsp;feature is&nbsp;not exposed in&nbsp;any GUI (yet), so&nbsp;you cannot create expiring links, nor&nbsp;can you tell the&nbsp;difference between a&nbsp;regular link and&nbsp;an&nbsp;expiring one. We will therefore use PowerShell to&nbsp;do&nbsp;the&nbsp;job:
+Unfortunately, this&nbsp;feature is&nbsp;not exposed in&nbsp;any GUI (yet), so&nbsp;you cannot create expiring links, nor&nbsp;can&nbsp;you tell the&nbsp;difference between a&nbsp;regular link and&nbsp;an&nbsp;expiring one. We will therefore use PowerShell to&nbsp;do&nbsp;the&nbsp;job:
 
 ```powershell
 # Add user PatColeman to the Domain Admins group for the next 2 hours
@@ -45,7 +45,7 @@ CN=Administrator,CN=Users,DC=adatum,DC=com
 #>
 ```
 
-As we can see, the&nbsp;TTL value in&nbsp;the&nbsp;output is&nbsp;in&nbsp;seconds (2h = 7200s). As&nbsp;soon as&nbsp;the&nbsp;TTL expires, the&nbsp;DCs will automatically remove user PatColeman from&nbsp;the&nbsp;Domain Admins group and&nbsp;his&nbsp;current **Kerberos tickets will also expire**.
+As we can&nbsp;see, the&nbsp;TTL value in&nbsp;the&nbsp;output is&nbsp;in&nbsp;seconds (2h = 7200s). As&nbsp;soon as&nbsp;the&nbsp;TTL expires, the&nbsp;DCs will automatically remove user PatColeman from&nbsp;the&nbsp;Domain Admins group and&nbsp;his&nbsp;current **Kerberos tickets will also expire**.
 
 ## Creating Expiring Links using LDAP
 
@@ -62,4 +62,4 @@ To view the&nbsp;group membership with&nbsp;TTLs, the&nbsp;corresponding LDAP se
 I was also quite interested in&nbsp;how this&nbsp;feature is&nbsp;implemented in&nbsp;the&nbsp;**ntds.dit** file. I&nbsp;have found out that&nbsp;as&nbsp;soon as&nbsp;you enable the&nbsp;PAM feature, the&nbsp;DCs automatically extend their database schemas in&nbsp;the&nbsp;following way:
 
 1. The&nbsp;**expiration\_time\_col** column is&nbsp;added to&nbsp;the&nbsp;**link\_table** table. It&nbsp;contains timestamps (in the&nbsp;UTC [FILETIME](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime) / 10<sup>7</sup> format), after&nbsp;which&nbsp;the&nbsp;links get deactivated. This&nbsp;is&nbsp;yet&nbsp;another reason for&nbsp;the&nbsp;time to&nbsp;be&nbsp;in&nbsp;sync between DCs.
-2. The&nbsp;**link\_expiration\_time\_index** index is&nbsp;added to&nbsp;the&nbsp;**link\_table** table. It&nbsp;is&nbsp;created over these columns: **expiration\_time\_col**, **link\_DNT**, **backlink\_DNT**. Thanks to&nbsp;this&nbsp;index, DCs can find expired links very quickly.
+2. The&nbsp;**link\_expiration\_time\_index** index is&nbsp;added to&nbsp;the&nbsp;**link\_table** table. It&nbsp;is&nbsp;created over these columns: **expiration\_time\_col**, **link\_DNT**, **backlink\_DNT**. Thanks to&nbsp;this&nbsp;index, DCs can&nbsp;find expired links very quickly.

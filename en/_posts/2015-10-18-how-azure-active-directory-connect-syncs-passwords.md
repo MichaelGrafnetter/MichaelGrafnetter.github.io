@@ -107,6 +107,6 @@ And for&nbsp;those who&nbsp;are&nbsp;still in&nbsp;doubt, Microsoft offers an&nb
 
 ## Sample implementation
 
-For demonstration purposes, I&nbsp;have created my own implementation of&nbsp;the&nbsp;OrgId hash function that&nbsp;returns the&nbsp;same results as&nbsp;the&nbsp;original one. It&nbsp;can be&nbsp;played with&nbsp;using the&nbsp;**ConvertTo-OrgIdHash** cmdlet from&nbsp;the&nbsp;[DSInternals](/en/projects/) PowerShell module. Here is&nbsp;an&nbsp;example of&nbsp;its usage:
+For demonstration purposes, I&nbsp;have created my own implementation of&nbsp;the&nbsp;OrgId hash function that&nbsp;returns the&nbsp;same results as&nbsp;the&nbsp;original one. It&nbsp;can&nbsp;be&nbsp;played with&nbsp;using the&nbsp;**ConvertTo-OrgIdHash** cmdlet from&nbsp;the&nbsp;[DSInternals](/en/projects/) PowerShell module. Here is&nbsp;an&nbsp;example of&nbsp;its usage:
 
 ![PowerShell OrgId Hash Calculation](../../assets/images/ps_orgidhash.png)

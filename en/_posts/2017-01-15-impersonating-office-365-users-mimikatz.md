@@ -18,9 +18,9 @@ Last month, Microsoft has introduced a&nbsp;new feature of&nbsp;Azure AD Connect
 
 ![Azure AD Connect SSO Diagram](../../assets/images/aad_sso4.png)
 
-As we can see from&nbsp;the&nbsp;diagram above, Azure AD exposes a&nbsp;[publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are&nbsp;understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever&nbsp;you have Kerberos-based authentication, it&nbsp;can be&nbsp;attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
+As we can&nbsp;see from&nbsp;the&nbsp;diagram above, Azure AD exposes a&nbsp;[publicly available endpoint](https://autologon.microsoftazuread-sso.com) that&nbsp;accepts Kerberos tickets and&nbsp;translates them into SAML and&nbsp;JWT tokens, which&nbsp;are&nbsp;understood and&nbsp;trusted by&nbsp;other cloud services like Office 365, Azure or&nbsp;Salesforce. And&nbsp;wherever&nbsp;you have Kerberos-based authentication, it&nbsp;can&nbsp;be&nbsp;attacked using [Silver Tickets](https://adsecurity.org/?p=2011).
 
-In&nbsp;usual circumstances this&nbsp;attack can only be&nbsp;performed from&nbsp;the&nbsp;intranet. But&nbsp;what really caught my attention is&nbsp;the&nbsp;fact that&nbsp;with&nbsp;this&nbsp;new SSO feature, **Silver Tickets could be&nbsp;used from&nbsp;the&nbsp;entire internet**. Let’s give it&nbsp;a&nbsp;try then!
+In&nbsp;usual circumstances this&nbsp;attack can&nbsp;only be&nbsp;performed from&nbsp;the&nbsp;intranet. But&nbsp;what really caught my attention is&nbsp;the&nbsp;fact that&nbsp;with&nbsp;this&nbsp;new SSO feature, **Silver Tickets could be&nbsp;used from&nbsp;the&nbsp;entire internet**. Let’s give it&nbsp;a&nbsp;try then!
 
 <!--more-->
 
@@ -28,7 +28,7 @@ In&nbsp;usual circumstances this&nbsp;attack can only be&nbsp;performed from&nbs
 
 To&nbsp;test this&nbsp;technique, we need to&nbsp;retrieve some&nbsp;information from&nbsp;Active Directory first:
 
-1. NTLM password hash of&nbsp;the&nbsp;[AZUREADSSOACC$](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#how-single-sign-on-works) account, e.g. *f9969e088b2c13d93833d0ce436c76dd*. This&nbsp;value can be&nbsp;retrieved from&nbsp;AD using [mimikatz](https://github.com/gentilkiwi/mimikatz):
+1. NTLM password hash of&nbsp;the&nbsp;[AZUREADSSOACC$](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#how-single-sign-on-works) account, e.g. *f9969e088b2c13d93833d0ce436c76dd*. This&nbsp;value can&nbsp;be&nbsp;retrieved from&nbsp;AD using [mimikatz](https://github.com/gentilkiwi/mimikatz):
 
     ```bat
     mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
@@ -47,7 +47,7 @@ To&nbsp;test this&nbsp;technique, we need to&nbsp;retrieve some&nbsp;information
 3. AAD logon name of&nbsp;the&nbsp;user we want to&nbsp;impersonate, e.g. elrond@contoso.com. This&nbsp;is&nbsp;typically either his&nbsp;*userPrincipalName* or&nbsp;*mail* attribute from&nbsp;the&nbsp;on-prem AD.
 4. SID of&nbsp;the&nbsp;user we want to&nbsp;impersonate, e.g. *S-1-5-21-2121516926-2695913149-3163778339-1234*.
 
-Having this&nbsp;information we can now&nbsp;create and&nbsp;use the&nbsp;Silver Ticket on any Windows computer connected to&nbsp;the&nbsp;internet. It&nbsp;does not even&nbsp;matter whether&nbsp;it&nbsp;is&nbsp;joined to&nbsp;a&nbsp;domain or&nbsp;a&nbsp;workgroup:
+Having this&nbsp;information we can&nbsp;now&nbsp;create and&nbsp;use the&nbsp;Silver Ticket on any Windows computer connected to&nbsp;the&nbsp;internet. It&nbsp;does not even&nbsp;matter whether&nbsp;it&nbsp;is&nbsp;joined to&nbsp;a&nbsp;domain or&nbsp;a&nbsp;workgroup:
 
 1. Create the&nbsp;Silver Ticket and&nbsp;inject it&nbsp;into Kerberos cache:
 
@@ -83,10 +83,10 @@ It is&nbsp;also worth noting that&nbsp;the&nbsp;password of&nbsp;the&nbsp;*AZURE
 First of&nbsp;all, I&nbsp;have to&nbsp;point out that&nbsp;this&nbsp;technique would not be&nbsp;very practical in&nbsp;real-world situations due to&nbsp;these reasons:
 
 - The&nbsp;SSO feature is&nbsp;in&nbsp;Preview and&nbsp;has to&nbsp;be&nbsp;explicitly enabled by&nbsp;an&nbsp;AD admin. Just a&nbsp;handful of&nbsp;companies probably use it&nbsp;at the&nbsp;time of&nbsp;writing this&nbsp;article and&nbsp;enterprises will quite surely stick to&nbsp;their proven ADFS deployments even&nbsp;after&nbsp;this&nbsp;feature reaches GA.
-- The&nbsp;hash/key of&nbsp;the&nbsp;*AZUREADSSOACC$* account can only be&nbsp;retrieved by&nbsp;Domain Admins from&nbsp;DCs by&nbsp;default. But&nbsp;if&nbsp;an&nbsp;attacker had such highly privileged access to&nbsp;an&nbsp;Active Directory domain, he/she would be&nbsp;able to&nbsp;do&nbsp;some&nbsp;way nastier stuff than&nbsp;just replicating a&nbsp;single hash.
+- The&nbsp;hash/key of&nbsp;the&nbsp;*AZUREADSSOACC$* account can&nbsp;only be&nbsp;retrieved by&nbsp;Domain Admins from&nbsp;DCs by&nbsp;default. But&nbsp;if&nbsp;an&nbsp;attacker had such highly privileged access to&nbsp;an&nbsp;Active Directory domain, he/she would be&nbsp;able to&nbsp;do&nbsp;some&nbsp;way nastier stuff than&nbsp;just replicating a&nbsp;single hash.
 - The&nbsp;password of&nbsp;the&nbsp;*AZUREADSSOACC$* account is&nbsp;randomly generated during the&nbsp;deployment of&nbsp;*Azure AD Connect*. It&nbsp;would therefore be&nbsp;impossible to&nbsp;guess this&nbsp;password.
 
-As&nbsp;you can see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;just to&nbsp;be&nbsp;safe, I&nbsp;would recommend these generic security measures:
+As&nbsp;you can&nbsp;see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;just to&nbsp;be&nbsp;safe, I&nbsp;would recommend these generic security measures:
 
 - Only delegate administrative access to&nbsp;trusted individuals and&nbsp;keep the&nbsp;number of&nbsp;members of&nbsp;the&nbsp;*Domain Admins* group (and other privileged groups) as&nbsp;low as&nbsp;possible.
 - Protect backups of&nbsp;Domain Controllers, so&nbsp;no-one could [extract sensitive information](/en/dumping-ntds-dit-files-using-powershell/) from&nbsp;them.
@@ -97,4 +97,4 @@ As&nbsp;you can see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;just t
 
 ## Conclusion
 
-Although&nbsp;the&nbsp;Silver Ticket attack has been here for&nbsp;some&nbsp;years, it&nbsp;is&nbsp;now&nbsp;probably the&nbsp;first time it&nbsp;can be&nbsp;used over the&nbsp;internet against a&nbsp;cloud service, which&nbsp;theoretically makes it&nbsp;even&nbsp;more potent. On the&nbsp;other hand, it&nbsp;would be&nbsp;quite hard to  perform this&nbsp;technique in&nbsp;a&nbsp;real-world environment due to&nbsp;impracticalities discussed in&nbsp;the&nbsp;previous section, so&nbsp;there is&nbsp;no need to&nbsp;worry. The&nbsp;new Seamless SSO feature of&nbsp;Azure AD Connect can therefore be&nbsp;considered safe and&nbsp;preferred solution for&nbsp;SSO to&nbsp;Office 365.
+Although&nbsp;the&nbsp;Silver Ticket attack has been here for&nbsp;some&nbsp;years, it&nbsp;is&nbsp;now&nbsp;probably the&nbsp;first time it&nbsp;can&nbsp;be&nbsp;used over the&nbsp;internet against a&nbsp;cloud service, which&nbsp;theoretically makes it&nbsp;even&nbsp;more potent. On the&nbsp;other hand, it&nbsp;would be&nbsp;quite hard to  perform this&nbsp;technique in&nbsp;a&nbsp;real-world environment due to&nbsp;impracticalities discussed in&nbsp;the&nbsp;previous section, so&nbsp;there is&nbsp;no need to&nbsp;worry. The&nbsp;new Seamless SSO feature of&nbsp;Azure AD Connect can&nbsp;therefore be&nbsp;considered safe and&nbsp;preferred solution for&nbsp;SSO to&nbsp;Office 365.
