@@ -13,7 +13,7 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 | Method                                   | [PHR] | [Passwordless] | [SSPR] | Desktop | [RDP (AD)] | [RDP (AAD)] | [RADIUS] | [Mobile] | [Web] | Primary Factor | 2<sup>nd</sup> Factor |
 |------------------------------------------|-------|----------------|------|-----------|------------|-------------|----------|----------|-------|----------------|------------|
 | Password Only                            | ❌    |     ❌        |  ✅  |   ✅      |     ✅     |      ✅     |   ✅     |    ✅   |   ✅  |    ✅          |    ❌     |
-| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
+| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ❌     |
 | [Microsoft Authenticator (Push)]         | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
 | [Microsoft Authenticator (Passwordless)] | ❌    |     ✅        |  ❌  |   ❌      |     ❌     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
 | [Windows Hello for Business]             | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ❌     |
@@ -51,4 +51,6 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 
 - The table does not cover Federated MFA.
 - RDP to AD-only joined devices with FIDO2 Security Keys, Windows Hello for Business, and Temporary Access Pass only work with the Remote Credential Guard and Restricted Admin features. The Azure AD Kerberos trust is required in some scenarios.
+- Smart card support depends on the specific OS and HW combination used.
+- Although FIDO2 security keys work on iOS, they currently cannot be used with Azure AD on this platform.
 - The table might have gotten outdated since it had been created. Feel free to ping me if you discover any errors in it.
