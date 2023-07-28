@@ -13,7 +13,7 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 | Method                                   | [PHR] | [Passwordless] | [SSPR] | Winlogon | [RDP (AD)] | [RDP (AAD)] | [RADIUS] | [Mobile] | [Web] | Primary Factor | 2<sup>nd</sup> Factor |
 |------------------------------------------|-------|----------------|------|-----------|------------|-------------|----------|----------|-------|----------------|------------|
 | Password Only                            | ❌    |     ❌        |  ✅  |   ✅      |     ✅     |      ✅     |   ✅     |    ✅   |   ✅  |    ✅          |    ❌     |
-| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ✅     |
+| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ◐   |   ✅  |    ✅          |    ✅     |
 | [Microsoft Authenticator (Push)]         | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
 | [Microsoft Authenticator (Passwordless)] | ❌    |     ✅        |  ❌  |   ❌      |     ❌     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
 | [Windows Hello for Business]             | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ❌     |
@@ -52,8 +52,8 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 - The&nbsp;table does not cover Federated MFA.
 - RDP to&nbsp;AD-only joined devices with&nbsp;FIDO2 Security Keys, Windows Hello for&nbsp;Business, and&nbsp;Temporary Access Pass only works with&nbsp;the&nbsp;Remote Credential Guard and&nbsp;Restricted Admin features. The&nbsp;Azure AD Kerberos trust is&nbsp;required in&nbsp;some&nbsp;scenarios.
 - Smart card support depends on the&nbsp;specific OS and&nbsp;HW combination used.
-- Although&nbsp;FIDO2 security keys work on iOS, they currently cannot be&nbsp;used with&nbsp;Azure AD on this&nbsp;platform.
-- Even though mobile phones do not directly support Windows Hello for Business or FIDO2 security keys, these methods can still indirectly be used in the Microsoft Authenticator app with the OAuth 2.0 device code authentication flow:
+- FIDO2 security keys [do not work on Android phones yet](https://learn.microsoft.com/en-us/azure/active-directory/authentication/fido2-compatibility?source=recommendations#supported-browsers).
+- Even though mobile phones do not directly support Windows Hello for Business, it can still be used indirectly in the Microsoft Authenticator app with the OAuth 2.0 device code authentication flow:
 
   ![Microsoft Authenticator device code authentication flow screenshot](/assets/images/ios-oauth-device-code-authentication-flow.png)
 
