@@ -19,9 +19,26 @@ The Data Protection API (DPAPI) is&nbsp;used by&nbsp;several components of&nbsp;
 
 ## The&nbsp;Mimikatz Method
 
-Benjamin Delpy has already found a&nbsp;way to&nbsp;extract these backup keys from&nbsp;the&nbsp;LSASS of&nbsp;domain controllers and&nbsp;it&nbsp;even&nbsp;works remotely:
+Benjamin Delpy has already found a&nbsp;way to&nbsp;extract these backup keys from&nbsp;the&nbsp;LSASS of&nbsp;domain controllers. It is implemented in the `lsadump::backupkeys` mimikatz command and&nbsp;it&nbsp;even&nbsp;works remotely:
 
 ![Mimikatz DPAPI Backup Keys](../../assets/images/mimikatz_backupkeys.png)
+
+## DSInternals Implementation
+
+This attack is also implemented in my DSInternals PowerShell module:
+
+```powershell
+Get-LsaBackupKey -ComputerName dc01.contoso.com |
+    Save-DPAPIBlob -DirectoryPath '.\Output'
+```
+
+## SharpDPAPI Implementation
+
+The same sttack technique has also been implemented in [GhostPack](https://github.com/GhostPack):
+
+```cmd
+SharpDPAPI.exe backupkey
+```
 
 ## Key Storage
 
@@ -29,7 +46,11 @@ I have taken Benjamin’s research one step further and&nbsp;I&nbsp;can&nbsp;now
 
 ![Backup Key Storage](../../assets/images/backupkeys_storage.png)
 
-The keys are&nbsp;stored in&nbsp;the&nbsp;**currentValue** attribute of&nbsp;objects whose names begin with&nbsp;**BCKUPKEY** and&nbsp;are&nbsp;of&nbsp;class **secret**. The&nbsp;**BCKUPKEY_PREFERRED Secret** and&nbsp;**BCKUPKEY_P Secret** objects actually only contain GUIDs of&nbsp;objects that&nbsp;hold the&nbsp;current modern and&nbsp;legacy keys, respectively. Furthermore, the&nbsp;currentValue attribute is&nbsp;encrypted using BootKey (aka SysKey) and&nbsp;is&nbsp;never sent through LDAP.
+The keys are&nbsp;stored in&nbsp;the&nbsp;**currentValue** attribute of&nbsp;objects whose names begin with&nbsp;**BCKUPKEY** and&nbsp;are&nbsp;of&nbsp;class **secret**. The&nbsp;**BCKUPKEY_PREFERRED Secret** and&nbsp;**BCKUPKEY_P Secret** objects actually only contain GUIDs of&nbsp;objects that&nbsp;hold the&nbsp;current modern and&nbsp;legacy keys, respectively.
+
+Furthermore, the&nbsp;currentValue attribute is&nbsp;encrypted using BootKey (aka SysKey) and&nbsp;is&nbsp;never sent through LDAP. After decrypting it, we will get a self-signed certificate with no subject:
+
+![DPAPI Backup Key](/assets/images/dpapi_backup_key.png)
 
 ## The&nbsp;Database Dump Method
 
