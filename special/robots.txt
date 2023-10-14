@@ -6,5 +6,10 @@ permalink: /robots.txt
 User-agent: *
 Disallow: /all/
 Disallow: /list/
+Disallow: /goc213/
+Disallow: /goc218/
+Disallow: /en/powershell/
+Disallow: /sk/powershell/
+Disallow: /en/wug-powershell-ad-audit/
 Allow: /
 Sitemap: {{ "sitemap.xml" | absolute_url }}
