@@ -7,6 +7,7 @@ if (navigator.clipboard) {
     codeBlocks.forEach(function (codeBlock) {
         var copyButton = document.createElement('button');
         copyButton.type = 'button';
+        copyButton.value = 'Copy';
         copyButton.ariaLabel = 'Copy code to clipboard';
         copyButton.innerHTML = copyIcon;
 
@@ -21,7 +22,7 @@ if (navigator.clipboard) {
             setTimeout(function () {
                 copyButton.innerHTML = copyIcon; // Reset icon
                 copyButton.blur(); // Remove focus and let the button disappear
-            }, 2000);
+            }, 1000);
         });
     });
 }

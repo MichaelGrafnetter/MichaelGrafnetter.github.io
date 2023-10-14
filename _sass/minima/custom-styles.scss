@@ -22,7 +22,8 @@ pre.highlight > button {
 }
 
 pre.highlight:hover > button,
-pre.highlight > button:active,
-pre.highlight > button:focus {
+pre.highlight:active > button,
+pre.highlight > button:focus,
+pre.highlight > button:active {
     opacity: 1;
 }

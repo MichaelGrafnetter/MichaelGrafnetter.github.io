@@ -8,6 +8,12 @@ permalink: /en/powershell/
 sitemap: false
 ---
 
+## Table of Contents
+{:.no_toc}
+
+* This is a TOC placeholder.
+{:toc}
+
 ## 1. Hackers and&nbsp;PowerShell - Power(S)Hell
 
 ### Basic Techniques
