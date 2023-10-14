@@ -27,9 +27,9 @@ remote_theme: jekyll/minima
 minima:
   skin: solarized-dark
   social_links:
-    - { platform: github, user_url: "https://github.com/MichaelGrafnetter" }
-    - { platform: x, user_url: "https://twitter.com/MGrafnetter" }
-    - { platform: linkedin, user_url: "https://www.linkedin.com/in/grafnetter/" }
+    - { platform: github, user_url: "https://github.com/MichaelGrafnetter", title: "GitHub: MichaelGrafnetter" }
+    - { platform: x, user_url: "https://twitter.com/MGrafnetter", title: "Twitter: @MGrafnetter" }
+    - { platform: linkedin, user_url: "https://www.linkedin.com/in/grafnetter/", title: "LinkedIn: grafnetter" }
 
 kramdown:
   toc_levels: 2..2

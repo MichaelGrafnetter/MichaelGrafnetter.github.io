@@ -22,8 +22,18 @@ pre.highlight > button {
 }
 
 pre.highlight:hover > button,
-pre.highlight:active > button,
 pre.highlight > button:focus,
 pre.highlight > button:active {
     opacity: 1;
+}
+
+// Enlarge the social media icons
+.svg-icon {
+    width: 2.5em;
+    height: 2.5em;
+}  
+
+// Increase the font size of the site navigation
+.site-nav .page-link {
+    @include relative-font-size(1.2);
 }
