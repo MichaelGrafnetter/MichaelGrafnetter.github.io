@@ -36,7 +36,7 @@ Get-LsaBackupKey -ComputerName dc01.contoso.com |
 
 The same sttack technique has also been implemented in [GhostPack](https://github.com/GhostPack):
 
-```cmd
+```batchfile
 SharpDPAPI.exe backupkey
 ```
 

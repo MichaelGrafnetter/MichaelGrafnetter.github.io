@@ -24,7 +24,7 @@ Get-ADDBServiceAccount -DatabasePath '.\ADBackup\ntds.dit'
 
 Here is a sample output of this cmdlet:
 
-```txt
+```yaml
 DistinguishedName: CN=svc_adfs,CN=Managed Service Accounts,DC=contoso,DC=com
 Sid: S-1-5-21-2468531440-3719951020-3687476655-1109
 Guid: 53c845f7-d9cd-471b-a364-e733641dcc86

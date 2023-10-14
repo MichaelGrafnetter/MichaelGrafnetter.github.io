@@ -43,25 +43,25 @@ To create a&nbsp;bootable Windows PE media loaded with&nbsp;the&nbsp;DSInternals
 1. Install the&nbsp;[Windows Assessment and&nbsp;Deployment Kit (ADK)](https://go.microsoft.com/fwlink/p/?LinkId=526803), including the&nbsp;Windows PE feature.
 2. Click *Start*, and&nbsp;type *deployment*. Right-click *Deployment and&nbsp;Imaging Tools Environment* and&nbsp;then select *Run as&nbsp;administrator*.
 3. Create a&nbsp;working copy of&nbsp;the&nbsp;Windows PE files. Specify either x86 or&nbsp;amd64:
-```bat
+```batchfile
 copype amd64 C:\WinPE_amd64
 ```
 4. Mount the&nbsp;Windows PE image:
-```bat
+```batchfile
 Dism /Mount-Image /ImageFile:"C:\WinPE_amd64\media\sources\boot.wim" /index:1 /MountDir:"C:\WinPE_amd64\mount"
 ```
 5. Add PowerShell support to&nbsp;Windows PE by&nbsp;adding a&nbsp;few [optional components](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-add-packages--optional-components-reference?view=windows-11), together with&nbsp;their associated language packs:
 
-    ```bat
+    ```batchfile
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-WMI.cab"
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-WMI_en-us.cab"
-        
+
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-NetFX.cab"
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-NetFX_en-us.cab"
-        
+
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-Scripting.cab"
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-Scripting_en-us.cab"
-        
+
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-PowerShell.cab"
     Dism /Add-Package /Image:"C:\WinPE_amd64\mount" /PackagePath:"C:\Program Files\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-PowerShell_en-us.cab"
     ```
@@ -70,7 +70,7 @@ Dism /Mount-Image /ImageFile:"C:\WinPE_amd64\media\sources\boot.wim" /index:1 /M
 
 7. [Add device drivers](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/add-and-remove-drivers-to-an-offline-windows-image?view=windows-11) to&nbsp;the&nbsp;Windows PE image:
 
-    ```bat
+    ```batchfile
     Dism /Add-Driver /Image:"C:\WinPE_amd64\mount" /Driver:"C:\DriversToEmbed" /Recurse
     ```
 
@@ -84,10 +84,10 @@ Dism /Mount-Image /ImageFile:"C:\WinPE_amd64\media\sources\boot.wim" /index:1 /M
 
 9. [Create an&nbsp;ISO file](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/makewinpemedia-command-line-options?view=windows-11) containing the&nbsp;Windows PE files:
 
-    ```bat
+    ```batchfile
     MakeWinPEMedia /ISO C:\WinPE_amd64 C:\WinPE_amd64\WinPE_amd64.iso
     ```
-    
+
     The&nbsp;same command can&nbsp;be&nbsp;used to&nbsp;create a&nbsp;bootable flash drive or&nbsp;VHD.
 
 ## Final thoughts

