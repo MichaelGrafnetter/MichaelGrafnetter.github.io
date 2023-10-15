@@ -18,9 +18,39 @@ sitemap: false
 
 ### PowerShell Versions
 
+| PowerShell Edition | Latest Version |
+|--------------------|----------------|
+| Desktop            | 5.1            |
+| [Core]             | 7.3.8          |
+
+[Core]: https://github.com/PowerShell/PowerShell
+
 ### Command Line vs. Scripts
 
+#### Command Execution from PowerShell
+
+```powershell
+PS > Get-Date
+```
+
+#### Script Execution from Command Prompt
+
+```batchfile
+C:\>powershell.exe -File test.ps1
+```
+
+#### Script Execution from PowerShell
+
+```powershell
+PS > .\test.ps1
+```
+
 ### PowerShell Terminals and Editors
+
+- `powershell.exe`
+- `powershell_ise.exe`
+- [Windows Terminal](https://apps.microsoft.com/detail/windows-terminal/9N0DX20HK701)
+- [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Service Health Status REST API
 
@@ -44,6 +74,8 @@ Invoke-RestMethod -Name 'https://status.office365.com/api/feed/mac' -UseBasicPar
 
 #### Help System
 
+### Keyboard Shortcuts
+
 ## Working with Pipeline
 
 ### Measure-Object
@@ -62,7 +94,7 @@ Invoke-RestMethod -Name 'https://status.office365.com/api/feed/mac' -UseBasicPar
 
 ### CSV
 
-## Variables, Data Types, and Arithmetics
+## Variables, Data Types, and Arithmetic
 
 ### Numbers
 
@@ -80,9 +112,21 @@ Invoke-RestMethod -Name 'https://status.office365.com/api/feed/mac' -UseBasicPar
 
 ## PowerShell Modules for Exchange Online
 
-### List
+| API                          | PowerShell Module          |  Connect                 | List Users        |
+|------------------------------|----------------------------|--------------------------|-------------------|
+| Exchange Online PowerShell   | [ExchangeOnlineManagement] | `Connect-ExchangeOnline` | `Get-User`        |
+| Microsoft Graph API          | [Microsoft.Graph.*]        | `Connect-MgGraph`        | `Get-MgUser`      |
+| ~~Azure AD Graph API~~       | [AzureAD]                  | `Connect-AzureAD`        | `Get-AzureADUser` |
+| ~~MSOnline V1 PowerShell~~   | [MSOnline]                 | `Connect-MsolService`    | `Get-MsolUser`    |
+| Azure Resource Manager       | [Az.Resources]             | `Connect-AzAccount`      | `Get-AzADUser`    |
 
-### Migration
+[ExchangeOnlineManagement]: https://www.powershellgallery.com/packages/ExchangeOnlineManagement
+[Microsoft.Graph.*]: https://www.powershellgallery.com/packages?q=Microsoft.Graph
+[AzureAD]: https://www.powershellgallery.com/packages/AzureAD
+[MSOnline]: https://www.powershellgallery.com/packages/MSOnline
+[Az.Resources]: https://www.powershellgallery.com/packages/Az.Resources
+
+[Find Azure AD and MSOnline cmdlets in Microsoft Graph PowerShell](https://learn.microsoft.com/en-us/powershell/microsoftgraph/azuread-msoline-cmdlet-map)
 
 ## Exchange Online PowerShell
 
