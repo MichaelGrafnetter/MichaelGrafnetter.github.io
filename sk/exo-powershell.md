@@ -58,6 +58,10 @@ Invoke-RestMethod -Name 'https://status.office365.com/api/feed/mac' -UseBasicPar
 
 ## File Input/Output
 
+### Text Files
+
+### CSV
+
 ## Variables, Data Types, and Arithmetics
 
 ### Numbers
@@ -75,6 +79,10 @@ Invoke-RestMethod -Name 'https://status.office365.com/api/feed/mac' -UseBasicPar
 ### XML
 
 ## PowerShell Modules for Exchange Online
+
+### List
+
+### Migration
 
 ## Exchange Online PowerShell
 
@@ -114,6 +122,10 @@ Disconnect-ExchangeOnline -Confirm:$false
 
 ## Microsoft Graph API
 
+### Directory Operations
+
+### Managing Licenses
+
 ## PowerShell Scripts
 
 ### Naming Conventions
@@ -124,7 +136,24 @@ Disconnect-ExchangeOnline -Confirm:$false
 
 ### Functions
 
+#### Prompt
+
+```powershell
+function prompt() { 'PS > ' }
+Clear-Host
+```
+
 ### Loops
+
+## Background Tasks
+
+### App Registration
+
+### Permissions
+
+### Authentication
+
+### Scheduled Tasks
 
 ## Error Handling
 
