@@ -593,9 +593,22 @@ Disconnect-MgGraph
 
 [Microsoft Graph permissions reference](https://learn.microsoft.com/en-us/graph/permissions-reference)
 
-### User Provisioning
+### Filtering
 
-Passwordless user provisioning using the Microsoft Graph API:
+```powershell
+Connect-MgGraph -TenantId course.dsinternals.com -ContextScope Process -Scopes User.Read.All
+
+Get-MgUser -UserId AdeleV@course.dsinternals.com
+Get-MgUser -UserId a8d1b0ff-3de9-48bb-a209-95b01d2846eb
+
+Get-MgUser -All -Filter "startsWith(DisplayName, 'Ad')"
+Get-MgUser -All -Search '"Surname:Vance"' -ConsistencyLevel Eventual
+Disconnect-MgGraph
+```
+
+[Advanced query capabilities on Azure AD objects](https://learn.microsoft.com/en-us/graph/aad-advanced-queries)
+
+### Passwordless User Provisioning
 
 ```powershell
 Connect-MgGraph -Scopes 'User.ReadWrite.All','UserAuthenticationMethod.ReadWrite.All'
@@ -635,18 +648,23 @@ if($null -ne $currentTempPass)
 
 # Delete the account
 Remove-MgUser -UserId $userAccount
+
+Disconnect-MgGraph
 ```
 
 ### Managing Licenses
 
 ```powewershell
 Connect-MgGraph -TenantId course.dsinternals.com -ContextScope Process -Scopes User.ReadWrite.All,Organization.Read.All
+
 $devLicense = Get-MgSubscribedSku -All | Where-Object SkuPartNumber -eq 'DEVELOPERPACK_E5'
 Set-MgUserLicense -UserId AdeleV@course.dsinternals.com -AddLicenses @{SkuId = $devLicense.SkuId} -RemoveLicenses @()
 
 # Disable some plans
 $disabledPlans = $devLicense.ServicePlans | Where-Object ServicePlanName -in SWAY,CLIPCHAMP | Select-Object -ExpandProperty ServicePlanId
 Set-MgUserLicense -UserId AdeleV@course.dsinternals.com -AddLicenses @(@{SkuId = $devLicense.SkuId; DisabledPlans = $disabledPlans }) -RemoveLicenses @()
+
+Disconnect-MgGraph
 ```
 
 ## PowerShell Scripts
