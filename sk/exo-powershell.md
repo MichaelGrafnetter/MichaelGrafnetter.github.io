@@ -25,6 +25,10 @@ sitemap: false
 
 [Core]: https://github.com/PowerShell/PowerShell
 
+```powershell
+$PSVersionTable
+```
+
 ### Command Line vs. Scripts
 
 #### Command Execution from PowerShell
@@ -63,30 +67,184 @@ PS > .\test.ps1
 #### Cmdlets
 
 ```powershell
-Invoke-RestMethod -Name 'https://status.office365.com/api/feed/mac' -UseBasicParsing
+Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac' -UseBasicParsing
 ```
 
 #### Parameters
 
+```powershell
+# Order of named parameters does not matter:
+Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac' -UseBasicParsing
+Invoke-RestMethod -UseBasicParsing -Uri 'https://status.office365.com/api/feed/mac'
+
+# Positional parameter
+Invoke-RestMethod 'https://status.office365.com/api/feed/mac' -UseBasicParsing
+
+# String parameter
+Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac' -UseBasicParsing
+Invoke-RestMethod -Uri "https://status.office365.com/api/feed/mac" -UseBasicParsing
+Invoke-RestMethod -Uri https://status.office365.com/api/feed/mac -UseBasicParsing
+
+# Switch parameter
+Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac' -UseBasicParsing:$false
+
+# Multiline Commands
+Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac' `
+                  -UseBasicParsing
+```
+
 #### Aliases
+
+```powershell
+# Cmdlet alias
+irm -Uri 'https://status.office365.com/api/feed/mac' `
+    -UseBasicParsing
+
+# Listing cmdlet aliases
+Get-Alias
+Get-Alias -Definition Invoke-RestMethod
+
+# Parameter alias
+irm -ur 'https://status.office365.com/api/feed/mac'
+```
 
 #### Comments
 
+```powershell
+# This is a single-line comment
+Get-Date # Returns a date
+
+<#
+Multi-line
+Comments
+#>
+```
+
 #### Help System
+
+```powershell
+Get-Help -Name Invoke-RestMethod -Online
+help Invoke-RestMethod -o
+```
+
+#### Case Sensitivity
+
+```powershell
+iNvOkE-rEstmeThoD -uRi 'https://status.office365.com/api/feed/mac'
+```
 
 ### Keyboard Shortcuts
 
+| Shortcut   | Description                   |
+|------------|-------------------------------|
+| CTRL+C     | Copy                          |
+| CTRL+V     | Paste                         |
+| CTRL+SPACE | IntelliSense                  |
+| F8         | Run selection                 |
+| TAB        | Code completion, Indent block |
+| SHIFT+TAB  | Opposite direction of TAB     |
+| F1         | Cmdlet help                   |
+
 ## Working with Pipeline
 
-### Measure-Object
+### Counting Objects
 
-### Formatting Cmdlets
+```powershell
+1,2,3 | Measure-Object
 
-### Select-Object
+Get-ChildItem -Path C:\Users\micha\Downloads -File | Measure-Object
 
-### Where-Object
+Get-ChildItem -Path C:\Users\micha\Downloads -File |
+    Measure-Object -Sum -Property Length
+```
 
-### Foreach-Object
+### Output Formatting
+```powershell
+Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac' -UseBasicParsing |
+    Format-List -Property title,status
+
+Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac' -UseBasicParsing |
+    Format-Table -Property title,status
+
+
+(Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac'),
+(Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/ppac') | Format-Table -Property title,status
+
+$mac = Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/mac'
+$ppac = Invoke-RestMethod -Uri 'https://status.office365.com/api/feed/ppac'
+
+$mac,$ppac | Format-Table -Property title,status
+```
+
+### Grid View
+
+```powershell
+$mac,$ppac |
+    Select-Object -Property title,status |
+    Out-GridView -Title 'Service Availability' -Wait
+```
+
+### Excluding Properties
+
+```powershell
+$mac,$ppac | Select-Object -Property title,status
+```
+
+### Renaming Properties
+
+```powershell
+$mac,$ppac |
+    Select-Object -Property @{ Name  = 'Service'; Expression = { $PSItem.title  } },
+                            @{ Label = 'Status' ; Expression = { $PSItem.status } } |
+    Out-GridView -Title 'Service Availability' -Wait
+
+# Short hashtable key names
+$mac,$ppac |
+    Select-Object -Property @{ n = 'Service'; e = { $PSItem.title  } },
+                            @{ n = 'Status' ; e = { $PSItem.status } } |
+    Out-GridView -Title 'Service Availability' -Wait
+
+# Formatting
+$mac,$ppac |
+    Format-Table -Property @{ n = 'Service'; e = { $PSItem.title  } },
+                           @{ n = 'Status' ; e = { $PSItem.status } }
+```
+
+### Sorting
+
+```powershell
+$mac,$ppac |
+    Sort-Object -Property title -Descending -CaseSensitive -Culture 'cs-cz' |
+    Format-Table -Property @{ n = 'Service'; e = { $PSItem.title  } },
+                           @{ n = 'Status' ; e = { $PSItem.status } }
+```
+
+### Filtering
+
+```powershell
+$mac,$ppac | Where-Object title -Like Microsoft*
+
+# $mac,$ppac | Where-Object title -Like 'Microsoft Admin Center'
+$mac,$ppac | Where-Object title -EQ 'Microsoft Admin Center'
+
+# Boolean operators
+$service = 'Microsoft Admin Center'
+$mac,$ppac | Where-Object { $PSItem.title  -eq $service -and
+                            $_.status      -eq 'Available' }
+```
+
+### Looping through Objects
+
+```powershell
+@('https://status.office365.com/api/feed/mac',
+  'https://status.office365.com/api/feed/ppac') |
+    ForEach-Object { Invoke-RestMethod -Uri $PSItem -UseBasicParsing } |
+    Format-Table -Property title,status
+
+'mac','ppac' |
+    ForEach-Object { Invoke-RestMethod -Uri "https://status.office365.com/api/feed/$PSItem" -UseBasicParsing } |
+    Format-Table -Property title,status
+```
 
 ## File Input/Output
 
@@ -95,6 +253,12 @@ Invoke-RestMethod -Name 'https://status.office365.com/api/feed/mac' -UseBasicPar
 ### CSV
 
 ## Variables, Data Types, and Arithmetic
+
+```powershell
+43953952698 / (1024 * 1024 * 1024)
+43953952698 / 1GB
+4.7GB / 1.44MB
+```
 
 ### Numbers
 
