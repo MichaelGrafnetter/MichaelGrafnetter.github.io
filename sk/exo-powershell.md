@@ -500,7 +500,7 @@ Set-User -Identity AdeleV@course.dsinternals.com -RemotePowerShellEnabled $true
 ### Filtering
 
 ```powershell
-Get-User -Identity AdeleV@course.dsinternals.com
+Get-User -Identity 'AdeleV@course.dsinternals.com'
 Get-User -Anr AdeleV
 Get-User -Anr Johanna
 # Interesting properties: RecipientType,UserPrincipalName,SKUAssigned,AccountDisabled,FirstName,LastName,City,Department,Phone,WindowsEmailAddress,IsDirSynced
@@ -536,7 +536,7 @@ Get-EXOMailboxPermission -Identity JohannaL
 Get-Command -Name *MailboxPermission*
 Add-MailboxPermission -Identity JohannaL -User AdeleV -AccessRights FullAccess,ReadPermission
 
-# Sed as
+# Send as
 Get-RecipientPermission -Identity JohannaL
 Add-RecipientPermission -Identity JohannaL -Trustee LynneR -AccessRights SendAs -Confirm:$false
 
@@ -558,8 +558,8 @@ Get-RoleGroupMember -Identity 'Recipient Management'
 Add-RoleGroupMember -Identity 'Recipient Management' -Member AdeleV
 
 # Administrative Units
-Get-administrativeUnit
-Get-administrativeUnit -Identity HR
+Get-AdministrativeUnit
+Get-AdministrativeUnit -Identity HR
 $adminUnitDN = (Get-AdministrativeUnit -Identity HR).DistinguishedName
 Get-Recipient -RecipientPreviewFilter "AdministrativeUnits -eq '$adminUnitDN'"
 
@@ -569,7 +569,7 @@ Get-ManagementRoleAssignment
 Get-ManagementRoleAssignment -RecipientWriteScope AdministrativeUnit
 
 # Required to be executed once per organization: Enable-OrganizationCustomization
-New-ManagementRoleAssignment -Role 'Mail Recipients' -RecipientAdministrativeUnitScope (Get-administrativeUnit -Identity HR) -User AdeleV
+New-ManagementRoleAssignment -Role 'Mail Recipients' -RecipientAdministrativeUnitScope (Get-AdministrativeUnit -Identity HR) -User AdeleV
 ```
 
 ## Microsoft Graph API
@@ -577,10 +577,15 @@ New-ManagementRoleAssignment -Role 'Mail Recipients' -RecipientAdministrativeUni
 ### Basics
 
 ```powershell
-Install-Module Microsoft.Graph.Authentication -Force
-Install-Module Microsoft.Graph.Users -Force
-Install-Module Microsoft.Graph.Identity.SignIns -Force
-Install-Module Microsoft.Graph.Identity.DirectoryManagement -Force
+Install-Module Microsoft.Graph.Authentication -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.Users -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.Identity.SignIns -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.Identity.DirectoryManagement -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.Groups -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.Mail -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.Calendar -Scope CurrentUser -Force
+
+# OR Install-Module Microsoft.Graph -Scope CurrentUser -Force
 
 Connect-MgGraph -TenantId course.dsinternals.com -ContextScope Process -Scopes User.Read.All,Group.Read.All # -UseDeviceCode -NoWelcome
 
@@ -598,7 +603,7 @@ Disconnect-MgGraph
 ```powershell
 Connect-MgGraph -TenantId course.dsinternals.com -ContextScope Process -Scopes User.Read.All
 
-Get-MgUser -UserId AdeleV@course.dsinternals.com
+Get-MgUser -UserId 'AdeleV@course.dsinternals.com'
 Get-MgUser -UserId a8d1b0ff-3de9-48bb-a209-95b01d2846eb
 
 Get-MgUser -All -Filter "startsWith(DisplayName, 'Ad')"
@@ -654,7 +659,7 @@ Disconnect-MgGraph
 
 ### Managing Licenses
 
-```powewershell
+```powershell
 Connect-MgGraph -TenantId course.dsinternals.com -ContextScope Process -Scopes User.ReadWrite.All,Organization.Read.All
 
 $devLicense = Get-MgSubscribedSku -All | Where-Object SkuPartNumber -eq 'DEVELOPERPACK_E5'
@@ -684,17 +689,91 @@ function prompt() { 'PS > ' }
 Clear-Host
 ```
 
+### Conditions
+
 ### Loops
 
 ## Background Tasks
 
 ### App Registration
 
-### Permissions
+1. Generate a new self-signed certificate on your host PC by running the following PowerShell script as an administrator:
 
-### Authentication
+    ```powershell
+    [X509Certificate] $cer =
+        New-SelfSignedCertificate `
+            -Subject "CN=$env:COMPUTERNAME Azure Script Authentication" `
+            -KeyAlgorithm RSA `
+            -KeyLength 2048 `
+            -CertStoreLocation Cert:\LocalMachine\My `
+            -KeyExportPolicy NonExportable `
+            -Provider 'Microsoft Software Key Storage Provider' `
+            -NotAfter (Get-Date).AddYears(1) `
+
+    Export-Certificate -Type CERT -Cert $cer -FilePath "$env:TEMP\AzureScriptAuthentication.cer' -Force
+    ```
+
+2. In the **App registrations** section of the Microsoft Entra Admin Center, create a new app with the following properties:
+    - Name: User Reporting Script
+    - Supported account types: Accounts in this organizational directory only
+    - Certificates and secrets: Upload the `$env:TEMP\AzureScriptAuthentication.cer` certificate.
+    - API permissions
+        - Remove `User.Read`
+        - Add `User.Read.All` (Microsoft Graph &rArr; Application permissions)
+3. Locate the newly created service principal in the **Enterprise applications** section.
+4. In the Permissions sub-section, grant admin consent to the app for the entire organization.
+5. Run the following PowerShell script to test the configuration:
+
+    ```powershell
+    Connect-MgGraph -CertificateSubject "CN=$env:COMPUTERNAME Azure Script Authentication" `
+                    -ClientId '0c14df71-f822-4f41-846a-b6bcd2383083' `
+                    -TenantId 'ca78306c-8302-4aef-b696-1203d3e941a3' `
+                    -ContextScope Process `
+                    -NoWelcome
+
+    Get-MgUser -All | Select-Object -Property DisplayName,Mail | Export-Csv -Path users.csv -NoTypeInformation
+
+    Disconnect-MgGraph
+
+    # OR
+
+    $certificate = Get-ChildItem -Path Cert:\LocalMachine\My |
+        Where-Object Subject -eq "CN=$env:COMPUTERNAME Azure Script Authentication" |
+        Select-Object -First
+    Connect-ExchangeOnline -Certificate $certificate -AppId '0c14df71-f822-4f41-846a-b6bcd2383083' -Organization 'course.dsinternals.com'
+    ```
+
+    Do not forget to change the values of the `-ClientId`, `-TenantId`, and `Organization` parameters.
 
 ### Scheduled Tasks
+
+```powershell
+# Configure task execution interval
+[datetime] $midnight = Get-Date -Hour 0 -Minute 0 -Second 0 -Millisecond 0
+[int] $monday = 1
+[ciminstance] $monthlyTrigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval $configuration.RunIntervalWeeks -DaysOfWeek $monday -At $midnight -RandomDelay (New-TimeSpan -Minutes 30) -ErrorAction Stop
+
+# Locate powershell.exe
+[string] $psPath = Get-Command -Name 'powershell.exe' -CommandType Application | Select-Object -ExpandProperty Path
+
+# Locate the PS script to execute and generate PowerShell params
+[string] $scriptPath = 'C:\Scripts\Generate-ExchangeReport.ps1'
+[string] $psParams = '-ExecutionPolicy Bypass -NonInteractive -NoProfile -NoLogo -File "{0}"' -f $scriptPath
+[ciminstance] $action = New-ScheduledTaskAction -Execute $psPath -Argument $psParams -WorkingDirectory $PSScriptRoot
+
+# Create the task
+[timespan] $taskExecutionLimit = (New-TimeSpan -Minutes 30)
+[ciminstance] $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit $taskExecutionLimit -RunOnlyIfNetworkAvailable
+[ciminstance] $newTask = Register-ScheduledTask `
+                            -TaskName $configuration.TaskName `
+                            -Description 'Generate Exchange reports on a monthly basis.' `
+                            -Trigger $monthlyTrigger `
+                            -Action $action `
+                            -Principal 'NT AUTHORITY\Local Service' `
+                            -Settings $settings `
+                            -ErrorAction Stop `
+                            -Force
+```
 
 ## Error Handling
 
