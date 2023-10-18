@@ -676,11 +676,36 @@ Disconnect-MgGraph
 
 ### Naming Conventions
 
+Extensions:
+
+- *.ps1
+- *.psm1
+- *.psd1
+- *.format.ps1xml
+
 ### Execution Policy
 
-### Script Parameters
+```powershell
+Get-ExecutionPolicy -List
+Get-ExecutionPolicy
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+```
 
-### Functions
+### Script Signing
+
+```powershell
+$cer = Get-Item -Path Cert:\CurrentUser\My\72FE8CD03DF1FB5DB18A07606281A52B5AB2F385
+
+Set-AuthenticodeSignature -Certificate $cer `
+                          -FilePath .\Import-EXOSendAsPermission.ps1 `
+                          -TimestampServer http://timestamp.digicert.com `
+                          -HashAlgorithm SHA256 `
+                          -Force
+
+Get-AuthenticodeSignature -FilePath .\Import-EXOSendAsPermission.ps1
+```
+
+### Script Parameters
 
 #### Prompt
 
@@ -691,7 +716,131 @@ Clear-Host
 
 ### Conditions
 
+### Error Handling
+
 ### Loops
+
+### Strict Mode
+
+```powershell
+echo ($neexistujici + 2)
+Set-StrictMode -Version Latest
+echo ($neexistujici + 2)
+Set-StrictMode -Off
+```
+
+### Functions
+
+### Sample script
+
+Contents of Import-EXOSendAsPermission.ps1:
+
+```powershell
+<#
+.SYNOPSIS
+Imports SendAs permissions from a CSV file into Exchange Online.
+
+.DESCRIPTION
+Sample CSV file contents:
+
+Recipient;SendAsTrustee
+JohannaL;LynneR
+LeeG;AdeleV,JoniS
+
+.PARAMETER CsvPath
+Path to the CSV file with permissions.
+
+.EXAMPLE
+.\Import-EXOSendAsPermission
+
+.EXAMPLE
+.\Import-EXOSendAsPermission -CsvPath .\sendas.csv
+
+.EXAMPLE
+.\Import-EXOSendAsPermission.ps1 -ErrorAction Stop | Out-GridView
+
+.NOTES
+Author: Michael Grafnetter
+Version: 1.1
+
+#>
+
+#Requires -Modules ExchangeOnlineManagement
+#Requires -Version 3
+##Requires -RunAsAdmin
+
+param(
+    [Parameter(Mandatory = $false, Position = 0)]
+    [ValidateNotNullOrEmpty()]
+    [Alias('Path')]
+    [string]
+    $CsvPath = ".\sendas.csv"
+)
+
+Set-StrictMode -Version Latest
+
+Import-Module -Name ExchangeOnlineManagement -ErrorAction Stop
+
+# Connect-ExchangeOnline -ShowBanner:$false -ErrorAction Stop
+
+try
+{
+    [bool] $fileExists = Test-Path -Path $CsvPath -PathType Leaf
+    if(-not $fileExists)
+    {
+        Write-Error -Message 'File does not exist.' -ErrorAction Stop -Category ReadError -ErrorId 1003 -TargetObject $CsvPath
+    }
+
+    Write-Verbose -Message 'Loading the CSV file.'
+    [PSCustomObject[]] $delegations = Import-Csv -Path $CsvPath -Delimiter ';' -ErrorAction Stop
+
+    foreach($delegation in $delegations)
+    {
+        # Test the existence of the SendAsTrustee property
+        [Microsoft.PowerShell.Commands.MemberDefinition] $sendAsTrusteeProperty =
+            Get-Member -InputObject $delegation -Name SendAsTrustee -MemberType NoteProperty
+
+        if($null -eq $sendAsTrusteeProperty -or [string]::IsNullOrWhiteSpace($delegation.SendAsTrustee))
+        {
+            Write-Error -Message 'Missing SendAsTrustee column value.' -Category InvalidData -ErrorId 1001 -TargetObject $delegation
+            continue
+        }
+
+        # Test the existence of the Recipient property
+        [Microsoft.PowerShell.Commands.MemberDefinition] $recipientProperty =
+            Get-Member -InputObject $delegation -Name Recipient -MemberType NoteProperty
+
+        if($null -eq $recipientProperty -or [string]::IsNullOrWhiteSpace($delegation.Recipient))
+        {
+            Write-Error -Message 'Missing Recipient column value.' -Category InvalidData -ErrorId 1002 -TargetObject $delegation
+            continue
+        }
+
+        [string[]] $trustees = $delegation.SendAsTrustee -split ','
+
+        foreach($truestee in $trustees)
+        {
+            Add-RecipientPermission -Identity $delegation.Recipient `
+                                    -Trustee $truestee `
+                                    -AccessRights SendAs `
+                                    -Confirm:$false `
+                                    -WarningAction SilentlyContinue
+        }
+    }
+}
+finally
+{
+    # Disconnect-ExchangeOnline -Confirm:$false
+}
+```
+
+Contents of sendas.csv:
+
+```csv
+Recipient;SendAsTrustee
+JohannaL;AdeleV
+LeeG;AdeleV,JoniS
+```
 
 ## Background Tasks
 
@@ -774,7 +923,5 @@ Clear-Host
                             -ErrorAction Stop `
                             -Force
 ```
-
-## Error Handling
 
 ## Further Reading
