@@ -184,6 +184,10 @@ $mac,$ppac | Format-Table -Property title,status
 $mac,$ppac |
     Select-Object -Property title,status |
     Out-GridView -Title 'Service Availability' -Wait
+
+Get-Mailbox -ResultSize Unlimited |
+    Out-GridView -OutputMode Multiple |
+    Disable-Mailbox -Archive -Confirm:$false
 ```
 
 ### Excluding Object Properties
@@ -500,18 +504,31 @@ Set-User -Identity AdeleV@course.dsinternals.com -RemotePowerShellEnabled $true
 ### Filtering
 
 ```powershell
+# Retrieving a specific user
 Get-User -Identity 'AdeleV@course.dsinternals.com'
+
+# Ambiguous Name Resolution
 Get-User -Anr AdeleV
 Get-User -Anr Johanna
 # Interesting properties: RecipientType,UserPrincipalName,SKUAssigned,AccountDisabled,FirstName,LastName,City,Department,Phone,WindowsEmailAddress,IsDirSynced
 
+# Filtering
 Get-User -Filter 'City -eq "San Diego"'
 Get-User -Filter 'City -eq "San Diego" -and FirstName -eq "Alex"'
+Get-User -Filter { City -like 'S*' } | Format-Table -Property UserPrincipalName,City
 
+Get-User -ResultSize Unlimited |
+    Where-Object City -EQ 'San Diego' |
+    Format-Table -Property UserPrincipalName,City
+
+Get-User -ResultSize Unlimited |
+    Where-Object { $PSItem.City -eq 'San Diego' } |
+    Format-Table -Property UserPrincipalName,City
+
+# Additional options
 Get-User -RecipientTypeDetails UserMailbox
 Get-User -ResultSize 2
 Get-User -ResultSize Unlimited
-
 Get-User -PublicFolder
 
 Get-EXORecipient | Format-Table -Property RecipientType,Identity,DisplayName,PrimarySmtpAddress
@@ -526,6 +543,10 @@ Get-MailContact
 ```powershell
 Get-User -Anr JohannaL | Format-List -Property UserPrincipalName,City
 Get-User -Anr JohannaL | Set-User -City Richmond -Confirm:$false
+
+# Los Angeles => San Diego
+Get-User -Filter {City -eq 'Los Angeles'} -RecipientTypeDetails UserMailbox |
+    Set-User -City 'San Diego' -Confirm:$false
 ```
 
 ### Mailbox Permissions
@@ -544,9 +565,36 @@ Add-RecipientPermission -Identity JohannaL -Trustee LynneR -AccessRights SendAs 
 Get-Mailbox -Identity JohannaL | Format-List -Property Identity,GrantSendOnBehalfTo
 Set-Mailbox -Identity JohannaL -GrantSendOnBehalfTo LeeG
 
+# Add value
+$mb = Get-Mailbox -Identity JohannaL
+Set-Mailbox -Identity $mb -GrantSendOnBehalfTo (@($mb.GrantSendOnBehalfTo) + 'AdeleV')
+
+# Report
+Get-Mailbox -ResultSize Unlimited -Filter 'GrantSendOnBehalfTo -ne $null' |
+    Format-Table -Property Identity,GrantSendOnBehalfTo
+
 # Forwarding
-Get-Mailbox -ResultSize Unlimited | Format-Table -Property Name,PrimarySmtpAddress,ForwardingAddress,ForwardingSmtpAddress
-Get-Mailbox -Filter 'ForwardingAddress -ne $null'
+Get-Mailbox -Filter 'ForwardingAddress -ne $null -or ForwardingSmtpAddress -ne $null' -ResultSize Unlimited |
+    Format-Table -Property PrimarySmtpAddress,ForwardingAddress,ForwardingSmtpAddress
+```
+
+Automation:
+
+```powershell
+@'
+Recipient;SendAsTrustee
+JohannaL;LynneR
+LeeG;AdeleV
+LeeG;JoniS
+'@ > "$env:temp\sendas.csv"
+
+Import-Csv -Path "$env:temp\sendas.csv" -Delimiter ';' | ForEach-Object {
+    Add-RecipientPermission -Identity $PSItem.Recipient `
+                            -Trustee $PSItem.SendAsTrustee `
+                            -AccessRights SendAs `
+                            -Confirm:$false `
+                            -WarningAction SilentlyContinue
+}
 ```
 
 ### Role-Based Access Control
@@ -570,6 +618,19 @@ Get-ManagementRoleAssignment -RecipientWriteScope AdministrativeUnit
 
 # Required to be executed once per organization: Enable-OrganizationCustomization
 New-ManagementRoleAssignment -Role 'Mail Recipients' -RecipientAdministrativeUnitScope (Get-AdministrativeUnit -Identity HR) -User AdeleV
+```
+
+### Cmdlet Prefixes
+
+```powershell
+$cred = Get-Credential -Message 'Exchange on-prem credentials:' -UserName 'BANK\john'
+
+Invoke-Command -ScriptBlock { Get-User } -Credential $cred -ComputerName ex01
+
+$exchangeServer = New-PSSession -Credential $cred -ComputerName ex01
+Import-PSSession -Session $exchangeServer -Module ExchangeManagement -Prefix OnPrem
+
+Connect-ExchangeOnline -ShowBanner:$false -ErrorAction Stop -Prefix Cloud
 ```
 
 ## Microsoft Graph API
@@ -723,13 +784,35 @@ Clear-Host
 ### Strict Mode
 
 ```powershell
-echo ($neexistujici + 2)
+echo ($foo + 2)
 Set-StrictMode -Version Latest
-echo ($neexistujici + 2)
+echo ($foo + 2)
 Set-StrictMode -Off
 ```
 
+### Console Output
+
+```powershell
+Write-Host 'Hello' -ForegroundColor DarkGreen -BackgroundColor DarkYellow
+```
+
 ### Functions
+
+```powershell
+function Get-UserDisplayNameOrNull
+{
+    param($Identity)
+
+    if($null -ne $Identity)
+    {
+        (Get-User -Identity $Identity).Displayname
+    }
+}
+
+Get-User -ResultSize Unlimited |
+    Select-Object -Property DisplayName,Department,Title,@{ n = 'Manager'; e = { Get-UserDisplayNameOrNull -Identity $PSItem.Manager }} |
+    Out-GridView -Title 'Org Structure' -Wait
+```
 
 ### Sample script
 
@@ -857,9 +940,9 @@ LeeG;AdeleV,JoniS
             -CertStoreLocation Cert:\LocalMachine\My `
             -KeyExportPolicy NonExportable `
             -Provider 'Microsoft Software Key Storage Provider' `
-            -NotAfter (Get-Date).AddYears(1) `
+            -NotAfter (Get-Date).AddYears(1)
 
-    Export-Certificate -Type CERT -Cert $cer -FilePath "$env:TEMP\AzureScriptAuthentication.cer' -Force
+    Export-Certificate -Type CERT -Cert $cer -FilePath "$env:TEMP\AzureScriptAuthentication.cer" -Force
     ```
 
 2. In the **App registrations** section of the Microsoft Entra Admin Center, create a new app with the following properties:
@@ -874,7 +957,7 @@ LeeG;AdeleV,JoniS
 5. Run the following PowerShell script to test the configuration:
 
     ```powershell
-    Connect-MgGraph -CertificateSubject "CN=$env:COMPUTERNAME Azure Script Authentication" `
+    Connect-MgGraph -CertificateThumbprint e29266b47621392bd35aa708bbb8a49430334c73 `
                     -ClientId '0c14df71-f822-4f41-846a-b6bcd2383083' `
                     -TenantId 'ca78306c-8302-4aef-b696-1203d3e941a3' `
                     -ContextScope Process `
@@ -886,10 +969,7 @@ LeeG;AdeleV,JoniS
 
     # OR
 
-    $certificate = Get-ChildItem -Path Cert:\LocalMachine\My |
-        Where-Object Subject -eq "CN=$env:COMPUTERNAME Azure Script Authentication" |
-        Select-Object -First
-    Connect-ExchangeOnline -Certificate $certificate -AppId '0c14df71-f822-4f41-846a-b6bcd2383083' -Organization 'course.dsinternals.com'
+    Connect-ExchangeOnline  -CertificateThumbprint e29266b47621392bd35aa708bbb8a49430334c73  -AppId '0c14df71-f822-4f41-846a-b6bcd2383083' -Organization 'course.dsinternals.com'
     ```
 
     Do not forget to change the values of the `-ClientId`, `-TenantId`, and `Organization` parameters.
@@ -925,3 +1005,8 @@ LeeG;AdeleV,JoniS
 ```
 
 ## Further Reading
+
+- [PowerShell 101](https://learn.microsoft.com/en-us/powershell/scripting/learn/ps101/00-introduction)
+- [Exchange Online PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/exchange-online-powershell?view=exchange-ps)
+- [Windows PowerShell 3.0 Language Quick Reference](https://download.microsoft.com/download/2/1/2/2122f0b9-0ee6-4e6d-bfd6-f9dcd27c07f9/ws12_quickref_download_files/powershell_langref_v3.pdf)
+- [PowerShell Magazine](https://powershellmagazine.com/)
