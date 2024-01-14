@@ -18,6 +18,7 @@ Asi najobľúbenejšou funkciou modulu DSInternals je&nbsp;[príkaz Test-Passwor
 ![Ukážka z&nbsp;výstupu príkazu Test-PasswordQuality](/assets/images/dsinternals_password_quality.png)
 
 Viac informácií o&nbsp;tomto module:
+
 - [PowerShell galéria](https://www.powershellgallery.com/packages/DSInternals)
 - [Dokumentácia](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Readme.md)
 - [Zdrojové kódy](https://github.com/MichaelGrafnetter/DSInternals)
@@ -28,10 +29,10 @@ PowerShell modul DSInternals bol údajne použitý aj&nbsp;pri útokoch v&nbsp;r
 
 ## .NET knižnice DSInternals
 
-Funkcionalitu PowerShell modulu je&nbsp;možné integrovať do&nbsp;iných aplikácií pomocou 
-[NuGet balíčkov pre&nbsp;.NET](https://www.nuget.org/profiles/DSInternals).
+Funkcionalitu PowerShell modulu je&nbsp;možné integrovať do&nbsp;iných aplikácií pomocou [NuGet balíčkov pre&nbsp;.NET](https://www.nuget.org/profiles/DSInternals).
 
 Projekt DSInternals momentálne využívajú minimálne tieto produkty:
+
 - [Semperis Active Directory Forest Recovery](https://www.semperis.com/adf-recovery/)
 - [Lithnet Password Protection for&nbsp;Active Directory](https://github.com/lithnet/ad-password-protection)
 - [Thycotic Weak Password Finder](https://thycotic.com/solutions/free-it-tools/weak-password-finder/)
@@ -48,7 +49,11 @@ Pred časom som vytvoril [ADMX šablónu](https://github.com/MichaelGrafnetter/y
 
 ![Group Policy Editor Screenshot](/assets/images/yubikey-admx.png)
 
-## Bezpečnostný výskum (Azure) Active Directory
+## Bezpečnostný výskum Active Directory a&nbsp;Entra&nbsp;ID
+
+### CVE-2024-20692: Zraniteľnosť v Microsoft Local Security Authority Subsystem Service (LSASS)
+
+Počas analýzy sieťovej komunikácie Windows služby Local Security Authority Subsystem Service (LSASS) som objavil zraniteľnosť [CVE-2024-20692](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20692). Útočníkovi, ktorý je&nbsp;schopný pasívneho odposluchu sieťovej komunikácie, umožňuje získať citlivé dáta, ktoré&nbsp;je&nbsp;možné zneužiť pri ďalších útokoch na&nbsp;podnikovú sieť.
 
 ### Elevácia oprávnení cez&nbsp;Windows Hello for&nbsp;Business
 
@@ -68,6 +73,7 @@ Počas skúmania Windows Hello for&nbsp;Business som vyvinul aj&nbsp;nástroj na
 Ak vie útočník upraviť tento atribút na&nbsp;nejakom účte, môže sa&nbsp;ako tento účet prihlásiť do&nbsp;AD cez&nbsp;protokol Kerberos PKINIT. To&nbsp;môže viesť buď k&nbsp;elevácii oprávnení, alebo k&nbsp;perzistencii. Vedľajším dôsledkom je, že&nbsp;je&nbsp;možné voči napadnutému účtu vykonať útok UnPAC-the-Hash a&nbsp;dostať sa&nbsp;tak k&nbsp;NT hashu používateľského hesla. Tento útok tak môžeme považovať za&nbsp;zacielený DCSync.
 
 Moje pôvodné zdrojové kódy si&nbsp;svojim životom žijú aj&nbsp;v&nbsp;týchto hackerských nástrojoch:
+
 - [KrbRelayUp](https://github.com/Dec0ne/KrbRelayUp)
 - [Whisker](https://github.com/eladshamir/Whisker)
 - [Impacket](https://github.com/SecureAuthCorp/impacket)
