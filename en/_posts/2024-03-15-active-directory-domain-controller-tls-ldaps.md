@@ -4,6 +4,7 @@ title: Enforcing TLS 1.2+ for LDAPS on Domain Controllers
 date: '2024-03-15T00:00:00+00:00'
 layout: post
 lang: en
+image: /assets/images/ad-dc-tls-ldaps-settings.png
 permalink: /en/active-directory-domain-controller-tls-ldaps/
 ---
 
@@ -136,6 +137,10 @@ Set-GPRegistryValue `
     -Value 0 `
     -Type DWord
 ```
+
+The resulting GPO settings should look like this:
+
+![Screenshot of Active Directory Domain Controller TLS Settings in a Group Policy Object](/assets/images/ad-dc-tls-ldaps-settings.png)
 
 For the new settings to be applied, either the servers need to be rebooted, or the NTDS services must be restarted:
 

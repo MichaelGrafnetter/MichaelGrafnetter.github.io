@@ -52,7 +52,8 @@ $Host.ui.RawUI.WindowTitle = 'Connecting over RDP...'
 # Load the computer's FQDN
 [string] $computerName = $computer.dNSHostName.ToString()
 
-if([string]::IsNullOrEmpty($computerName)){
+if([string]::IsNullOrEmpty($computerName))
+{
     # Fall back to the NetBIOS name / CN, which is always populated
     $computerName = $computer.name.ToString()
 }
@@ -190,3 +191,18 @@ foreach($menuItem in $menuItems)
 ```
 
 Note that the context menu registration is language-specific. The script above therefore contains [language code identifiers (LCIDs)](https://learn.microsoft.com/en-us/previous-versions/office/developer/exchange-server-2003/ms872878(v=exchg.65)) of all languages supported by Active Directory out-of-the-box.
+
+For inspiration, here are some additional examples of custom computer context menu items I use in production environments:
+
+- RDP Restricted Admin (Default Credentials)
+- RDP Restricted Admin (Prompt for Credentials)
+- RDP Remote Credential Guard (Default Credentials)
+- RDP Remote Credential Guard (Prompt for Credentials)
+- PowerShell Session (Default Credentials)
+- PowerShell Session (Prompt for Credentials)
+- SSH Connection
+- Restart Computer
+- Wake-on-LAN
+- Ping Computer
+- Open Share C$
+- Show Logged-On Users
