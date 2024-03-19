@@ -1,6 +1,6 @@
 ---
 ref: ad-context-menu
-title: Extending Active Directory Context Menus
+title: Extending Active Directory Context Menus with&nbsp;PowerShell
 date: '2024-03-19T00:00:00+00:00'
 layout: post
 lang: en
