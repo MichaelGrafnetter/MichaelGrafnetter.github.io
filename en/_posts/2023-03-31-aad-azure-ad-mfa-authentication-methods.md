@@ -1,7 +1,7 @@
 ---
 ref: aad-azure-ad-mfa-authentication-methods
 title: Authentication Methods Available in&nbsp;Azure Active Directory
-date: '2023-03-31T00:00:00+00:00'
+date: '2023-04-02T00:00:00+00:00'
 layout: post
 lang: en
 image: /assets/images/cover/aad-authentication-methods.png
@@ -13,9 +13,9 @@ permalink: /en/aad-azure-ad-mfa-authentication-methods/
 | Method                                   | [PHR] | [Passwordless] | [SSPR] | Winlogon | [RDP (AD)] | [RDP (AAD)] | [RADIUS] | [Mobile] | [Web] | Primary Factor | 2<sup>nd</sup> Factor |
 |------------------------------------------|-------|----------------|------|-----------|------------|-------------|----------|----------|-------|----------------|------------|
 | Password Only                            | ❌    |     ❌        |  ✅  |   ✅      |     ✅     |      ✅     |   ✅     |    ✅   |   ✅  |    ✅          |    ❌     |
-| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ◐   |   ✅  |    ✅          |    ✅     |
+| [FIDO2 Security Key]                     | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |     ◐   |   ✅  |    ✅          |    ✅     |
 | [Microsoft Authenticator (Push)]         | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
-| [Microsoft Authenticator (Passwordless)] | ❌    |     ✅        |  ❌  |   ❌      |     ❌     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
+| [Microsoft Authenticator (Passwordless)] | ❌    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ✅   |   ✅  |    ✅          |    ❌     |
 | [Windows Hello for Business]             | ✅    |     ✅        |  ❌  |   ✅      |      ◐     |      ✅     |   ❌     |    ❌   |   ✅  |    ✅          |    ❌     |
 | [Certificate on a Smart Card]            | ✅    |     ✅        |  ❌  |   ✅      |     ✅     |      ✅     |   ✅     |    ◐    |   ✅  |    ✅          |    ✅     |
 | [Software TOTP Token]                    | ❌    |     ❌        |  ✅  |   ❌      |     ❌     |      ✅     |   ✅     |    ✅   |   ✅  |    ❌          |    ✅     |
