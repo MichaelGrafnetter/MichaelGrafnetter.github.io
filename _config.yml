@@ -49,3 +49,5 @@ exclude:
   - '*.sh'
   - '*.ps1'
   - 'vendor'
+
+github: [metadata] 
