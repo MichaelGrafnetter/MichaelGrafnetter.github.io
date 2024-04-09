@@ -1,6 +1,7 @@
 ---
 title: Kontakt
 lang: sk
+layout: page
 ref: about
 permalink: /sk/kontakt/
 image: /assets/images/profile_picture.jpg

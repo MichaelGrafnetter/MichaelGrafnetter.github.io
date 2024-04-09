@@ -1,6 +1,7 @@
 ---
 title: Projekty
 lang: sk
+layout: page
 ref: projects
 permalink: /sk/projekty/
 image: /assets/images/dsinternals_password_quality.png

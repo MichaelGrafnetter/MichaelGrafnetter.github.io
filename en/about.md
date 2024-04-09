@@ -1,6 +1,7 @@
 ---
 title: About
 lang: en
+layout: page
 ref: about
 image: /assets/images/profile_picture.jpg
 permalink: /en/about/

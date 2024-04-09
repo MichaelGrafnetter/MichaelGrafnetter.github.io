@@ -1,6 +1,7 @@
 ---
 title: Projects
 lang: en
+layout: page
 ref: projects
 permalink: /en/projects/
 image: /assets/images/dsinternals_password_quality.png
