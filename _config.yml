@@ -48,3 +48,4 @@ exclude:
   - '*.TMP'
   - '*.sh'
   - '*.ps1'
+  - 'vendor'
