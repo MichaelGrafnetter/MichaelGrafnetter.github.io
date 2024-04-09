@@ -9,6 +9,7 @@ Disallow: /list/
 Disallow: /goc213/
 Disallow: /goc218/
 Disallow: /exo/
+Disallow: /mdi/
 Disallow: /en/powershell/
 Disallow: /sk/powershell/
 Disallow: /en/wug-powershell-ad-audit/
