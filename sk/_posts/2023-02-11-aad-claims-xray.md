@@ -1,6 +1,6 @@
 ---
 ref: aad-claims-xray
-title: Registrácia Claims X-Ray v&nbsp;Azure Active&nbsp;Directory pomocou PowerShellu
+title: Registrácia Claims X-Ray v&nbsp;Entra&nbsp;ID pomocou PowerShellu
 date: '2023-02-12T00:00:00+00:00'
 layout: post
 lang: sk
@@ -16,11 +16,11 @@ permalink: /sk/azure-ad-claims-xray-powershell-microsoft-graph-api/
 
 Väčšina správcov ADFS pravdepodobne pozná webovú aplikáciu [Claims X-Ray](https://adfshelp.microsoft.com/ClaimsXray) od&nbsp;Microsoftu, ktorá&nbsp;sa&nbsp;môže hodiť pri ladení SAML tokenov:
 
-![Claims X-Ray UI Screenshot](/assets/images/claims-xray-claims.png) 
+![Claims X-Ray UI Screenshot](/assets/images/claims-xray-claims.png)
 
 Aplikáciu Claims X-Ray je&nbsp;možné zaregistrovať aj&nbsp;v&nbsp;v&nbsp;Azure Active Directory, i&nbsp;keď to&nbsp;nie je&nbsp;oficiálne podporované:
 
-![Claims X-Ray Application Registration Screenshot](/assets/images/claims-xray-registration.png) 
+![Claims X-Ray Application Registration Screenshot](/assets/images/claims-xray-registration.png)
 
 Čím ďalej, tým viac je&nbsp;možné vnímať snahu Microsoftu presvedčiť svojich zákazníkov, aby [premigrovali svoje aplikácie z&nbsp;ADFS do&nbsp;AAD](https://learn.microsoft.com/en-us/azure/active-directory/reports-monitoring/recommendation-migrate-apps-from-adfs-to-azure-ad). Preto si&nbsp;myslím, že&nbsp;Claims X-Ray ešte môže nadobudnúť na&nbsp;význame.
 
@@ -83,7 +83,7 @@ Invoke-GraphRequest -Method PUT -Uri "https://graph.microsoft.com/v1.0/applicati
 Remove-Item -Path $tempLogoPath
 
 # Create the service principal
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $servicePrincipal = 
+[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $servicePrincipal =
    New-MgServicePrincipal -DisplayName $appName `
                           -AppId $registeredApp.AppId `
                           -AccountEnabled `
@@ -108,7 +108,7 @@ Remove-Item -Path $tempLogoPath
 
 Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
     ResourceAppId = $microsoftGraph.AppId
-    ResourceAccess = @(@{ 
+    ResourceAccess = @(@{
         id = $userReadScope.Id
         type = 'Scope'
     })
@@ -123,7 +123,7 @@ Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
 
 # Assign the application to the current user
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphDirectoryObject] $currentUser =
-    Get-MgApplicationOwner -ApplicationId $registeredApp.Id  
+    Invoke-GraphRequest -Method GET -Uri 'https://graph.microsoft.com/v1.0/me'
 
 [string] $defaultAppAccessRole = [Guid]::Empty
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphAppRoleAssignment] $appAssignment =
@@ -241,7 +241,7 @@ Update-MgApplication -ApplicationId $registeredApp.Id -OptionalClaims $optionalC
 }
 '@
 
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphClaimsMappingPolicy] $allClaimsPolicy = 
+[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphClaimsMappingPolicy] $allClaimsPolicy =
    New-MgPolicyClaimMappingPolicy -DisplayName 'Issue All Claims' -Definition $allClaimsMapping
 
 # Assign the claims mapping policy to the application

@@ -1,6 +1,6 @@
 ---
 ref: aad-claims-xray
-title: Registering Claims X-Ray in&nbsp;Azure Active&nbsp;Directory Using PowerShell
+title: Registering Claims X-Ray in&nbsp;Entra&nbsp;ID Using PowerShell
 date: '2023-02-12T00:00:00+00:00'
 layout: post
 lang: en
@@ -18,11 +18,11 @@ permalink: /en/azure-ad-claims-xray-powershell-microsoft-graph-api/
 
 Most ADFS admins would probably know the&nbsp;[Claims X-Ray](https://adfshelp.microsoft.com/ClaimsXray) web application from&nbsp;Microsoft, which&nbsp;can&nbsp;be&nbsp;used to&nbsp;troubleshoot SAML token issuance:
 
-![Claims X-Ray UI Screenshot](/assets/images/claims-xray-claims.png) 
+![Claims X-Ray UI Screenshot](/assets/images/claims-xray-claims.png)
 
 Although not officially supported, it&nbsp;is&nbsp;also possible to&nbsp;use Claims X-Ray with&nbsp;Azure Active Directory:
 
-![Claims X-Ray Application Registration Screenshot](/assets/images/claims-xray-registration.png) 
+![Claims X-Ray Application Registration Screenshot](/assets/images/claims-xray-registration.png)
 
 As Microsoft is&nbsp;[pushing Azure AD customers to&nbsp;migrate applications from&nbsp;ADFS to&nbsp;AAD](https://learn.microsoft.com/en-us/azure/active-directory/reports-monitoring/recommendation-migrate-apps-from-adfs-to-azure-ad), this&nbsp;utility might become more useful than&nbsp;ever.
 
@@ -38,7 +38,7 @@ We will first need to&nbsp;install the&nbsp;[Microsoft.Graph.Applications](https
 Install-Module -Name Microsoft.Graph.Applications,Microsoft.Graph.Identity.SignIns -Scope AllUsers -Force
 ```
 
-We can&nbsp;then connect to&nbsp;Azure Active Directory while&nbsp;specifying all permissions required by&nbsp;the&nbsp;registration process: 
+We can&nbsp;then connect to&nbsp;Azure Active Directory while&nbsp;specifying all permissions required by&nbsp;the&nbsp;registration process:
 
 ```powershell
 Connect-MgGraph -Scopes @(
@@ -117,7 +117,7 @@ Remove-Item -Path $tempLogoPath
 Now that&nbsp;the&nbsp;application itself is&nbsp;registered, we can&nbsp;now&nbsp;register the&nbsp;corresponding service principal, which&nbsp;will appear in&nbsp;the&nbsp;Enterprise Applications section of&nbsp;the&nbsp;Azure AD Portal:
 
 ```powershell
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $servicePrincipal = 
+[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $servicePrincipal =
    New-MgServicePrincipal -DisplayName $appName `
                           -AppId $registeredApp.AppId `
                           -AccountEnabled `
@@ -156,7 +156,7 @@ As we want the&nbsp;Claims X-Ray app to&nbsp;receive information about signed-in
 
 Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
     ResourceAppId = $microsoftGraph.AppId
-    ResourceAccess = @(@{ 
+    ResourceAccess = @(@{
         id = $userReadScope.Id
         type = 'Scope'
     })
@@ -167,7 +167,7 @@ It would make sense to&nbsp;hide the&nbsp;corresponding consent prompt from&nbsp
 
 ![ Screenshot](/assets/images/claims-xray-user-consent.png)
 
-We can&nbsp;therefore give the&nbsp;required consent on behalf of&nbsp;the&nbsp;entire AAD Tenant in&nbsp;advance: 
+We can&nbsp;therefore give the&nbsp;required consent on behalf of&nbsp;the&nbsp;entire AAD Tenant in&nbsp;advance:
 
 ```powershell
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphOAuth2PermissionGrant] $adminConsent =
@@ -183,11 +183,11 @@ This is&nbsp;how the&nbsp;results should look in&nbsp;the&nbsp;AAD Portal:
 
 ## User Assignment
 
-For users to&nbsp;see the&nbsp;application in&nbsp;the&nbsp;[My Apps portal](https://myapps.microsoft.com/), they need to&nbsp;be&nbsp;assigned to&nbsp;the&nbsp;application. This&nbsp;is&nbsp;how we can&nbsp;assign ourselves to&nbsp;the&nbsp;app: 
+For users to&nbsp;see the&nbsp;application in&nbsp;the&nbsp;[My Apps portal](https://myapps.microsoft.com/), they need to&nbsp;be&nbsp;assigned to&nbsp;the&nbsp;application. This&nbsp;is&nbsp;how we can&nbsp;assign ourselves to&nbsp;the&nbsp;app:
 
 ```powershell
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphDirectoryObject] $currentUser =
-    Get-MgApplicationOwner -ApplicationId $registeredApp.Id  
+    Invoke-GraphRequest -Method GET -Uri 'https://graph.microsoft.com/v1.0/me'
 
 [string] $defaultAppAccessRole = [Guid]::Empty
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphAppRoleAssignment] $appAssignment =
@@ -354,7 +354,7 @@ As a&nbsp;workaround, we can&nbsp;override the&nbsp;application-specific claim i
 }
 '@
 
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphClaimsMappingPolicy] $allClaimsPolicy = 
+[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphClaimsMappingPolicy] $allClaimsPolicy =
    New-MgPolicyClaimMappingPolicy -DisplayName 'Issue All Claims' -Definition $allClaimsMapping
 
 New-MgServicePrincipalClaimMappingPolicyByRef -ServicePrincipalId $servicePrincipal.Id -OdataId "https://graph.microsoft.com/v1.0/policies/claimsMappingPolicies/$($allClaimsPolicy.Id)"
@@ -379,7 +379,7 @@ Start-Process ('https://myapps.microsoft.com/signin/{0}?tenantId={1}' -f $servic
 ## Limitations
 
 - Because&nbsp;the&nbsp;Claims X-Ray app uses the&nbsp;`urn:microsoft:adfs:claimsxray` identifier, it&nbsp;can&nbsp;only be&nbsp;registered as&nbsp;a&nbsp;**single-tenant app**.
-- As&nbsp;the&nbsp;Claims X-Ray app is&nbsp;hardcoded with&nbsp;ADFS-specific token request relative URL, only the&nbsp;**Identity Provider-Initiated Single Sign-On** can&nbsp;be&nbsp;used. 
+- As&nbsp;the&nbsp;Claims X-Ray app is&nbsp;hardcoded with&nbsp;ADFS-specific token request relative URL, only the&nbsp;**Identity Provider-Initiated Single Sign-On** can&nbsp;be&nbsp;used.
 - Unlike production applications, the&nbsp;Claims X-Ray does not validate the&nbsp;**token-signing certificates**.
 - This&nbsp;article does not cover the&nbsp;assignment of&nbsp;a&nbsp;**Conditional Access Policy**, which&nbsp;could enforce MFA.
 
@@ -449,7 +449,7 @@ Invoke-GraphRequest -Method PUT -Uri "https://graph.microsoft.com/v1.0/applicati
 Remove-Item -Path $tempLogoPath
 
 # Create the service principal
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $servicePrincipal = 
+[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $servicePrincipal =
    New-MgServicePrincipal -DisplayName $appName `
                           -AppId $registeredApp.AppId `
                           -AccountEnabled `
@@ -474,7 +474,7 @@ Remove-Item -Path $tempLogoPath
 
 Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
     ResourceAppId = $microsoftGraph.AppId
-    ResourceAccess = @(@{ 
+    ResourceAccess = @(@{
         id = $userReadScope.Id
         type = 'Scope'
     })
@@ -489,7 +489,7 @@ Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
 
 # Assign the application to the current user
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphDirectoryObject] $currentUser =
-    Get-MgApplicationOwner -ApplicationId $registeredApp.Id  
+    Invoke-GraphRequest -Method GET -Uri 'https://graph.microsoft.com/v1.0/me'
 
 [string] $defaultAppAccessRole = [Guid]::Empty
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphAppRoleAssignment] $appAssignment =
@@ -607,7 +607,7 @@ Update-MgApplication -ApplicationId $registeredApp.Id -OptionalClaims $optionalC
 }
 '@
 
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphClaimsMappingPolicy] $allClaimsPolicy = 
+[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphClaimsMappingPolicy] $allClaimsPolicy =
    New-MgPolicyClaimMappingPolicy -DisplayName 'Issue All Claims' -Definition $allClaimsMapping
 
 # Assign the claims mapping policy to the application
