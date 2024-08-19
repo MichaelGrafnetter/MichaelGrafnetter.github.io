@@ -19,4 +19,4 @@ tags:
 
 <!--more-->
 
-[![Moderní autentizace na&nbsp;webu](/assets/images/cover/wug-moderni-autentizace.jpg)
+[![Moderní autentizace na&nbsp;webu](/assets/images/cover/wug-moderni-autentizace.jpg)](https://www.wug.cz/zaznamy/617-Moderni-autentizace-na-webu)
