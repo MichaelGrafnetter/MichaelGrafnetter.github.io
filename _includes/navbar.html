@@ -1,16 +1,18 @@
 <!-- Menu Items -->
-{%- assign menurefs = "blog, videos, projects, about" | split: ", " -%}
+{%- assign menurefs = "blog, videos, projects, courses, about" | split: ", " -%}
 {%- for menuref in menurefs -%}
   {%- assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
-  <a href="{{ menuitem.url }}" class="page-link"><i class="{{ menuitem.fa_class }}"></i>&nbsp;
-    {%- if menuitem.url == page.url -%}
-      <strong>
-    {%- endif -%}
-    {{ menuitem.title | upcase }}
-    {%- if menuitem.url == page.url -%}
-      </strong>
-    {%- endif -%}
-  </a>
+  {%- if menuitem %}
+    <a href="{{ menuitem.url }}" class="page-link"><i class="{{ menuitem.fa_class }}"></i>&nbsp;
+      {%- if menuitem.url == page.url -%}
+        <strong>
+      {%- endif -%}
+      {{ menuitem.title | upcase }}
+      {%- if menuitem.url == page.url -%}
+        </strong>
+      {%- endif -%}
+    </a>
+  {%- endif %}
 {%- endfor %}
 <!-- Language Link -->
 {%
