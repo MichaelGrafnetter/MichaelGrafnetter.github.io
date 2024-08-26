@@ -3,6 +3,7 @@ tagline: Directory Services Internals
 description: Directory Services Internals
 logo: /favicon.png
 logo_large: /assets/images/logo_white.png
+url: https://www.dsinternals.com
 
 defaults:
   - scope:
