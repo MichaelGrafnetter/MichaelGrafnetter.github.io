@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Ruby
-        uses: ruby/setup-ruby@8575951200e472d5f2d95c625da0c7bec8217c42 # v1.161.0
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
@@ -37,6 +37,8 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --verbose
         env:
           JEKYLL_ENV: production
+          # Variables for the jekyll-github-metadata plugin
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PAGES_REPO_NWO: ${{ github.repository }}
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
