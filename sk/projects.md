@@ -10,8 +10,6 @@ fa_class: fas fa-download
 
 ## PowerShell modul DSInternals
 
-> VAROVANIE: Funkcionalita modulu DSInternals nie je&nbsp;podporovaná firmou Microsoft a&nbsp;preto nie je&nbsp;určený pre&nbsp;produkčné nasadenie. Jeho nesprávne použitie môže spôsobiť nevratné poškodenie doménového kontroléru alebo negatívne ovplyvniť bezpečosť domény.
-
 [PowerShell modul DSInternals](https://www.powershellgallery.com/packages/DSInternals) sprístupňuje viaceré nedokumentované funkcie Active Directory a&nbsp;Azure Active Directory. Patria medzi ne [auditovanie FIDO2 a&nbsp;NGC kľúčov](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#get-azureaduserex), [offline manipulácia so&nbsp;súborom ntds.dit](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-offline-active-directory-operations), [audit hesiel](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), [obnova DC z&nbsp;IFM zálohy](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/New-ADDBRestoreFromMediaScript.md#new-addbrestorefrommediascript), and&nbsp;[počítanie odtlačkov hesiel](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-password-hash-calculation).
 
 Asi najobľúbenejšou funkciou modulu DSInternals je&nbsp;[príkaz Test-PasswordQuality](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), ktorý&nbsp;vie skontrolovať heslá v&nbsp;Active Directory voči zoznamu uniknutých hesiel publikovanom na&nbsp;stránke [Have I&nbsp;Been Pwned (HIBP)](https://haveibeenpwned.com/):
@@ -28,6 +26,8 @@ PowerShell modul DSInternals bol údajne použitý aj&nbsp;pri útokoch v&nbsp;r
 
 ![Príklad časovej osi útoku malvéru Raindrop](/assets/images/solorigate.webp)
 
+> VAROVANIE: Funkcionalita modulu DSInternals nie je&nbsp;podporovaná firmou Microsoft a&nbsp;preto nie je&nbsp;určený pre&nbsp;produkčné nasadenie. Jeho nesprávne použitie môže spôsobiť nevratné poškodenie doménového kontroléru alebo negatívne ovplyvniť bezpečosť domény.
+
 ## .NET knižnice DSInternals
 
 Funkcionalitu PowerShell modulu je&nbsp;možné integrovať do&nbsp;iných aplikácií pomocou [NuGet balíčkov pre&nbsp;.NET](https://www.nuget.org/profiles/DSInternals).
@@ -36,13 +36,26 @@ Projekt DSInternals momentálne využívajú minimálne tieto produkty:
 
 - [Semperis Active Directory Forest Recovery](https://www.semperis.com/adf-recovery/)
 - [Lithnet Password Protection for&nbsp;Active Directory](https://github.com/lithnet/ad-password-protection)
-- [Thycotic Weak Password Finder](https://thycotic.com/solutions/free-it-tools/weak-password-finder/)
+- [Delinea Weak Password Finder](https://delinea.com/resources/weak-password-finder-tool-active-directory/)
 
-## Thycotic Weak Password Finder
+## PowerShell modul DSInternals.Passkeys
 
-Pre spoločnosť [Thycotic](https://thycotic.com/) som kedysi vytvoril prvú verziu programu [Thycotic Weak Password Finder for&nbsp;Active Directory](https://thycotic.com/solutions/free-it-tools/weak-password-finder/).
+[PowerShell modul DSInternals.Passkeys](https://www.powershellgallery.com/packages/DSInternals.Passkeys) umožňuje správcom Entra ID registrovať Passkey (bezpečnostné kľúčenky štandardu FIDO2 či aplikáciu Microsoft Authenticator) pre iných používateľov, bez nutnosti im nastavovať heslo:
 
-![Screenshot z&nbsp;programu Thycotic Weak Password Finder](/assets/images/thycotic_report1.png)
+![Screenshot z registrácie Passkey v Entra ID pomocou PowerShellu](/assets/images/dsinternals-passkeys.png)
+
+Aby som mohol jednoducho demonštrovať možnosti Win32 API WebAuthn, vytvoril som ako súčasť tohoto projektu aj desktopovú aplikáciu [FIDO2 UI](https://github.com/MichaelGrafnetter/webauthn-interop/releases/latest):
+
+![FIDO2 UI Screenshot](/assets/images/fido2-ui.png)
+
+Vývojári .NET aplikácií môžu tiež jednoducho využiť túto funkcionalitu pomocou [mojich NuGet balíčkov](https://www.nuget.org/packages?q=DSInternals.Win32.WebAuthn).
+
+
+## Delinea Weak Password Finder
+
+Pre spoločnosť [Thycotic](https://delinea.com/thycotic/) (dnes Delinea) som kedysi vytvoril prvú verziu programu [Weak Password Finder for&nbsp;Active Directory](https://delinea.com/resources/weak-password-finder-tool-active-directory/).
+
+![Screenshot z&nbsp;programu Delinea Weak Password Finder](/assets/images/thycotic_report1.png)
 
 ## ADMX šablóna pre&nbsp;YubiKey Smart Card Minidriver
 
@@ -52,7 +65,7 @@ Pred časom som vytvoril [ADMX šablónu](https://github.com/MichaelGrafnetter/y
 
 ## Bezpečnostný výskum Active Directory a&nbsp;Entra&nbsp;ID
 
-### CVE-2024-20692: Zraniteľnosť v Microsoft Local Security Authority Subsystem Service (LSASS)
+### CVE-2024-20692: Zraniteľnosť v&nbsp;Microsoft Local Security Authority Subsystem Service (LSASS)
 
 Počas analýzy sieťovej komunikácie Windows služby Local Security Authority Subsystem Service (LSASS) som objavil zraniteľnosť [CVE-2024-20692](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20692). Útočníkovi, ktorý je&nbsp;schopný pasívneho odposluchu sieťovej komunikácie, umožňuje získať citlivé dáta, ktoré&nbsp;je&nbsp;možné zneužiť pri ďalších útokoch na&nbsp;podnikovú sieť.
 

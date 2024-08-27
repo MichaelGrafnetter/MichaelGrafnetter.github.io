@@ -24,7 +24,7 @@ twitter:
   username: MGrafnetter
   card: summary
 
-remote_theme: jekyll/minima
+theme: minima
 minima:
   skin: solarized-dark
   social_links:
@@ -35,11 +35,22 @@ minima:
 kramdown:
   toc_levels: 2..2
 
+sass:
+  style: compressed
+
+safe: true
+whitelist:
+ - jekyll-redirect-from
+ - jekyll-seo-tag
+ - jekyll-github-metadata
+ - jekyll-relative-links
+ - jemoji
 plugins:
  - jekyll-redirect-from
  - jekyll-seo-tag
- - jekyll-remote-theme
  - jekyll-github-metadata
+ - jekyll-relative-links
+ - jemoji
 
 exclude:
   - 'Gemfile'
