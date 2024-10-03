@@ -1,6 +1,6 @@
 ---
 ref: cmap-powershell
-title: CMAP Module 10 - Empowering the PowerShell
+title: CMAP24 Module 9 - Advancing at PowerShell for Security and Administration
 date: 2022-10-25T00:00:00+00:00
 layout: page
 lang: en
