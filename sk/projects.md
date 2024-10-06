@@ -4,7 +4,7 @@ lang: sk
 layout: page
 ref: projects
 permalink: /sk/projekty/
-redirect-from:
+redirect_from:
   - /sk/na-stiahnutie/
 image: /assets/images/dsinternals_password_quality.png
 fa_class: fas fa-download

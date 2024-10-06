@@ -5,7 +5,7 @@ layout: page
 ref: courses
 image: /assets/images/blackhat_2019_michael.jpg
 permalink: /sk/skolenia/
-redirect-from:
+redirect_from:
   - /sk/kurzy/
   - /sk/courses/
   - /kurzy/
