@@ -10,6 +10,7 @@ redirect_from:
   - /sk/courses/
   - /kurzy/
   - /skolenia/
+  - /gopas/
 fa_class: fas fa-graduation-cap
 ---
 
