@@ -42,3 +42,4 @@ The purpose of this course is to provide an overview of the key concepts behind 
 - [SAML Protocol Request Decoder](https://idp.ssocircle.com/sso/toolbox/samlDecode.jsp)
 - [JSON Web Token (JWT) Parser](https://jwt.io)
 - [Claims X-Ray](https://claimsxray.net/)
+- [OpenID Connect Debugger ](https://oidcdebugger.com/)
