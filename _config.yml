@@ -28,9 +28,15 @@ theme: minima
 minima:
   skin: solarized-dark
   social_links:
-    - { platform: github, user_url: "https://github.com/MichaelGrafnetter", title: "GitHub: MichaelGrafnetter" }
-    - { platform: x, user_url: "https://twitter.com/MGrafnetter", title: "Twitter: @MGrafnetter" }
-    - { platform: linkedin, user_url: "https://www.linkedin.com/in/grafnetter/", title: "LinkedIn: grafnetter" }
+    -  title: "GitHub: MichaelGrafnetter"
+       icon: github
+       url: "https://github.com/MichaelGrafnetter"
+    - title: "X: @MGrafnetter"
+      icon: x-twitter
+      url: "https://x.com/MGrafnetter"
+    - title: "LinkedIn: grafnetter"
+      icon: linkedin
+      url: "https://www.linkedin.com/in/grafnetter/"
 
 kramdown:
   toc_levels: 2..2

@@ -1,6 +1,10 @@
 <ul class="social-media-list">
 {%- for entry in site.minima.social_links -%}
-  {%- include social-item.html item = entry -%}
+  <li>
+    <a rel="me" href="{{ entry.url }}" target="_blank" title="{{ entry.title }}">
+      <span class="grey fa-brands fa-{{ entry.icon }} fa-3x"></span>
+    </a>
+  </li>
 {%- endfor -%}
-{%- if feed_uri -%}<li><a href="{{ feed_uri | absolute_url }}" title="RSS ({{ page.lang | upcase }})"><svg class="svg-icon grey"><use xlink:href="{{ '/assets/minima-social-icons.svg#rss' | relative_url }}"></use></svg></a></li>{%- endif -%}
+{%- if feed_uri -%}<li><a href="{{ feed_uri | absolute_url }}" title="RSS ({{ page.lang | upcase }})"><span class="grey fa-solid fa-square-rss fa-3x"></span></a></li>{%- endif -%}
 </ul>

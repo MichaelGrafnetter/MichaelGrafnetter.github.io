@@ -4,7 +4,7 @@
 <link rel="icon" href="{{ site.logo | absolute_url }}" />
 <link rel="apple-touch-icon-precomposed" href="{{ site.logo_large | absolute_url }}" />
 <!-- Links -->
-<link rel="me" href="https://twitter.com/{{ site.author.twitter }}" />
+<link rel="me" href="https://x.com/{{ site.author.twitter }}" />
 {%- assign feed_uri = page.lang | append: "/feed.xml" | absolute_url %}
 <link rel="alternate" type="application/atom+xml" href="{{ feed_uri }}" title="{{ site.title }} ({{ page.lang | upcase }})" />
 {%- assign translations = site.pages | concat: site.posts | where: "ref", page.ref | sort: 'lang' -%}
@@ -12,7 +12,7 @@
 <link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}" />
 {%- endfor %}
 <!-- Icons -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo= sha384-nRgPTkuX86pH8yjPJUAFuASXQSSl2/bBUiNV47vSYpKFxHJhbcrGnmlYpYJMeD7a sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous">
 {%- if page.sitemap == false %}
 <meta name="robots" content="noindex">
 {%- endif %}

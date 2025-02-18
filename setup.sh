@@ -6,3 +6,4 @@ echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 gem install jekyll bundler
 bundle install
+bundle update minima
