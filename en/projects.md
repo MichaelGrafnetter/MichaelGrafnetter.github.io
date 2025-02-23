@@ -41,6 +41,20 @@ To my knowledge, the&nbsp;following products utilize DSInternals:
 - [Lithnet Password Protection for&nbsp;Active Directory](https://github.com/lithnet/ad-password-protection)
 - [Delinea Weak Password Finder](https://delinea.com/resources/weak-password-finder-tool-active-directory/)
 
+## Domain Controller Firewall Tool
+
+The goal of the [Domain Controller Firewall Tool (DCFWTool)](https://firewall.dsinternals.com) is to steamline the host-based firewall configuration process.
+This PowerShell-based tool provides a flexible and repeatable way of deploying a secure DC firewall configuration within minutes. The accompanying whitepaper also serves as a comprehensive source of Windows Firewall-related information.
+
+![Domain Controller Firewall Tool Visual Studio Code support](/assets/images/dc-firewall-intellisense.png)
+
+## Administrative Template (ADMX) for&nbsp;Microsoft Defender ASR
+
+This [custom administrative template (ADMX)](https://github.com/MichaelGrafnetter/defender-asr-admx) for Microsoft Defender Attack Surface Reduction (ASR)
+greatly improves the user experience by providing a standalone setting for each ASR rule:
+
+![Custom ADMX Group Policy Result Screenshot](/assets/images/asr-admx-group-policy-result.png)
+
 ## Entra ID Passkey Registration PowerShell Module
 
 The [DSInternals.Passkeys PowerShell Module](https://www.powershellgallery.com/packages/DSInternals.Passkeys) can be used by Entra ID administrators to register passkeys (i.e. FIDO2 security keys or Microsoft Authenticator app) on behalf of other users:
