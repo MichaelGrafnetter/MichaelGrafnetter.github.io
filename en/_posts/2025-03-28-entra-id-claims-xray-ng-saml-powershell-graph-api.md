@@ -8,6 +8,10 @@ image: /assets/images/claims-xray-claims.png
 permalink: /en/entra-id-claims-xray-ng-saml-powershell-graph-api/
 ---
 
+> **UPDATE:**
+> Removed the *User.Read* permission from the guide,
+> as it is no longer required for SAML-based apps.
+
 ## Introduction
 
 *[ADFS]: Active Directory Federation Services
@@ -130,44 +134,6 @@ One of&nbsp;the&nbsp;requirements for&nbsp;a&nbsp;functional relying party trust
 The result will look like this&nbsp;in&nbsp;Entra Admin Center:
 
 ![SAML Signing Certificate Screenshot](/assets/images/claims-xray-certificate.png)
-
-## Application Permissions
-
-As we want the&nbsp;Claims X-Ray NG app to&nbsp;receive information about signed-in users, we need to&nbsp;delegate the&nbsp;[User.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#user-permissions) permission:
-
-```powershell
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $microsoftGraph =
-    Get-MgServicePrincipal -Filter "DisplayName eq 'Microsoft Graph'"
-
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphPermissionScope] $userReadScope =
-    $microsoftGraph.Oauth2PermissionScopes | Where-Object Value -eq 'User.Read'
-
-Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
-    ResourceAppId = $microsoftGraph.AppId
-    ResourceAccess = @(@{
-        id = $userReadScope.Id
-        type = 'Scope'
-    })
-}
-```
-
-It would make sense to&nbsp;hide the&nbsp;corresponding consent prompt from&nbsp;end-users accessing the&nbsp;app:
-
-![ Screenshot](/assets/images/claims-xray-user-consent.png)
-
-We can&nbsp;therefore give the&nbsp;required consent on behalf of&nbsp;the&nbsp;entire Entra ID Tenant in&nbsp;advance:
-
-```powershell
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphOAuth2PermissionGrant] $adminConsent =
-    New-MgOauth2PermissionGrant -ClientId $servicePrincipal.Id `
-                                -ConsentType AllPrincipals `
-                                -ResourceId $microsoftGraph.Id `
-                                -Scope 'User.Read'
-```
-
-This is&nbsp;how the&nbsp;results should look in&nbsp;the&nbsp;Entra Admin Center:
-
-![Admin Consent Screenshot](/assets/images/claims-xray-admin-consent.png)
 
 ## User Assignment
 
@@ -516,28 +482,6 @@ finally {
    Add-MgServicePrincipalTokenSigningCertificate -ServicePrincipalId $servicePrincipal.Id `
                                                  -DisplayName $certificateDisplayName `
                                                  -EndDateTime $now.AddYears(2)
-
-# Delegate the User.Read permission
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphServicePrincipal] $microsoftGraph =
-    Get-MgServicePrincipal -Filter "DisplayName eq 'Microsoft Graph'"
-
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphPermissionScope] $userReadScope =
-    $microsoftGraph.Oauth2PermissionScopes | Where-Object Value -eq 'User.Read'
-
-Update-MgApplication -ApplicationId $registeredApp.Id -RequiredResourceAccess @{
-    ResourceAppId = $microsoftGraph.AppId
-    ResourceAccess = @(@{
-        id = $userReadScope.Id
-        type = 'Scope'
-    })
-}
-
-# Approve the User.Read permission on behalf of all tenant users
-[Microsoft.Graph.PowerShell.Models.IMicrosoftGraphOAuth2PermissionGrant] $adminConsent =
-    New-MgOauth2PermissionGrant -ClientId $servicePrincipal.Id `
-                                -ConsentType AllPrincipals `
-                                -ResourceId $microsoftGraph.Id `
-                                -Scope 'User.Read'
 
 # Assign the application to the current user
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphDirectoryObject] $currentUser =
