@@ -42,7 +42,7 @@ iex (iwr 'https://community.chocolatey.org/install.ps1' -UseBasicParsing)
 
 #### P/Invoke
 
-- [GetPrivateProfileString MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/ms724353(v=vs.85).aspx?f=255&MSPPError=-2147217396)
+- [GetPrivateProfileString MSDN](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprivateprofilestring)
 - [GetPrivateProfileString PInvoke.NET](https://www.pinvoke.net/default.aspx/kernel32.GetPrivateProfileString)
 - [SysInternals Process Monitor](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon)
 
@@ -80,8 +80,8 @@ function Get-PrivateProfileString
 }
 
 # Call the function
-Get-Content '\\contoso\sysvol\contoso.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\GPT.INI'
-Get-PrivateProfileString -File '\\contoso\sysvol\contoso.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\GPT.INI' `
+Get-Content 'C:\Windows\System32\GroupPolicy\gpt.ini'
+Get-PrivateProfileString -File 'C:\Windows\System32\GroupPolicy\gpt.ini' `
                          -Category General `
                          -Key Version
 ```
@@ -754,15 +754,32 @@ Get-Credential | Export-CliXml -Path cred.xml
 Import-CliXml -Path cred.xml
 ```
 
-#### Azure AD Credentials
+#### Entra ID Credentials
 
 ```powershell
-# Interactive
-Connect-MgGraph -Scopes "User.Read.All","Group.Read.All"
-Get-MgUser
+ [X509Certificate] $cer =
+     New-SelfSignedCertificate `
+         -Subject "CN=$env:COMPUTERNAME Entra Script Authentication" `
+         -KeyAlgorithm RSA `
+         -KeyLength 2048 `
+         -CertStoreLocation Cert:\LocalMachine\My `
+         -KeyExportPolicy NonExportable `
+         -Provider 'Microsoft Software Key Storage Provider' `
+         -NotAfter (Get-Date).AddYears(1)
 
-# Non-interactive
- Connect-MgGraph -ClientID c3f7da84-2712-43e5-b5dd-70f3cd0e4bbd -TenantId 6c6e13e5-6627-445a-bcd6-db1e297f30c4 -CertificateName AADScriptCert
+ Export-Certificate -Type CERT -Cert $cer -FilePath 'C:\EntraScriptAuthentication.cer' -Force
+```
+
+```powershell
+ Connect-MgGraph -CertificateSubject "CN=$env:COMPUTERNAME Entra Script Authentication" `
+                 -ClientId '0c14df71-f822-4f41-846a-b6bcd2383083' `
+                 -TenantId 'ca78306c-8302-4aef-b696-1203d3e941a3' `
+                 -ContextScope Process `
+                 -NoWelcome
+
+ Get-MgUser -All | Select-Object -Property DisplayName,Mail | Export-Csv -Path C:\users.csv -NoTypeInformation
+
+ Disconnect-MgGraph
 ```
 
 [Use app-only authentication with&nbsp;the&nbsp;Microsoft Graph PowerShell SDK](https://learn.microsoft.com/en-us/powershell/microsoftgraph/app-only?view=graph-powershell-1.0&tabs=azure-portal)
@@ -933,6 +950,7 @@ Start-DscConfiguration -Path .\WindowsServerSecurityBaseline -Wait -Force -Verbo
 #### Security Baseline Tooling
 
 - [BaselineManagement](https://www.powershellgallery.com/packages/BaselineManagement)
+- [Microsoft Security Compliance Manager 4.0](https://www.microsoft.com/en-us/download/details.aspx?id=53353)
 - [Microsoft Security Compliance Toolkit 1.0](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 - [Quickstart: Convert Group Policy into DSC](https://learn.microsoft.com/en-us/powershell/dsc/quickstarts/gpo-quickstart)
 
