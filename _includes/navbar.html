@@ -1,5 +1,5 @@
 <!-- Menu Items -->
-{%- assign menurefs = "blog, videos, projects, courses, about" | split: ", " -%}
+{%- assign menurefs = "blog, videos, projects, about" | split: ", " -%}
 {%- for menuref in menurefs -%}
   {%- assign menuitem = site.pages | where: "ref", menuref | where: "lang", page.lang | first %}
   {%- if menuitem %}

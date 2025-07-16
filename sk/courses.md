@@ -2,6 +2,7 @@
 title: Školenia
 lang: sk
 layout: page
+sitemap: false
 ref: courses
 image: /assets/images/blackhat_2019_michael.jpg
 permalink: /sk/skolenia/
