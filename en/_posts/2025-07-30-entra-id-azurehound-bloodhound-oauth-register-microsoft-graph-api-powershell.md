@@ -13,7 +13,7 @@ permalink: /en/entra-id-azurehound-bloodhound-oauth-register-microsoft-graph-api
 It is&nbsp;best practice to&nbsp;register applications in&nbsp;Entra ID using PowerShell (or another automation tool that&nbsp;utilizes the&nbsp;Microsoft Graph API), rather than&nbsp;adding them manually through the&nbsp;Microsoft Entra Admin Center. This&nbsp;approach offers several advantages:
 
 1. **Repeatable Deployment Process**: Automating the&nbsp;registration helps prevent human errors that&nbsp;could lead to&nbsp;misconfigurations or&nbsp;security issues.
-2.  **Fast Cross-Tenant Migration**: Scripting allows for&nbsp;quick migration between development, testing, and&nbsp;production environments. (You do&nbsp;have at least one pre-production Entra ID tenant, right?)
+2. **Fast Cross-Tenant Migration**: Scripting allows for&nbsp;quick migration between development, testing, and&nbsp;production environments. (You do&nbsp;have at least one pre-production Entra ID tenant, right?)
 3. **Access to&nbsp;Advanced Settings**: Some&nbsp;advanced settings are&nbsp;only available through the&nbsp;Microsoft Graph API and&nbsp;not exposed in&nbsp;the&nbsp;Microsoft Entra Admin Center.
 4. **Improved Customer Experience**: Providing customers with&nbsp;reliable scripts can&nbsp;enhance their product experience and&nbsp;may also reduce support costs for&nbsp;software vendors.
 5. **Documentation**: PowerShell scripts can&nbsp;serve as&nbsp;definitive and&nbsp;up-to-date documentation for&nbsp;the&nbsp;correct configuration of&nbsp;applications.
@@ -24,6 +24,26 @@ for [AzureHound](https://github.com/SpecterOps/AzureHound), the&nbsp;data collec
 With&nbsp;only minor modifications, this&nbsp;guide can&nbsp;be&nbsp;applied to&nbsp;automatically register almost any&nbsp;service or&nbsp;daemon application that&nbsp;is&nbsp;using the&nbsp;OAuth 2.0 client credentials grant flow in&nbsp;Entra ID.
 
 ![Entra ID Enterprise Applications Screenshot](/assets/images/azurehound-enterprise-applications.png)
+
+## Required User Permissions
+
+To register applications with Microsoft Graph permissions in Entra ID, non-trivial user permissions are required.
+As an alternative to the almighty [Global Administrator] role, the following role assignments should be sufficient:
+
+- [Cloud Application Administrator] or [Application Administrator], for creating the app registration.
+- [Privileged Role Administrator], for assigning the required directory role and granting admin consent for the Microsoft Graph permissions.
+
+The [User Access Administrator] role is additionally needed for delegating permissions in Azure.
+
+[User Access Administrator]: https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles/privileged#user-access-administrator
+
+[Global Administrator]: https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#global-administrator
+
+[Privileged Role Administrator]: https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#privileged-role-administrator
+
+[Cloud Application Administrator]: https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#cloud-application-administrator
+
+[Application Administrator]: https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#application-administrator
 
 ## App Registration
 
@@ -39,7 +59,7 @@ Install-Module -Scope AllUsers -Repository PSGallery -Force -Name @(
 )
 ```
 
-Next, We can&nbsp; connect to&nbsp;the&nbsp;Microsoft Graph API while&nbsp;specifying all necessary permissions for&nbsp;the&nbsp;app registration process:
+Next, we can&nbsp;connect to&nbsp;the&nbsp;Microsoft Graph API while&nbsp;specifying all necessary permissions for&nbsp;the&nbsp;app registration process:
 
 ```powershell
 Connect-MgGraph -NoWelcome -ContextScope Process -Scopes @(
@@ -110,7 +130,7 @@ We should also [lock sensitive application properties](https://learn.microsoft.c
 ![BloodHound Enterprise Collector App Instance Property Lock Screenshot](/assets/images/azurehound-app-instance-property-lock.png)
 
 This prevents the&nbsp;creation of&nbsp;secrets on the&nbsp;associated service principal objects,
-which is&nbsp;crucial for&nbsp;safeguarding  multi-tenant applications;
+which is&nbsp;crucial for&nbsp;safeguarding multi-tenant applications;
 however, single-tenant applications, like AzureHound, can&nbsp;also benefit.
 
 The corresponding PowerShell command is&nbsp;simple:
@@ -137,7 +157,7 @@ Once the&nbsp;application itself is&nbsp;registered, we can&nbsp;create the&nbsp
                           -Tags 'WindowsAzureActiveDirectoryIntegratedApp','HideApp'
 ```
 
-Note that&nbsp;we have applied the&nbsp;`HideApp` tag to&nbsp;ensure that&nbsp;the&nbsp;application does not clutter the&nbsp;[My Apps dashboard](https://myapps.microsoft.com/) unnecessarily. The&nbsp;outcome &nbsp;should appear in&nbsp;the&nbsp;Enterprise Applications section of&nbsp;the&nbsp;Microsoft Entra Admin Center:
+Note that&nbsp;we have applied the&nbsp;`HideApp` tag to&nbsp;ensure that&nbsp;the&nbsp;application does not clutter the&nbsp;[My Apps dashboard](https://myapps.microsoft.com/) unnecessarily. The&nbsp;outcome&nbsp;should appear in&nbsp;the&nbsp;Enterprise Applications section of&nbsp;the&nbsp;Microsoft Entra Admin Center:
 
 ![BloodHound Enterprise Collector Service Principal Properties Screenshot](/assets/images/azurehound-service-principal.png)
 
