@@ -43,29 +43,29 @@ To my knowledge, the&nbsp;following products utilize DSInternals:
 
 ## Domain Controller Firewall Tool
 
-The goal of the [Domain Controller Firewall Tool (DCFWTool)](https://firewall.dsinternals.com) is to steamline the host-based firewall configuration process.
-This PowerShell-based tool provides a flexible and repeatable way of deploying a secure DC firewall configuration within minutes. The accompanying whitepaper also serves as a comprehensive source of Windows Firewall-related information.
+The goal of&nbsp;the&nbsp;[Domain Controller Firewall Tool (DCFWTool)](https://firewall.dsinternals.com) is&nbsp;to&nbsp;steamline the&nbsp;host-based firewall configuration process.
+This PowerShell-based tool provides a&nbsp;flexible and&nbsp;repeatable way of&nbsp;deploying a&nbsp;secure DC firewall configuration within minutes. The&nbsp;accompanying whitepaper also serves as&nbsp;a&nbsp;comprehensive source of&nbsp;Windows Firewall-related information.
 
 ![Domain Controller Firewall Tool Visual Studio Code support](/assets/images/dc-firewall-intellisense.png)
 
 ## Administrative Template (ADMX) for&nbsp;Microsoft Defender ASR
 
-This [custom administrative template (ADMX)](https://github.com/MichaelGrafnetter/defender-asr-admx) for Microsoft Defender Attack Surface Reduction (ASR)
-greatly improves the user experience by providing a standalone setting for each ASR rule:
+This [custom administrative template (ADMX)](https://github.com/MichaelGrafnetter/defender-asr-admx) for&nbsp;Microsoft Defender Attack Surface Reduction (ASR)
+greatly improves the&nbsp;user experience by&nbsp;providing a&nbsp;standalone setting for&nbsp;each ASR rule:
 
 ![Custom ADMX Group Policy Result Screenshot](/assets/images/asr-admx-group-policy-result.png)
 
 ## Entra ID Passkey Registration PowerShell Module
 
-The [DSInternals.Passkeys PowerShell Module](https://www.powershellgallery.com/packages/DSInternals.Passkeys) can be used by Entra ID administrators to register passkeys (i.e. FIDO2 security keys or Microsoft Authenticator app) on behalf of other users:
+The [DSInternals.Passkeys PowerShell Module](https://www.powershellgallery.com/packages/DSInternals.Passkeys) can&nbsp;be&nbsp;used by&nbsp;Entra ID administrators to&nbsp;register passkeys (i.e. FIDO2 security keys or&nbsp;Microsoft Authenticator app) on behalf of&nbsp;other users:
 
-![Screenshot of Passkey registration in Entra ID using PowerShell](/assets/images/dsinternals-passkeys.png)
+![Screenshot of&nbsp;Passkey registration in&nbsp;Entra ID using PowerShell](/assets/images/dsinternals-passkeys.png)
 
-To demonstrate the full capabilities of the WebAuthn Win32 API, I have also created a desktop application called [FIDO2 UI](https://github.com/MichaelGrafnetter/webauthn-interop/releases/latest) as part of this project:
+To demonstrate the&nbsp;full capabilities of&nbsp;the&nbsp;WebAuthn Win32 API, I&nbsp;have also created a&nbsp;desktop application called [FIDO2 UI](https://github.com/MichaelGrafnetter/webauthn-interop/releases/latest) as&nbsp;part of&nbsp;this&nbsp;project:
 
 ![FIDO2 UI Screenshot](/assets/images/fido2-ui.png)
 
-.NET developers can easily integrate these capabilities into their own applications by utilizing my [NuGet packages](https://www.nuget.org/packages?q=DSInternals.Win32.WebAuthn).
+.NET developers can&nbsp;easily integrate these capabilities into their own applications by&nbsp;utilizing my [NuGet packages](https://www.nuget.org/packages?q=DSInternals.Win32.WebAuthn).
 
 ## Delinea Weak Password Finder
 

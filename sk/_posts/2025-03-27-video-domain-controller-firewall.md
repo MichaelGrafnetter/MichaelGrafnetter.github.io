@@ -16,4 +16,4 @@ tags:
     - WUG
 ---
 
-[![Brána firewall na doménových řadičích](/assets/images/cover/wug-dc-firewall.jpg)](https://www.wug.cz/zaznamy/797-Brana-firewall-na-domenovych-radicich)
+[![Brána firewall na&nbsp;doménových řadičích](/assets/images/cover/wug-dc-firewall.jpg)](https://www.wug.cz/zaznamy/797-Brana-firewall-na-domenovych-radicich)

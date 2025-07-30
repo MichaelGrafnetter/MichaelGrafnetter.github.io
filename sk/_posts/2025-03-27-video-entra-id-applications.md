@@ -18,4 +18,4 @@ tags:
     - WUG
 ---
 
-[![Integrace Entra ID do vlastních aplikací](/assets/images/cover/wug-entra-apps.jpg)](https://www.wug.cz/zaznamy/799-Global-Azure-Prague-2024-Integrace-Entra-ID-do-vlastnich-aplikaci)
+[![Integrace Entra ID do&nbsp;vlastních aplikací](/assets/images/cover/wug-entra-apps.jpg)](https://www.wug.cz/zaznamy/799-Global-Azure-Prague-2024-Integrace-Entra-ID-do-vlastnich-aplikaci)

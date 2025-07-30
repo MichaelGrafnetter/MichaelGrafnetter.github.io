@@ -8,11 +8,11 @@ image: /assets/images/entra-id-fido2-security-key-report.png
 permalink: /en/entra-id-fido2-passkeys-report-powershell-graph-api/
 ---
 
-As passwordless authentication using Passkeys is finding its way into more and more Entra ID tenants, it is crucial for security auditors to get more than familiar with this technology. Although the [FIDO2 security key management plane](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-passwordless-security-key) in the Entra ID Portal is continually improving, any security assessment of FIDO2 key usage still involves a lot of clicking:
+As passwordless authentication using Passkeys is&nbsp;finding its way into more and&nbsp;more Entra ID tenants, it&nbsp;is&nbsp;crucial for&nbsp;security auditors to&nbsp;get more than&nbsp;familiar with&nbsp;this&nbsp;technology. Although&nbsp;the&nbsp;[FIDO2 security key management plane](https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-passwordless-security-key) in&nbsp;the&nbsp;Entra ID Portal is&nbsp;continually improving, any security assessment of&nbsp;FIDO2 key usage still involves a&nbsp;lot of&nbsp;clicking:
 
 ![View FIDO2 security details](/assets/images/entra-id-security-key-view-details.png)
 
-That is one of the reasons why I added the [capability to retrieve the list of all FIDO2 security keys](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#example-2) registered in an Entra ID tenant into the [DSInternals PowerShell module](https://www.powershellgallery.com/packages/DSInternals) some years ago. Since then, the same capability [has been added](https://learn.microsoft.com/en-us/graph/api/fido2authenticationmethod-list?view=graph-rest-1.0&tabs=powershell) to the official Microsoft Graph API, making FIDO2-related PowerShell queries easier than ever:
+That is&nbsp;one of&nbsp;the&nbsp;reasons why&nbsp;I&nbsp;added the&nbsp;[capability to&nbsp;retrieve the&nbsp;list of&nbsp;all FIDO2 security keys](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#example-2) registered in&nbsp;an&nbsp;Entra ID tenant into the&nbsp;[DSInternals PowerShell module](https://www.powershellgallery.com/packages/DSInternals) some&nbsp;years ago. Since&nbsp;then, the&nbsp;same capability [has been added](https://learn.microsoft.com/en-us/graph/api/fido2authenticationmethod-list?view=graph-rest-1.0&tabs=powershell) to&nbsp;the&nbsp;official Microsoft Graph API, making FIDO2-related PowerShell queries easier than&nbsp;ever:
 
 ```powershell
 # Microsoft Graph API PowerShell modules must be already installed on the computer
@@ -37,7 +37,7 @@ Get-MgUser -All -Property Id,UserPrincipalName | ForEach-Object {
 Disconnect-MgGraph
 ```
 
-The output of the above script should look similar to the following example:
+The output of&nbsp;the&nbsp;above script should look similar to&nbsp;the&nbsp;following example:
 
 ```txt
 UserPrincipalName       CreatedDateTime        DisplayName       Model                                 AttestationLevel AaGuid
@@ -49,7 +49,7 @@ michael@dsinternals.com 12/12/2019 9:42:21 AM  YubiKey 5         YubiKey 5 Serie
 michael@dsinternals.com 1/14/2022 3:25:27 PM   Feitian USB FP    Feitian BioPass FIDO2 Authenticator   attested         77010bd7-212a-4fc9-b236-d2ca5e9d4084
 ```
 
-Additionally, the `Format-Table` cmdlet can also be replaced with `Out-GridView`:
+Additionally, the&nbsp;`Format-Table` cmdlet can&nbsp;also be&nbsp;replaced with&nbsp;`Out-GridView`:
 
 ```powershell
 Get-MgUser -All -Property Id,UserPrincipalName | ForEach-Object {
@@ -59,6 +59,6 @@ Get-MgUser -All -Property Id,UserPrincipalName | ForEach-Object {
     Out-GridView -Title 'FIDO2 Security Keys Registered in Entra ID Tenant' -Wait
 ```
 
-This should produce a nice table with searchable and sortable data:
+This should produce a&nbsp;nice table with&nbsp;searchable and&nbsp;sortable data:
 
 ![Entra ID FIDO2 report screenshot](/assets/images/entra-id-fido2-security-key-report.png)

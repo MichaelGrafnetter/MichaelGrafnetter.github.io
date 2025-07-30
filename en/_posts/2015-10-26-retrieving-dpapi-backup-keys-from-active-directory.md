@@ -19,13 +19,13 @@ The Data Protection API (DPAPI) is&nbsp;used by&nbsp;several components of&nbsp;
 
 ## The&nbsp;Mimikatz Method
 
-Benjamin Delpy has already found a&nbsp;way to&nbsp;extract these backup keys from&nbsp;the&nbsp;LSASS of&nbsp;domain controllers. It is implemented in the `lsadump::backupkeys` mimikatz command and&nbsp;it&nbsp;even&nbsp;works remotely:
+Benjamin Delpy has already found a&nbsp;way to&nbsp;extract these backup keys from&nbsp;the&nbsp;LSASS of&nbsp;domain controllers. It&nbsp;is&nbsp;implemented in&nbsp;the&nbsp;`lsadump::backupkeys` mimikatz command and&nbsp;it&nbsp;even&nbsp;works remotely:
 
 ![Mimikatz DPAPI Backup Keys](../../assets/images/mimikatz_backupkeys.png)
 
 ## DSInternals Implementation
 
-This attack is also implemented in my DSInternals PowerShell module:
+This attack is&nbsp;also implemented in&nbsp;my DSInternals PowerShell module:
 
 ```powershell
 Get-LsaBackupKey -ComputerName dc01.contoso.com |
@@ -34,7 +34,7 @@ Get-LsaBackupKey -ComputerName dc01.contoso.com |
 
 ## SharpDPAPI Implementation
 
-The same sttack technique has also been implemented in [GhostPack](https://github.com/GhostPack):
+The same sttack technique has also been implemented in&nbsp;[GhostPack](https://github.com/GhostPack):
 
 ```batchfile
 SharpDPAPI.exe backupkey
@@ -48,7 +48,7 @@ I have taken Benjamin’s research one step further and&nbsp;I&nbsp;can&nbsp;now
 
 The keys are&nbsp;stored in&nbsp;the&nbsp;**currentValue** attribute of&nbsp;objects whose names begin with&nbsp;**BCKUPKEY** and&nbsp;are&nbsp;of&nbsp;class **secret**. The&nbsp;**BCKUPKEY_PREFERRED Secret** and&nbsp;**BCKUPKEY_P Secret** objects actually only contain GUIDs of&nbsp;objects that&nbsp;hold the&nbsp;current modern and&nbsp;legacy keys, respectively.
 
-Furthermore, the&nbsp;currentValue attribute is&nbsp;encrypted using BootKey (aka SysKey) and&nbsp;is&nbsp;never sent through LDAP. After decrypting it, we will get a self-signed certificate with no subject:
+Furthermore, the&nbsp;currentValue attribute is&nbsp;encrypted using BootKey (aka SysKey) and&nbsp;is&nbsp;never sent through LDAP. After&nbsp;decrypting it, we will get a&nbsp;self-signed certificate with&nbsp;no subject:
 
 ![DPAPI Backup Key](/assets/images/dpapi_backup_key.png)
 

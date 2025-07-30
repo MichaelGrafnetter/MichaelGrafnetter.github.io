@@ -134,8 +134,8 @@ The result will look like this&nbsp;in&nbsp;Entra Admin Center:
 ## Application Permissions
 
 > **NOTE:**
-> While the *User.Read* permission is needed in some tenants for SAML sign-in to work,
-> the application works fine without any permission scopes in other tenants.
+> While&nbsp;the&nbsp;*User.Read* permission is&nbsp;needed in&nbsp;some&nbsp;tenants for&nbsp;SAML sign-in to&nbsp;work,
+> the&nbsp;application works fine without any permission scopes in&nbsp;other tenants.
 
 As we want the&nbsp;Claims X-Ray NG app to&nbsp;receive information about signed-in users, we need to&nbsp;delegate the&nbsp;[User.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#user-permissions) permission:
 
@@ -235,7 +235,7 @@ Update-MgApplication -ApplicationId $registeredApp.Id -AppRoles $adminRole,$user
                                            -PrincipalId $currentUser.Id
 ```
 
-As you can see in this example, each user can be assigned more than one role:
+As you can&nbsp;see in&nbsp;this&nbsp;example, each user can&nbsp;be&nbsp;assigned more than&nbsp;one role:
 
 ![Custom Role Assignment](/assets/images/claims-xray-custom-role-assignment.png)
 
@@ -249,7 +249,7 @@ New-MgApplicationOwnerByRef -ApplicationId $registeredApp.Id -OdataId $currentUs
 New-MgServicePrincipalOwnerByRef -ServicePrincipalId $servicePrincipal.Id -OdataId $currentUserOdataId
 ```
 
-Assigning owners is a simple way to grant the ability to manage all aspects of the application:
+Assigning owners is&nbsp;a&nbsp;simple way to&nbsp;grant the&nbsp;ability to&nbsp;manage all aspects of&nbsp;the&nbsp;application:
 
 ![Application Registration Owner](/assets/images/claims-xray-owner.png)
 
@@ -416,8 +416,8 @@ New-MgServicePrincipalClaimMappingPolicyByRef -ServicePrincipalId $servicePrinci
 ```
 
 > **NOTE:**
-> The `New-MgPolicyClaimMappingPolicy` cmdlet appears to be broken
-> in several recent versions of the PowerShell Graph SDK.
+> The&nbsp;`New-MgPolicyClaimMappingPolicy` cmdlet appears to&nbsp;be&nbsp;broken
+> in&nbsp;several recent versions of&nbsp;the&nbsp;PowerShell Graph SDK.
 
 Unfortunately, there is&nbsp;currently no user interface for&nbsp;viewing/editing the&nbsp;policies:
 

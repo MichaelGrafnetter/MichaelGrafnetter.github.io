@@ -8,10 +8,10 @@ permalink: /en/wug-powershell-ad-audit/
 sitemap: false
 ---
 
-## Table of Contents
+## Table of&nbsp;Contents
 {:.no_toc}
 
-* This is a TOC placeholder.
+* This&nbsp;is&nbsp;a&nbsp;TOC placeholder.
 {:toc}
 
 ## 1. Generic Techniques

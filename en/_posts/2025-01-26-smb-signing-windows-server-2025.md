@@ -8,14 +8,14 @@ image: /assets/images/cover/smb-signing-defaults.png
 permalink: /en/smb-signing-windows-server-2025-client-11-24h2-defaults/
 ---
 
-In the recently released Windows Server 2025 and Windows 11 24H2,
-several network protocols have been reconfigured to be more secure by default.
-One of the affected protocols is the Server Message Block (SMB),
-where [message signing is now required under most circumstances](https://techcommunity.microsoft.com/blog/filecab/smb-security-hardening-in-windows-server-2025--windows-11/4226591).
-These changes eliminate some [NTLM Relay Attack](https://www.semperis.com/blog/how-to-defend-against-ntlm-relay-attack/)
-vectors, but do not mitigate this hacking technique completely.
+In the&nbsp;recently released Windows Server 2025 and&nbsp;Windows 11 24H2,
+several network protocols have been reconfigured to&nbsp;be&nbsp;more secure by&nbsp;default.
+One of&nbsp;the&nbsp;affected protocols is&nbsp;the&nbsp;Server Message Block (SMB),
+where [message signing is&nbsp;now&nbsp;required under most circumstances](https://techcommunity.microsoft.com/blog/filecab/smb-security-hardening-in-windows-server-2025--windows-11/4226591).
+These changes eliminate some&nbsp;[NTLM Relay Attack](https://www.semperis.com/blog/how-to-defend-against-ntlm-relay-attack/)
+vectors, but&nbsp;do&nbsp;not mitigate this&nbsp;hacking technique completely.
 
-The following table summarizes the old and new SMB signing enforcement defaults:
+The following table summarizes the&nbsp;old and&nbsp;new SMB signing enforcement defaults:
 
 | Operating System           | SMB Client | SMB Server |
 |----------------------------|------------|------------|
@@ -28,9 +28,9 @@ The following table summarizes the old and new SMB signing enforcement defaults:
 
 Legend:
 
-✅ SMB signing is required.
+✅ SMB signing is&nbsp;required.
 
-❌ SMB signing is not required.
+❌ SMB signing is&nbsp;not required.
 
-❌* SMB signing is only mandated when connecting to `SYSVOL` and `NETLOGON` shares
-that contain Group Policy Objects (GPOs) and logon scripts.
+❌* SMB signing is&nbsp;only mandated when&nbsp;connecting to&nbsp;`SYSVOL` and&nbsp;`NETLOGON` shares
+that contain Group Policy Objects (GPOs) and&nbsp;logon scripts.

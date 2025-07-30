@@ -8,13 +8,13 @@ image: /assets/images/aduc-custom-context-menu.png
 permalink: /en/extending-active-directory-aduc-context-menu-powershell/
 ---
 
-Most Active Directory admins may not be aware that the *Active Directory Users and Computers* MMC snap-in can easily be [extended with custom context menu items](https://learn.microsoft.com/en-us/windows/win32/ad/registering-a-static-context-menu-item):
+Most Active Directory admins may not be&nbsp;aware that&nbsp;the&nbsp;*Active Directory Users and&nbsp;Computers* MMC snap-in can&nbsp;easily be&nbsp;[extended with&nbsp;custom context menu items](https://learn.microsoft.com/en-us/windows/win32/ad/registering-a-static-context-menu-item):
 
-![Screenshot of a customized context menu in the Active Directory Users and Computers console](/assets/images/aduc-custom-context-menu.png)
+![Screenshot of&nbsp;a&nbsp;customized context menu in&nbsp;the&nbsp;Active Directory Users and&nbsp;Computers console](/assets/images/aduc-custom-context-menu.png)
 
-Unfortunately, all examples that I have found online are written in the [deprecated](https://learn.microsoft.com/en-us/windows/whats-new/deprecated-features-resources#vbscript) *VBScript*. As I strongly prefer using *PowerShell*, I have come up with my own solution, which I would like to share publicly.
+Unfortunately, all examples that&nbsp;I&nbsp;have found online are&nbsp;written in&nbsp;the&nbsp;[deprecated](https://learn.microsoft.com/en-us/windows/whats-new/deprecated-features-resources#vbscript) *VBScript*. As&nbsp;I&nbsp;strongly prefer using *PowerShell*, I&nbsp;have come up with&nbsp;my own solution, which&nbsp;I&nbsp;would like to&nbsp;share publicly.
 
-Let's say we wanted to be able to quickly connect to computers over the Remote Desktop Protocol (RDP). We first need to create a PowerShell script called `Connect-RDPRestrictedAdmin.ps1`, which will be invoked by the context menu:
+Let's say we wanted to&nbsp;be&nbsp;able to&nbsp;quickly connect to&nbsp;computers over the&nbsp;Remote Desktop Protocol (RDP). We first need to&nbsp;create a&nbsp;PowerShell script called `Connect-RDPRestrictedAdmin.ps1`, which&nbsp;will be&nbsp;invoked by&nbsp;the&nbsp;context menu:
 
 ```powershell
 <#
@@ -64,9 +64,9 @@ mstsc.exe /restrictedAdmin /v:$computerName /f
 
 <!--more-->
 
-The recommended location for such a script would be the SYSVOL directory in the forest-root domain, e.g., `\\contoso.com\NETLOGON\ContextMenu\Connect-RDPRestrictedAdmin.ps1`.
+The recommended location for&nbsp;such a&nbsp;script would be&nbsp;the&nbsp;SYSVOL directory in&nbsp;the&nbsp;forest-root domain, e.g., `\\contoso.com\NETLOGON\ContextMenu\Connect-RDPRestrictedAdmin.ps1`.
 
-Since PowerShell scripts cannot be executed directly from the Windows shell, we also need to create a batch script called `Connect-RDPRestrictedAdmin.bat` and place it in the same directory. This helper script will properly launch the main PowerShell script:
+Since PowerShell scripts cannot be&nbsp;executed directly from&nbsp;the&nbsp;Windows shell, we also need to&nbsp;create a&nbsp;batch script called `Connect-RDPRestrictedAdmin.bat` and&nbsp;place it&nbsp;in&nbsp;the&nbsp;same directory. This&nbsp;helper script will properly launch the&nbsp;main PowerShell script:
 
 ```bat
 @ECHO OFF
@@ -74,7 +74,7 @@ REM Execute a PowerShell script with the same name and pass-through all command 
 start powershell.exe -ExecutionPolicy Bypass -NoLogo -NoProfile -File "%~dpn0.ps1" %*
 ```
 
-Finally, we need to register the helper script in Active Directory, which can only be performed by the members of the *Enterprise Admins* group:
+Finally, we need to&nbsp;register the&nbsp;helper script in&nbsp;Active Directory, which&nbsp;can&nbsp;only be&nbsp;performed by&nbsp;the&nbsp;members of&nbsp;the&nbsp;*Enterprise Admins* group:
 
 ```powershell
 <#
@@ -190,16 +190,16 @@ foreach($menuItem in $menuItems)
 }
 ```
 
-Note that the context menu registration is language-specific. The script above therefore contains [language code identifiers (LCIDs)](https://learn.microsoft.com/en-us/previous-versions/office/developer/exchange-server-2003/ms872878(v=exchg.65)) of all languages supported by Active Directory out-of-the-box.
+Note that&nbsp;the&nbsp;context menu registration is&nbsp;language-specific. The&nbsp;script above therefore contains [language code identifiers (LCIDs)](https://learn.microsoft.com/en-us/previous-versions/office/developer/exchange-server-2003/ms872878(v=exchg.65)) of&nbsp;all languages supported by&nbsp;Active Directory out-of-the-box.
 
-For inspiration, here are some additional examples of custom computer context menu items I use in production environments:
+For inspiration, here are&nbsp;some&nbsp;additional examples of&nbsp;custom computer context menu items I&nbsp;use in&nbsp;production environments:
 
 - RDP Restricted Admin (Default Credentials)
-- RDP Restricted Admin (Prompt for Credentials)
+- RDP Restricted Admin (Prompt for&nbsp;Credentials)
 - RDP Remote Credential Guard (Default Credentials)
-- RDP Remote Credential Guard (Prompt for Credentials)
+- RDP Remote Credential Guard (Prompt for&nbsp;Credentials)
 - PowerShell Session (Default Credentials)
-- PowerShell Session (Prompt for Credentials)
+- PowerShell Session (Prompt for&nbsp;Credentials)
 - SSH Connection
 - Restart Computer
 - Wake-on-LAN

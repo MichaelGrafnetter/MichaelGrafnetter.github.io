@@ -17,16 +17,16 @@ fa_class: fas fa-graduation-cap
 
 ![Logo GOPAS](/assets/images/gopas-logo.svg){: width="200px" style="float: left; margin-right: 10px" } Popri konzultáciách a&nbsp;bezpečnostnom výskume doručujem v&nbsp;počítačovej škole [GOPAS](https://www.gopas.cz/) na&nbsp;pobočkách v&nbsp;Prahe, Brne a&nbsp;Bratislave niekoľko mojich vlastných kurzov. Pri návrhu osnov týchto pokročilých školení som čerpal zo svojich dlhoročných [praktických skúseností s&nbsp;danou problematikou](/sk/projekty/) a&nbsp;ich obsah sa&nbsp;snažím neustále aktualizovať, aby kráčal s&nbsp;dobou.
 
-Momentálne sú v&nbsp;ponuke tieto kurzy:
+Momentálne sú&nbsp;v&nbsp;ponuke tieto kurzy:
 
-* This is a TOC placeholder.
+* This&nbsp;is&nbsp;a&nbsp;TOC placeholder.
 {:toc}
 
 ## GOC213: Hacking a&nbsp;pentesting Active Directory
 
 ### Anotácia
 
-Školenie [Hacking a&nbsp;pentesting Active Directory](https://www.gopas.cz/windows-server-hacking-and-pentesting-active-directory_goc213) vás podrobne zoznámi s&nbsp;metodikami, ktoré sa používajú pri reálnych útokoch na&nbsp;Active Directory a&nbsp;pri penetračných testoch. Všetky preberané útoky si&nbsp;budete môcť prakticky vyskúšať (nielen) s&nbsp;pomocou [Kali Linux](https://www.kali.org/).
+Školenie [Hacking a&nbsp;pentesting Active Directory](https://www.gopas.cz/windows-server-hacking-and-pentesting-active-directory_goc213) vás podrobne zoznámi s&nbsp;metodikami, ktoré sa&nbsp;používajú pri reálnych útokoch na&nbsp;Active Directory a&nbsp;pri penetračných testoch. Všetky preberané útoky si&nbsp;budete môcť prakticky vyskúšať (nielen) s&nbsp;pomocou [Kali Linux](https://www.kali.org/).
 
 ### Osnova
 
@@ -35,28 +35,28 @@ Momentálne sú v&nbsp;ponuke tieto kurzy:
   - Enumerácia objektov
   - Kontrola nastavení protokolov, vrátane LDAP, SMB, NetBIOS a&nbsp;SAMR
 - Iniciálny prienik
-  - Online slovníkové útoky na heslá, password spraying a credential stuffing
-  - Offline útoky na Active Directory, dešifrovanie DPAPI a DPAPI-NG
-  - MITM útoky, NBNS/LLMNR/mDNS Spoofing, NTLM Relay, Kerberos Relay a WebDAV
-- Elevácia oprávnení a laterálny pohyb
-  - Krádež prihlasovacích údajov a útoky Pass-the-Hash, Pass-the-Ticket, Silver Ticket, Overpass-the-Hash či DCSync
+  - Online slovníkové útoky na&nbsp;heslá, password spraying a&nbsp;credential stuffing
+  - Offline útoky na&nbsp;Active Directory, dešifrovanie DPAPI a&nbsp;DPAPI-NG
+  - MITM útoky, NBNS/LLMNR/mDNS Spoofing, NTLM Relay, Kerberos Relay a&nbsp;WebDAV
+- Elevácia oprávnení a&nbsp;laterálny pohyb
+  - Krádež prihlasovacích údajov a&nbsp;útoky Pass-the-Hash, Pass-the-Ticket, Silver Ticket, Overpass-the-Hash či&nbsp;DCSync
   - Vynútenie autentifikácie pomodou Coersion útokov
-  - Kerberoasting a AS-REP roasting
+  - Kerberoasting a&nbsp;AS-REP roasting
   - Offline brute-forcing hesiel pomocou grafických kariet
-  - Bezpečnosť certifikačnej autority a PKI
-  - PKINIT a Shadow Credentials
-  - Útoky na autentifikáciu pomocou čipových kariet
+  - Bezpečnosť certifikačnej autority a&nbsp;PKI
+  - PKINIT a&nbsp;Shadow Credentials
+  - Útoky na&nbsp;autentifikáciu pomocou čipových kariet
   - Kompromitácia vzťahov dôveryhodnosti
 - Perzistencia
   - Skeleton Key
   - Golden Ticket útok
-  - Skryté objekty a oprávnenia (DACL)
+  - Skryté objekty a&nbsp;oprávnenia (DACL)
   - Zneužitie KDC Proxy
-- Detekcia a prevencia útokov
-  - Odporúčané bezpečnostné nastavenia radičov a pracovných staníc
+- Detekcia a&nbsp;prevencia útokov
+  - Odporúčané bezpečnostné nastavenia radičov a&nbsp;pracovných staníc
   - Bezpečnostný audit Active Directory
   - Kontrola kvality hesiel
-  - Microsoft Defender for Identity a Microsoft Defender for Endpoint
+  - Microsoft Defender for&nbsp;Identity a&nbsp;Microsoft Defender for&nbsp;Endpoint
 
 ## GOC218: Entra ID pre&nbsp;správcov Active Directory
 
@@ -68,10 +68,10 @@ je určený pre&nbsp;všetkých správcov Active Directory Domain Services (AD D
 ### Osnova
 
 - Bezpečná správa cloudového adresára
-  - Správa používateľských účtov a skupín
+  - Správa používateľských účtov a&nbsp;skupín
   - Konfigurácia Entra ID Password Protection
   - Viacfázová autentifikácia (MFA)
-  - Bezheslová autentifikácia, Passkeys / FIDO2, Windows Hello for Business
+  - Bezheslová autentifikácia, Passkeys / FIDO2, Windows Hello for&nbsp;Business
   - Samoobslužný reset hesiel (SSPR)
   - Entra ID Identity Protection
   - Entra ID Privileged Identity Management (PIM)
@@ -89,11 +89,11 @@ je určený pre&nbsp;všetkých správcov Active Directory Domain Services (AD D
   - Entra ID join a&nbsp;Autopilot
   - Hybrid domain join
   - Registrácia zariadení
-  - Integrácia s Microsoft Intune
+  - Integrácia s&nbsp;Microsoft Intune
   - Politiky podmieneného prístupu
 - Správa aplikácií
   - Integrácia s&nbsp;Microsoft Azure a&nbsp;Office 365
-  - Registrácia SAML a OpenID Connect aplikácií
+  - Registrácia SAML a&nbsp;OpenID Connect aplikácií
   - Publikovanie aplikácií pomocou Entra ID Application Proxy
   - Azure AD Domain Services
 - Entra ID Governance
@@ -111,10 +111,10 @@ Na kurze [Pokročilý PowerShell pre&nbsp;programátorov a&nbsp;DevOps](https://
 - Ako (ne)písať komplexnejšie skripty
 - Robustné PowerShell moduly a&nbsp;kód, ktorý minimalizuje chyby programátora
 - Spracovanie konfiguračných súborov
-- Tvorba MAML a Markdown dokumentácie pomocou nástroja PlatyPS
+- Tvorba MAML a&nbsp;Markdown dokumentácie pomocou nástroja PlatyPS
 - Priame použitie .NET knižníc a&nbsp;COM objektov
 - Kompilovaný C# kód
 - Pokročilá vzdialená správa pomocou WMI a&nbsp;CIM
-- Automatické testy s nástrojom Pester
+- Automatické testy s&nbsp;nástrojom Pester
 - Nasadenie systémov pomocou PowerShell Desired State Configuration (DSC) a&nbsp;Azure Automation
-- Kontinuálna integrácia s GitHub Actions
+- Kontinuálna integrácia s&nbsp;GitHub Actions

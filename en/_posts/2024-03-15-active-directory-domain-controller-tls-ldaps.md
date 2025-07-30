@@ -8,11 +8,11 @@ image: /assets/images/ad-dc-tls-ldaps-settings.png
 permalink: /en/active-directory-domain-controller-tls-ldaps/
 ---
 
-If LDAP over SSL (LDAPS) is running on your domain controllers (properly formatted certificates are installed on them), it is worth checking whether the legacy TLS 1.0 and TLS 1.1 protocols with 64-bit block ciphers are enabled on these DCs.
+If LDAP over SSL (LDAPS) is&nbsp;running on your domain controllers (properly formatted certificates are&nbsp;installed on them), it&nbsp;is&nbsp;worth checking whether&nbsp;the&nbsp;legacy TLS 1.0 and&nbsp;TLS 1.1 protocols with&nbsp;64-bit block ciphers are&nbsp;enabled on these DCs.
 
-Although [Microsoft is planning to disable TLS 1.0 and TLS 1.1](https://techcommunity.microsoft.com/t5/windows-it-pro-blog/tls-1-0-and-tls-1-1-soon-to-be-disabled-in-windows/ba-p/3887947) in the near future, these protocols are still enabled by default on Windows Server 2022.
+Although [Microsoft is&nbsp;planning to&nbsp;disable TLS 1.0 and&nbsp;TLS 1.1](https://techcommunity.microsoft.com/t5/windows-it-pro-blog/tls-1-0-and-tls-1-1-soon-to-be-disabled-in-windows/ba-p/3887947) in&nbsp;the&nbsp;near future, these protocols are&nbsp;still enabled by&nbsp;default on Windows Server 2022.
 
-The [Nmap](https://nmap.org/) tool does a good job at checking LDAPS configuration remotely:
+The [Nmap](https://nmap.org/) tool does a&nbsp;good job at checking LDAPS configuration remotely:
 
 ```bash
 nmap --script ssl-enum-ciphers -p 636 'contoso-dc.contoso.com'
@@ -84,7 +84,7 @@ MAC Address: 00:17:FB:00:00:00 (FA)
 Nmap done: 1 IP address (1 host up) scanned in 1.21 seconds
 ```
 
-The preferred way of remediating these findings is to distribute the respective registry settings using a Group Policy Object (GPO). Here is a PowerShell script that does the required configuration:
+The preferred way of&nbsp;remediating these findings is&nbsp;to&nbsp;distribute the&nbsp;respective registry settings using a&nbsp;Group Policy Object (GPO). Here is&nbsp;a&nbsp;PowerShell script that&nbsp;does the&nbsp;required configuration:
 
 ```powershell
 # Pre-existing Group Policy Object that is linked onto the Domain Controllers organizational unit
@@ -140,16 +140,16 @@ Set-GPRegistryValue `
 
 The resulting GPO settings should look like this:
 
-![Screenshot of Active Directory Domain Controller TLS Settings in a Group Policy Object](/assets/images/ad-dc-tls-ldaps-settings.png)
+![Screenshot of&nbsp;Active Directory Domain Controller TLS Settings in&nbsp;a&nbsp;Group Policy Object](/assets/images/ad-dc-tls-ldaps-settings.png)
 
-For the new settings to be applied, either the servers need to be rebooted, or the NTDS services must be restarted:
+For the&nbsp;new settings to&nbsp;be&nbsp;applied, either the&nbsp;servers need to&nbsp;be&nbsp;rebooted, or&nbsp;the&nbsp;NTDS services must be&nbsp;restarted:
 
 ```powershell
 gpupdate.exe /Target:Computer
 Restart-Service -Name ntds -Force
 ```
 
-A subsequent check using the `Nmap` tool should show the desired results:
+A subsequent check using the&nbsp;`Nmap` tool should show the&nbsp;desired results:
 
 ```bash
 nmap --script ssl-enum-ciphers -p 636 'contoso-dc.contoso.com'

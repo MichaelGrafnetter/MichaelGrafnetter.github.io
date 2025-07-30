@@ -42,11 +42,11 @@ Projekt DSInternals momentálne využívajú minimálne tieto produkty:
 
 ## PowerShell modul DSInternals.Passkeys
 
-[PowerShell modul DSInternals.Passkeys](https://www.powershellgallery.com/packages/DSInternals.Passkeys) umožňuje správcom Entra ID registrovať Passkey (bezpečnostné kľúčenky štandardu FIDO2 či aplikáciu Microsoft Authenticator) pre iných používateľov, bez nutnosti im nastavovať heslo:
+[PowerShell modul DSInternals.Passkeys](https://www.powershellgallery.com/packages/DSInternals.Passkeys) umožňuje správcom Entra ID registrovať Passkey (bezpečnostné kľúčenky štandardu FIDO2 či&nbsp;aplikáciu Microsoft Authenticator) pre&nbsp;iných používateľov, bez nutnosti im nastavovať heslo:
 
-![Screenshot z registrácie Passkey v Entra ID pomocou PowerShellu](/assets/images/dsinternals-passkeys.png)
+![Screenshot z&nbsp;registrácie Passkey v&nbsp;Entra ID pomocou PowerShellu](/assets/images/dsinternals-passkeys.png)
 
-Aby som mohol jednoducho demonštrovať možnosti Win32 API WebAuthn, vytvoril som ako súčasť tohoto projektu aj desktopovú aplikáciu [FIDO2 UI](https://github.com/MichaelGrafnetter/webauthn-interop/releases/latest):
+Aby som mohol jednoducho demonštrovať možnosti Win32 API WebAuthn, vytvoril som ako súčasť tohoto projektu aj&nbsp;desktopovú aplikáciu [FIDO2 UI](https://github.com/MichaelGrafnetter/webauthn-interop/releases/latest):
 
 ![FIDO2 UI Screenshot](/assets/images/fido2-ui.png)
 

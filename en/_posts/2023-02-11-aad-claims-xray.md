@@ -8,9 +8,9 @@ image: /assets/images/claims-xray-claims.png
 permalink: /en/azure-ad-claims-xray-powershell-microsoft-graph-api/
 ---
 
-> **UPDATE:** The original Claims X-Ray app referenced in this article has been decomissioned by Microsoft.
-> Read the [updated version of this article](/en/entra-id-claims-xray-ng-saml-powershell-graph-api/)
-> that uses the [Claims X-Ray NG](https://claimsxray.net/) app instead.
+> **UPDATE:** The&nbsp;original Claims X-Ray app referenced in&nbsp;this&nbsp;article has been decomissioned by&nbsp;Microsoft.
+> Read the&nbsp;[updated version of&nbsp;this&nbsp;article](/en/entra-id-claims-xray-ng-saml-powershell-graph-api/)
+> that&nbsp;uses the&nbsp;[Claims X-Ray NG](https://claimsxray.net/) app instead.
 
 ## Introduction
 
