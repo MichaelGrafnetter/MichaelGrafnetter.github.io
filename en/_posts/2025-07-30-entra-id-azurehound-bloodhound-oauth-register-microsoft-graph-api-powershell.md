@@ -277,7 +277,7 @@ Assigning owners is&nbsp;a&nbsp;straightforward way to&nbsp;provide the&nbsp;abi
 
 ![BloodHound Enterprise Collector Service Principal Owner Screenshot](/assets/images/azurehound-app-owner.png)
 
-However, it&nbsp;is&nbsp;important to&nbsp;note that&nbsp;application object ownership can&nbsp;be&nbsp;exploited by&nbsp;malicious actors in&nbsp;privilege escalation attacks. Therefore, this&nbsp;permission should be&nbsp;handled with&nbsp;caution. (And you can&nbsp;use BloodHound discover possible attack paths.)
+However, it&nbsp;is&nbsp;important to&nbsp;note that&nbsp;application object ownership can&nbsp;be&nbsp;exploited by&nbsp;malicious actors in&nbsp;privilege escalation attacks. Therefore, this&nbsp;permission should be&nbsp;handled with&nbsp;caution. (And you can&nbsp;use BloodHound to discover possible attack paths.)
 
 ## Azure Permissions
 
