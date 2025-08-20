@@ -89,7 +89,7 @@ We are&nbsp;now&nbsp;ready to&nbsp;register the&nbsp;BloodHound Enterprise Colle
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphApplication] $registeredApp =
    New-MgApplication -DisplayName $appName `
                      -Description $appDescription `
-                     -Inf $infoUrls `
+                     -Info $infoUrls `
                      -Web $webUrls `
                      -SignInAudience 'AzureADMyOrg'
 ```
@@ -387,7 +387,7 @@ Connect-MgGraph -NoWelcome -ContextScope Process -Scopes @(
 [Microsoft.Graph.PowerShell.Models.IMicrosoftGraphApplication] $registeredApp =
    New-MgApplication -DisplayName $appName `
                      -Description $appDescription `
-                     -Inf $infoUrls `
+                     -Info $infoUrls `
                      -Web $webUrls `
                      -SignInAudience 'AzureADMyOrg'
 
