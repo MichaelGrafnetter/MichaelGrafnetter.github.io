@@ -11,7 +11,7 @@ sitemap: false
 ## Course Information
 
 - [Web](https://www.ksi.mff.cuni.cz/teaching/nswi150-web/)
-- [Schedule](https://is.cuni.cz/studium/eng/rozvrhng/roz_predmet_macro.php?fak=11320&skr=2024&sem=1&predmet=NSWI150)
+- [Schedule](https://is.cuni.cz/studium/eng/rozvrhng/roz_predmet_macro.php?fak=11320&skr=2025&sem=1&predmet=NSWI150)
 
 The purpose of&nbsp;this&nbsp;course is&nbsp;to&nbsp;provide an&nbsp;overview of&nbsp;the&nbsp;key concepts behind virtualization and&nbsp;cloud computing systems and&nbsp;their real world applications. The&nbsp;classes will cover a&nbsp;broad range of&nbsp;related topics, including classification of&nbsp;various virtualization and&nbsp;cloud models, data center hardware, high availability and&nbsp;load balancing clusters, scientific computing and&nbsp;security risks of&nbsp;multi-tenancy.
 
@@ -42,4 +42,4 @@ The purpose of&nbsp;this&nbsp;course is&nbsp;to&nbsp;provide an&nbsp;overview of
 - [SAML Protocol Request Decoder](https://idp.ssocircle.com/sso/toolbox/samlDecode.jsp)
 - [JSON Web Token (JWT) Parser](https://jwt.io)
 - [Claims X-Ray](https://claimsxray.net/)
-- [OpenID Connect Debugger ](https://oidcdebugger.com/)
+- [OpenID Connect Debugger](https://oidcdebugger.com/)
