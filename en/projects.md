@@ -48,6 +48,13 @@ This PowerShell-based tool provides a&nbsp;flexible and&nbsp;repeatable way of&n
 
 ![Domain Controller Firewall Tool Visual Studio Code support](/assets/images/dc-firewall-intellisense.png)
 
+## PowerShell Module for&nbsp;RPC Filter Management
+
+The [DSInternals.RpcFilters PowerShell Module](https://github.com/MichaelGrafnetter/RPCFilterManager) allows administrators to&nbsp;easily restrict and audit RPC traffic on&nbsp;Windows Servers,
+as part of security hardening / attack surface reduction.
+
+![RPC Filter Audit Screenshot](/assets/images/rpc-filter-audit.png)
+
 ## Administrative Template (ADMX) for&nbsp;Microsoft Defender ASR
 
 This [custom administrative template (ADMX)](https://github.com/MichaelGrafnetter/defender-asr-admx) for&nbsp;Microsoft Defender Attack Surface Reduction (ASR)
