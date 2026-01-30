@@ -1,11 +1,13 @@
 ---
 ref: ioc-shadowcreds
 title: "Indicator of Compromise: NTLM Relay Attack with Shadow Credentials"
-date: '2025-02-23T00:00:00+00:00'
+date: '2026-01-30T00:00:00+00:00'
 layout: post
 lang: en
 permalink: /en/indicator-of-compromise-shadow-credentials-ntlm-relay-impacket/
 ---
+
+> Updated in January 2026 to&nbsp;reflect changes in&nbsp;the&nbsp;behavior of&nbsp;domain controllers regarding the&nbsp;`CUSTOMKEYINFO_FLAGS_MFA_NOT_USED` flag.
 
 ## TL;DR
 
@@ -21,8 +23,10 @@ I noticed by&nbsp;chance that&nbsp;the&nbsp;current implementation of&nbsp;the&n
 framework produces malformed [KEYCREDENTIALLINK_BLOB](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/f3f01e95-6d0c-4fe6-8b43-d585167658fa)
 binary data structures, having the&nbsp;following issues:
 
-- The&nbsp;`KeyHash` entry should contain a&nbsp;SHA256 hash of&nbsp;all other entries, but&nbsp;it&nbsp;is&nbsp;only calculated from&nbsp;the&nbsp;`KeyMaterial` entry.
-- The&nbsp;`KeyCreationTime` entry should be&nbsp;in&nbsp;the&nbsp;[FILETIME](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime) format but&nbsp;is&nbsp;incorrectly skewed by&nbsp;1600 years.
+- ~~The&nbsp;`KeyHash` entry should contain a&nbsp;SHA256 hash of&nbsp;all other entries, but&nbsp;it&nbsp;is&nbsp;only calculated from&nbsp;the&nbsp;`KeyMaterial` entry.~~
+  ([Fixed in September 2025](https://github.com/fortra/impacket/commit/417c237da59bf5eb8ff212e2cbce2f7876ce0708))
+- ~~The&nbsp;`KeyCreationTime` entry should be&nbsp;in&nbsp;the&nbsp;[FILETIME](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime) format but&nbsp;is&nbsp;incorrectly skewed by&nbsp;1600 years.~~
+  ([Fixed in September 2025](https://github.com/fortra/impacket/commit/417c237da59bf5eb8ff212e2cbce2f7876ce0708))
 - The&nbsp;`DeviceId` entry is&nbsp;expected to&nbsp;be&nbsp;present only on user accounts, but&nbsp;it&nbsp;is&nbsp;populated for&nbsp;computer accounts as&nbsp;well. And&nbsp;instead of&nbsp;referencing existing device objects, it&nbsp;contains random values.
 
 These bugs are&nbsp;located in&nbsp;the&nbsp;[shadow_credentials.py](https://github.com/fortra/impacket/blob/master/impacket/examples/ntlmrelayx/utils/shadow_credentials.py) script,
@@ -64,6 +68,8 @@ It is&nbsp;therefore possible to&nbsp;use Microsoft's [WHfBTools PowerShell modu
 
 The sample data also shows that&nbsp;the&nbsp;[CUSTOMKEYINFO_FLAGS_MFA_NOT_USED](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/701a55dc-d062-4032-a2da-dbdfc384c8cf) flag
 in the&nbsp;`CustomKeyInformation` entry is&nbsp;used inconsistently by&nbsp;Windows 10+ computers, making it&nbsp;an&nbsp;unreliable indicator of&nbsp;malicious NGC keys.
+However, since January 2026 updates, domain controllers block validated writes of&nbsp;NGC keys with&nbsp;this flag absent,
+which [violates the specification](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/f70afbcc-780e-4d91-850c-cfadce5bb15c).
 
 ## Future Work
 
