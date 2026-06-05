@@ -40,6 +40,19 @@ Projekt DSInternals momentálne využívajú minimálne tieto produkty:
 - [Lithnet Password Protection for&nbsp;Active Directory](https://github.com/lithnet/ad-password-protection)
 - [Delinea Weak Password Finder](https://delinea.com/resources/weak-password-finder-tool-active-directory/)
 
+## Domain Controller Firewall Tool
+
+Cieľom nástroja [Domain Controller Firewall Tool (DCFWTool)](https://firewall.dsinternals.com) je&nbsp;zjednodušiť konfiguráciu host-based firewallu na&nbsp;doménových radičoch.
+Tento nástroj postavený na&nbsp;PowerShelle umožňuje flexibilne a&nbsp;opakovateľne nasadiť zabezpečenú konfiguráciu firewallu doménového kontroléru v&nbsp;priebehu niekoľkých minút. Sprievodný článok zároveň slúži ako komplexný zdroj informácií týkajúcich sa&nbsp;Windows Firewallu.
+
+![Podpora Visual Studio Code v&nbsp;nástroji Domain Controller Firewall Tool](/assets/images/dc-firewall-intellisense.png)
+
+## PowerShell modul pre&nbsp;správu RPC filtrov
+
+[PowerShell modul DSInternals.RpcFilters](https://github.com/MichaelGrafnetter/RPCFilterManager) umožňuje administrátorom jednoducho obmedzovať a&nbsp;auditovať RPC komunikáciu na&nbsp;Windows serveroch v&nbsp;rámci mnohovrstvového prístupu k&nbsp;bezpečnosti.
+
+![Screenshot z&nbsp;auditu RPC filtrov](/assets/images/rpc-filter-audit.png)
+
 ## PowerShell modul DSInternals.Passkeys
 
 [PowerShell modul DSInternals.Passkeys](https://www.powershellgallery.com/packages/DSInternals.Passkeys) umožňuje správcom Entra ID registrovať Passkey (bezpečnostné kľúčenky štandardu FIDO2 či&nbsp;aplikáciu Microsoft Authenticator) pre&nbsp;iných používateľov, bez nutnosti im nastavovať heslo:

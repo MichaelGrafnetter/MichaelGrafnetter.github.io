@@ -43,6 +43,11 @@ kramdown:
 
 sass:
   style: compressed
+  # Silence Dart Sass deprecation warnings from the minima theme (@import, global mix()).
+  quiet_deps: true
+  # Silence @import warnings in minima's root assets/css/style.scss (treated as user code).
+  silence_deprecations:
+    - import
 
 safe: true
 whitelist:
