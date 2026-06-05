@@ -28,6 +28,6 @@ pre.highlight > button:active {
 }
 
 // Increase the font size of the site navigation
-.site-nav .page-link {
+.site-nav .nav-item {
     @include relative-font-size(1.2);
 }
