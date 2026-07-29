@@ -31,3 +31,8 @@ pre.highlight > button:active {
 .site-nav .nav-item {
     @include relative-font-size(1.2);
 }
+
+// Minima centers page headers by default; keep titles aligned with the page body.
+.post-header {
+    text-align: left;
+}

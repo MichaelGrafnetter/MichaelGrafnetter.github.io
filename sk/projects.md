@@ -80,6 +80,10 @@ Pred časom som vytvoril [ADMX šablónu](https://github.com/MichaelGrafnetter/y
 
 ## Bezpečnostný výskum Active Directory a&nbsp;Entra&nbsp;ID
 
+### CVE-2026-34348: Zraniteľnosť v&nbsp;službe Windows Event Logging Service
+
+Objavil som zraniteľnosť [CVE-2026-34348](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-34348) v&nbsp;službe Windows Event Logging Service. V&nbsp;logu sa&nbsp;nachádzajú WebAuthn assertions v&nbsp;nešifrovanej podobe, čo&nbsp;umožňuje útočníkovi s&nbsp;oprávnením prehrať ich voči zraniteľným webovým aplikáciám.
+
 ### CVE-2024-20692: Zraniteľnosť v&nbsp;Microsoft Local Security Authority Subsystem Service (LSASS)
 
 Počas analýzy sieťovej komunikácie Windows služby Local Security Authority Subsystem Service (LSASS) som objavil zraniteľnosť [CVE-2024-20692](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-20692). Útočníkovi, ktorý je&nbsp;schopný pasívneho odposluchu sieťovej komunikácie, umožňuje získať citlivé dáta, ktoré&nbsp;je&nbsp;možné zneužiť pri ďalších útokoch na&nbsp;podnikovú sieť.
