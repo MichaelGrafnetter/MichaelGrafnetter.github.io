@@ -19,4 +19,4 @@ I&nbsp;joined [Merill Fernando](https://merill.net) on&nbsp;[Entra.Chat](https:/
 
 {% include youtube.html id="WsAatpsUNLU" title="Passkeys Are Phishing-Resistant. Until Malware Skips the Browser" %}
 
-The conversation covers several themes from&nbsp;my recent [Black Hat USA&nbsp;26 talk post about Pass-the-Passkey attacks](/en/black-hat-usa-26-pass-the-passkey/), including how real-world Passkey implementations can fail when attackers bypass the&nbsp;browser and&nbsp;target the&nbsp;surrounding authentication flow.
+The conversation covers several themes from&nbsp;my recent [Black Hat USA&nbsp;26 talk about Pass-the-Passkey attacks](/en/black-hat-usa-26-pass-the-passkey/), including how real-world Passkey implementations can fail when attackers bypass the&nbsp;browser and&nbsp;target the&nbsp;surrounding authentication flow.
