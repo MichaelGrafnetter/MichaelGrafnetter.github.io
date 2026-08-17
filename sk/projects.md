@@ -10,9 +10,15 @@ image: /assets/images/dsinternals_password_quality.png
 fa_class: fas fa-download
 ---
 
+## Útoky Pass-the-Passkey a&nbsp;Passkey Injector
+
+[Passkey Injector](https://github.com/SpecterOps/pass-the-passkey) je&nbsp;prehliadač postavený na&nbsp;Edge WebView2, ktorý zachytáva autentifikačné požiadavky WebAuthn a&nbsp;umožňuje vkladať odpovede vo formáte JSON. Dá sa&nbsp;použiť na&nbsp;prehratie zachytených podpisov či testovanie validácie na&nbsp;strane serveru. Nástroj bol predstavený v mojej [prednáške o útokoch Pass-the-Passkey na konferencii Black Hat](/sk/black-hat-usa-26-pass-the-passkey/).
+
+![Screenshot passkey injectoru](/assets/images/passkey-injector.png)
+
 ## PowerShell modul DSInternals
 
-[PowerShell modul DSInternals](https://www.powershellgallery.com/packages/DSInternals) sprístupňuje viaceré nedokumentované funkcie Active Directory a&nbsp;Azure Active Directory. Patria medzi ne [auditovanie FIDO2 a&nbsp;NGC kľúčov](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#get-azureaduserex), [offline manipulácia so&nbsp;súborom ntds.dit](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-offline-active-directory-operations), [audit hesiel](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), [obnova DC z&nbsp;IFM zálohy](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/New-ADDBRestoreFromMediaScript.md#new-addbrestorefrommediascript), and&nbsp;[počítanie odtlačkov hesiel](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-password-hash-calculation).
+[PowerShell modul DSInternals](https://www.powershellgallery.com/packages/DSInternals) sprístupňuje viaceré nedokumentované funkcie Active Directory a&nbsp;Azure Active Directory. Patria medzi ne [auditovanie FIDO2 a&nbsp;NGC kľúčov](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#get-azureaduserex), [offline manipulácia so&nbsp;súborom ntds.dit](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-offline-active-directory-operations), [audit hesiel](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), [obnova DC z&nbsp;IFM zálohy](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/New-ADDBRestoreFromMediaScript.md#new-addbrestorefrommediascript), a&nbsp;[počítanie odtlačkov hesiel](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-password-hash-calculation).
 
 Asi najobľúbenejšou funkciou modulu DSInternals je&nbsp;[príkaz Test-PasswordQuality](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), ktorý&nbsp;vie skontrolovať heslá v&nbsp;Active Directory voči zoznamu uniknutých hesiel publikovanom na&nbsp;stránke [Have I&nbsp;Been Pwned (HIBP)](https://haveibeenpwned.com/):
 
@@ -82,7 +88,12 @@ Pred časom som vytvoril [ADMX šablónu](https://github.com/MichaelGrafnetter/y
 
 ### CVE-2026-34348: Zraniteľnosť v&nbsp;službe Windows Event Logging Service
 
-Objavil som zraniteľnosť [CVE-2026-34348](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-34348) v&nbsp;službe Windows Event Logging Service. V&nbsp;logu sa&nbsp;nachádzajú WebAuthn assertions v&nbsp;nešifrovanej podobe, čo&nbsp;umožňuje útočníkovi s&nbsp;oprávnením prehrať ich voči zraniteľným webovým aplikáciám.
+Objavil som zraniteľnosť [CVE-2026-34348](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-34348) v&nbsp;službe Windows Event Logging Service. V&nbsp;logu sa&nbsp;nachádzajú WebAuthn assertions v&nbsp;nešifrovanej podobe, čo&nbsp;umožňuje útočníkovi s&nbsp;oprávnením prehrať ich voči zraniteľným webovým aplikáciám, napríklad Entra ID:
+
+<video controls="controls" preload="none" width="100%">
+  <source src="/assets/videos/cve-2026-34348-demo.mp4" type="video/mp4">
+  Váš prehliadač nepodporuje značku&nbsp;video.
+</video>
 
 ### CVE-2024-20692: Zraniteľnosť v&nbsp;Microsoft Local Security Authority Subsystem Service (LSASS)
 

@@ -10,6 +10,12 @@ image: /assets/images/dsinternals_password_quality.png
 fa_class: fas fa-download
 ---
 
+## Pass-the-Passkey Attacks and Passkey Injector
+
+The [Passkey Injector](https://github.com/SpecterOps/pass-the-passkey) is a browser built on the&nbsp;Edge WebView2 control that intercepts WebAuthn assertion requests and allows responses to&nbsp;be injected in&nbsp;JSON format. It&nbsp;can&nbsp;be used for replaying captured assertions, forwarding attacker-controlled assertions, testing server-side validation, and studying WebAuthn features in&nbsp;real services. The tool&nbsp;was featured in my [Black Hat USA 26 talk on Pass-the-Passkey attacks](/en/black-hat-usa-26-pass-the-passkey/).
+
+![Passkey injector screenshot](/assets/images/passkey-injector.png)
+
 ## DSInternals PowerShell Module
 
 The [DSInternals PowerShell Module](https://www.powershellgallery.com/packages/DSInternals) exposes several internal features of&nbsp;Active Directory and&nbsp;Azure Active Directory. These include [FIDO2 and&nbsp;NGC key auditing](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Get-AzureADUserEx.md#get-azureaduserex), [offline ntds.dit file manipulation](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-offline-active-directory-operations), [password auditing](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/Test-PasswordQuality.md#test-passwordquality), [DC recovery from&nbsp;IFM backups](https://github.com/MichaelGrafnetter/DSInternals/blob/master/Documentation/PowerShell/New-ADDBRestoreFromMediaScript.md#new-addbrestorefrommediascript), and&nbsp;[password hash calculation](https://github.com/MichaelGrafnetter/DSInternals/tree/master/Documentation/PowerShell#cmdlets-for-password-hash-calculation).
@@ -90,7 +96,12 @@ I have created [this ADMX administrative template](https://github.com/MichaelGra
 
 ### CVE-2026-34348: Windows Event Logging Service Information Disclosure Vulnerability
 
-I discovered the&nbsp;[CVE-2026-34348](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-34348) vulnerability in&nbsp;the&nbsp;Windows Event Logging Service. Cleartext WebAuthn assertions are&nbsp;present in&nbsp;the&nbsp;log, allowing an&nbsp;authorized attacker to&nbsp;replay them against vulnerable relying parties.
+I discovered the&nbsp;[CVE-2026-34348](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-34348) vulnerability in&nbsp;the&nbsp;Windows Event Logging Service. Cleartext WebAuthn assertions are&nbsp;present in&nbsp;the&nbsp;log, allowing an&nbsp;authorized attacker to&nbsp;replay them against vulnerable relying parties, such as Microsoft Entra:
+
+<video controls="controls" preload="none" width="100%">
+  <source src="/assets/videos/cve-2026-34348-demo.mp4" type="video/mp4">
+  Your browser does not support the&nbsp;video tag.
+</video>
 
 ### CVE-2024-20692: Microsoft Local Security Authority Subsystem Service Information Disclosure Vulnerability
 

@@ -18,24 +18,11 @@ tags:
 
 ![Black Hat USA 26](../../assets/images/black-hat-usa-26-logo.png)
 
-Prednáška **Pass-the-Passkey Family of&nbsp;Attacks** odznela na&nbsp;konferencii **Black Hat USA&nbsp;26** v&nbsp;Las Vegas **5.&nbsp;augusta&nbsp;2026**.
+Na&nbsp;konferencii **Black Hat USA&nbsp;26** v&nbsp;Las Vegas som mal prednášku s&nbsp;názvom [Pass-the-Passkey Family of&nbsp;Attacks](https://blackhat.com/us-26/briefings/schedule/?#pass-the-passkey-family-of-attacks-51821).
 
-Publikované materiály sú teraz dostupné tu:
+Materiály k prednáške sú dostupné tu:
 
-- [<i class="fas fa-file-pdf"></i>  Slide deck](../../assets/documents/bhus26-grafnetter-pass-the-passkey-slides.pdf)
-- [<i class="fas fa-file-pdf"></i>  Whitepaper](../../assets/documents/pass-the-passkey-a4-v2.pdf)
-- [<i class="fab fa-github"></i>  Nástroje: Pass-the-Passkey](https://github.com/SpecterOps/pass-the-passkey)
-- [<i class="fab fa-github"></i>  Nástroje: WebAuthn Interop / Passkey UI / DSInternals.Passkeys](https://github.com/MichaelGrafnetter/webauthn-interop)
-
-Passkey sa&nbsp;postupne stávajú novým štandardom prihlasovania &ndash; a&nbsp;náš výskum ukázal, že niektoré reálne implementácie sú zraniteľné voči útokom, ktoré sú principiálne podobné Pass-the-Hash a&nbsp;NTLM&nbsp;Relay. Túto kategóriu útokov sme nazvali **Pass-the-Passkey**.
-
-V&nbsp;prednáške som ukázal:
-
-- Implementáciu Passkey vo&nbsp;významnej cloudovej službe, ktorá je&nbsp;zraniteľná práve voči tým útokom, pred ktorými mala chrániť.
-- Historické podpisy generované YubiKey kľúčmi uložené v&nbsp;čitateľnej podobe, ku&nbsp;ktorým majú prístup aj&nbsp;bežní (aj&nbsp;vzdialení) autentifikovaní používatelia.
-- Impersonáciu privilegovaných identít s&nbsp;obídením vynucovania phishing-resistant MFA a&nbsp;bez&nbsp;detekcie populárnymi XDR riešeniami.
-- Phishing, tampering, spoofing, fuzzing a&nbsp;prompt-flooding útoky proti Passkeys &ndash; niektoré z&nbsp;nich spustiteľné aj&nbsp;z&nbsp;kompromitovaných terminálových serverov alebo VM, prezentované cez populárnu C2 infraštruktúru.
-
-Špecifikácia WebAuthn predpisuje 22-krokový proces validácie Passkey s&nbsp;netriviálnou kryptografiou a&nbsp;transakčnou logikou, takže urobiť pri&nbsp;implementácii chybu je&nbsp;jednoduché &ndash; dokonca aj&nbsp;pre&nbsp;firmy, ktoré sa&nbsp;na&nbsp;tvorbe štandardu podieľali. Otvorením zdrojového kódu našich nástrojov chceme ostatným pentesterom pomôcť odhaľovať ďalšie zraniteľnosti spôsobené nesprávnou verifikáciou Passkey.
-
-Ďakujem všetkým, ktorí sa&nbsp;prednášky zúčastnili a&nbsp;poskytli spätnú väzbu.
+- [<i class="fas fa-file-pdf"></i>  Slajdy](../../assets/documents/bhus26-grafnetter-pass-the-passkey-slides.pdf)
+- [<i class="fas fa-file-pdf"></i>  Článok](../../assets/documents/pass-the-passkey-a4-v2.pdf)
+- [<i class="fab fa-github"></i>  Nástroje Pass-the-Passkey](https://github.com/SpecterOps/pass-the-passkey)
+- [<i class="fab fa-github"></i>  Nástroje WebAuthn Interop / Passkey UI / DSInternals.Passkeys](https://github.com/MichaelGrafnetter/webauthn-interop)
